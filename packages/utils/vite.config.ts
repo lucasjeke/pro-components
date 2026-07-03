@@ -4,7 +4,6 @@ import { tsxResolveTypes } from 'vite-plugin-tsx-resolve-types'
 import { createGlobals, workspaceExternal } from '../../scripts/build/workspaceExternal'
 
 export default defineConfig({
-  base: '/components',
   plugins: [
     tsxResolveTypes({
       defaultPropsToUndefined: ['Boolean'],

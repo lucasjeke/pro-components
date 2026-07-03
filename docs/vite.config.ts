@@ -21,6 +21,7 @@ const docsBuildTarget = ['chrome111', 'edge111', 'firefox114', 'safari16.4', 'io
 // https://vite.dev/config/
 export default defineConfig(() => {
   return {
+    base: '/components',
     plugins: [
       virtualAntdCss({
         development: false,

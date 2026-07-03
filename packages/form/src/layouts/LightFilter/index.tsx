@@ -4,7 +4,7 @@ import type { FormProps, PopoverProps, TooltipPlacement } from 'antdv-next'
 import type { SetupContext, VNode } from 'vue'
 import type { CommonFormProps, ProFormRef } from '../../BaseForm'
 import type { LightFilterFooterRender } from '../../RenderTypings'
-import { useState } from '@antdv-next1/pro-utils'
+import { transformBooleanProps, useState } from '@antdv-next1/pro-utils'
 import { useConfig } from 'antdv-next/dist/config-provider/context'
 import { computed, defineComponent, shallowRef } from 'vue'
 import { BaseForm } from '../../BaseForm'
@@ -70,6 +70,7 @@ const ProLightFilter = defineComponent(<T extends Record<string, any>, U extends
   })
   expose(proFormInstanceExpose)
   return () => {
+    const transformedProps = transformBooleanProps(['isKeyPressSubmit', 'autoFocusFirstInput', 'disabled', 'scrollToFirstError', 'clearOnDestroy', 'loading', 'grid', 'omitNil', 'preserve', 'syncToUrl', 'syncToModel', 'syncToUrlAsImportant', 'readonly'], props)
     const {
       size,
       collapse,
@@ -80,8 +81,9 @@ const ProLightFilter = defineComponent(<T extends Record<string, any>, U extends
       variant,
       ignoreRules,
       footerRender,
+      popoverProps,
       ...reset
-    } = props
+    } = { ...props, ...transformedProps }
     return (
       <BaseForm
         {...attrs}
@@ -103,6 +105,7 @@ const ProLightFilter = defineComponent(<T extends Record<string, any>, U extends
               return item
             })}
             size={size}
+            popoverProps={popoverProps}
             variant={variant}
             collapse={collapse}
             collapseLabel={collapseLabel}

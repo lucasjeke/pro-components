@@ -7,11 +7,29 @@
 </docs>
 
 <script lang="ts" setup>
+import { ProFormDateTimePicker, ProFormSelect, ProLightFilter } from '@antdv-next1/pro-form'
 </script>
 
 <template>
   <div class="m-b-4">
-    sa
+    <ProLightFilter
+      :model="{
+        sex: 'man',
+      }"
+      collapse
+      @finish="async (values) => console.log(values)"
+    >
+      <ProFormSelect
+        name="sex"
+        label="性别"
+        show-search
+        :value-enum="{
+          man: '男',
+          woman: '女',
+        }"
+      />
+      <ProFormDateTimePicker name="time" label="时间" />
+    </ProLightFilter>
   </div>
 </template>
 

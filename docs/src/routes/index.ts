@@ -74,7 +74,7 @@ export const router = createRouter({
       children: demoRoutes,
     },
   ],
-  history: createWebHistory(),
+  history: createWebHistory(import.meta.env.BASE_URL),
   async scrollBehavior(to, _from, savedPosition) {
     if (to.hash) {
       const targetId = decodeURIComponent(to.hash.slice(1))

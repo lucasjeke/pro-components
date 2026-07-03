@@ -13,11 +13,13 @@ const genProStyle: GenerateStyle<ProToken> = (token) => {
       display: 'inline-flex',
       gap: token.marginXXS,
       alignItems: 'center',
+      height: 30,
       paddingBlock: 0,
-      paddingInline: 8,
+      paddingInline: token.paddingXS,
       fontSize: token.fontSize,
+      lineHeight: token.lineHeight,
       borderRadius: token.borderRadius,
-      cornerShape: 'squircle',
+      // cornerShape: 'squircle',
       cursor: 'pointer',
       '&:hover': {
         backgroundColor: token.colorBgTextHover,
@@ -81,7 +83,7 @@ const genProStyle: GenerateStyle<ProToken> = (token) => {
         },
       },
       '&-borderless': {
-        height: 34,
+        height: 30,
         lineHeight: '34px',
         '&-active': {
           backgroundColor: token.colorBgTextHover,
@@ -118,10 +120,10 @@ const genProStyle: GenerateStyle<ProToken> = (token) => {
       },
       '&-small': {
         height: 24,
+        lineHeight: '24px',
         paddingBlock: 0,
         paddingInline: 4,
         fontSize: token.fontSizeSM,
-        lineHeight: '24px',
         [`${token.antCls}-select-borderless`]: {
           paddingBlock: 0,
         },

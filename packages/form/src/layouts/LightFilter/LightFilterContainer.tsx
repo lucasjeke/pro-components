@@ -100,7 +100,7 @@ const ProLightFilterContainer = defineComponent<ProLightFilterContainerProps>((p
     }
   })
   return () => {
-    const { size = 'middle', onValuesChange, variant, values, footerRender, placement } = props
+    const { size = 'middle', onValuesChange, variant, values, footerRender, placement, popoverProps } = props
     return wrapSSR(
       <div
         class={classNames(
@@ -123,6 +123,7 @@ const ProLightFilterContainer = defineComponent<ProLightFilterContainerProps>((p
             const { fieldProps } = normalizeProps(child?.props || {}) as {
               fieldProps: { placement: TooltipPlacement }
             }
+
             const newPlacement = fieldProps?.placement ? fieldProps?.placement : placement
             return (
               <div
@@ -157,6 +158,7 @@ const ProLightFilterContainer = defineComponent<ProLightFilterContainerProps>((p
                 open={open.value}
                 onOpenChange={changeOpen => setOpen(changeOpen)}
                 placement={placement}
+                popoverProps={popoverProps}
                 label={renderCollapseLabelRender()}
                 footerRender={footerRender}
                 footer={{

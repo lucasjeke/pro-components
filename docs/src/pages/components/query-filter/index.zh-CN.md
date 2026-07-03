@@ -18,6 +18,14 @@ group: 数据录入
 <demo-group>
     <demo src="./demo/basic.vue">查询筛选</demo>
     <demo src="./demo/default-collapsed.vue">查询筛选-默认收起</demo>
+    <demo src="./demo/vertical.vue">查询筛选-垂直布局</demo>
+    <demo src="./demo/search.vue">查询筛选-搜索</demo>
+    <demo src="./demo/defaultFormItemsNumber.vue">查询筛选-自定义渲染的控件数量</demo>
+    <demo src="./demo/light-filter.vue">轻量筛选</demo>
+    <demo src="./demo/footer.vue">自定义footer</demo>
+    <demo src="./demo/bordered.vue">轻量筛选-边框模式</demo>
+    <demo src="./demo/collapse.vue">轻量筛选-折叠模式</demo>
+    <demo src="./demo/placement.vue">轻量筛选-弹出框对齐方式</demo>
 </demo-group>
 
 ## API

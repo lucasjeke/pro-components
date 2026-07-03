@@ -51,7 +51,7 @@ const WithValueFomFieldProps: FunctionalComponent<{
   onFocus?: (...args: any[]) => void
   fieldProps?: any
   [key: string]: any
-}> = (props, { slots }) => {
+}> = (props, { slots, attrs }) => {
   const {
     onChange,
     onBlur,
@@ -59,7 +59,7 @@ const WithValueFomFieldProps: FunctionalComponent<{
     ignoreFormItem,
     valuePropName = 'value',
     ...restProps
-  } = props
+  } = { ...attrs, ...props }
   return childrenToArray(slots.default?.()).map((node: Omit<VNode<any, any, {
     fieldProps?: {
       onBlur?: (...args: any[]) => void

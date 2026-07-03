@@ -30,7 +30,7 @@ const Components = {
   ProStepsForm,
   ProLoginForm,
 }
-const type = shallowRef<keyof typeof Components>('ProForm')
+const type = shallowRef<keyof typeof Components>('ProLightFilter')
 const FormComponents = computed(() => Components[type.value])
 const iconStyles = {
   marginInlineStart: '16px',

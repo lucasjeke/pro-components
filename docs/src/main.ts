@@ -1,5 +1,4 @@
-// import { ProCheckCard } from '@antdv-next1/pro-card'
-// import antd from 'antdv-next'
+import antd from 'antdv-next'
 import { createPinia } from 'pinia'
 import { createApp } from 'vue'
 import DocHeading from '@/components/docs/heading.vue'
@@ -12,15 +11,15 @@ import IconSearch from './components/icon-search/index.vue'
 import InstallDependencies from './components/install-dependencies/index.vue'
 import StackBlitz from './components/stackblitz/index.vue'
 // import TokenTable from './components/token/token-table.vue'
-
 import ComponentTokenTable from './components/token/component-token-table.vue'
 
 import './assets/styles/index.css'
+import 'antd.css'
+import 'uno.css'
 
 const app = createApp(App)
-// app.use(antd)
-// app.use(ProCheckCard)
 app.use(router)
+app.use(antd)
 setupRouterGuard(router)
 app.use(CodeDemo)
 app.component('DocHeading', DocHeading)

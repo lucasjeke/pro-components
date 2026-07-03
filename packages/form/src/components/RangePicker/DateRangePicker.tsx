@@ -15,6 +15,7 @@ const ProFormDateRangePicker = defineComponent<ProFormDateRangePickerProps>((pro
   const { getPopupContainer } = useFieldContextInject()
   return () => {
     const { fieldProps, proFieldProps, ...rest } = props
+    console.log(rest, 'rest')
     return (
       <ProConfigProvider
         valueTypeMap={{

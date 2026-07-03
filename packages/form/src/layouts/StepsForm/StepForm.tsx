@@ -3,7 +3,7 @@ import type { CustomSlotsType } from '@v-c/util/dist/type'
 import type { FormProps, StepsProps } from 'antdv-next'
 import type { SetupContext } from 'vue'
 import type { CommonFormProps, ProFormRef } from '../../BaseForm'
-import { useEffect } from '@antdv-next1/pro-utils'
+import { transformBooleanProps, useEffect } from '@antdv-next1/pro-utils'
 import { computed, defineComponent, shallowRef, toRaw } from 'vue'
 import { BaseForm } from '../../BaseForm'
 import { useProFormInstanceExpose } from '../../utils'
@@ -45,6 +45,7 @@ const ProStepForm = defineComponent(<T extends Record<string, any>, U extends Re
 
   expose(useProFormInstanceExpose(formRef))
   return () => {
+    const transformedProps = transformBooleanProps(['isKeyPressSubmit', 'autoFocusFirstInput', 'disabled', 'scrollToFirstError', 'clearOnDestroy', 'loading', 'grid', 'omitNil', 'preserve', 'syncToUrl', 'syncToModel', 'syncToUrlAsImportant', 'readonly'], props)
     const {
       onFinish,
       step,
@@ -53,7 +54,7 @@ const ProStepForm = defineComponent(<T extends Record<string, any>, U extends Re
       onInit,
       layout,
       ...restProps
-    } = props
+    } = { ...props, ...transformedProps }
     return (
       <BaseForm<T, U>
         {...restProps}

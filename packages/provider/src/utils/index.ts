@@ -1,14 +1,21 @@
 /**
  * 用于判断当前是否需要开启哈希（Hash）模式。
- * 首先也会判断当前是否处于测试环境中（通过 process.env.NODE_ENV === 'TEST' 判断），
- * 如果是，则返回 false。否则，直接返回 true 表示需要打开。
+ *
+ * 下列场景返回 `false`（关闭 hash，便于快照/调试）：
+ * - env === 'test'`（单元测试快照稳定）
+ * - `env === 'development'`（本地开发时样式调试更直观）
+ *
+ * 其余环境（含生产、未设置 env）一律返回 `true`。
  */
 export function isNeedOpenHash() {
-  if (typeof process === 'undefined')
+  try {
+    const env = import.meta.env.MODE?.toLowerCase() || process.env.NODE_ENV?.toLowerCase()
+    if (env === 'test' || env === 'development') {
+      return false
+    }
     return true
-  const env = process.env.NODE_ENV?.toLowerCase()
-  if (env === 'test' || env === 'development') {
-    return false
   }
-  return true
+  catch (error) {
+    return true
+  }
 }

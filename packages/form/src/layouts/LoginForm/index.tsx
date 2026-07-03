@@ -5,6 +5,7 @@ import type { ProFormRef, SubmitterProps } from '../../BaseForm'
 import type { WithFalse } from '../../typing'
 import type { ProFormProps } from '../ProForm'
 import { useIntl } from '@antdv-next1/pro-provider'
+import { transformBooleanProps } from '@antdv-next1/pro-utils'
 import { unit } from '@antdv-next/cssinjs'
 import { classNames } from '@v-c/util'
 import { useConfig } from 'antdv-next/dist/config-provider/context'
@@ -79,6 +80,7 @@ const ProLoginForm = defineComponent(<T extends Record<string, any>, U extends R
   })
   expose(useProFormInstanceExpose(formRef))
   return () => {
+    const transformedProps = transformBooleanProps(['isKeyPressSubmit', 'autoFocusFirstInput', 'disabled', 'scrollToFirstError', 'clearOnDestroy', 'loading', 'grid', 'omitNil', 'preserve', 'syncToUrl', 'syncToModel', 'syncToUrlAsImportant', 'readonly'], props)
     const {
       logo,
       message,
@@ -89,7 +91,7 @@ const ProLoginForm = defineComponent(<T extends Record<string, any>, U extends R
       containerStyle,
       otherStyle,
       ...proFormProps
-    } = props
+    } = { ...props, ...transformedProps }
     const { class: className, ...restAttrs } = attrs
 
     const submitter

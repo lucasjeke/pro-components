@@ -29,7 +29,8 @@
     "noUncheckedSideEffectImports": true
   },
   "files": [
-    "types/md.d.ts"
+    "types/md.d.ts",
+    "types/vite-env.d.ts"
   ],
   "include": [
     "src/**/*.ts",

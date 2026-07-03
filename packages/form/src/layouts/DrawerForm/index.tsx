@@ -2,7 +2,7 @@ import type { CustomSlotsType, VueNode } from '@v-c/util/dist/type'
 import type { DrawerProps, FormProps } from 'antdv-next'
 import type { SetupContext, VNode } from 'vue'
 import type { CommonFormProps, ProFormRef, SubmitterProps } from '../../BaseForm'
-import { isBrowser, omitUndefined, useEffect, useState } from '@antdv-next1/pro-utils'
+import { isBrowser, omitUndefined, transformBooleanProps, useEffect, useState } from '@antdv-next1/pro-utils'
 import { classNames, merge } from '@v-c/util'
 // import { noteOnce } from '@v-c/util/dist/warning'
 import { Drawer } from 'antdv-next'
@@ -183,7 +183,8 @@ ProDrawerFormProps<T, U>, { expose, attrs, slots }: SetupContext<{}, CustomSlots
 
   expose(proFormInstanceExpose)
   return () => {
-    const { trigger, drawerProps, onFinish, onInit, submitTimeout, title, width, resize, onOpenChange, open: propsOpen, ...rest } = props
+    const transformedProps = transformBooleanProps(['isKeyPressSubmit', 'autoFocusFirstInput', 'disabled', 'scrollToFirstError', 'clearOnDestroy', 'loading', 'grid', 'open', 'resize', 'omitNil', 'preserve', 'syncToUrl', 'syncToModel', 'syncToUrlAsImportant', 'readonly'], props)
+    const { trigger, drawerProps, onFinish, onInit, submitTimeout, title, width, resize, onOpenChange, open: propsOpen, ...rest } = { ...props, ...transformedProps }
     const triggerDom = !trigger ? null : cloneVNode(trigger, {
       ...trigger.props,
       onClick: async () => {

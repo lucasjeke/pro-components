@@ -6,6 +6,7 @@ import type { OptionRender } from '../../RenderTypings'
 import type { ActionsProps } from './Actions'
 import {
   isBrowser,
+  transformBooleanProps,
   useMemo,
   useMountMergeState,
 } from '@antdv-next1/pro-utils'
@@ -289,6 +290,7 @@ const ProQueryFilter = defineComponent(
 
     expose(useProFormInstanceExpose(formRef))
     return () => {
+      const transformedProps = transformBooleanProps(['isKeyPressSubmit', 'autoFocusFirstInput', 'disabled', 'scrollToFirstError', 'collapsed', 'defaultCollapsed', 'ignoreRules', 'clearOnDestroy', 'loading', 'grid', 'omitNil', 'preserve', 'syncToUrl', 'showHiddenNum', 'syncToModel', 'split', 'syncToUrlAsImportant', 'submitter', 'readonly'], props)
       const {
         collapsed: controlCollapsed,
         layout,
@@ -305,12 +307,13 @@ const ProQueryFilter = defineComponent(
         onCollapse,
         labelWidth,
         split,
-        preserve = true,
+        preserve,
         ignoreRules,
         showHiddenNum = false,
         submitterColSpanProps,
         ...rest
-      } = props
+      } = { ...props, ...transformedProps }
+
       return wrapSSR(
         <ResizeObserver
           key="resize-observer"
@@ -327,6 +330,7 @@ const ProQueryFilter = defineComponent(
             <BaseForm
               {...attrs}
               {...rest}
+              {...transformedProps}
               ref={formRef}
               class={classNames(baseClassName.value, hashId.value, attrs.class)}
               preserve={typeof preserve === 'string' ? true : preserve}
@@ -350,24 +354,24 @@ const ProQueryFilter = defineComponent(
                 return (
                   <ProQueryFilterContent
                     spanSize={spanSize.value}
-                    collapsed={typeof controlCollapsed === 'string' ? true : controlCollapsed}
+                    collapsed={controlCollapsed}
                     form={form}
                     submitterColSpanProps={submitterColSpanProps}
                     collapseRender={collapseRender}
-                    defaultCollapsed={typeof defaultCollapsed === 'string' ? true : defaultCollapsed}
+                    defaultCollapsed={defaultCollapsed}
                     onCollapse={onCollapse}
                     optionRender={optionRender}
                     submitter={submitter}
                     items={items as VNode[]}
-                    split={typeof split === 'string' ? true : split}
+                    split={split}
                     baseClassName={baseClassName.value}
                     resetText={resetText}
                     searchText={searchText}
                     searchGutter={searchGutter}
-                    preserve={typeof preserve === 'string' ? true : preserve}
-                    ignoreRules={typeof ignoreRules === 'string' ? true : ignoreRules}
+                    preserve={preserve}
+                    ignoreRules={ignoreRules}
                     showLength={showLength.value}
-                    showHiddenNum={typeof showHiddenNum === 'string' ? true : showHiddenNum}
+                    showHiddenNum={showHiddenNum}
                   />
                 )
               }}

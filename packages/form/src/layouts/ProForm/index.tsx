@@ -3,6 +3,7 @@ import type { CustomSlotsType } from '@v-c/util/dist/type'
 import type { FormProps } from 'antdv-next'
 import type { App, Plugin, SetupContext } from 'vue'
 import type { CommonFormProps, ProFormRef } from '../../BaseForm'
+import { transformBooleanProps } from '@antdv-next1/pro-utils'
 import { useForm, useFormInstance } from 'antdv-next'
 import { defineComponent, shallowRef } from 'vue'
 import { BaseForm } from '../../BaseForm'
@@ -20,22 +21,27 @@ const _ProForm = defineComponent(
   >) => {
     const formRef = shallowRef<ProFormRef<T>>()
     expose(useProFormInstanceExpose(formRef))
-    return () => (
-      <BaseForm
-        {...attrs}
-        {...props}
-        ref={formRef}
-        name={props.name || 'pro-form'}
-        layout={props.layout || 'vertical'}
-        contentRender={(items, submitter) => (
-          <>
-            {items}
-            {submitter}
-          </>
-        )}
-        v-slots={slots}
-      />
-    )
+
+    return () => {
+      const transformedProps = transformBooleanProps(['isKeyPressSubmit', 'autoFocusFirstInput', 'disabled', 'scrollToFirstError', 'clearOnDestroy', 'loading', 'grid', 'omitNil', 'preserve', 'syncToUrl', 'syncToModel', 'syncToUrlAsImportant', 'readonly'], props)
+      return (
+        <BaseForm
+          {...attrs}
+          {...props}
+          {...transformedProps}
+          ref={formRef}
+          name={props.name || 'pro-form'}
+          layout={props.layout || 'vertical'}
+          contentRender={(items, submitter) => (
+            <>
+              {items}
+              {submitter}
+            </>
+          )}
+          v-slots={slots}
+        />
+      )
+    }
   },
   {
     name: 'ProForm',

@@ -1,53 +1,50 @@
 import * as path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { AntdvNextResolver } from '@antdv-next/auto-import-resolver'
+// import { AntdvNextResolver } from '@antdv-next/auto-import-resolver'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import Unocss from 'unocss/vite'
-import autoImport from 'unplugin-auto-import/vite'
-import components from 'unplugin-vue-components/vite'
+// import autoImport from 'unplugin-auto-import/vite'
+// import components from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
 import dayjsPlugin from 'vite-plugin-dayjs'
 import inspect from 'vite-plugin-inspect'
 import { tsxResolveTypes } from 'vite-plugin-tsx-resolve-types'
+import virtualAntdCss from './plugins/css-plugin'
 import { mdPlugin } from './plugins/markdown'
+
 import { postcssIsolateStyles } from './plugins/markdown/isolateStyles.ts'
 
 const baseUrl = fileURLToPath(new URL('.', import.meta.url))
 const docsBuildTarget = ['chrome111', 'edge111', 'firefox114', 'safari16.4', 'ios16.4'] as const
 
 // https://vite.dev/config/
-export default defineConfig(({ mode }) => {
-  const isProduction = mode === 'production'
-
+export default defineConfig(() => {
   return {
-    base: '/pro-components/',
     plugins: [
+      virtualAntdCss({
+        development: false,
+      }),
       dayjsPlugin(),
       mdPlugin(),
-      ...(isProduction ? [] : [tsxResolveTypes({
+      tsxResolveTypes({
         defaultPropsToUndefined: ['Boolean'],
-      })]),
+      }),
       vueJsx({ mergeProps: true }),
       vue({
         include: [/\.vue$/, /\.md$/],
       }),
-      ...(isProduction ? [] : [inspect()]),
-      Unocss({
-        mode: 'vue-scoped',
-      }),
-      autoImport({
-        dirs: ['./src/stores'],
-        dts: 'types/auto-imports.d.ts',
-        imports: ['vue', 'vue-router', '@vueuse/core', 'pinia', 'vue-i18n'],
-      }),
-      components({
-        dts: 'types/components.d.ts',
-        dirs: [],
-        resolvers: [AntdvNextResolver({
-          resolveIcons: true,
-        })],
-      }),
+      inspect(),
+      // autoImport({
+      //   dirs: ['./src/stores'],
+      //   dts: 'types/auto-imports.d.ts',
+      //   imports: ['vue', 'vue-router', '@vueuse/core', 'pinia', 'vue-i18n'],
+      // }),
+      // components({
+      //   dts: 'types/components.d.ts',
+      //   resolvers: [AntdvNextResolver()],
+      // }),
+      Unocss(),
     // prefetch(),
     ],
     // server: {
@@ -73,66 +70,52 @@ export default defineConfig(({ mode }) => {
       include: ['@antdv-next/icons', '@antdv-next/icons/all', '@ant-design/icons-svg/es/asn/*'],
     },
     resolve: {
-      alias: isProduction
-        ? [
-            // 生产环境：保留 pro-components 的源代码映射（它是一个聚合包）
-            // 其他包使用已编译好的包（通过 pnpm workspace 自动解析）
-            {
-              find: /^@antdv-next1\/pro-components/,
-              replacement: path.resolve(baseUrl, '../packages/components/src'),
-            },
-            {
-              find: '@',
-              replacement: '/src',
-            },
-          ]
-        : [
-            // 开发环境：直接映射到源代码（支持热更新）
-            {
-              find: /^@antdv-next1\/pro-layout/,
-              replacement: path.resolve(baseUrl, '../packages/layout/src'),
-            },
-            {
-              find: /^@antdv-next1\/pro-provider/,
-              replacement: path.resolve(baseUrl, '../packages/provider/src'),
-            },
-            {
-              find: /^@antdv-next1\/pro-field/,
-              replacement: path.resolve(baseUrl, '../packages/field/src'),
-            },
-            {
-              find: /^@antdv-next1\/pro-listy/,
-              replacement: path.resolve(baseUrl, '../packages/listy/src'),
-            },
-            {
-              find: /^@antdv-next1\/pro-card/,
-              replacement: path.resolve(baseUrl, '../packages/card/src'),
-            },
-            {
-              find: /^@antdv-next1\/pro-form/,
-              replacement: path.resolve(baseUrl, '../packages/form/src'),
-            },
-            {
-              find: /^@antdv-next1\/pro-table/,
-              replacement: path.resolve(baseUrl, '../packages/table/src'),
-            },
-            {
-              find: /^@antdv-next1\/pro-components/,
-              replacement: path.resolve(baseUrl, '../packages/components/src'),
-            },
-            {
-              find: /^@antdv-next1\/pro-utils/,
-              replacement: path.resolve(baseUrl, '../packages/utils/src'),
-            },
-            {
-              find: /^@antdv-next1\/route-utils/,
-              replacement: path.resolve(baseUrl, '../packages/route-utils/src'),
-            },
-            {
-              find: '@',
-              replacement: '/src',
-            },
-          ],
+      alias: [
+        {
+          find: /^@antdv-next1\/pro-layout/,
+          replacement: path.resolve(baseUrl, '../packages/layout/src'),
+        },
+        {
+          find: /^@antdv-next1\/pro-provider/,
+          replacement: path.resolve(baseUrl, '../packages/provider/src'),
+        },
+        {
+          find: /^@antdv-next1\/pro-field/,
+          replacement: path.resolve(baseUrl, '../packages/field/src'),
+        },
+        {
+          find: /^@antdv-next1\/pro-listy/,
+          replacement: path.resolve(baseUrl, '../packages/listy/src'),
+        },
+        {
+          find: /^@antdv-next1\/pro-card/,
+          replacement: path.resolve(baseUrl, '../packages/card/src'),
+        },
+        {
+          find: /^@antdv-next1\/pro-form/,
+          replacement: path.resolve(baseUrl, '../packages/form/src'),
+        },
+        {
+          find: /^@antdv-next1\/pro-table/,
+          replacement: path.resolve(baseUrl, '../packages/table/src'),
+        },
+        {
+          find: /^@antdv-next1\/pro-components/,
+          replacement: path.resolve(baseUrl, '../packages/components/src'),
+        },
+        {
+          find: /^@antdv-next1\/pro-utils/,
+          replacement: path.resolve(baseUrl, '../packages/utils/src'),
+        },
+        {
+          find: /^@antdv-next1\/route-utils/,
+          replacement: path.resolve(baseUrl, '../packages/route-utils/src'),
+        },
+        {
+          find: '@',
+          replacement: '/src',
+        },
+      ],
     },
     css: {
       postcss: {

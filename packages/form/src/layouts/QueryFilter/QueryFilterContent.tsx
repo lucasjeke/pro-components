@@ -182,7 +182,7 @@ const ProQueryFilterContent = defineComponent(
         }
         currentSpan += colSpan
         if (split && currentSpan % 24 === 0 && index < itemLength - 1) {
-          if (!isSpecialNode(itemDom!)) {
+          if (isVNode(itemDom) && !isSpecialNode(itemDom!)) {
             return (
               <Col
                 key={itemKey}
@@ -195,7 +195,7 @@ const ProQueryFilterContent = defineComponent(
           }
           return itemDom
         }
-        if (!isSpecialNode(itemDom!)) {
+        if (isVNode(itemDom) && !isSpecialNode(itemDom!)) {
           return (
             <Col
               key={itemKey}

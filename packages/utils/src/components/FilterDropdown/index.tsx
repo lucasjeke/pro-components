@@ -56,7 +56,7 @@ const FilterDropdown = defineComponent<FilterDropdownProps, {}, string, CustomSl
   const styles = useMemo(
     () => ({
       container: {
-        padding: 0,
+        // padding: 0,
         ...(props.popoverProps?.styles?.container || {}),
       },
       ...(props.popoverProps?.styles || {}),

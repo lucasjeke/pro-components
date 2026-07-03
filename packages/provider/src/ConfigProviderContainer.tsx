@@ -105,9 +105,6 @@ const ConfigProviderContainer = defineComponent<ProConfigProviderProps, {}, stri
     if (isNeedOpenHash() === false) {
       return ''
     }
-    else if (tokenContext.hashId.value) {
-      return tokenContext.hashId.value
-    }
     else {
       // 生产环境或其他环境
       return cacheToken.value[1]

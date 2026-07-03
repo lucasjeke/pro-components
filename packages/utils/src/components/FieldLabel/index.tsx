@@ -7,7 +7,7 @@ import { CloseCircleFilled, DownOutlined } from '@antdv-next/icons'
 import { classNames } from '@v-c/util'
 import { useConfig } from 'antdv-next'
 import { useConfig as useAntdConfig } from 'antdv-next/dist/config-provider/context'
-import { computed, defineComponent, ref } from 'vue'
+import { computed, defineComponent, shallowRef } from 'vue'
 import { useStyle } from './style'
 
 export interface FieldLabelProps {
@@ -40,8 +40,8 @@ const FieldLabel = defineComponent<FieldLabelProps, {}, string, CustomSlotsType<
     const baseClassName = computed(() => `${prefixCls.value}-core-field-label`)
     const { wrapSSR, hashId } = useStyle(baseClassName)
     const intl = useIntl()
-    const clearRef = ref<HTMLSpanElement | null>(null)
-    const labelRef = ref<HTMLSpanElement | null>(null)
+    const clearRef = shallowRef<HTMLSpanElement | null>(null)
+    const labelRef = shallowRef<HTMLSpanElement | null>(null)
     const wrapElements = (array: (string | VNode)[]): VNode[] | string => {
       if (array.every(item => typeof item === 'string'))
         return array.join(',')

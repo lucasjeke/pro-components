@@ -10,8 +10,8 @@ import {
   autoFocusToFirstChild,
   conversionMomentValue,
   nanoid,
+  omitUndefined,
   runFunction,
-  transformBooleanProps,
   transformKeySubmitValue,
   useEffect,
   useFetchData,
@@ -372,7 +372,6 @@ const BaseFormComponents = defineComponent(
     // 在 BaseForm 中直接处理 onInit，确保能获取到完整的 fieldsValueType
     // 注意：useEffect 内部已经有一个 nextTick()，且子组件的 useEffect 会先执行
     useEffect(() => {
-      // console.log(fieldsValueType.value, 'fieldsValueType')
       const { omitNil = true, onInit } = props
       if (!onInit)
         return
@@ -420,7 +419,7 @@ const BaseFormComponents = defineComponent(
         grid,
         rowProps,
         colProps,
-        isKeyPressSubmit: propsIsKeyPressSubmit,
+        isKeyPressSubmit,
         syncToUrlAsImportant,
         autoFocusFirstInput,
         formKey = requestFormCacheId,
@@ -433,8 +432,7 @@ const BaseFormComponents = defineComponent(
         omitNil = true,
         onFinish,
         ...propsRest
-      } = props
-      const isKeyPressSubmit = transformBooleanProps(['isKeyPressSubmit'], props)
+      } = { ...attrs, ...omitUndefined(props) }
       if (initialDataLoading.value && request) {
         return (
           <div style={{ paddingTop: '50px', paddingBottom: '50px', textAlign: 'center' }}>
@@ -502,7 +500,6 @@ const BaseFormComponents = defineComponent(
       }
       return wrapSSR(
         <Form
-          {...attrs}
           ref={(instance) => {
             if (formRef.value)
               return
@@ -561,6 +558,8 @@ const BaseFormComponents = defineComponent(
       'grid',
       'isKeyPressSubmit',
       'labelAlign',
+      'formItemProps',
+      'groupProps',
       'labelCol',
       'labelWrap',
       'layout',
@@ -574,6 +573,7 @@ const BaseFormComponents = defineComponent(
       'onReset',
       'onSubmit',
       'onValidate',
+      'fieldProps',
       'onValuesChange',
       'params',
       'prefixCls',

@@ -2,7 +2,7 @@ import type { CustomSlotsType, VueNode } from '@v-c/util/dist/type'
 import type { FormProps, ModalProps } from 'antdv-next'
 import type { SetupContext, VNode } from 'vue'
 import type { CommonFormProps, ProFormRef, SubmitterProps } from '../../BaseForm'
-import { useEffect, useState } from '@antdv-next1/pro-utils'
+import { transformBooleanProps, useEffect, useState } from '@antdv-next1/pro-utils'
 import { merge, useMergedState } from '@v-c/util'
 import { Modal } from 'antdv-next'
 import { useConfig } from 'antdv-next/dist/config-provider/context'
@@ -135,6 +135,7 @@ const ProModalForm = defineComponent(
     }
     expose(proFormInstanceExpose)
     return () => {
+      const transformedProps = transformBooleanProps(['isKeyPressSubmit', 'autoFocusFirstInput', 'disabled', 'scrollToFirstError', 'clearOnDestroy', 'loading', 'grid', 'omitNil', 'preserve', 'syncToUrl', 'syncToModel', 'syncToUrlAsImportant', 'readonly', 'open'], props)
       const {
         trigger,
         onOpenChange,
@@ -146,7 +147,7 @@ const ProModalForm = defineComponent(
         width,
         open: propsOpen,
         ...rest
-      } = props
+      } = { ...props, ...transformedProps }
       const triggerDom = !trigger
         ? null
         : cloneVNode(trigger, {

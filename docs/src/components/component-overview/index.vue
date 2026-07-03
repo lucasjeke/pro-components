@@ -88,8 +88,8 @@ onMounted(() => {
       </div>
     </a-affix>
     <a-divider />
-    <template v-for="group in searchMenus" :key="group.key">
-      <div class="component-overview">
+    <div class="component-overview-container">
+      <div v-for="group in searchMenus" :key="group.key" class="component-overview">
         <h2 class="component-overview-group-title">
           <a-space>
             {{ siderLocales?.[group.key]?.[locale] ?? group.label }}
@@ -118,7 +118,7 @@ onMounted(() => {
           </template>
         </a-row>
       </div>
-    </template>
+    </div>
   </section>
 </template>
 
@@ -153,19 +153,34 @@ onMounted(() => {
   }
 
   &-affix {
+    display: flex;
     transition: all 0.25s;
+    justify-content: space-between;
+    .ant-input-borderless:focus,
+    .ant-input-borderless:focus-within {
+      outline: none;
+    }
   }
 
   &-affixed {
     padding: 12px;
     margin: -8px;
     border-radius: 6px;
-    border: 0 solid;
+    border: none;
     background-color: var(--ant-color-bg-elevated);
     box-shadow: var(--ant-box-shadow-secondary);
   }
 }
-
+.component-overview-container {
+  &:empty::after {
+    display: block;
+    padding: var(--ant-padding) 0 calc(var(--ant-padding-md) * 2);
+    color: var(--ant-color-text-disabled);
+    text-align: center;
+    border-bottom: 1px solid var(--ant-color-split);
+    content: 'Not Found';
+  }
+}
 .components-overview-search {
   width: 100%;
   padding: 0;

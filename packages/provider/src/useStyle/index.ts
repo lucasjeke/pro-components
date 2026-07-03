@@ -271,7 +271,6 @@ export function useStyle(componentName: string, styleFn: (token: ProAliasToken) 
   })
   const proTokenKey = computed(() => getProTokenKey(themeToken.value))
   const styleKey = computed(() => [hashId.value, theme.value.id, proTokenKey.value].filter(Boolean).join('-'))
-  console.log(componentName, proProvide.value, 'componentName')
   useProStyleRegister(computed(() => {
     return {
       componentName,
@@ -284,7 +283,6 @@ export function useStyle(componentName: string, styleFn: (token: ProAliasToken) 
       },
     }
   }), () => styleFn(themeToken.value as ProAliasToken))
-  console.log(proProvide.value.hashId, hashId.value, '====style')
   return {
     wrapSSR: <T>(node: T) => node,
     hashId: computed(() => (proProvide.value.hashed ? proProvide.value.hashId! : '')),

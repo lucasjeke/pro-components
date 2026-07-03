@@ -1,7 +1,7 @@
-import antd from 'antdv-next'
+// import antd from 'antdv-next'
 import { createPinia } from 'pinia'
 import { createApp } from 'vue'
-import DocHeading from '@/components/docs/heading.vue'
+import DocHeading from '@/components/doc-heading/index.vue'
 import { router } from '@/routes'
 import { setupRouterGuard } from '@/routes/guard'
 import App from './App.vue'
@@ -19,7 +19,7 @@ import 'uno.css'
 
 const app = createApp(App)
 app.use(router)
-app.use(antd)
+// app.use(antd)
 setupRouterGuard(router)
 app.use(CodeDemo)
 app.component('DocHeading', DocHeading)

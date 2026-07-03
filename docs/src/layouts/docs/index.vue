@@ -5,7 +5,7 @@ import type { Frontmatter } from '@/composables/doc-page.ts'
 import throttleByAnimationFrameFn from 'antdv-next/dist/_util/throttleByAnimationFrame'
 import { shallowRef, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import DocHeading from '@/components/docs/heading.vue'
+import DocHeading from '@/components/doc-heading/index.vue'
 import { applyRouteSeo } from '@/composables/seo.ts'
 import Main from '../base/main.vue'
 

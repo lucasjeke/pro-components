@@ -1,11 +1,11 @@
 import * as path from 'node:path'
 import { fileURLToPath } from 'node:url'
-// import { AntdvNextResolver } from '@antdv-next/auto-import-resolver'
+import { AntdvNextResolver } from '@antdv-next/auto-import-resolver'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import Unocss from 'unocss/vite'
-// import autoImport from 'unplugin-auto-import/vite'
-// import components from 'unplugin-vue-components/vite'
+import autoImport from 'unplugin-auto-import/vite'
+import components from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
 import dayjsPlugin from 'vite-plugin-dayjs'
 import inspect from 'vite-plugin-inspect'
@@ -21,7 +21,6 @@ const docsBuildTarget = ['chrome111', 'edge111', 'firefox114', 'safari16.4', 'io
 // https://vite.dev/config/
 export default defineConfig(() => {
   return {
-    base: '/pro-components',
     plugins: [
       virtualAntdCss({
         development: false,
@@ -36,15 +35,16 @@ export default defineConfig(() => {
         include: [/\.vue$/, /\.md$/],
       }),
       inspect(),
-      // autoImport({
-      //   dirs: ['./src/stores'],
-      //   dts: 'types/auto-imports.d.ts',
-      //   imports: ['vue', 'vue-router', '@vueuse/core', 'pinia', 'vue-i18n'],
-      // }),
-      // components({
-      //   dts: 'types/components.d.ts',
-      //   resolvers: [AntdvNextResolver()],
-      // }),
+      autoImport({
+        dirs: ['./src/stores'],
+        dts: 'types/auto-imports.d.ts',
+        imports: ['vue', 'vue-router', '@vueuse/core', 'pinia', 'vue-i18n'],
+      }),
+      components({
+        dirs: [],
+        dts: 'types/components.d.ts',
+        resolvers: [AntdvNextResolver()],
+      }),
       Unocss(),
     // prefetch(),
     ],

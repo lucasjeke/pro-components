@@ -21298,6 +21298,8 @@ textarea.ant-input-number-filled.ant-input-number-status-warning:not(.ant-input-
 	border-radius: var(--ant-border-radius-sm);
 }
 
+	
+
 .ant-input-number .ant-input-number-prefix,
 .ant-input-number .ant-input-number-suffix {
 	display: flex;

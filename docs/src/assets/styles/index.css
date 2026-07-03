@@ -2,5 +2,6 @@
 
 @import 'antdv-next/dist/reset.css' layer(reset);
 @import './layout/index.css' layer(layout);
+@import '../listy.css' layer(antd);
 @import './markdown/index.css' layer(markdown);
 @import './common.css' layer(common);

@@ -118,7 +118,6 @@ const collapsible = ref<'icon' | 'header' | false>(false)
       :split="split"
       :collapsible="collapsible || undefined"
       :default-collapsed="false"
-      border-beam
     >
       <ProCard title="基本信息">
         <div>实例数量：3</div>

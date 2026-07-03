@@ -23,6 +23,7 @@
       "import": "./dist/*.js",
       "default": "./dist/*.js"
     },
+    "./dist/listy.css": "./dist/listy.css",
     "./dist/pro-listy.esm.js": "./dist/pro-listy.esm.js",
     "./dist/pro-listy.js": "./dist/pro-listy.js"
   },
@@ -38,12 +39,14 @@
     "package.json"
   ],
   "scripts": {
-    "build": "run-s build:esm build:vite:parallel",
+    "build": "run-s build:esm build:vite:parallel build:p",
+    "build:p": "run-p build:style",
     "build:esm": "tsdown --config-loader unrun",
     "build:vite:parallel": "run-p build:umd build:full-esm",
     "build:full-esm": "vite build --config ./vite.esm.config.ts",
     "build:umd": "vite build",
-    "prepublish": "pnpm build"
+    "prepublish": "pnpm build",
+    "build:style": "cross-env NODE_ENV=production  tsx ./scripts/style/build-style.ts"
   },
   "browserslist": [
     "last 2 versions",

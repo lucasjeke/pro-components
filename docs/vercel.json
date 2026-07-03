@@ -4,5 +4,15 @@
       "source": "/:path*",
       "destination": "/index.html"
     }
+  ],
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "zeroConfig": true,
+        "buildCommand": "rm -rf node_modules .next && pnpm install && pnpm build"
+      }
+    }
   ]
 }

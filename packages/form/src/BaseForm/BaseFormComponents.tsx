@@ -501,8 +501,6 @@ const BaseFormComponents = defineComponent(
       return wrapSSR(
         <Form
           ref={(instance) => {
-            if (formRef.value)
-              return
             formRef.value = instance as unknown as FormInstance
             formRef.value.focus = () => {
               const firstInput = (

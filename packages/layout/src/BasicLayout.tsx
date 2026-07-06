@@ -5,7 +5,7 @@ import type { GetPageTitleProps } from './getPageTitle'
 import type { ProLayoutProps } from './ProLayout'
 import type { SlotsRenderType } from './RenderTypings'
 import type { MenuDataItem, MessageDescriptor } from './typing'
-import { useProConfig } from '@antdv-next1/pro-provider'
+// import { useProConfig } from '@antdv-next1/pro-provider'
 import { useBreakpoint, useDocumentTitle, useMountMergeState, useState } from '@antdv-next1/pro-utils'
 import { getMatchMenu } from '@antdv-next1/route-utils'
 import { classNames, omit } from '@v-c/util'
@@ -136,7 +136,7 @@ const BasicLayout = defineComponent<ProLayoutProps, {}, string, CustomSlotsType<
   }
 >>((props, { slots, attrs, expose }) => {
   const config = useConfig()
-  const proProvide = useProConfig()
+  // const proProvide = useProConfig()
   const layoutRef = shallowRef<InstanceType<typeof Layout> | null>(null)
   const prefixCls = computed(() => props.prefixCls ?? config.value.getPrefixCls('pro'))
   const proLayoutClassName = computed(() => `${prefixCls.value}-basicLayout`)

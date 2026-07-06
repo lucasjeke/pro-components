@@ -21,7 +21,6 @@ import ProQueryFilterContent from './QueryFilterContent'
 import { useStyle } from './style'
 
 export type BaseProQueryFilterProps = Omit<ActionsProps, 'submitter' | 'setCollapsed' | 'isForm'> & {
-  class?: string
   defaultCollapsed?: boolean
   /**
    * @name layout 的布局设置
@@ -307,13 +306,12 @@ const ProQueryFilter = defineComponent(
         onCollapse,
         labelWidth,
         split,
-        preserve,
+        preserve = true,
         ignoreRules,
         showHiddenNum = false,
         submitterColSpanProps,
         ...rest
       } = { ...props, ...transformedProps }
-
       return wrapSSR(
         <ResizeObserver
           key="resize-observer"
@@ -386,7 +384,7 @@ const ProQueryFilter = defineComponent(
   {
     name: 'ProQueryFilter',
     inheritAttrs: false,
-    props: ['autoComplete', 'autoFocusFirstInput', 'classes', 'clearOnDestroy', 'colProps', 'collapseRender', 'collapsed', 'colon', 'containerStyle', 'dateFormatter', 'defaultCollapsed', 'defaultColsNumber', 'defaultFormItemsNumber', 'disabled', 'feedbackIcons', 'formRef', 'formKey', 'grid', 'hiddenNum', 'ignoreRules', 'isKeyPressSubmit', 'labelAlign', 'labelCol', 'labelWidth', 'labelWrap', 'layout', 'loading', 'model', 'name', 'omitNil', 'onCollapse', 'onFieldsChange', 'onFinish', 'onFinishFailed', 'onInit', 'onLoadingChange', 'onReset', 'onSubmit', 'onValidate', 'onValuesChange', 'optionRender', 'params', 'prefixCls', 'preserve', 'readonly', 'request', 'requiredMark', 'resetText', 'rootClass', 'rules', 'scrollToFirstError', 'searchGutter', 'searchText', 'showHiddenNum', 'size', 'span', 'split', 'styles', 'submitter', 'submitterColSpanProps', 'tooltip', 'validateMessages', 'validateOnRuleChange', 'validateTrigger', 'variant', 'wrapperCol'],
+    props: ['autoComplete', 'autoFocusFirstInput', 'autocomplete', 'classes', 'clearOnDestroy', 'colProps', 'collapseRender', 'collapsed', 'colon', 'containerStyle', 'dateFormatter', 'defaultCollapsed', 'defaultColsNumber', 'defaultFormItemsNumber', 'disabled', 'extraUrlParams', 'feedbackIcons', 'formKey', 'formRef', 'grid', 'hiddenNum', 'ignoreRules', 'isKeyPressSubmit', 'labelAlign', 'labelCol', 'labelWidth', 'labelWrap', 'layout', 'loading', 'model', 'name', 'omitNil', 'onCollapse', 'onFieldsChange', 'onFinish', 'onFinishFailed', 'onInit', 'onLoadingChange', 'onReset', 'onSubmit', 'onValidate', 'onValuesChange', 'optionRender', 'params', 'prefixCls', 'preserve', 'readonly', 'request', 'requiredMark', 'resetText', 'rootClass', 'rowProps', 'rules', 'scrollToFirstError', 'searchGutter', 'searchText', 'showHiddenNum', 'size', 'span', 'split', 'styles', 'submitter', 'submitterColSpanProps', 'syncToModel', 'syncToUrl', 'syncToUrlAsImportant', 'tooltip', 'validateMessages', 'validateOnRuleChange', 'validateTrigger', 'variant', 'wrapperCol'],
   },
 )
 

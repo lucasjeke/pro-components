@@ -10,11 +10,10 @@ Query Table
 import type { ProColumns } from '@antdv-next1/pro-table'
 import { ProTable, TableDropdown } from '@antdv-next1/pro-table'
 import { EllipsisOutlined, PlusOutlined } from '@antdv-next/icons'
-import { Button, Dropdown, message, Space, Tag } from 'antdv-next'
+import { Button, Dropdown, Space, Tag } from 'antdv-next'
 import request from 'umi-request'
 import { h } from 'vue'
 
-const [messageApi, ContextHolder] = message.useMessage()
 async function waitTime(time: number = 100) {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -112,7 +111,6 @@ const columns: ProColumns<GithubIssueItem>[] = [
     hideInTable: true,
     search: {
       transform: (value) => {
-        console.log(value, '创建时间')
         if (Array.isArray(value)) {
           return {
             startTime: value[0],
@@ -156,12 +154,11 @@ const columns: ProColumns<GithubIssueItem>[] = [
 
 <template>
   <div class="p-6">
-    <ContextHolder />
     <ProTable
       :columns="columns"
       card-bordered
       :request="async (params, sort, filter) => {
-        console.log(params.startTime, sort, filter);
+        console.log(params, sort, filter);
         await waitTime(2000);
         return request<{
           data: GithubIssueItem[];
@@ -180,10 +177,6 @@ const columns: ProColumns<GithubIssueItem>[] = [
         persistenceType: 'localStorage',
         defaultValue: {
           option: { fixed: 'end', disable: true },
-        },
-        onChange(value) {
-          console.log('value: ', value);
-          messageApi.info('列设置已更新')
         },
       }"
       row-key="id"

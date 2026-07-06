@@ -56,8 +56,7 @@ function covertFormName(name?: NamePath<string | number | boolean>) {
     return name
   return [name]
 }
-/** 自动的formKey 防止重复 */
-let requestFormCacheId = 0
+
 const BaseFormComponents = defineComponent(
   <T extends Record<string, any>, U extends Record<string, any>>(
     props: BaseFormProps<T, U>,
@@ -255,9 +254,6 @@ const BaseFormComponents = defineComponent(
       setUrlSearch(genParams(props.syncToUrl, getGenParams(), 'set'))
     }, [() => props.extraUrlParams, () => props.syncToUrl])
 
-    useEffect(() => {
-      requestFormCacheId += 0
-    }, [])
     const [loading, setLoading] = useMountMergeState<boolean>(false, {
       onChange: props.onLoadingChange,
       value: toRef(() => props.loading!),
@@ -265,7 +261,7 @@ const BaseFormComponents = defineComponent(
     const [initialData, initialDataLoading] = useFetchData<T, U>({
       request: props.request,
       params: computed(() => props.params),
-      proFieldKey: computed(() => props.formKey || requestFormCacheId),
+      proFieldKey: computed(() => props.formKey!),
     })
     useEffect(() => {
       if (initialData?.value) {
@@ -332,7 +328,6 @@ const BaseFormComponents = defineComponent(
         setLoading(false)
       }
     }
-
     useFieldContextProvider({
       formRef,
       fieldProps: props.fieldProps,
@@ -375,14 +370,14 @@ const BaseFormComponents = defineComponent(
       const { omitNil = true, onInit } = props
       if (!onInit)
         return
+
       const executeOnInit = async () => {
         await nextTick() // 等待第一次 tick
-        const finalValues = transformKey(formRef.value?.getFieldsValue?.(true) as T, omitNil)
+        const finalValues = transformKey({ ...formRef.value?.getFieldsValue?.(true), ...urlParamsMergeModel.value } as T, omitNil)
         onInit?.(finalValues, proFormInstance)
       }
       executeOnInit()
     }, [])
-
     /**
      * 获取布局
      */
@@ -401,7 +396,7 @@ const BaseFormComponents = defineComponent(
       const {
         formItemProps,
         syncToUrl,
-        syncToModel,
+        syncToModel = true,
         model: propsModel,
         extraUrlParams,
         fieldProps,
@@ -420,9 +415,9 @@ const BaseFormComponents = defineComponent(
         rowProps,
         colProps,
         isKeyPressSubmit,
-        syncToUrlAsImportant,
+        syncToUrlAsImportant = false,
         autoFocusFirstInput,
-        formKey = requestFormCacheId,
+        formKey,
         formRef: propsFormRef,
         form,
         readonly,
@@ -501,15 +496,12 @@ const BaseFormComponents = defineComponent(
       return wrapSSR(
         <Form
           ref={(instance) => {
-            if (instance && !(instance as unknown as FormInstance).nativeElement) {
-              return
-            }
             formRef.value = instance as unknown as FormInstance
-            formRef.value.focus = () => {
-              const firstInput = (
-                instance as unknown as FormInstance
-              )?.nativeElement?.querySelector('input, textarea, select') as HTMLElement
-              firstInput?.focus()
+            if (formRef.value) {
+              formRef.value.focus = () => {
+                const firstInput = formRef.value?.nativeElement?.querySelector('input, textarea, select') as HTMLElement
+                firstInput?.focus()
+              }
             }
           }}
           {...{

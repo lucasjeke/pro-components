@@ -30,14 +30,23 @@ const [messageApi, ContextHolder] = message.useMessage()
       title="Create New Form"
       auto-focus-first-input
       :trigger="h(Button, { type: 'primary' }, () => [h(PlusOutlined), 'Create New Form'])"
-      :modal-props="{
-        destroyOnHidden: true,
-        onCancel: () => console.log('run'),
-      }"
       :submit-timeout="2000"
-      @finish="async (values) => {
+      :request="async () => {
         await waitTime(2000);
-        console.log(values.name);
+        return {
+          name: '张三',
+          company: '公司A',
+          contract: '合同123',
+          contractTime: ['2023-01-01', '2023-01-31'],
+          useMode: 'chapter',
+          unusedMode: 'time',
+          id: '123456',
+          project: '项目A',
+          mangerName: '书琰',
+        }
+      }"
+      @finish="async () => {
+        await waitTime(2000);
         messageApi.success('Submission successful');
         return true;
       }"

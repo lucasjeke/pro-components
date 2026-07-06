@@ -378,7 +378,7 @@ const InternalProStepsForm = defineComponent(<T extends Record<string, any>, U e
 }, {
   name: 'InternalProStepsForm',
   inheritAttrs: false,
-  props: ['containerStyle', 'current', 'formMap', 'formProps', 'layoutRender', 'onCurrentChange', 'onFinish', 'stepFormRender', 'stepsFormRender', 'stepsProps', 'submitter', 'prefixCls', 'stepsRender'],
+  props: ['containerStyle', 'current', 'formMap', 'formProps', 'layoutRender', 'onCurrentChange', 'onFinish', 'onUpdate:formMap', 'prefixCls', 'stepFormRender', 'stepsProps', 'stepsRender', 'submitter'],
 })
 
 export default InternalProStepsForm

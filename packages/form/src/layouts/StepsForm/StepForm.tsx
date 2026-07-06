@@ -97,7 +97,7 @@ const ProStepForm = defineComponent(<T extends Record<string, any>, U extends Re
 }, {
   name: 'ProStepForm',
   inheritAttrs: false,
-  props: ['autoComplete', 'autoFocusFirstInput', 'classes', 'clearOnDestroy', 'colProps', 'colon', 'dateFormatter', 'disabled', 'extraUrlParams', 'feedbackIcons', 'formKey', 'grid', 'index', 'isKeyPressSubmit', 'labelAlign', 'labelCol', 'labelWrap', 'layout', 'loading', 'formRef', 'model', 'name', 'omitNil', 'onFieldsChange', 'onFinish', 'onFinishFailed', 'onInit', 'onLoadingChange', 'onReset', 'onSubmit', 'onValidate', 'onValuesChange', 'params', 'prefixCls', 'preserve', 'readonly', 'request', 'requiredMark', 'rootClass', 'rowProps', 'rules', 'scrollToFirstError', 'size', 'step', 'stepProps', 'styles', 'syncToModel', 'syncToUrl', 'syncToUrlAsImportant', 'title', 'tooltip', 'validateMessages', 'validateOnRuleChange', 'validateTrigger', 'variant', 'wrapperCol'],
+  props: ['autoComplete', 'autoFocusFirstInput', 'autocomplete', 'classes', 'clearOnDestroy', 'colProps', 'colon', 'dateFormatter', 'disabled', 'extraUrlParams', 'feedbackIcons', 'formKey', 'formRef', 'grid', 'index', 'isKeyPressSubmit', 'labelAlign', 'labelCol', 'labelWrap', 'layout', 'loading', 'model', 'name', 'omitNil', 'onFieldsChange', 'onFinish', 'onFinishFailed', 'onInit', 'onLoadingChange', 'onReset', 'onSubmit', 'onValidate', 'onValuesChange', 'params', 'prefixCls', 'preserve', 'readonly', 'request', 'requiredMark', 'rootClass', 'rowProps', 'rules', 'scrollToFirstError', 'size', 'step', 'stepProps', 'styles', 'syncToModel', 'syncToUrl', 'syncToUrlAsImportant', 'title', 'tooltip', 'validateMessages', 'validateOnRuleChange', 'validateTrigger', 'variant', 'wrapperCol'],
 })
 
 export default ProStepForm

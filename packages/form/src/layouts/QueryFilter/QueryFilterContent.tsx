@@ -105,7 +105,6 @@ const ProQueryFilterContent = defineComponent(
       let totalSize = 0
       // for split compute
       let currentSpan = 0
-
       // 处理过，包含是否需要隐藏的 数组
       const processedList = flatMapItems(items, ignoreRules).map(
         (item, index): { itemDom: VNode<any, any, { title?: VueNode, colSize?: number, name?: NamePath<string | number | boolean>, hidden?: boolean, formItemProps?: FormItemProps }> | null, hidden: boolean, colSpan: number } => {
@@ -163,7 +162,6 @@ const ProQueryFilterContent = defineComponent(
           }
         },
       )
-
       const doms = processedList.map((itemProps, index: number) => {
         const { itemDom, colSpan } = itemProps
         const hidden = itemDom?.props?.hidden

@@ -25,7 +25,7 @@ const _ProStepsForm = defineComponent(<T extends Record<string, any>, U extends 
 }, {
   name: 'ProStepsForm',
   inheritAttrs: false,
-  props: ['containerStyle', 'current', 'formMap', 'formProps', 'layoutRender', 'onCurrentChange', 'onFinish', 'stepFormRender', 'stepsFormRender', 'stepsProps', 'submitter', 'prefixCls', 'stepsRender'],
+  props: ['containerStyle', 'current', 'formMap', 'formProps', 'layoutRender', 'onCurrentChange', 'onFinish', 'onUpdate:formMap', 'prefixCls', 'stepFormRender', 'stepsFormRender', 'stepsProps', 'stepsRender', 'submitter'],
 })
 
 const ProStepsForm = _ProStepsForm as typeof _ProStepsForm & Plugin & {

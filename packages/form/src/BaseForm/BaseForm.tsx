@@ -1,9 +1,4 @@
-import type {
-  CommomProFieldProps,
-  FormItemProps,
-  ProFormInstanceType,
-  ProRequestData,
-} from '@antdv-next1/pro-utils'
+import type { CommomProFieldProps, FormItemProps, ProFormInstanceType, ProRequestData } from '@antdv-next1/pro-utils'
 import type { CustomSlotsType, VueNode } from '@v-c/util/dist/type'
 import type { FormInstance, FormProps } from 'antdv-next'
 import type { Dayjs } from 'dayjs'
@@ -13,6 +8,10 @@ import type { ContentRender } from '../RenderTypings'
 import type { FieldProps, ProFormGridConfig, WithFalse } from '../typing'
 import type { SubmitterProps } from './Submitter'
 import ProConfigProvider from '@antdv-next1/pro-provider'
+import {
+
+  useEffect,
+} from '@antdv-next1/pro-utils'
 import { ConfigProvider, useConfig } from 'antdv-next'
 
 import { defineComponent, shallowRef } from 'vue'
@@ -142,7 +141,7 @@ export type CommonFormProps<
   isKeyPressSubmit?: boolean
 
   /** 用于控制form 是否相同的key，高阶用法 */
-  formKey?: string
+  formKey?: string | number
 
   /**
    * @name autoFocusFirstInput 自动选中第一项
@@ -172,7 +171,8 @@ export type BaseFormProps<T extends Record<string, any>, U extends Record<string
   formComponentType?: 'DrawerForm' | 'ModalForm' | 'QueryFilter'
 } & Omit<FormProps, 'onFinish'>
 & CommonFormProps<T, U>
-
+/** 自动的formKey 防止重复 */
+let requestFormCacheId = 0
 const BaseForm = defineComponent(
   <T extends Record<string, any>, U extends Record<string, any>>(
     props: BaseFormProps<T, U>,
@@ -189,15 +189,29 @@ const BaseForm = defineComponent(
   ) => {
     const { componentSize } = useConfig()
     const formRef = shallowRef<ProFormRef<T> | null>(null)
+    useEffect(() => {
+      requestFormCacheId += 0
+    }, [])
     expose(useProFormInstanceExpose(formRef))
     return () => {
+      const {
+        syncToModel = true,
+        dateFormatter = 'string',
+        syncToUrlAsImportant = false,
+        formKey = requestFormCacheId,
+        ...rest
+      } = props
       return (
         <ConfigProvider componentSize={props.size || componentSize.value || 'middle'}>
           <ProConfigProvider needDeps>
             {/* // 增加国际化的能力，与 table 组件可以统一 */}
             <BaseFormComponents
               {...attrs}
-              {...props}
+              {...rest}
+              formKey={formKey}
+              syncToModel={syncToModel}
+              dateFormatter={dateFormatter}
+              syncToUrlAsImportant={syncToUrlAsImportant}
               ref={formRef}
               autoComplete="off"
               v-slots={slots}
@@ -212,6 +226,7 @@ const BaseForm = defineComponent(
     inheritAttrs: false,
     props: [
       'autoComplete',
+      'autocomplete',
       'autoFocusFirstInput',
       'classes',
       'clearOnDestroy',

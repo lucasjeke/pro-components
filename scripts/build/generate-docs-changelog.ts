@@ -89,16 +89,38 @@ const docsOutputMap = {
     title: '组件更新日志',
     description: '本页面由各子包 `CHANGELOG.md` 自动生成。发布前运行 `pnpm bump` 更新。',
     dateLabel: '发布日期',
-    summary: (note: ReleaseNote) =>
-      `本版本包含 ${countEntries(note)} 项更新，涉及 ${note.packages.map(name => `\`${name}\``).join('、')}。`,
+    highlightsTitle: '版本摘要 Highlights',
+    detailsTitle: '完整详情 Details',
+    detailsSummary: '展开依赖版本与完整详情',
+    remainingText: '更多更新见下方折叠详情。',
+    dependencyOnlyText: '更新内部依赖版本。',
+    summary: (note: ReleaseNote) => {
+      const total = countHighlightEntries(note)
+      const visible = countVisibleHighlights(note)
+      const packages = note.packages.map(name => `\`${name}\``).join('、')
+      if (total > visible)
+        return `本版本默认展示 ${visible} 条摘要，完整 ${total} 项更新见折叠详情，涉及 ${packages}。`
+      return `本版本包含 ${total} 项摘要更新，涉及 ${packages}。`
+    },
   },
   'en-US': {
     filename: 'changelog.en-US.md',
     title: 'Component Changelog',
     description: 'This page is generated from package `CHANGELOG.md` files. Run `pnpm bump` before publishing.',
     dateLabel: 'Release date',
-    summary: (note: ReleaseNote) =>
-      `This release includes ${countEntries(note)} changes across ${note.packages.map(name => `\`${name}\``).join(', ')}.`,
+    highlightsTitle: 'Highlights',
+    detailsTitle: 'Details',
+    detailsSummary: 'Show dependency versions',
+    remainingText: 'See folded details below for the remaining updates.',
+    dependencyOnlyText: 'Updated internal dependency versions.',
+    summary: (note: ReleaseNote) => {
+      const total = countHighlightEntries(note)
+      const visible = countVisibleHighlights(note)
+      const packages = note.packages.map(name => `\`${name}\``).join(', ')
+      if (total > visible)
+        return `This release shows ${visible} highlights from ${total} updates across ${packages}.`
+      return `This release includes ${total} highlights across ${packages}.`
+    },
   },
 } as const
 
@@ -111,8 +133,17 @@ function getToday() {
   return new Date().toISOString().slice(0, 10)
 }
 
-function countEntries(note: ReleaseNote) {
-  return categoryOrder.reduce((total, category) => total + note.categories[category].length, 0)
+function countHighlightEntries(note: ReleaseNote) {
+  return getHighlightEntries(note).length
+}
+
+function countVisibleHighlights(note: ReleaseNote) {
+  const highlightCount = countHighlightEntries(note)
+  if (highlightCount)
+    return Math.min(highlightCount, 4)
+  if (note.categories.dependencies.length)
+    return 1
+  return 0
 }
 
 function sortPackageNames(packageNames: Iterable<string>) {
@@ -445,6 +476,42 @@ function formatEntry(entry: ChangelogEntryWithPackage) {
   return lines.join('\n')
 }
 
+function getHighlightEntries(note: ReleaseNote) {
+  return categoryOrder
+    .filter(category => category !== 'dependencies')
+    .flatMap(category => note.categories[category])
+}
+
+function createVisibleHighlights(
+  note: ReleaseNote,
+  locale: keyof typeof docsOutputMap,
+) {
+  const meta = docsOutputMap[locale]
+  const highlightEntries = getHighlightEntries(note)
+  const visibleEntries = highlightEntries.slice(0, 4).map(formatEntry)
+
+  if (!visibleEntries.length && note.categories.dependencies.length)
+    visibleEntries.push(`- ${meta.dependencyOnlyText}`)
+
+  if (highlightEntries.length > visibleEntries.length)
+    visibleEntries.push(`- ${meta.remainingText}`)
+
+  return visibleEntries.join('\n')
+}
+
+function createCategorySections(
+  note: ReleaseNote,
+  locale: keyof typeof docsOutputMap,
+) {
+  return categoryOrder
+    .filter(category => note.categories[category].length)
+    .map((category) => {
+      const entries = note.categories[category].map(formatEntry).join('\n')
+      return `### ${categoryTitles[locale][category]}\n\n${entries}`
+    })
+    .join('\n\n')
+}
+
 export function createDocsChangelogContent(
   releaseNotes: ReleaseNote[],
   locale: keyof typeof docsOutputMap,
@@ -452,13 +519,8 @@ export function createDocsChangelogContent(
   const meta = docsOutputMap[locale]
   const sections = releaseNotes.map((note) => {
     const dateColon = locale === 'zh-CN' ? '：' : ':'
-    const categorySections = categoryOrder
-      .filter(category => note.categories[category].length)
-      .map((category) => {
-        const entries = note.categories[category].map(formatEntry).join('\n')
-        return `### ${categoryTitles[locale][category]}\n\n${entries}`
-      })
-      .join('\n\n')
+    const highlights = createVisibleHighlights(note, locale)
+    const categorySections = createCategorySections(note, locale)
 
     return [
       `## V${note.version}`,
@@ -467,7 +529,18 @@ export function createDocsChangelogContent(
       '',
       meta.summary(note),
       '',
+      `### ${meta.highlightsTitle}`,
+      '',
+      highlights,
+      '',
+      '<details>',
+      `<summary>${meta.detailsSummary}</summary>`,
+      '',
+      `### ${meta.detailsTitle}`,
+      '',
       categorySections,
+      '',
+      '</details>',
     ].join('\n')
   }).join('\n\n')
 

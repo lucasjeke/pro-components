@@ -10,7 +10,20 @@ title: Component Changelog
 
 **Release date:** 2026-07-09
 
-This release includes 11 changes across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-form`, `@antdv-next1/pro-table`, `@antdv-next1/pro-card`, `@antdv-next1/pro-field`, `@antdv-next1/pro-listy`, `@antdv-next1/pro-provider`, `@antdv-next1/pro-utils`, `@antdv-next1/route-utils`.
+This release shows 4 highlights from 10 updates across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-form`, `@antdv-next1/pro-table`, `@antdv-next1/pro-card`, `@antdv-next1/pro-field`, `@antdv-next1/pro-listy`, `@antdv-next1/pro-provider`, `@antdv-next1/pro-utils`, `@antdv-next1/route-utils`.
+
+### Highlights
+
+- **@antdv-next1/pro-layout**: add MultiTab layout support and update layout locales
+- **@antdv-next1/pro-table**: add resizable column title support
+- **@antdv-next1/pro-card**: fix card css-in-js styles
+- **@antdv-next1/pro-field**: fix field css-in-js styles
+- See folded details below for the remaining updates.
+
+<details>
+<summary>Show dependency versions</summary>
+
+### Details
 
 ### Features
 
@@ -44,11 +57,26 @@ This release includes 11 changes across `@antdv-next1/pro-components`, `@antdv-n
 
 - **@antdv-next1/pro-components**: prepare pro components publish
 
+</details>
+
 ## V1.0.27
 
 **Release date:** 2026-07-09
 
-This release includes 16 changes across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-form`, `@antdv-next1/pro-table`, `@antdv-next1/pro-card`, `@antdv-next1/pro-field`, `@antdv-next1/pro-listy`, `@antdv-next1/pro-utils`.
+This release shows 4 highlights from 15 updates across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-form`, `@antdv-next1/pro-table`, `@antdv-next1/pro-card`, `@antdv-next1/pro-field`, `@antdv-next1/pro-listy`, `@antdv-next1/pro-utils`.
+
+### Highlights
+
+- **@antdv-next1/pro-components**: fix bugs
+- **@antdv-next1/pro-card**: fix bugs
+- **@antdv-next1/pro-card**: fix css-in-js style Transition bugs
+- **@antdv-next1/pro-field**: fix bugs
+- See folded details below for the remaining updates.
+
+<details>
+<summary>Show dependency versions</summary>
+
+### Details
 
 ### Fixes
 
@@ -79,11 +107,22 @@ This release includes 16 changes across `@antdv-next1/pro-components`, `@antdv-n
   - @antdv-next1/pro-table@1.0.25
   - @antdv-next1/pro-utils@1.0.16
 
+</details>
+
 ## V1.0.26
 
 **Release date:** 2026-07-09
 
-This release includes 2 changes across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-form`, `@antdv-next1/pro-table`, `@antdv-next1/pro-listy`.
+This release includes 1 highlights across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-form`, `@antdv-next1/pro-table`, `@antdv-next1/pro-listy`.
+
+### Highlights
+
+- **@antdv-next1/pro-form**: fix form bugs
+
+<details>
+<summary>Show dependency versions</summary>
+
+### Details
 
 ### Fixes
 
@@ -97,11 +136,22 @@ This release includes 2 changes across `@antdv-next1/pro-components`, `@antdv-ne
   - @antdv-next1/pro-listy@1.0.14
   - @antdv-next1/pro-layout@1.0.21
 
+</details>
+
 ## V1.0.25
 
 **Release date:** 2026-07-09
 
-This release includes 2 changes across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-form`, `@antdv-next1/pro-table`, `@antdv-next1/pro-listy`.
+This release includes 1 highlights across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-form`, `@antdv-next1/pro-table`, `@antdv-next1/pro-listy`.
+
+### Highlights
+
+- **@antdv-next1/pro-form**: fix form bugs
+
+<details>
+<summary>Show dependency versions</summary>
+
+### Details
 
 ### Fixes
 
@@ -115,11 +165,22 @@ This release includes 2 changes across `@antdv-next1/pro-components`, `@antdv-ne
   - @antdv-next1/pro-listy@1.0.13
   - @antdv-next1/pro-layout@1.0.20
 
+</details>
+
 ## V1.0.24
 
 **Release date:** 2026-07-09
 
-This release includes 2 changes across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-form`, `@antdv-next1/pro-table`, `@antdv-next1/pro-listy`.
+This release includes 1 highlights across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-form`, `@antdv-next1/pro-table`, `@antdv-next1/pro-listy`.
+
+### Highlights
+
+- **@antdv-next1/pro-form**: fix form bugs
+
+<details>
+<summary>Show dependency versions</summary>
+
+### Details
 
 ### Fixes
 
@@ -133,11 +194,26 @@ This release includes 2 changes across `@antdv-next1/pro-components`, `@antdv-ne
   - @antdv-next1/pro-listy@1.0.12
   - @antdv-next1/pro-layout@1.0.19
 
+</details>
+
 ## V1.0.23
 
 **Release date:** 2026-07-09
 
-This release includes 9 changes across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-form`, `@antdv-next1/pro-table`, `@antdv-next1/pro-card`, `@antdv-next1/pro-field`, `@antdv-next1/pro-listy`, `@antdv-next1/pro-provider`, `@antdv-next1/pro-utils`, `@antdv-next1/route-utils`.
+This release shows 4 highlights from 8 updates across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-form`, `@antdv-next1/pro-table`, `@antdv-next1/pro-card`, `@antdv-next1/pro-field`, `@antdv-next1/pro-listy`, `@antdv-next1/pro-provider`, `@antdv-next1/pro-utils`, `@antdv-next1/route-utils`.
+
+### Highlights
+
+- **@antdv-next1/pro-card**: fix bugs
+- **@antdv-next1/pro-field**: fix bugs
+- **@antdv-next1/pro-form**: fix bugs
+- **@antdv-next1/pro-listy**: fix bugs
+- See folded details below for the remaining updates.
+
+<details>
+<summary>Show dependency versions</summary>
+
+### Details
 
 ### Fixes
 
@@ -163,11 +239,25 @@ This release includes 9 changes across `@antdv-next1/pro-components`, `@antdv-ne
   - @antdv-next1/pro-utils@1.0.15
   - @antdv-next1/pro-layout@1.0.18
 
+</details>
+
 ## V1.0.22
 
 **Release date:** 2026-07-09
 
-This release includes 5 changes across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-form`, `@antdv-next1/pro-table`, `@antdv-next1/pro-card`, `@antdv-next1/pro-listy`.
+This release includes 4 highlights across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-form`, `@antdv-next1/pro-table`, `@antdv-next1/pro-card`, `@antdv-next1/pro-listy`.
+
+### Highlights
+
+- **@antdv-next1/pro-card**: fix card listy form some bugs
+- **@antdv-next1/pro-form**: fix card listy form some bugs
+- **@antdv-next1/pro-listy**: fix card listy form some bugs
+- **@antdv-next1/pro-table**: fix card listy form some bugs
+
+<details>
+<summary>Show dependency versions</summary>
+
+### Details
 
 ### Fixes
 
@@ -185,11 +275,23 @@ This release includes 5 changes across `@antdv-next1/pro-components`, `@antdv-ne
   - @antdv-next1/pro-table@1.0.20
   - @antdv-next1/pro-layout@1.0.17
 
+</details>
+
 ## V1.0.21
 
 **Release date:** 2026-07-09
 
-This release includes 3 changes across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-table`, `@antdv-next1/pro-listy`.
+This release includes 2 highlights across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-table`, `@antdv-next1/pro-listy`.
+
+### Highlights
+
+- **@antdv-next1/pro-listy**: expose listy methods
+- **@antdv-next1/pro-table**: expose listy methods
+
+<details>
+<summary>Show dependency versions</summary>
+
+### Details
 
 ### Dependencies
 
@@ -203,11 +305,26 @@ This release includes 3 changes across `@antdv-next1/pro-components`, `@antdv-ne
 - **@antdv-next1/pro-listy**: expose listy methods
 - **@antdv-next1/pro-table**: expose listy methods
 
+</details>
+
 ## V1.0.20
 
 **Release date:** 2026-07-09
 
-This release includes 9 changes across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-form`, `@antdv-next1/pro-table`, `@antdv-next1/pro-card`, `@antdv-next1/pro-field`, `@antdv-next1/pro-listy`, `@antdv-next1/pro-provider`, `@antdv-next1/pro-utils`.
+This release shows 4 highlights from 8 updates across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-form`, `@antdv-next1/pro-table`, `@antdv-next1/pro-card`, `@antdv-next1/pro-field`, `@antdv-next1/pro-listy`, `@antdv-next1/pro-provider`, `@antdv-next1/pro-utils`.
+
+### Highlights
+
+- **@antdv-next1/pro-provider**: create listy card mode
+- **@antdv-next1/pro-layout**: create listy card mode
+- **@antdv-next1/pro-listy**: create listy card mode
+- **@antdv-next1/pro-utils**: create listy card mode
+- See folded details below for the remaining updates.
+
+<details>
+<summary>Show dependency versions</summary>
+
+### Details
 
 ### Features
 
@@ -232,11 +349,25 @@ This release includes 9 changes across `@antdv-next1/pro-components`, `@antdv-ne
   - @antdv-next1/pro-field@1.0.12
   - @antdv-next1/pro-table@1.0.18
 
+</details>
+
 ## V1.0.19
 
 **Release date:** 2026-07-09
 
-This release includes 5 changes across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-form`, `@antdv-next1/pro-table`, `@antdv-next1/pro-card`, `@antdv-next1/pro-field`, `@antdv-next1/pro-listy`, `@antdv-next1/pro-provider`, `@antdv-next1/pro-utils`.
+This release includes 4 highlights across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-form`, `@antdv-next1/pro-table`, `@antdv-next1/pro-card`, `@antdv-next1/pro-field`, `@antdv-next1/pro-listy`, `@antdv-next1/pro-provider`, `@antdv-next1/pro-utils`.
+
+### Highlights
+
+- **@antdv-next1/pro-components**: change version
+- **@antdv-next1/pro-card**: change version
+- **@antdv-next1/pro-provider**: change version
+- **@antdv-next1/pro-utils**: change version
+
+<details>
+<summary>Show dependency versions</summary>
+
+### Details
 
 ### Dependencies
 
@@ -257,11 +388,24 @@ This release includes 5 changes across `@antdv-next1/pro-components`, `@antdv-ne
 - **@antdv-next1/pro-provider**: change version
 - **@antdv-next1/pro-utils**: change version
 
+</details>
+
 ## V1.0.18
 
 **Release date:** 2026-07-09
 
-This release includes 4 changes across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-form`, `@antdv-next1/pro-table`, `@antdv-next1/pro-card`, `@antdv-next1/pro-field`, `@antdv-next1/pro-listy`, `@antdv-next1/pro-provider`, `@antdv-next1/pro-utils`.
+This release includes 3 highlights across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-form`, `@antdv-next1/pro-table`, `@antdv-next1/pro-card`, `@antdv-next1/pro-field`, `@antdv-next1/pro-listy`, `@antdv-next1/pro-provider`, `@antdv-next1/pro-utils`.
+
+### Highlights
+
+- **@antdv-next1/pro-layout**: fix layout bugs and listy
+- **@antdv-next1/pro-listy**: fix layout bugs and listy
+- **@antdv-next1/pro-provider**: fix layout bugs and listy
+
+<details>
+<summary>Show dependency versions</summary>
+
+### Details
 
 ### Fixes
 
@@ -281,11 +425,26 @@ This release includes 4 changes across `@antdv-next1/pro-components`, `@antdv-ne
   - @antdv-next1/pro-table@1.0.16
   - @antdv-next1/pro-utils@1.0.12
 
+</details>
+
 ## V1.0.17
 
 **Release date:** 2026-07-09
 
-This release includes 10 changes across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-form`, `@antdv-next1/pro-table`, `@antdv-next1/pro-card`, `@antdv-next1/pro-field`, `@antdv-next1/pro-listy`, `@antdv-next1/pro-provider`, `@antdv-next1/pro-utils`.
+This release shows 4 highlights from 9 updates across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-form`, `@antdv-next1/pro-table`, `@antdv-next1/pro-card`, `@antdv-next1/pro-field`, `@antdv-next1/pro-listy`, `@antdv-next1/pro-provider`, `@antdv-next1/pro-utils`.
+
+### Highlights
+
+- **@antdv-next1/pro-components**: fix ProForm bugs
+- **@antdv-next1/pro-provider**: fix ProForm bugs
+- **@antdv-next1/pro-layout**: fix ProForm bugs
+- **@antdv-next1/pro-field**: fix ProForm bugs
+- See folded details below for the remaining updates.
+
+<details>
+<summary>Show dependency versions</summary>
+
+### Details
 
 ### Fixes
 
@@ -310,3 +469,5 @@ This release includes 10 changes across `@antdv-next1/pro-components`, `@antdv-n
   - @antdv-next1/pro-utils@1.0.11
   - @antdv-next1/pro-card@2.0.8
   - @antdv-next1/pro-form@1.0.12
+
+</details>

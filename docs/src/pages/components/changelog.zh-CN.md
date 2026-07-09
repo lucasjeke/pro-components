@@ -10,7 +10,20 @@ title: 组件更新日志
 
 **发布日期：** 2026-07-09
 
-本版本包含 11 项更新，涉及 `@antdv-next1/pro-components`、`@antdv-next1/pro-layout`、`@antdv-next1/pro-form`、`@antdv-next1/pro-table`、`@antdv-next1/pro-card`、`@antdv-next1/pro-field`、`@antdv-next1/pro-listy`、`@antdv-next1/pro-provider`、`@antdv-next1/pro-utils`、`@antdv-next1/route-utils`。
+本版本默认展示 4 条摘要，完整 10 项更新见折叠详情，涉及 `@antdv-next1/pro-components`、`@antdv-next1/pro-layout`、`@antdv-next1/pro-form`、`@antdv-next1/pro-table`、`@antdv-next1/pro-card`、`@antdv-next1/pro-field`、`@antdv-next1/pro-listy`、`@antdv-next1/pro-provider`、`@antdv-next1/pro-utils`、`@antdv-next1/route-utils`。
+
+### 版本摘要 Highlights
+
+- **@antdv-next1/pro-layout**: add MultiTab layout support and update layout locales
+- **@antdv-next1/pro-table**: add resizable column title support
+- **@antdv-next1/pro-card**: fix card css-in-js styles
+- **@antdv-next1/pro-field**: fix field css-in-js styles
+- 更多更新见下方折叠详情。
+
+<details>
+<summary>展开依赖版本与完整详情</summary>
+
+### 完整详情 Details
 
 ### 新特性 Features
 
@@ -44,11 +57,26 @@ title: 组件更新日志
 
 - **@antdv-next1/pro-components**: prepare pro components publish
 
+</details>
+
 ## V1.0.27
 
 **发布日期：** 2026-07-09
 
-本版本包含 16 项更新，涉及 `@antdv-next1/pro-components`、`@antdv-next1/pro-layout`、`@antdv-next1/pro-form`、`@antdv-next1/pro-table`、`@antdv-next1/pro-card`、`@antdv-next1/pro-field`、`@antdv-next1/pro-listy`、`@antdv-next1/pro-utils`。
+本版本默认展示 4 条摘要，完整 15 项更新见折叠详情，涉及 `@antdv-next1/pro-components`、`@antdv-next1/pro-layout`、`@antdv-next1/pro-form`、`@antdv-next1/pro-table`、`@antdv-next1/pro-card`、`@antdv-next1/pro-field`、`@antdv-next1/pro-listy`、`@antdv-next1/pro-utils`。
+
+### 版本摘要 Highlights
+
+- **@antdv-next1/pro-components**: fix bugs
+- **@antdv-next1/pro-card**: fix bugs
+- **@antdv-next1/pro-card**: fix css-in-js style Transition bugs
+- **@antdv-next1/pro-field**: fix bugs
+- 更多更新见下方折叠详情。
+
+<details>
+<summary>展开依赖版本与完整详情</summary>
+
+### 完整详情 Details
 
 ### 问题修复 Fixes
 
@@ -79,11 +107,22 @@ title: 组件更新日志
   - @antdv-next1/pro-table@1.0.25
   - @antdv-next1/pro-utils@1.0.16
 
+</details>
+
 ## V1.0.26
 
 **发布日期：** 2026-07-09
 
-本版本包含 2 项更新，涉及 `@antdv-next1/pro-components`、`@antdv-next1/pro-layout`、`@antdv-next1/pro-form`、`@antdv-next1/pro-table`、`@antdv-next1/pro-listy`。
+本版本包含 1 项摘要更新，涉及 `@antdv-next1/pro-components`、`@antdv-next1/pro-layout`、`@antdv-next1/pro-form`、`@antdv-next1/pro-table`、`@antdv-next1/pro-listy`。
+
+### 版本摘要 Highlights
+
+- **@antdv-next1/pro-form**: fix form bugs
+
+<details>
+<summary>展开依赖版本与完整详情</summary>
+
+### 完整详情 Details
 
 ### 问题修复 Fixes
 
@@ -97,11 +136,22 @@ title: 组件更新日志
   - @antdv-next1/pro-listy@1.0.14
   - @antdv-next1/pro-layout@1.0.21
 
+</details>
+
 ## V1.0.25
 
 **发布日期：** 2026-07-09
 
-本版本包含 2 项更新，涉及 `@antdv-next1/pro-components`、`@antdv-next1/pro-layout`、`@antdv-next1/pro-form`、`@antdv-next1/pro-table`、`@antdv-next1/pro-listy`。
+本版本包含 1 项摘要更新，涉及 `@antdv-next1/pro-components`、`@antdv-next1/pro-layout`、`@antdv-next1/pro-form`、`@antdv-next1/pro-table`、`@antdv-next1/pro-listy`。
+
+### 版本摘要 Highlights
+
+- **@antdv-next1/pro-form**: fix form bugs
+
+<details>
+<summary>展开依赖版本与完整详情</summary>
+
+### 完整详情 Details
 
 ### 问题修复 Fixes
 
@@ -115,11 +165,22 @@ title: 组件更新日志
   - @antdv-next1/pro-listy@1.0.13
   - @antdv-next1/pro-layout@1.0.20
 
+</details>
+
 ## V1.0.24
 
 **发布日期：** 2026-07-09
 
-本版本包含 2 项更新，涉及 `@antdv-next1/pro-components`、`@antdv-next1/pro-layout`、`@antdv-next1/pro-form`、`@antdv-next1/pro-table`、`@antdv-next1/pro-listy`。
+本版本包含 1 项摘要更新，涉及 `@antdv-next1/pro-components`、`@antdv-next1/pro-layout`、`@antdv-next1/pro-form`、`@antdv-next1/pro-table`、`@antdv-next1/pro-listy`。
+
+### 版本摘要 Highlights
+
+- **@antdv-next1/pro-form**: fix form bugs
+
+<details>
+<summary>展开依赖版本与完整详情</summary>
+
+### 完整详情 Details
 
 ### 问题修复 Fixes
 
@@ -133,11 +194,26 @@ title: 组件更新日志
   - @antdv-next1/pro-listy@1.0.12
   - @antdv-next1/pro-layout@1.0.19
 
+</details>
+
 ## V1.0.23
 
 **发布日期：** 2026-07-09
 
-本版本包含 9 项更新，涉及 `@antdv-next1/pro-components`、`@antdv-next1/pro-layout`、`@antdv-next1/pro-form`、`@antdv-next1/pro-table`、`@antdv-next1/pro-card`、`@antdv-next1/pro-field`、`@antdv-next1/pro-listy`、`@antdv-next1/pro-provider`、`@antdv-next1/pro-utils`、`@antdv-next1/route-utils`。
+本版本默认展示 4 条摘要，完整 8 项更新见折叠详情，涉及 `@antdv-next1/pro-components`、`@antdv-next1/pro-layout`、`@antdv-next1/pro-form`、`@antdv-next1/pro-table`、`@antdv-next1/pro-card`、`@antdv-next1/pro-field`、`@antdv-next1/pro-listy`、`@antdv-next1/pro-provider`、`@antdv-next1/pro-utils`、`@antdv-next1/route-utils`。
+
+### 版本摘要 Highlights
+
+- **@antdv-next1/pro-card**: fix bugs
+- **@antdv-next1/pro-field**: fix bugs
+- **@antdv-next1/pro-form**: fix bugs
+- **@antdv-next1/pro-listy**: fix bugs
+- 更多更新见下方折叠详情。
+
+<details>
+<summary>展开依赖版本与完整详情</summary>
+
+### 完整详情 Details
 
 ### 问题修复 Fixes
 
@@ -163,11 +239,25 @@ title: 组件更新日志
   - @antdv-next1/pro-utils@1.0.15
   - @antdv-next1/pro-layout@1.0.18
 
+</details>
+
 ## V1.0.22
 
 **发布日期：** 2026-07-09
 
-本版本包含 5 项更新，涉及 `@antdv-next1/pro-components`、`@antdv-next1/pro-layout`、`@antdv-next1/pro-form`、`@antdv-next1/pro-table`、`@antdv-next1/pro-card`、`@antdv-next1/pro-listy`。
+本版本包含 4 项摘要更新，涉及 `@antdv-next1/pro-components`、`@antdv-next1/pro-layout`、`@antdv-next1/pro-form`、`@antdv-next1/pro-table`、`@antdv-next1/pro-card`、`@antdv-next1/pro-listy`。
+
+### 版本摘要 Highlights
+
+- **@antdv-next1/pro-card**: fix card listy form some bugs
+- **@antdv-next1/pro-form**: fix card listy form some bugs
+- **@antdv-next1/pro-listy**: fix card listy form some bugs
+- **@antdv-next1/pro-table**: fix card listy form some bugs
+
+<details>
+<summary>展开依赖版本与完整详情</summary>
+
+### 完整详情 Details
 
 ### 问题修复 Fixes
 
@@ -185,11 +275,23 @@ title: 组件更新日志
   - @antdv-next1/pro-table@1.0.20
   - @antdv-next1/pro-layout@1.0.17
 
+</details>
+
 ## V1.0.21
 
 **发布日期：** 2026-07-09
 
-本版本包含 3 项更新，涉及 `@antdv-next1/pro-components`、`@antdv-next1/pro-layout`、`@antdv-next1/pro-table`、`@antdv-next1/pro-listy`。
+本版本包含 2 项摘要更新，涉及 `@antdv-next1/pro-components`、`@antdv-next1/pro-layout`、`@antdv-next1/pro-table`、`@antdv-next1/pro-listy`。
+
+### 版本摘要 Highlights
+
+- **@antdv-next1/pro-listy**: expose listy methods
+- **@antdv-next1/pro-table**: expose listy methods
+
+<details>
+<summary>展开依赖版本与完整详情</summary>
+
+### 完整详情 Details
 
 ### 依赖更新 Dependencies
 
@@ -203,11 +305,26 @@ title: 组件更新日志
 - **@antdv-next1/pro-listy**: expose listy methods
 - **@antdv-next1/pro-table**: expose listy methods
 
+</details>
+
 ## V1.0.20
 
 **发布日期：** 2026-07-09
 
-本版本包含 9 项更新，涉及 `@antdv-next1/pro-components`、`@antdv-next1/pro-layout`、`@antdv-next1/pro-form`、`@antdv-next1/pro-table`、`@antdv-next1/pro-card`、`@antdv-next1/pro-field`、`@antdv-next1/pro-listy`、`@antdv-next1/pro-provider`、`@antdv-next1/pro-utils`。
+本版本默认展示 4 条摘要，完整 8 项更新见折叠详情，涉及 `@antdv-next1/pro-components`、`@antdv-next1/pro-layout`、`@antdv-next1/pro-form`、`@antdv-next1/pro-table`、`@antdv-next1/pro-card`、`@antdv-next1/pro-field`、`@antdv-next1/pro-listy`、`@antdv-next1/pro-provider`、`@antdv-next1/pro-utils`。
+
+### 版本摘要 Highlights
+
+- **@antdv-next1/pro-provider**: create listy card mode
+- **@antdv-next1/pro-layout**: create listy card mode
+- **@antdv-next1/pro-listy**: create listy card mode
+- **@antdv-next1/pro-utils**: create listy card mode
+- 更多更新见下方折叠详情。
+
+<details>
+<summary>展开依赖版本与完整详情</summary>
+
+### 完整详情 Details
 
 ### 新特性 Features
 
@@ -232,11 +349,25 @@ title: 组件更新日志
   - @antdv-next1/pro-field@1.0.12
   - @antdv-next1/pro-table@1.0.18
 
+</details>
+
 ## V1.0.19
 
 **发布日期：** 2026-07-09
 
-本版本包含 5 项更新，涉及 `@antdv-next1/pro-components`、`@antdv-next1/pro-layout`、`@antdv-next1/pro-form`、`@antdv-next1/pro-table`、`@antdv-next1/pro-card`、`@antdv-next1/pro-field`、`@antdv-next1/pro-listy`、`@antdv-next1/pro-provider`、`@antdv-next1/pro-utils`。
+本版本包含 4 项摘要更新，涉及 `@antdv-next1/pro-components`、`@antdv-next1/pro-layout`、`@antdv-next1/pro-form`、`@antdv-next1/pro-table`、`@antdv-next1/pro-card`、`@antdv-next1/pro-field`、`@antdv-next1/pro-listy`、`@antdv-next1/pro-provider`、`@antdv-next1/pro-utils`。
+
+### 版本摘要 Highlights
+
+- **@antdv-next1/pro-components**: change version
+- **@antdv-next1/pro-card**: change version
+- **@antdv-next1/pro-provider**: change version
+- **@antdv-next1/pro-utils**: change version
+
+<details>
+<summary>展开依赖版本与完整详情</summary>
+
+### 完整详情 Details
 
 ### 依赖更新 Dependencies
 
@@ -257,11 +388,24 @@ title: 组件更新日志
 - **@antdv-next1/pro-provider**: change version
 - **@antdv-next1/pro-utils**: change version
 
+</details>
+
 ## V1.0.18
 
 **发布日期：** 2026-07-09
 
-本版本包含 4 项更新，涉及 `@antdv-next1/pro-components`、`@antdv-next1/pro-layout`、`@antdv-next1/pro-form`、`@antdv-next1/pro-table`、`@antdv-next1/pro-card`、`@antdv-next1/pro-field`、`@antdv-next1/pro-listy`、`@antdv-next1/pro-provider`、`@antdv-next1/pro-utils`。
+本版本包含 3 项摘要更新，涉及 `@antdv-next1/pro-components`、`@antdv-next1/pro-layout`、`@antdv-next1/pro-form`、`@antdv-next1/pro-table`、`@antdv-next1/pro-card`、`@antdv-next1/pro-field`、`@antdv-next1/pro-listy`、`@antdv-next1/pro-provider`、`@antdv-next1/pro-utils`。
+
+### 版本摘要 Highlights
+
+- **@antdv-next1/pro-layout**: fix layout bugs and listy
+- **@antdv-next1/pro-listy**: fix layout bugs and listy
+- **@antdv-next1/pro-provider**: fix layout bugs and listy
+
+<details>
+<summary>展开依赖版本与完整详情</summary>
+
+### 完整详情 Details
 
 ### 问题修复 Fixes
 
@@ -281,11 +425,26 @@ title: 组件更新日志
   - @antdv-next1/pro-table@1.0.16
   - @antdv-next1/pro-utils@1.0.12
 
+</details>
+
 ## V1.0.17
 
 **发布日期：** 2026-07-09
 
-本版本包含 10 项更新，涉及 `@antdv-next1/pro-components`、`@antdv-next1/pro-layout`、`@antdv-next1/pro-form`、`@antdv-next1/pro-table`、`@antdv-next1/pro-card`、`@antdv-next1/pro-field`、`@antdv-next1/pro-listy`、`@antdv-next1/pro-provider`、`@antdv-next1/pro-utils`。
+本版本默认展示 4 条摘要，完整 9 项更新见折叠详情，涉及 `@antdv-next1/pro-components`、`@antdv-next1/pro-layout`、`@antdv-next1/pro-form`、`@antdv-next1/pro-table`、`@antdv-next1/pro-card`、`@antdv-next1/pro-field`、`@antdv-next1/pro-listy`、`@antdv-next1/pro-provider`、`@antdv-next1/pro-utils`。
+
+### 版本摘要 Highlights
+
+- **@antdv-next1/pro-components**: fix ProForm bugs
+- **@antdv-next1/pro-provider**: fix ProForm bugs
+- **@antdv-next1/pro-layout**: fix ProForm bugs
+- **@antdv-next1/pro-field**: fix ProForm bugs
+- 更多更新见下方折叠详情。
+
+<details>
+<summary>展开依赖版本与完整详情</summary>
+
+### 完整详情 Details
 
 ### 问题修复 Fixes
 
@@ -310,3 +469,5 @@ title: 组件更新日志
   - @antdv-next1/pro-utils@1.0.11
   - @antdv-next1/pro-card@2.0.8
   - @antdv-next1/pro-form@1.0.12
+
+</details>

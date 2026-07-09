@@ -8,7 +8,7 @@ import { useConfig } from 'antdv-next/dist/config-provider/context'
 import { computed, defineComponent } from 'vue'
 import ProCard from '../../ProCard'
 import Statistic from '../Statistic'
-import { useStyle } from './style'
+import useStyle from './style'
 
 export type StatisticCardProps = ProCardProps & {
   /** 图表配置 */
@@ -33,7 +33,7 @@ const _StatisticCard = defineComponent<
     const config = useConfig()
     const prefixCls = computed(() => props.prefixCls || config.value.getPrefixCls('pro'))
     const baseClassName = computed(() => `${prefixCls.value}-statistic-card`)
-    const { wrapSSR, hashId } = useStyle(baseClassName)
+    const [hashId, cssVarCls] = useStyle(baseClassName)
     return () => {
       const {
         statistic,
@@ -46,7 +46,7 @@ const _StatisticCard = defineComponent<
       const statisticDom = statistic && <Statistic layout="vertical" {...statistic} />
       const chartDom = chart && (
         <div
-          class={classNames(`${baseClassName.value}-chart`, hashId.value, {
+          class={classNames(`${baseClassName.value}-chart`, hashId.value, cssVarCls.value, {
             [`${baseClassName.value}-chart-left`]: chartPlacement === 'left' && chart && statistic,
             [`${baseClassName.value}-chart-right`]:
               chartPlacement === 'right' && chart && statistic,
@@ -55,7 +55,7 @@ const _StatisticCard = defineComponent<
           {chart}
         </div>
       )
-      const contentCls = classNames(`${baseClassName.value}-content `, hashId.value, {
+      const contentCls = classNames(`${baseClassName.value}-content `, hashId.value, cssVarCls.value, {
         [`${baseClassName.value}-content-horizontal`]:
           chartPlacement === 'left' || chartPlacement === 'right',
       })
@@ -73,20 +73,20 @@ const _StatisticCard = defineComponent<
               {chartDom}
             </div>
           ))
-      return wrapSSR(
+      return (
         <>
           <ProCard
             style={attrs.style}
-            class={classNames(baseClassName.value, attrs.class, hashId.value)}
+            class={classNames(baseClassName.value, attrs.class, hashId.value, cssVarCls.value)}
             {...restProps}
           >
             {contentDom}
             {slots.default?.()}
             {footer && (
-              <div class={classNames(`${baseClassName.value}-footer`, hashId.value)}>{footer}</div>
+              <div class={classNames(`${baseClassName.value}-footer`, hashId.value, cssVarCls.value)}>{footer}</div>
             )}
           </ProCard>
-        </>,
+        </>
       )
     }
   },

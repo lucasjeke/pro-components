@@ -1,25 +1,24 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
-import type { ComputedRef } from 'vue'
-import { useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
+import { useStyle } from '@antdv-next1/pro-provider'
+import { mergeToken } from '@antdv-next/cssinjs'
 
-export interface ProToken extends ProAliasToken {
-  componentCls: string
+export interface ProIndexColumnToken extends ProAliasCssVarToken {
 }
 
-const genProStyle: GenerateStyle<ProToken> = (token) => {
+const genProStyle: GenerateStyle<ProIndexColumnToken> = (token) => {
   return {
     [token.componentCls]: {
       display: 'inline-flex',
       alignItems: 'center',
       justifyContent: 'center',
-      width: '18px',
-      height: '18px',
+      width: 18,
+      height: 18,
       '&-border': {
         color: '#fff',
-        fontSize: '12px',
+        fontSize: 12,
         lineHeight: '12px',
         backgroundColor: '#314659',
-        borderRadius: '9px',
+        borderRadius: 9,
         '&.top-three': {
           backgroundColor: '#979797',
         },
@@ -28,13 +27,8 @@ const genProStyle: GenerateStyle<ProToken> = (token) => {
   }
 }
 
-export function useStyle(prefixCls: ComputedRef<string>) {
-  return useAntdStyle('IndexColumn', (token) => {
-    const proToken: ProToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
-    }
+export default useStyle('IndexColumn', (token) => {
+  const proIndexColumnToken = mergeToken<ProIndexColumnToken>(token, {})
 
-    return [genProStyle(proToken)]
-  })
-}
+  return [genProStyle(proIndexColumnToken)]
+})

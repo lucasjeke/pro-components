@@ -1,10 +1,9 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
 import type { CSSObject } from '@antdv-next/cssinjs'
-import type { ComputedRef } from 'vue'
-import { operationUnit, resetComponent, useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
+import { operationUnit, resetComponent, useStyle } from '@antdv-next1/pro-provider'
+import { mergeToken } from '@antdv-next/cssinjs'
 
-export interface PageHeaderToken extends ProAliasToken {
-  componentCls: string
+export interface PageHeaderToken extends ProAliasCssVarToken {
   pageHeaderPadding: number
   pageHeaderPaddingVertical: number
   pageHeaderBgGhost: string
@@ -28,13 +27,13 @@ const genPageHeaderStyle: GenerateStyle<PageHeaderToken> = (token) => {
       ...resetComponent?.(token),
       position: 'relative',
       backgroundColor: token.colorBgContainer,
-      paddingBlock: token.pageHeaderPaddingVertical + 2,
+      paddingBlock: token.calc(token.pageHeaderPaddingVertical).add(2).equal(),
       paddingInline: token.pageHeaderPadding,
       '&&-ghost': {
         backgroundColor: token.pageHeaderBgGhost,
       },
       '&-no-children': {
-        height: token.layout?.pageContainer?.paddingBlockPageContainerContent,
+        height: token.proLayoutPageContainerPaddingBlockPageContainerContent,
       },
       '&&-has-breadcrumb': {
         paddingBlockStart: token.pageHeaderPaddingBreadCrumb,
@@ -73,7 +72,7 @@ const genPageHeaderStyle: GenerateStyle<PageHeaderToken> = (token) => {
         '&-left': {
           display: 'flex',
           alignItems: 'center',
-          marginBlock: token.marginXS / 2,
+          marginBlock: token.calc(token.marginXS).div(2).equal(),
           marginInlineEnd: 0,
           marginInlineStart: 0,
           overflow: 'hidden',
@@ -84,7 +83,7 @@ const genPageHeaderStyle: GenerateStyle<PageHeaderToken> = (token) => {
           color: token.colorTextHeading,
           fontWeight: 600,
           fontSize: token.pageHeaderFontSizeHeaderTitle,
-          lineHeight: `${token.controlHeight}px`,
+          lineHeight: token.controlHeight,
           ...textOverflowEllipsis(),
           [`${token.componentCls}-rlt &`]: {
             marginInlineEnd: 0,
@@ -161,20 +160,17 @@ const genPageHeaderStyle: GenerateStyle<PageHeaderToken> = (token) => {
   }
 }
 
-export function useStyle(prefixCls: ComputedRef<string>) {
-  return useAntdStyle('ProLayoutPageHeader', (token) => {
-    const pageHeaderToken: PageHeaderToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
-      pageHeaderBgGhost: 'transparent',
-      pageHeaderPadding: token.paddingLG,
-      pageHeaderPaddingVertical: token.paddingMD,
-      pageHeaderPaddingBreadCrumb: token.paddingSM,
-      pageHeaderColorBack: token.colorTextHeading,
-      pageHeaderFontSizeHeaderTitle: token.fontSizeHeading4,
-      pageHeaderFontSizeHeaderSubTitle: 14,
-      pageHeaderPaddingContentPadding: token.paddingSM,
-    }
-    return [genPageHeaderStyle(pageHeaderToken)]
+export default useStyle('ProPageHeader', (token) => {
+  const pageHeaderToken = mergeToken<PageHeaderToken>(token, {
+    pageHeaderBgGhost: 'transparent',
+    pageHeaderPadding: token.paddingLG,
+    pageHeaderPaddingVertical: token.paddingMD,
+    pageHeaderPaddingBreadCrumb: token.paddingSM,
+    pageHeaderColorBack: token.colorTextHeading,
+    pageHeaderFontSizeHeaderTitle: token.fontSizeHeading4,
+    pageHeaderFontSizeHeaderSubTitle: 14,
+    pageHeaderPaddingContentPadding: token.paddingSM,
   })
-}
+
+  return [genPageHeaderStyle(pageHeaderToken)]
+})

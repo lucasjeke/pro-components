@@ -10,7 +10,7 @@ import { classNames } from '@v-c/util'
 import { useConfig } from 'antdv-next/dist/config-provider/context'
 import { computed, defineComponent, shallowRef } from 'vue'
 import ListView from './ListView'
-import { useStyle } from './style'
+import useStyle from './style'
 
 /** 根据 listSlot 推导默认的 valueType */
 const DEFAULT_VALUE_TYPE_MAP: Record<string, ProFieldValueType> = {
@@ -50,7 +50,7 @@ const InternalProListy = defineComponent(
     const tableRef = shallowRef<ProTableInstance<RecordType> | null>(null)
     const prefixCls = computed(() => props.prefixCls || config.value.getPrefixCls('pro'))
     const baseClassName = computed(() => `${prefixCls.value}-listy`)
-    const { wrapSSR, hashId } = useStyle(baseClassName)
+    const [hashId, cssVarCls] = useStyle(baseClassName)
     /**
      * - 如果传入了 columns（且含有 listSlot），直接使用 columns
      */
@@ -91,7 +91,7 @@ const InternalProListy = defineComponent(
         size: propsSize,
         ...rest
       } = props
-      return wrapSSR(
+      return (
         <ProTable
           ref={tableRef}
           {...rest}
@@ -102,7 +102,7 @@ const InternalProListy = defineComponent(
           rowSelection={propRowSelection}
           search={search}
           options={options}
-          class={classNames(baseClassName.value, attrs.class, hashId.value, {
+          class={classNames(baseClassName.value, attrs.class, hashId.value, cssVarCls.value, {
             [`${baseClassName.value}-no-split`]: !split,
             [`${baseClassName.value}-${variant}`]: variant,
           })}
@@ -115,7 +115,7 @@ const InternalProListy = defineComponent(
               grid={grid}
               itemRender={itemRender!}
               prefixCls={baseClassName.value}
-              class={classNames(`${baseClassName.value}-container`, hashId.value)}
+              class={classNames(`${baseClassName.value}-container`, hashId.value, cssVarCls.value)}
               itemLayout={itemLayout}
               itemHeight={itemHeight}
               sticky={sticky}
@@ -145,7 +145,7 @@ const InternalProListy = defineComponent(
             />
           )}
           v-slots={slots}
-        />,
+        />
       )
     }
   },

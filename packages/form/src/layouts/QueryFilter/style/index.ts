@@ -1,9 +1,8 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
-import type { ComputedRef } from 'vue'
-import { useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
+import { useStyle } from '@antdv-next1/pro-provider'
+import { mergeToken, unit } from '@antdv-next/cssinjs'
 
-export interface ProQueryFilterToken extends ProAliasToken {
-  componentCls: string
+export interface ProQueryFilterToken extends ProAliasCssVarToken {
 }
 
 const genProQueryFilterStyle: GenerateStyle<ProQueryFilterToken> = (token) => {
@@ -37,7 +36,7 @@ const genProQueryFilterStyle: GenerateStyle<ProQueryFilterToken> = (token) => {
             content: '""',
             height: 1,
             insetBlockEnd: -12,
-            borderBlockEnd: `1px dashed ${token.colorSplit}`,
+            borderBlockEnd: `${unit(token.lineWidth)} dashed ${token.colorSplit}`,
           },
         },
       },
@@ -50,13 +49,7 @@ const genProQueryFilterStyle: GenerateStyle<ProQueryFilterToken> = (token) => {
   }
 }
 
-export function useStyle(prefixCls: ComputedRef<string>) {
-  return useAntdStyle('ProQueryFilter', (token) => {
-    const proQueryFilterToken: ProQueryFilterToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
-    }
-
-    return [genProQueryFilterStyle(proQueryFilterToken)]
-  })
-}
+export default useStyle('ProQueryFilter', (token) => {
+  const proQueryFilterToken = mergeToken<ProQueryFilterToken>(token, {})
+  return [genProQueryFilterStyle(proQueryFilterToken)]
+})

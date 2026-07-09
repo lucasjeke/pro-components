@@ -1,12 +1,12 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
-import type { ComputedRef } from 'vue'
-import { useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
+import { useStyle } from '@antdv-next1/pro-provider'
+import { mergeToken } from '@antdv-next/cssinjs'
 
-export interface ProToken extends ProAliasToken {
+export interface ProLightSelectToken extends ProAliasCssVarToken {
   componentCls: string
 }
 
-const genProStyle: GenerateStyle<ProToken> = (token) => {
+const genProLightSelectStyle: GenerateStyle<ProLightSelectToken> = (token) => {
   return {
     [token.componentCls]: {
       [`${token.antCls}-select`]: {
@@ -31,13 +31,7 @@ const genProStyle: GenerateStyle<ProToken> = (token) => {
   }
 }
 
-export function useStyle(prefixCls: ComputedRef<string>) {
-  return useAntdStyle('LightSelect', (token) => {
-    const proToken: ProToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
-    }
-
-    return [genProStyle(proToken)]
-  })
-}
+export default useStyle('LightSelect', (token) => {
+  const proLightSelectToken = mergeToken<ProLightSelectToken>(token, {})
+  return [genProLightSelectStyle(proLightSelectToken)]
+})

@@ -4,13 +4,28 @@ const zhHK: ProLocale = {
   moneySymbol: 'HK$',
   deleteThisLine: '刪除此項',
   copyThisLine: '複製此項',
-  emptyListValidateMessage: '列表不能为空',
+  sortUpThisLine: '向上排序',
+  sortDownThisLine: '向下排序',
+  emptyListValidateMessage: '列表不能為空',
   form: {
     lightFilter: {
       more: '更多篩選',
       clear: '清除',
       confirm: '確認',
       itemUnit: '項',
+    },
+    captcha: {
+      getCaptcha: '取得驗證碼',
+      resendAfter: '秒後重新取得',
+    },
+    upload: {
+      buttonText: '按一下上傳',
+      draggerTitle: '按一下或拖曳檔案到此區域以上傳',
+      draggerDescription: '支援單次或批量上傳',
+    },
+    modal: {
+      okText: '確認',
+      cancelText: '取消',
     },
   },
   tableForm: {
@@ -62,6 +77,8 @@ const zhHK: ProLocale = {
     submitText: '登入',
   },
   editableTable: {
+    defaultFieldLabel: '此項',
+    defaultFieldType: '文字',
     onlyOneLineEditor: '只能同時編輯一行',
     onlyAddOneLine: '只能同時新增一行',
     action: {
@@ -77,8 +94,8 @@ const zhHK: ProLocale = {
   },
   time: {
     seconds: '秒',
-    minutes: '分钟',
-    hours: '小时',
+    minutes: '分鐘',
+    hours: '小時',
     days: '天',
     ago: '前',
   },

@@ -2,6 +2,7 @@ import type { CustomSlotsType, Key, VueNode } from '@v-c/util/dist/type'
 import type { FormInstance } from 'antdv-next'
 import type { SetupContext } from 'vue'
 import type { ActionRenderConfig, RecordKey } from '../typing'
+import { useIntl } from '@antdv-next1/pro-provider'
 import { get, set } from '@v-c/util'
 import { Form } from 'antdv-next'
 import { defineComponent } from 'vue'
@@ -51,6 +52,7 @@ const CancelEditableAction = defineComponent(
   <T extends Record<string, any>>(props: CancelEditableActionProps<T>, { slots }: SetupContext<{}, CustomSlotsType<{
     default?: () => VueNode
   }>>) => {
+    const intl = useIntl()
     const context = useProFormContextInject()
     const form = (Form as unknown as { useFormInstance: () => FormInstance }
     ).useFormInstance()
@@ -114,7 +116,7 @@ const CancelEditableAction = defineComponent(
           await cancel()
         }}
       >
-        {slots.default?.() || '取消'}
+        {slots.default?.() || intl.value.getMessage({ id: 'editableTable.action.cancel', defaultMessage: '取消' })}
       </a>
     )
   },

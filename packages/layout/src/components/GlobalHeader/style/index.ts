@@ -1,9 +1,8 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
-import type { ComputedRef } from 'vue'
-import { useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
+import { useStyle } from '@antdv-next1/pro-provider'
+import { mergeToken } from '@antdv-next/cssinjs'
 
-export interface GlobalHeaderToken extends ProAliasToken {
-  componentCls: string
+export interface GlobalHeaderToken extends ProAliasCssVarToken {
 }
 
 const genGlobalHeaderStyle: GenerateStyle<GlobalHeaderToken> = (token) => {
@@ -14,11 +13,11 @@ const genGlobalHeaderStyle: GenerateStyle<GlobalHeaderToken> = (token) => {
       alignItems: 'center',
       paddingBlock: 0,
       paddingInline: 16,
-      height: token.layout?.header?.heightLayoutHeader || 56,
+      height: token.proLayoutHeaderHeightLayoutHeader || 56,
       boxSizing: 'border-box',
       '&-light': {
-        backgroundColor: token.layout?.header?.colorBgHeader || token.colorBgContainer,
-        boxShadow: '0 1px 4px rgba(0, 21, 41, 0.12)',
+        backgroundColor: token.proLayoutHeaderColorBgHeader || token.colorBgContainer,
+        boxShadow: '0 1px 4px rgba(0,21,41,.08)',
       },
       '&-realDark': {
         boxShadow: '0 1px 4px  rgba(13,13,13, 0.65)',
@@ -39,7 +38,7 @@ const genGlobalHeaderStyle: GenerateStyle<GlobalHeaderToken> = (token) => {
       },
       '&-collapsed-button': {
         minHeight: 22,
-        color: token?.layout?.header?.colorHeaderTitle,
+        color: token?.proLayoutHeaderColorHeaderTitle,
         fontSize: 18,
       },
       '&-logo': {
@@ -61,7 +60,7 @@ const genGlobalHeaderStyle: GenerateStyle<GlobalHeaderToken> = (token) => {
           marginInlineEnd: 0,
           marginInlineStart: 12,
           fontWeight: '600',
-          color: token.layout?.header?.colorHeaderTitle || token.colorTextHeading,
+          color: token.proLayoutHeaderColorHeaderTitle || token.colorTextHeading,
           fontSize: 16,
           lineHeight: '24px',
         },
@@ -78,13 +77,7 @@ const genGlobalHeaderStyle: GenerateStyle<GlobalHeaderToken> = (token) => {
   }
 }
 
-export function useStyle(prefixCls: ComputedRef<string>) {
-  return useAntdStyle('ProLayoutGlobalHeader', (token) => {
-    const GlobalHeaderToken: GlobalHeaderToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
-    }
-
-    return [genGlobalHeaderStyle(GlobalHeaderToken)]
-  })
-}
+export default useStyle('ProLayoutGlobalHeader', (token) => {
+  const GlobalHeaderToken = mergeToken<GlobalHeaderToken>(token, {})
+  return [genGlobalHeaderStyle(GlobalHeaderToken)]
+})

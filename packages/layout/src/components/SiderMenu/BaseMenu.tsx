@@ -107,6 +107,7 @@ class MenuUtil {
     menuRenderType?: 'header' | 'sider'
     baseClassName: string
     hashId: string
+    cssVarCls: string
   }
 
   RouterLink: ConcreteComponent | string
@@ -115,6 +116,7 @@ class MenuUtil {
       menuRenderType?: 'header' | 'sider'
       baseClassName: string
       hashId: string
+      cssVarCls: string
     },
   ) {
     this.props = props
@@ -144,8 +146,7 @@ class MenuUtil {
     if (Array.isArray(children) && children.length > 0) {
       /** Menu 第一级可以有icon，或者 isGroup 时第二级别也要有 */
       const hasIcon = level === 0 || (isGroup && level === 1)
-
-      const icon = !hasIcon ? null : getIcon(item.meta?.icon, iconPrefixes, `${baseClassName}-icon ${this.props?.hashId}`)
+      const icon = !hasIcon ? null : getIcon(item.meta?.icon, iconPrefixes, classNames(`${baseClassName}-icon`, this.props.hashId, this.props.cssVarCls))
       const defaultIcon = collapsed && hasIcon ? getMenuTitleSymbol(intlTitle) : null
 
       const defaultTitle
@@ -154,7 +155,7 @@ class MenuUtil {
           : h(
               'div',
               {
-                class: classNames(`${baseClassName}-item-title`, this.props?.hashId, {
+                class: classNames(`${baseClassName}-item-title`, this.props?.hashId, this.props.cssVarCls, {
                   [`${baseClassName}-item-title-collapsed`]: collapsed,
                   [`${baseClassName}-item-title-collapsed-level-${noGroupLevel}`]: collapsed,
                   [`${baseClassName}-group-item-title`]: menuType === 'group',
@@ -165,14 +166,14 @@ class MenuUtil {
                 h(
                   'span',
                   {
-                    class: classNames(`${baseClassName}-item-icon`, this.props?.hashId),
+                    class: classNames(`${baseClassName}-item-icon`, this.props?.hashId, this.props.cssVarCls),
                   },
                   !icon && defaultIcon ? defaultIcon : isDefineSetupFnComponentIcon(icon) ? [icon] : h(icon),
                 ),
                 h(
                   'span',
                   {
-                    class: classNames(`${baseClassName}-item-text`, this.props?.hashId),
+                    class: classNames(`${baseClassName}-item-text`, this.props?.hashId, this.props.cssVarCls),
                   },
                   intlTitle,
                 ),
@@ -202,7 +203,7 @@ class MenuUtil {
         isGroup && level === 0
           ? {
               type: 'divider',
-              class: `${baseClassName}-divider`,
+              class: classNames(`${baseClassName}-divider`, this.props.hashId, this.props.cssVarCls),
               key: `${item.key! || item.path!}-group-divider`,
             }
           : undefined,
@@ -210,7 +211,7 @@ class MenuUtil {
     }
     const menuItem = this.getMenuItem(item, level, noGroupLevel)
     return {
-      class: `${baseClassName}-menu-item`,
+      class: classNames(`${baseClassName}-menu-item`, this.props.hashId, this.props.cssVarCls),
       disabled: item.disabled,
       key: item.key! || item.path!,
       onClick: item.onTitleClick || (toList(menuItem.label)[0] as VNode<any, any, { onClick: () => void }>)?.props?.onClick,
@@ -229,7 +230,7 @@ class MenuUtil {
     const isGroup = menu?.type === 'group' && layout !== 'top'
     /** Menu 第一级可以有icon，或者 isGroup 时第二级别也要有 */
     const hasIcon = level === 0 || (isGroup && level === 1)
-    const icon = !hasIcon ? null : getIcon(item.meta?.icon, iconPrefixes, `${baseClassName}-icon ${this.props?.hashId}`)
+    const icon = !hasIcon ? null : getIcon(item.meta?.icon, iconPrefixes, classNames(`${baseClassName}-icon`, this.props?.hashId, this.props.cssVarCls))
     // 如果没有 icon 在收起的时候用首字母代替
     const defaultIcon = collapsed && hasIcon ? getMenuTitleSymbol(menuItemTitle) : null
 
@@ -239,7 +240,7 @@ class MenuUtil {
     const CustomTag = (target && 'a') || this.RouterLink
     const attrs = isHttpUrl || target ? { href: item.path, target } : {}
     const props = { to: { name: item.name, ...item.meta } }
-    let defaultTitle = h(Fragment, null, [h('span', { class: classNames(`${baseClassName}-item-text`, this.props?.hashId) }, menuItemTitle)])
+    let defaultTitle = h(Fragment, null, [h('span', { class: classNames(`${baseClassName}-item-text`, this.props?.hashId, this.props.cssVarCls) }, menuItemTitle)])
     if ((typeof CustomTag !== 'string' && CustomTag.name === 'RouterLink') || (typeof CustomTag === 'string' && CustomTag === 'a')) {
       defaultTitle = h(
         CustomTag,
@@ -247,7 +248,7 @@ class MenuUtil {
           ...attrs,
           ...(CustomTag === 'a' ? {} : props),
           key: itemPath,
-          class: classNames(`${baseClassName}-item-title`, this.props?.hashId, {
+          class: classNames(`${baseClassName}-item-title`, this.props?.hashId, this.props.cssVarCls, {
             [`${baseClassName}-item-title-collapsed`]: collapsed,
             [`${baseClassName}-item-title-collapsed-level-${noGroupLevel}`]: collapsed,
             [`${baseClassName}-item-collapsed-show-title`]: menu?.collapsedShowTitle && collapsed,
@@ -257,7 +258,7 @@ class MenuUtil {
           ? h(
               'span',
               {
-                class: classNames(`${baseClassName}-item-text`, this.props?.hashId),
+                class: classNames(`${baseClassName}-item-text`, this.props?.hashId, this.props.cssVarCls),
               },
               menuItemTitle,
             )
@@ -265,7 +266,7 @@ class MenuUtil {
               h(
                 'span',
                 {
-                  class: classNames(`${baseClassName}-item-text`, this.props?.hashId),
+                  class: classNames(`${baseClassName}-item-text`, this.props?.hashId, this.props.cssVarCls),
                 },
                 menuItemTitle,
               ),
@@ -275,7 +276,7 @@ class MenuUtil {
       defaultTitle = h(
         'span',
         {
-          class: classNames(`${baseClassName}-item-text`, this.props?.hashId),
+          class: classNames(`${baseClassName}-item-text`, this.props?.hashId, this.props.cssVarCls),
         },
         menuItemTitle,
       )
@@ -417,7 +418,7 @@ const BaseMenu = defineComponent<BaseMenuProps & PrivateSiderMenuProps>((props =
   }, [() => props.iconfontUrl])
 
   const openKeysProps = computed(() => getOpenKeysProps(openKeys.value!, props))
-  const { wrapSSR, hashId } = useStyle(baseClassName, props.mode)
+  const [hashId, cssVarCls] = useStyle(baseClassName, props.mode)
 
   const finallyData = computed(() => (props.postMenuData ? props.postMenuData(props.menuData) : props.menuData))
 
@@ -436,10 +437,11 @@ const BaseMenu = defineComponent<BaseMenuProps & PrivateSiderMenuProps>((props =
         }
         : undefined,
       baseClassName: baseClassName.value,
-      hashId: hashId.value,
+      hashId: hashId?.value!,
+      cssVarCls: cssVarCls?.value!,
     })
 
-    return wrapSSR(
+    return (
       <Menu
         {...openKeysProps.value}
         {...menuProps}
@@ -449,7 +451,7 @@ const BaseMenu = defineComponent<BaseMenuProps & PrivateSiderMenuProps>((props =
         inlineIndent={16}
         selectedKeys={selectedKeys.value}
         items={menuUtils.getNavMenuItems(finallyData.value, 0, 0)}
-        class={classNames(attrs.class, hashId.value, baseClassName.value, {
+        class={classNames(baseClassName.value, attrs.class, hashId?.value, cssVarCls?.value, {
           [`${baseClassName.value}-collapsed`]: collapsed,
         })}
         onOpenChange={(_openKeys) => {
@@ -457,7 +459,7 @@ const BaseMenu = defineComponent<BaseMenuProps & PrivateSiderMenuProps>((props =
             setOpenKeys(_openKeys)
           }
         }}
-      />,
+      />
     )
   }
 }, {

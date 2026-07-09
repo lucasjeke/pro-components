@@ -1,11 +1,11 @@
 {
   "name": "@antdv-next1/pro-provider",
   "type": "module",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "@antdv-next1/pro-provider",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/archiesong/pro-components.git",
+    "url": "git+https://github.com/lucasjeke/pro-components.git",
     "directory": "packages/provider"
   },
   "sideEffects": [

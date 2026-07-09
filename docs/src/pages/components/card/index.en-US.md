@@ -1,43 +1,47 @@
 ---
 category: Components
 title: ProCard
-description:
+subtitle: Advanced Card
 cover: https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*YSm4RI3iOJ8AAAAAAAAAAAAADrJ8AQ/original
 coverDark: https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*03dxS64LxeQAAAAAAAAAAAAADrJ8AQ/original
-demo:
 group: Layout
 ---
 
+ProCard is a content container for admin pages. It combines Card, Row, Col, Tabs, split layout, grid layout, loading, actions, and collapsible behavior so cards can be composed with less boilerplate.
+
 ## When To Use {#when-to-use}
 
-Stick an element to the viewport.
+- A standard card is needed to contain page content.
+- Multiple cards should be arranged with grid and gutter.
+- Card content needs split, tabs, actions, loading, or collapse behavior.
+- Nested cards should share a consistent ProComponents style.
 
 ## Examples {#examples}
 
 <demo-group>
-    <demo src="./demo/enum-switch.vue">枚举属性切换</demo>
-    <demo src="./demo/basic.vue">基础卡片</demo>
-    <demo src="./demo/colspan.vue">栅格布局</demo>
-    <demo src="./demo/responsive.vue">响应式</demo>
-    <demo src="./demo/split2.vue">卡片切分</demo>
-    <demo src="./demo/split23.vue">左右分栏</demo>
-    <demo src="./demo/split.vue">复杂切分</demo>
-    <demo src="./demo/gutter.vue">栅格间隔</demo>
-    <demo src="./demo/multipleLine.vue">多行卡片</demo>
-    <demo src="./demo/divider.vue">分组展示</demo>
-    <demo src="./demo/headerBordered.vue">标题带分割线</demo>
-    <demo src="./demo/collapsible.vue">可折叠</demo>
-    <demo src="./demo/group.vue">卡片组展开</demo>
-    <demo src="./demo/layout.vue">内容居中</demo>
-    <demo src="./demo/loading.vue">加载中</demo>
-    <demo src="./demo/actions.vue">操作项</demo>
-    <demo src="./demo/headless.vue">无标题</demo>
-    <demo src="./demo/bordered.vue">带边框</demo>
-    <demo src="./demo/hoverable.vue">浮出效果</demo>
-    <demo src="./demo/tabs.vue">页签</demo>
-    <demo src="./demo/tabs-card.vue">卡片式页签</demo>
-    <demo src="./demo/inner.vue">内部卡片</demo>
-    <demo src="./demo/steps-v.vue">竖向步骤示例</demo>
+  <demo src="./demo/enum-switch.vue">Enum switch</demo>
+  <demo src="./demo/basic.vue">Basic</demo>
+  <demo src="./demo/colspan.vue">Grid layout</demo>
+  <demo src="./demo/responsive.vue">Responsive</demo>
+  <demo src="./demo/split2.vue">Split card</demo>
+  <demo src="./demo/split23.vue">Left and right</demo>
+  <demo src="./demo/split.vue">Complex split</demo>
+  <demo src="./demo/gutter.vue">Gutter</demo>
+  <demo src="./demo/multipleLine.vue">Multiple lines</demo>
+  <demo src="./demo/divider.vue">Grouped content</demo>
+  <demo src="./demo/headerBordered.vue">Header bordered</demo>
+  <demo src="./demo/collapsible.vue">Collapsible</demo>
+  <demo src="./demo/group.vue">Expandable group</demo>
+  <demo src="./demo/layout.vue">Centered content</demo>
+  <demo src="./demo/loading.vue">Loading</demo>
+  <demo src="./demo/actions.vue">Actions</demo>
+  <demo src="./demo/headless.vue">Headless</demo>
+  <demo src="./demo/bordered.vue">Bordered</demo>
+  <demo src="./demo/hoverable.vue">Hoverable</demo>
+  <demo src="./demo/tabs.vue">Tabs</demo>
+  <demo src="./demo/tabs-card.vue">Card tabs</demo>
+  <demo src="./demo/inner.vue">Inner card</demo>
+  <demo src="./demo/steps-v.vue">Vertical steps</demo>
 </demo-group>
 
 ## API
@@ -46,36 +50,30 @@ Stick an element to the viewport.
 
 | Property | Description | Type | Default | Version |
 | --- | --- | --- | --- | --- |
-| title | 标题 | `VueNode` | - | - |
-| subTitle | 副标题 | `VueNode` | - | - |
-| tooltip | 标题右侧图标 hover 提示信息 | `string` | - | - |
-| extra | 右上角自定义区域 | `VueNode` | - | - |
-| layout | 内容布局，支持垂直居中 | `default` \| `center` | default | - |
-| loading | 加载中，支持自定义 loading 样式 | `boolean` \| `VueNode` | `false` | - |
-| colSpan | 栅格布局宽度，24 栅格，支持指定宽度 px 或百分比，支持响应式的对象写法 `{ xs: 8, sm: 16, md: 24}`, 仅在嵌套的子卡片上设置有效。 | `number` \| `string` | `24` | - |
-| gutter | 数字或使用数组形式同时设置 \[水平间距，垂直间距], 支持响应式的对象写法 `{ xs: 8, sm: 16, md: 24}` | `number` \| `array` | `0` | - |
-| direction | 指定 Flex 方向，仅在嵌套子卡片时有效，默认方向为 row 横向 | `column` | - | - |
-| split | 拆分卡片的方向 | `vertical` \| `horizontal` | - | - |
-| type | 卡片类型 | `inner` \| `default` | - | - |
-| size | 卡片尺寸 | `default` \| `small` | - | - |
-| actions | 卡片操作组，位置在卡片底部 | `Array&lt;VueNode>` | - | - |
-| direction | 指定 Flex 方向，仅在嵌套子卡片时有效，默认方向为 row 横向 | `column` \| `row` | `row` | - |
-| wrap | 是否支持换行，仅在嵌套子卡片时有效 | `boolean` | `false` | - |
-| variant | 是否有边框 | `borderless` \| `outlined` | `outlined` | - |
-| ghost | 幽灵模式，即是否取消卡片内容区域的 padding 和 卡片的背景颜色。 | `boolean` | `false` | - |
-| headerBordered | 页头是否有分割线 | `boolean` | `false` | - |
-| collapsed | 受控属性，是否折叠 | `boolean` | `false` | - |
-| collapsible | 配置是否可折叠，受控时无效 | `boolean` | `false` | - |
-| defaultCollapsed | 默认折叠，受控时无效 | `boolean` | `false` | - |
-| onCollapse | 收起卡片的事件，受控时无效 | `(collapsed: boolean) => void` | - | - |
-| tabs | 标签页配置 | 见下面 ProCardTabs | - | - |
+| title | Title | `VueNode` | - | - |
+| subTitle | Subtitle | `VueNode` | - | - |
+| tooltip | Tooltip beside title | `string` | - | - |
+| extra | Top-right extra area | `VueNode` | - | - |
+| layout | Content layout | `'default' \| 'center'` | `'default'` | - |
+| loading | Loading state or custom loading content | `boolean \| VueNode` | `false` | - |
+| colSpan | Grid span for nested cards | `number \| string` | `24` | - |
+| gutter | Horizontal and vertical gutter | `number \| [number, number]` | `0` | - |
+| direction | Flex direction for nested cards | `'column' \| 'row'` | `'row'` | - |
+| split | Split direction | `'vertical' \| 'horizontal'` | - | - |
+| type | Card type | `'inner' \| 'default'` | - | - |
+| size | Card size | `'default' \| 'small'` | - | - |
+| actions | Footer actions | `VueNode[]` | - | - |
+| wrap | Wrap nested cards | `boolean` | `false` | - |
+| variant | Border style | `'borderless' \| 'outlined'` | `'outlined'` | - |
+| ghost | Remove card background and content padding | `boolean` | `false` | - |
+| headerBordered | Show divider under header | `boolean` | `false` | - |
+| collapsed | Controlled collapsed state | `boolean` | `false` | - |
+| collapsible | Enable collapse in uncontrolled mode | `boolean` | `false` | - |
+| defaultCollapsed | Default collapsed state | `boolean` | `false` | - |
+| tabs | Tabs config | `ProCardTabs` | - | - |
 
 ### Events
 
 | Event | Description | Type | Version |
 | --- | --- | --- | --- |
-
-### Methods
-
-| Method | Description | Type | Version |
-| --- | --- | --- | --- |
+| collapse | Triggered when card collapses in uncontrolled mode | `(collapsed: boolean) => void` | - |

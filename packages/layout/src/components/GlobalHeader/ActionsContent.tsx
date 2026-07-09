@@ -8,7 +8,7 @@ import { classNames } from '@v-c/util'
 import { Avatar } from 'antdv-next'
 import { useConfig } from 'antdv-next/dist/config-provider/context'
 import { computed, defineComponent, isVNode } from 'vue'
-import { useStyle } from './style/rightContentStyle'
+import useStyle from './style/rightContentStyle'
 
 export type AvatarPropsType
   = (AvatarProps & {
@@ -32,7 +32,7 @@ const ActionsContent = defineComponent<{
 >>((props, { slots }) => {
   const config = useConfig()
   const prefixCls = computed(() => props.prefixCls || `${config.value.getPrefixCls()}-pro-global-header`)
-  const { wrapSSR, hashId } = useStyle(prefixCls)
+  const [hashId, cssVarCls] = useStyle(prefixCls)
   const [rightSize, setRightSize] = useState<number | string>('auto')
   const avatarDom = computed(() => {
     const { avatarProps } = props
@@ -77,21 +77,21 @@ const ActionsContent = defineComponent<{
               if (isVNode(doms)) {
                 hideHover = !!doms?.props?.['aria-hidden']
               }
-              return wrapSSR(
-                <div class={classNames(`${prefixCls.value}-actions`, hashId.value)}>
+              return (
+                <div class={classNames(`${prefixCls.value}-actions`, hashId?.value, cssVarCls?.value)}>
                   <div
-                    class={classNames(`${prefixCls.value}-actions-item`, hashId.value, {
+                    class={classNames(`${prefixCls.value}-actions-item`, hashId?.value, cssVarCls?.value, {
                       [`${prefixCls.value}-actions-hover`]: !hideHover,
                     })}
                   >
                     {doms}
                   </div>
-                  {avatarDom.value && <div class={classNames(`${prefixCls.value}-actions-avatar`, hashId.value)}>{avatarDom.value}</div>}
-                </div>,
+                  {avatarDom.value && <div class={classNames(`${prefixCls.value}-actions-avatar`, hashId?.value, cssVarCls?.value)}>{avatarDom.value}</div>}
+                </div>
               )
             }
-            return wrapSSR(
-              <div class={classNames(`${prefixCls.value}-actions`, hashId.value)}>
+            return (
+              <div class={classNames(`${prefixCls.value}-actions`, hashId?.value, cssVarCls?.value)}>
                 {doms.filter(Boolean).map((dom, index) => {
                   let hideHover = false
                   // 如果配置了 hideHover 就不展示 hover 效果了
@@ -101,7 +101,7 @@ const ActionsContent = defineComponent<{
                   return (
                     <div
                       key={index}
-                      class={classNames(`${prefixCls.value}-actions-item`, hashId.value, {
+                      class={classNames(`${prefixCls.value}-actions-item`, hashId?.value, cssVarCls?.value, {
                         [`${prefixCls.value}-actions-hover`]: !hideHover,
                       })}
                     >
@@ -109,14 +109,14 @@ const ActionsContent = defineComponent<{
                     </div>
                   )
                 })}
-                {avatarDom.value && <div class={classNames(`${prefixCls.value}-actions-avatar`, hashId.value)}>{avatarDom.value}</div>}
-              </div>,
+                {avatarDom.value && <div class={classNames(`${prefixCls.value}-actions-avatar`, hashId?.value, cssVarCls?.value)}>{avatarDom.value}</div>}
+              </div>
             )
           }
         : undefined
     return (
       <div
-        class={classNames(`${prefixCls.value}-right-content`, hashId.value)}
+        class={classNames(`${prefixCls.value}-right-content`, hashId?.value, cssVarCls?.value)}
         style={{
           minWidth: rightSize.value,
           height: '100%',

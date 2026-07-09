@@ -1,12 +1,11 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
-import type { ComputedRef } from 'vue'
-import { useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
+import { useStyle } from '@antdv-next1/pro-provider'
+import { mergeToken, unit } from '@antdv-next/cssinjs'
 
-export interface ProToken extends ProAliasToken {
-  componentCls: string
+export interface ProFieldLabelToken extends ProAliasCssVarToken {
 }
 
-const genProStyle: GenerateStyle<ProToken> = (token) => {
+const genProStyle: GenerateStyle<ProFieldLabelToken> = (token) => {
   return {
     [token.componentCls]: {
       boxSizing: 'border-box',
@@ -76,7 +75,7 @@ const genProStyle: GenerateStyle<ProToken> = (token) => {
         lineHeight: '34px',
         paddingBlock: 0,
         paddingInline: 8,
-        border: `${token.lineWidth}px solid ${token.colorBorder}`,
+        border: `${unit(token.lineWidth)} ${token.lineType} ${token.colorBorder}`,
         borderRadius: token.borderRadius,
         '&-active': {
           backgroundColor: 'none',
@@ -93,9 +92,9 @@ const genProStyle: GenerateStyle<ProToken> = (token) => {
         height: 34,
         lineHeight: '34px',
         backgroundColor: token.colorBgTextHover,
-        border: `${token.lineWidth}px solid transparent`,
+        border: `${unit(token.lineWidth)} ${token.lineType} transparent`,
         '&:hover': {
-          border: `${token.lineWidth}px solid ${token.colorPrimary}`,
+          border: `${unit(token.lineWidth)} ${token.lineType} ${token.colorPrimary}`,
           backgroundColor: token.colorBgTextHover,
         },
       },
@@ -103,9 +102,9 @@ const genProStyle: GenerateStyle<ProToken> = (token) => {
         height: 34,
         lineHeight: '34px',
         borderRadius: 0,
-        borderBottom: `${token.lineWidth}px solid ${token.colorSplit}`,
+        borderBottom: `${unit(token.lineWidth)} ${token.lineType} ${token.colorSplit}`,
         '&:hover': {
-          borderBottom: `${token.lineWidth}px solid ${token.colorPrimary}`,
+          borderBottom: `${unit(token.lineWidth)} ${token.lineType} ${token.colorPrimary}`,
           backgroundColor: token.colorBgTextHover,
         },
       },
@@ -148,13 +147,8 @@ const genProStyle: GenerateStyle<ProToken> = (token) => {
   }
 }
 
-export function useStyle(prefixCls: ComputedRef<string>) {
-  return useAntdStyle('FieldLabel', (token) => {
-    const proToken: ProToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
-    }
+export default useStyle('FieldLabel', (token) => {
+  const proFieldLabelToken = mergeToken<ProFieldLabelToken>(token, {})
 
-    return [genProStyle(proToken)]
-  })
-}
+  return [genProStyle(proFieldLabelToken)]
+})

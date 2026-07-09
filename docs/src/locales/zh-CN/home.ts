@@ -1,5 +1,5 @@
 export default {
-  slogan: '助力设计开发者「更灵活」地搭建出「更美」的产品，让用户「快乐工作」～',
+  slogan: '🏆让中后台开发更简单',
   start: '开始使用',
   designLanguage: '仓库地址',
   assetsTitle: '组件丰富，选用自如',

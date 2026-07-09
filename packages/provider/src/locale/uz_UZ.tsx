@@ -4,13 +4,15 @@ const uzUZ: ProLocale = {
   moneySymbol: 'UZS',
   deleteThisLine: 'Bu qatorni oʻchirish',
   copyThisLine: 'Bu qatorni nusxalash',
-  emptyListValidateMessage: '列表不能为空',
+  sortUpThisLine: 'Yuqoriga ko‘chirish',
+  sortDownThisLine: 'Pastga ko‘chirish',
+  emptyListValidateMessage: 'Roʻyxat boʻsh boʻlishi mumkin emas',
   time: {
-    seconds: 'seconds',
-    minutes: 'minutes',
-    hours: 'hours',
-    days: 'days',
-    ago: 'ago',
+    seconds: 'soniya',
+    minutes: 'daqiqa',
+    hours: 'soat',
+    days: 'kun',
+    ago: 'oldin',
   },
   form: {
     lightFilter: {
@@ -18,6 +20,19 @@ const uzUZ: ProLocale = {
       clear: 'Tozalash',
       confirm: 'OK',
       itemUnit: 'Pozitsiyalar',
+    },
+    captcha: {
+      getCaptcha: 'Tasdiqlash kodini olish',
+      resendAfter: 'soniyadan keyin qayta yuborish',
+    },
+    upload: {
+      buttonText: 'Yuklash uchun bosing',
+      draggerTitle: 'Yuklash uchun faylni bosing yoki shu hududga torting',
+      draggerDescription: 'Bitta yoki ommaviy yuklashni qoʻllab-quvvatlaydi',
+    },
+    modal: {
+      okText: 'Tasdiqlash',
+      cancelText: 'Bekor qilish',
     },
   },
   tableForm: {
@@ -69,6 +84,8 @@ const uzUZ: ProLocale = {
     submitText: 'Kirish',
   },
   editableTable: {
+    defaultFieldLabel: 'Ushbu maydon',
+    defaultFieldType: 'Matn',
     onlyOneLineEditor:
       'Bir vaqtning oʻzida faqat bitta qator tahrirlanishi mumkin',
     onlyAddOneLine: 'Bir vaqtning oʻzida faqat bitta qator qoʻshilishi mumkin',

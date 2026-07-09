@@ -2,6 +2,7 @@ import type { CustomSlotsType, VueNode } from '@v-c/util/dist/type'
 import type { DrawerProps, FormProps } from 'antdv-next'
 import type { SetupContext, VNode } from 'vue'
 import type { CommonFormProps, ProFormRef, SubmitterProps } from '../../BaseForm'
+import { useIntl } from '@antdv-next1/pro-provider'
 import { isBrowser, omitUndefined, transformBooleanProps, useEffect, useState } from '@antdv-next1/pro-utils'
 import { classNames, merge } from '@v-c/util'
 // import { noteOnce } from '@v-c/util/dist/warning'
@@ -10,7 +11,7 @@ import { useConfig } from 'antdv-next/dist/config-provider/context'
 import { cloneVNode, computed, defineComponent, shallowRef, Teleport } from 'vue'
 import { BaseForm } from '../../BaseForm'
 import { useProFormInstanceExpose } from '../../utils'
-import { useStyle } from './style'
+import useStyle from './style'
 
 export interface CustomizeResizeType {
   onResize?: () => void
@@ -68,12 +69,13 @@ const ProDrawerForm = defineComponent(<T extends Record<string, any>, U extends 
 ProDrawerFormProps<T, U>, { expose, attrs, slots }: SetupContext<{}, CustomSlotsType<{
     default?: () => VueNode
   }>>) => {
+  const intl = useIntl()
   const config = useConfig()
   const footerDomRef = shallowRef<HTMLDivElement | null>(null)
   const formRef = shallowRef<ProFormRef<T>>()
   const prefixCls = computed(() => props.prefixCls || config.value.getPrefixCls('pro'))
   const baseClassName = computed(() => `${prefixCls.value}-form-drawer`)
-  const { wrapSSR, hashId } = useStyle(baseClassName)
+  const [hashId, cssVarCls] = useStyle(baseClassName)
   const proFormInstanceExpose = useProFormInstanceExpose(formRef)
   const [open, setOpen] = useState<boolean>(props.open)
   const [loading, setLoading] = useState(false)
@@ -195,8 +197,8 @@ ProDrawerFormProps<T, U>, { expose, attrs, slots }: SetupContext<{}, CustomSlots
     const submitterConfig = rest.submitter === false ? false : merge(
       {
         searchConfig: {
-          submitText: config.value.locale?.Modal?.okText ?? '确认',
-          resetText: config.value.locale?.Modal?.cancelText ?? '取消',
+          submitText: config.value.locale?.Modal?.okText ?? intl.value.getMessage({ id: 'form.modal.okText', defaultMessage: '确认' }),
+          resetText: config.value.locale?.Modal?.cancelText ?? intl.value.getMessage({ id: 'form.modal.cancelText', defaultMessage: '取消' }),
         },
         resetButtonProps: {
           preventDefault: true,
@@ -209,7 +211,7 @@ ProDrawerFormProps<T, U>, { expose, attrs, slots }: SetupContext<{}, CustomSlots
       } as SubmitterProps,
       rest.submitter ?? {},
     )
-    return wrapSSR(
+    return (
       <>
         <Drawer
           {...drawerProps}
@@ -245,7 +247,7 @@ ProDrawerFormProps<T, U>, { expose, attrs, slots }: SetupContext<{}, CustomSlots
         >
           {resize ? (
             <div
-              class={classNames(`${baseClassName.value}-sidebar-dragger`, hashId.value, {
+              class={classNames(`${baseClassName.value}-sidebar-dragger`, hashId.value, cssVarCls.value, {
                 [`${baseClassName.value}sidebar-dragger-min-disabled`]:
                 drawerWidth.value === resizeInfo.value?.minWidth,
                 [`${baseClassName.value}-sidebar-dragger-max-disabled`]:
@@ -293,7 +295,7 @@ ProDrawerFormProps<T, U>, { expose, attrs, slots }: SetupContext<{}, CustomSlots
           />
         </Drawer>
         {triggerDom}
-      </>,
+      </>
     )
   }
 }, {

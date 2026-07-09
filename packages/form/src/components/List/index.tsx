@@ -30,7 +30,7 @@ import { useFieldContextInject } from '../../FieldContext'
 import { useGridHelpers } from '../../helpers'
 import { useFormListContextInject } from './context'
 import ProFormListContainer from './ListContainer'
-import { useStyle } from './style'
+import useStyle from './style'
 
 export type ProFormListProps = Omit<FormListProps, 'rules' | 'name'> & ProFromListCommonProps & {
   name?: NamePath<string | number | boolean>
@@ -137,7 +137,7 @@ const ProFormList = defineComponent<ProFormListProps, {}, string, CustomSlotsTyp
   const formListContext = useFormListContextInject()
   const { formRef } = useProFormContextInject()
   const { setFieldValueType } = useFieldContextInject()
-  const { wrapSSR, hashId } = useStyle(baseClassName)
+  const [hashId, cssVarCls] = useStyle(baseClassName)
   const gridHelpersProps = computed(() => ({
     colProps: props.colProps,
     rowProps: props.rowProps,
@@ -243,9 +243,9 @@ const ProFormList = defineComponent<ProFormListProps, {}, string, CustomSlotsTyp
     } = props
     if (!formRef?.value)
       return null
-    return wrapSSR(
+    return (
       <ColWrapper>
-        <div class={classNames(baseClassName.value, hashId.value)} style={attrs.style}>
+        <div class={classNames(baseClassName.value, hashId.value, cssVarCls.value)} style={attrs.style}>
           <FormItem
             {...rest}
             label={label}
@@ -286,7 +286,7 @@ const ProFormList = defineComponent<ProFormListProps, {}, string, CustomSlotsTyp
                           action: FormListOperation,
                           meta: { errors?: AntdVueNode[], warnings?: AntdVueNode[] },
                         ) => {
-                        // 将 action 暴露给外部
+                          // 将 action 暴露给外部
                           actionRefs.value = action
                           return fields.length ? (
                             <RowWrapper>
@@ -299,7 +299,7 @@ const ProFormList = defineComponent<ProFormListProps, {}, string, CustomSlotsTyp
                                 arrowSort={arrowSort}
                                 upIconProps={upIconProps}
                                 downIconProps={downIconProps}
-                                formInstance={formRef.value}
+                                formInstance={formRef.value!}
                                 prefixCls={baseClassName.value}
                                 meta={meta}
                                 fields={fields}
@@ -346,7 +346,7 @@ const ProFormList = defineComponent<ProFormListProps, {}, string, CustomSlotsTyp
                                 arrowSort={arrowSort}
                                 upIconProps={upIconProps}
                                 downIconProps={downIconProps}
-                                formInstance={formRef.value}
+                                formInstance={formRef.value!}
                                 prefixCls={baseClassName.value}
                                 meta={meta}
                                 fields={fields}
@@ -392,7 +392,7 @@ const ProFormList = defineComponent<ProFormListProps, {}, string, CustomSlotsTyp
             }
           />
         </div>
-      </ColWrapper>,
+      </ColWrapper>
     )
   }
 }, {

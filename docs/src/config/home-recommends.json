@@ -1,0 +1,118 @@
+{
+  "items": {
+    "cn": [
+      {
+        "title": "简单易用",
+        "description": "在 Antdv Next 上进行了自己的封装，更加易用",
+        "date": "Getting Started",
+        "source": "simple",
+        "href": "components/overview"
+      },
+      {
+        "title": "Antdv Next",
+        "description": "与 Antdv Next 设计体系一脉相承，无缝对接 Antdv Next 项目",
+        "date": "Components",
+        "source": "components",
+        "href": "components/overview"
+      },
+      {
+        "title": "国际化",
+        "description": "提供完备的国际化，与 Antdv Next 体系打通，无需多余配置",
+        "date": "I18n",
+        "source": "i18n",
+        "href": "components/overview"
+      },
+      {
+        "title": "预设样式",
+        "description": "样式风格与 Ant Design 一脉相承，无需魔改，浑然天成。默认好用的主题系统",
+        "date": "Style",
+        "source": "style",
+        "href": "components/overview"
+      },
+      {
+        "title": "预设行为",
+        "description": "更少的代码，更少的 Bug，更多的功能",
+        "date": "Behavior",
+        "source": "behavior",
+        "href": "components/overview"
+      },
+      {
+        "title": "TypeScript",
+        "description": "使用 TypeScript 开发，提供完整的类型定义文件，无需频繁打开官网",
+        "date": "TypeScript",
+        "source": "typescript",
+        "href": "components/overview"
+      }
+    ],
+    "en": [
+      {
+        "title": "简单易用",
+        "description": "在 Antdv Next 上进行了自己的封装，更加易用",
+        "date": "Getting Started",
+        "source": "simple",
+        "href": "components/overview"
+      },
+      {
+        "title": "Antdv Next",
+        "description": "与 Antdv Next 设计体系一脉相承，无缝对接 Antdv Next 项目",
+        "date": "Components",
+        "source": "components",
+        "href": "components/overview"
+      },
+      {
+        "title": "国际化",
+        "description": "提供完备的国际化，与 Antdv Next 体系打通，无需多余配置",
+        "date": "I18n",
+        "source": "i18n",
+        "href": "components/overview"
+      },
+      {
+        "title": "预设样式",
+        "description": "样式风格与 Ant Design 一脉相承，无需魔改，浑然天成。默认好用的主题系统",
+        "date": "Style",
+        "source": "style",
+        "href": "components/overview"
+      },
+      {
+        "title": "预设行为",
+        "description": "更少的代码，更少的 Bug，更多的功能",
+        "date": "Behavior",
+        "source": "behavior",
+        "href": "components/overview"
+      },
+      {
+        "title": "TypeScript",
+        "description": "使用 TypeScript 开发，提供完整的类型定义文件，无需频繁打开官网",
+        "date": "TypeScript",
+        "source": "typescript",
+        "href": "components/overview"
+      }
+    ]
+  },
+  "icons": [
+    {
+      "name": "simple",
+      "href": "/simple.webp"
+    },
+    {
+      "name": "components",
+      "href": "/antdv-next.svg"
+    },
+    {
+      "name": "i18n",
+      "href": "/i18n.webp"
+    },
+    {
+      "name": "style",
+      "href": "/style.webp"
+    },
+    {
+      "name": "behavior",
+      "href": "/behavior.webp"
+    },
+    {
+      "name": "typescript",
+      "href": "/typescript.svg"
+    }
+  ]
+}

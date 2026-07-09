@@ -1,9 +1,9 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
 import type { ComputedRef } from 'vue'
 import { useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
+import { mergeToken } from '@antdv-next/cssinjs'
 
-export interface ProLayoutHeaderToken extends ProAliasToken {
-  componentCls: string
+export interface ProLayoutHeaderToken extends ProAliasCssVarToken {
   proLayoutCollapsedWidth: number
 }
 export function useStylish(
@@ -16,12 +16,10 @@ export function useStylish(
     proLayoutCollapsedWidth: ComputedRef<number>
   },
 ) {
-  return useAntdStyle('ProLayoutHeaderStylish', (token) => {
-    const stylishToken: ProLayoutHeaderToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
+  const genStyleHooks = useAntdStyle('ProLayoutHeaderStylish', (token) => {
+    const stylishToken = mergeToken<ProLayoutHeaderToken>(token, {
       proLayoutCollapsedWidth: proLayoutCollapsedWidth.value,
-    }
+    })
     if (!stylish?.value)
       return []
 
@@ -33,4 +31,5 @@ export function useStylish(
       },
     ]
   })
+  return genStyleHooks(prefixCls)
 }

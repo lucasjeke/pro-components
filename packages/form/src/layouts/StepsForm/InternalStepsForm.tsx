@@ -13,7 +13,7 @@ import { useConfig } from 'antdv-next/dist/config-provider/context'
 import { cloneVNode, computed, defineComponent, shallowRef } from 'vue'
 import { useProFormInstanceExpose } from '../../utils'
 import { useProStepsFormContextProvider } from './context'
-import { useStyle } from './style'
+import useStyle from './style'
 
 interface LayoutRenderDom {
   stepsDom: VNode
@@ -71,7 +71,7 @@ const InternalProStepsForm = defineComponent(<T extends Record<string, any>, U e
   const config = useConfig()
   const prefixCls = computed(() => props.prefixCls || config.value.getPrefixCls('pro'))
   const baseClassName = computed(() => `${prefixCls.value}-steps-form`)
-  const { wrapSSR, hashId } = useStyle(baseClassName)
+  const [hashId, cssVarCls] = useStyle(baseClassName)
   const formDataRef = shallowRef(new Map<string, Record<string, any>>())
   const stepFormPropsMap = shallowRef(new Map<string, ProStepFormProps<T, U>>())
   const [formArray, setFormArray] = useMountMergeState<
@@ -129,7 +129,7 @@ const InternalProStepsForm = defineComponent(<T extends Record<string, any>, U e
     }
     return (
       <div
-        class={classNames(`${baseClassName.value}-steps-container`, hashId.value)}
+        class={classNames(`${baseClassName.value}-steps-container`, hashId.value, cssVarCls.value)}
         style={{
           maxWidth: unit(Math.min(formIndexArray.value.length * 320, 1160)),
         }}
@@ -266,7 +266,7 @@ const InternalProStepsForm = defineComponent(<T extends Record<string, any>, U e
       : {}
     return (
       <div
-        class={classNames(`${baseClassName.value}-step`, hashId.value, {
+        class={classNames(`${baseClassName.value}-step`, hashId.value, cssVarCls.value, {
           [`${baseClassName.value}-step-active`]: isShow,
         })}
         key={name}
@@ -297,7 +297,7 @@ const InternalProStepsForm = defineComponent(<T extends Record<string, any>, U e
   const formContainer = computed(
     () => (
       <div
-        class={classNames(`${baseClassName.value}-container`, hashId.value)}
+        class={classNames(`${baseClassName.value}-container`, hashId.value, cssVarCls.value)}
         style={props.containerStyle}
       >
         {formDom.value}
@@ -369,10 +369,10 @@ const InternalProStepsForm = defineComponent(<T extends Record<string, any>, U e
   const currentStepFormRef = computed(() => formArray.value[step.value || 0])
   expose(useProFormInstanceExpose(currentStepFormRef))
   return () => {
-    return wrapSSR(
-      <div class={classNames(baseClassName.value, hashId.value)}>
+    return (
+      <div class={classNames(baseClassName.value, hashId.value, cssVarCls.value)}>
         {stepsFormDom.value}
-      </div>,
+      </div>
     )
   }
 }, {

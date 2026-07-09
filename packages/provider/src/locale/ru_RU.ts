@@ -4,7 +4,9 @@ const ruRU: ProLocale = {
   moneySymbol: '₽',
   deleteThisLine: 'Удалить эту строку',
   copyThisLine: 'Копировать эту строку',
-  emptyListValidateMessage: '列表不能为空',
+  sortUpThisLine: 'Переместить вверх',
+  sortDownThisLine: 'Переместить вниз',
+  emptyListValidateMessage: 'Список не может быть пустым',
   form: {
     lightFilter: {
       more: 'Еще',
@@ -12,13 +14,26 @@ const ruRU: ProLocale = {
       confirm: 'ОК',
       itemUnit: 'Позиции',
     },
+    captcha: {
+      getCaptcha: 'Получить код подтверждения',
+      resendAfter: 'с до повторной отправки',
+    },
+    upload: {
+      buttonText: 'Нажмите для загрузки',
+      draggerTitle: 'Нажмите или перетащите файл в эту область для загрузки',
+      draggerDescription: 'Поддерживается одиночная или пакетная загрузка',
+    },
+    modal: {
+      okText: 'Подтвердить',
+      cancelText: 'Отмена',
+    },
   },
   time: {
-    seconds: 'seconds',
-    minutes: 'minutes',
-    hours: 'hours',
-    days: 'days',
-    ago: 'ago',
+    seconds: 'секунд',
+    minutes: 'минут',
+    hours: 'часов',
+    days: 'дней',
+    ago: 'назад',
   },
   tableForm: {
     search: 'Найти',
@@ -69,6 +84,8 @@ const ruRU: ProLocale = {
     submitText: 'Вход',
   },
   editableTable: {
+    defaultFieldLabel: 'Это поле',
+    defaultFieldType: 'Текст',
     onlyOneLineEditor: 'Одновременно можно редактировать только одну строку',
     onlyAddOneLine: 'Одновременно можно добавить только одну строку',
     action: {

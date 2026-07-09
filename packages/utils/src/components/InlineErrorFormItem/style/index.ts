@@ -1,12 +1,11 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
-import type { ComputedRef } from 'vue'
-import { useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
+import { useStyle } from '@antdv-next1/pro-provider'
+import { mergeToken } from '@antdv-next/cssinjs'
 
-export interface ProToken extends ProAliasToken {
-  componentCls: string
+export interface ProInlineErrorFormItemToken extends ProAliasCssVarToken {
 }
 
-const genProStyle: GenerateStyle<ProToken> = (token) => {
+const genProInlineErrorFormItemStyle: GenerateStyle<ProInlineErrorFormItemToken> = (token) => {
   const progressBgCls = `${token.antCls}-progress-bg`
   return {
     [token.componentCls]: {
@@ -68,12 +67,7 @@ const genProStyle: GenerateStyle<ProToken> = (token) => {
   }
 }
 
-export function useStyle(prefixCls: ComputedRef<string>) {
-  return useAntdStyle('InlineErrorFormItem', (token) => {
-    const proToken: ProToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
-    }
-    return [genProStyle(proToken)]
-  })
-}
+export default useStyle('InlineErrorFormItem', (token) => {
+  const proInlineErrorFormItemToken = mergeToken<ProInlineErrorFormItemToken>(token, {})
+  return [genProInlineErrorFormItemStyle(proInlineErrorFormItemToken)]
+})

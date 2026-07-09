@@ -1,70 +1,51 @@
 ---
 category: Components
-title: StepsProForm
-subtitle: 分步高级表单
-cover: https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*YSm4RI3iOJ8AAAAAAAAAAAAADrJ8AQ/original
-coverDark: https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*03dxS64LxeQAAAAAAAAAAAAADrJ8AQ/original
+title: StepsForm
+subtitle: 分步表单
 group: 数据录入
 ---
 
-StepsForm 通过 prvoide 和 inject 方式 来管理子表单的数据，每个子表单都是完整的数据，在 StepsForm 组合成最后的数据。同时自带了一个进度条和管理进度条的相关 API.
+StepsForm 用于把一个复杂表单拆成多个步骤填写。它由 `ProStepsForm` 和多个 `ProStepsForm.StepForm` 组成，每一步可以拥有独立的表单配置，最终在最后一步统一提交。
 
 ## 何时使用 {#when-to-use}
 
-当使用的表单是步骤型表单时使用。
+- 表单字段很多，需要分步骤引导用户完成时。
+- 每一步需要单独校验，但最终统一提交时。
+- 需要自定义步骤条、步骤表单区域或底部提交按钮时。
 
 ## 代码演示 {#examples}
 
 <demo-group>
-    <demo src="./demo/steps-from.vue">分步表单</demo>
+  <demo src="./demo/steps-from.vue">基础用法</demo>
 </demo-group>
 
 ## API
 
-### 属性 {#props}
+### ProStepsForm
 
-通用属性参考：[通用属性](/docs/vue/common-props)
+#### 属性 {#props}
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
-| offsetTop | 距离窗口顶部达到指定偏移量后触发 | number | 0 | - |
-| offsetBottom | 距离窗口底部达到指定偏移量后触发 | number | - | - |
-| target | 设置 `Affix` 需要监听其滚动事件的元素，值为一个返回对应 DOM 元素的函数 | () =&gt; Window \| HTMLElement \| null | () =&gt; window | - |
+| current | 当前步骤，受控模式 | `number` | - | - |
+| stepsProps | 传递给 Steps 的属性 | `StepsProps` | - | - |
+| formProps | 传递给每个 StepForm 的默认表单属性 | `ProFormProps` | - | - |
+| formMap | 所有步骤的表单实例 | `FormInstance[]` | - | - |
+| submitter | 底部按钮配置，设置为 `false` 可隐藏 | `SubmitterProps<{ step: number; onPre: () => void; form?: FormInstance }> \| false` | - | - |
+| containerStyle | 容器样式 | `CSSProperties` | - | - |
+| stepsRender | 自定义步骤条渲染 | `(steps, defaultDom) => VueNode` | - | - |
+| stepFormRender | 自定义单个表单区域 | `(formDom) => VueNode` | - | - |
+| stepsFormRender | 自定义表单区域和提交按钮区域 | `(formDom, submitter) => VueNode` | - | - |
+| layoutRender | 自定义整体布局 | `(layoutDom: { stepsDom: VNode; formDom: VNode }) => VueNode` | - | - |
 
-### 事件 {#events}
+#### 事件 {#events}
 
 | 事件名 | 说明 | 类型 | 版本 |
-| ----- | --- | --- | --- |
-| change | 固定状态改变时触发的回调函数 | (affixed?: boolean) =&gt; void | - |
-
-### 方法 {#methods}
-
-| 方法 | 说明 | 类型 | 版本 |
 | --- | --- | --- | --- |
-| updatePosition | - | ReturnType&lt;typeof throttleByAnimationFrame&gt; | - |
+| finish | 最后一步提交时触发，返回 `true` 会重置步数和表单 | `(values) => void \| Promise<boolean \| void>` | - |
+| currentChange | 当前步骤变化时触发 | `(current: number) => void` | - |
+| update:formMap | 表单实例列表变化时触发 | `(formMap: FormInstance[]) => void` | - |
 
-**注意：**`Affix` 内的元素不要使用绝对定位，如需要绝对定位的效果，可以直接设置 `Affix` 为绝对定位：
+### ProStepsForm.StepForm
 
-```html
-<a-affix style="position: absolute;top: y; left: x">...</a-affix>
-```
-
-## 主题变量（Design Token）{#design-token}
-
-<ComponentTokenTable component="Affix"></ComponentTokenTable>
-
-查看 [定制主题](/docs/vue/customize-theme) 了解如何使用主题变量。
-
-## FAQ
-
-### Affix 使用 `target` 绑定容器时，元素会跑到容器外。 {#faq-target-container}
-
-从性能角度考虑，我们只监听容器滚动事件。如果希望任意滚动，你可以在窗体添加滚动监听：<https://codesandbox.io/s/stupefied-maxwell-ophqnm?file=/index.js>
-
-相关 issue：[#3938](https://github.com/ant-design/ant-design/issues/3938) [#5642](https://github.com/ant-design/ant-design/issues/5642) [#16120](https://github.com/ant-design/ant-design/issues/16120)
-
-### Affix 在水平滚动容器中使用时， 元素 `left` 位置不正确。 {#faq-horizontal-scroll}
-
-Affix 一般只适用于单向滚动的区域，只支持在垂直滚动容器中使用。如果希望在水平容器中使用，你可以考虑使用 原生 `position: sticky` 实现。
-
-相关 issue: [#29108](https://github.com/ant-design/ant-design/issues/29108)
+StepForm 继承 ProForm 的大部分属性，常用属性包括 `name`、`title`、`layout`、`grid`、`submitter`、`finish` 等。

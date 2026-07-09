@@ -1,7 +1,7 @@
 const menuLocales = {
   header: {
     docs: {
-      vue: '研发',
+      vue: '文档',
     },
     components: '组件',
     blog: '博客',
@@ -29,6 +29,7 @@ const menuLocales = {
       other: '其他',
       awesome: '社区生态',
       contributing: '贡献指南',
+      releaseProcess: '提交与发布流程',
       faq: '常见问题',
     },
   },

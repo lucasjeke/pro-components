@@ -1,9 +1,8 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
-import type { ComputedRef } from 'vue'
-import { useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
+import { useStyle } from '@antdv-next1/pro-provider'
+import { mergeToken } from '@antdv-next/cssinjs'
 
-export interface TopNavHeaderToken extends ProAliasToken {
-  componentCls: string
+export interface TopNavHeaderToken extends ProAliasCssVarToken {
 }
 const genTopNavHeaderStyle: GenerateStyle<TopNavHeaderToken> = (token) => {
   return {
@@ -12,8 +11,8 @@ const genTopNavHeaderStyle: GenerateStyle<TopNavHeaderToken> = (token) => {
       width: '100%',
       height: '100%',
       '&-light': {
-        backgroundColor: token.layout?.header?.colorBgHeader || token.colorBgContainer,
-        boxShadow: '0 1px 4px rgba(0, 21, 41, 0.12)',
+        backgroundColor: token.proLayoutHeaderColorBgHeader || token.colorBgContainer,
+        boxShadow: '0 1px 4px rgba(0,21,41,.08)',
       },
       '&-dark': {
         backgroundColor: 'inherit',
@@ -67,7 +66,7 @@ const genTopNavHeaderStyle: GenerateStyle<TopNavHeaderToken> = (token) => {
           marginInlineStart: 12,
           fontWeight: 600,
           fontSize: 16,
-          color: token.layout?.header?.colorHeaderTitle,
+          color: token.proLayoutHeaderColorHeaderTitle,
           verticalAlign: 'top',
         },
       },
@@ -78,12 +77,7 @@ const genTopNavHeaderStyle: GenerateStyle<TopNavHeaderToken> = (token) => {
     },
   }
 }
-export function useStyle(prefixCls: ComputedRef<string>) {
-  return useAntdStyle('ProLayoutTopNavHeader', (token) => {
-    const topNavHeaderToken: TopNavHeaderToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
-    }
-    return [genTopNavHeaderStyle(topNavHeaderToken)]
-  })
-}
+export default useStyle('ProTopNavHeader', (token) => {
+  const topNavHeaderToken = mergeToken<TopNavHeaderToken>(token, {})
+  return [genTopNavHeaderStyle(topNavHeaderToken)]
+})

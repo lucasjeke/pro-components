@@ -18,7 +18,7 @@ import { useConfig } from 'antdv-next/dist/config-provider/context'
 import { computed, defineComponent, inject, provide, shallowRef, toRef } from 'vue'
 import ProCard from '../../ProCard'
 import ProCheckCard from './CheckCard'
-import { useStyle } from './style/group'
+import useStyle from './style/group'
 
 export type CheckCardValueType = string | number | boolean
 
@@ -206,7 +206,7 @@ const InternalCheckCardGroup = defineComponent<ProCheckCardGroupProps, {}, strin
   const prefixCls = computed(() => props.prefixCls || config.value.getPrefixCls('pro'))
   const baseClassName = computed(() => `${prefixCls.value}-checkcard-group`)
   const registerValueMap = shallowRef<Map<CheckCardValueType, any>>(new Map())
-  const { wrapSSR, hashId } = useStyle(baseClassName)
+  const [hashId, cssVarCls] = useStyle(baseClassName)
   const [stateValue, setStateValue] = useMountMergeState<
       CheckCardValueType[] | CheckCardValueType | undefined
   >(props.defaultValue, {
@@ -333,10 +333,10 @@ const InternalCheckCardGroup = defineComponent<ProCheckCardGroupProps, {}, strin
     })),
   )
   return () =>
-    wrapSSR(
-      <div class={classNames(baseClassName.value, hashId.value)} style={attrs.style}>
+    (
+      <div class={classNames(baseClassName.value, hashId.value, cssVarCls.value)} style={attrs.style}>
         {children.value}
-      </div>,
+      </div>
     )
 }, {
   name: 'InternalCheckCardGroup',

@@ -13,7 +13,7 @@ import dayjs from 'dayjs'
 import { onMounted, reactive, ref, useTemplateRef } from 'vue'
 
 const inputRef = useTemplateRef('inputRef')
-const state = ref<ProFieldFCMode>('edit')
+const state = ref<ProFieldFCMode>('read')
 const modelValue = reactive({
   value1: '用户认证服务',
   value2: '核心服务，承载全站用户登录与鉴权，高峰期需要关注性能指标',

@@ -91,8 +91,8 @@ export const components: AntdvMenuItem[] = [
     children: [
       { key: '/components/table', label: '/components/table' },
       { key: '/components/editable-table', label: '/components/editable-table' },
-      { key: '/components/drag-sort-table', label: 'components/drag-sort-table' },
-      { key: '/components/descriptions', label: '/components/descriptions' },
+      { key: '/components/drag-sort-table', label: '/components/drag-sort-table' },
+      // { key: '/components/descriptions', label: '/components/descriptions' },
       { key: '/components/listy', label: '/components/listy' },
     ],
   },
@@ -101,7 +101,7 @@ export const components: AntdvMenuItem[] = [
     label: 'general',
     type: 'group',
     children: [
-      { key: '/components/skeleton', label: '/components/skeleton' },
+      // { key: '/components/skeleton', label: '/components/skeleton' },
       { key: '/components/field', label: '/components/field' },
     ],
   },

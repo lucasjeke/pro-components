@@ -9,7 +9,7 @@ import { classNames } from '@v-c/util'
 import { useConfig } from 'antdv-next/dist/config-provider/context'
 import { computed, defineComponent, Fragment, Teleport } from 'vue'
 import { useRouteContext } from '../../context/RouteContext'
-import { useStyle } from './style'
+import useStyle from './style'
 import { useStylish } from './style/stylish'
 
 export interface FooterToolbarProps {
@@ -27,7 +27,7 @@ const FooterToolbar = defineComponent<FooterToolbarProps, {}, string, CustomSlot
   const prefixCls = computed(() => props.prefixCls || config.value.getPrefixCls('pro'))
   const baseClassName = computed(() => `${prefixCls.value}-footer-bar`)
   const routeContext = useRouteContext()
-  const { wrapSSR, hashId } = useStyle(baseClassName)
+  const [hashId, cssVarCls] = useStyle(baseClassName)
   const width = computed(() => {
     const { hasSiderMenu, isMobile, siderWidth } = routeContext.value
     if (!hasSiderMenu) {
@@ -45,7 +45,8 @@ const FooterToolbar = defineComponent<FooterToolbarProps, {}, string, CustomSlot
       // 只读取一次就行了，不然总是的渲染
     return config.value.getTargetContainer?.() || document.body
   })
-  const stylish = useStylish(
+
+  useStylish(
     computed(() => `${baseClassName.value}.${baseClassName.value}-stylish`),
     {
       stylish: computed(() => props.stylish as GenerateStyle<stylishToken>),
@@ -68,13 +69,13 @@ const FooterToolbar = defineComponent<FooterToolbarProps, {}, string, CustomSlot
     const footerToolbarContentRender = getSlot(slots, props, 'footerToolbarContentRender')
     const dom = (
       <>
-        <div class={classNames(`${baseClassName.value}-left`, hashId.value)}>{extra}</div>
-        <div class={classNames(`${baseClassName.value}-right`, hashId.value)}>{slots.default?.()}</div>
+        <div class={classNames(`${baseClassName.value}-left`, hashId?.value, cssVarCls?.value)}>{extra}</div>
+        <div class={classNames(`${baseClassName.value}-right`, hashId?.value, cssVarCls?.value)}>{slots.default?.()}</div>
       </>
     )
     const renderDom = (
       <div
-        class={classNames(attrs.class, hashId.value, baseClassName.value, {
+        class={classNames(baseClassName.value, attrs.class, hashId?.value, cssVarCls?.value, {
           [`${baseClassName.value}-stylish`]: !!props.stylish,
         })}
         style={{ width: width.value, ...(attrs.style || {}) as CSSProperties }}
@@ -91,18 +92,16 @@ const FooterToolbar = defineComponent<FooterToolbarProps, {}, string, CustomSlot
           : dom}
       </div>
     )
-    return stylish.wrapSSR(
-      wrapSSR(
-        <Fragment key={baseClassName.value}>
-          {!isBrowser() || !portalDom || !containerDom.value
-            ? <>{renderDom}</>
-            : (
-                <Teleport to={containerDom.value}>
-                  {renderDom}
-                </Teleport>
-              )}
-        </Fragment>,
-      ),
+    return (
+      <Fragment key={baseClassName.value}>
+        {!isBrowser() || !portalDom || !containerDom.value
+          ? <>{renderDom}</>
+          : (
+              <Teleport to={containerDom.value}>
+                {renderDom}
+              </Teleport>
+            )}
+      </Fragment>
     )
   }
 }, {

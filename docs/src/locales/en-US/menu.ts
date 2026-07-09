@@ -29,6 +29,7 @@ const menuLocales = {
       other: 'Others',
       awesome: 'Awesome',
       contributing: 'Contributing',
+      releaseProcess: 'Commit and Release',
       faq: 'FAQ',
     },
   },

@@ -1,11 +1,11 @@
 {
   "name": "@antdv-next1/pro-card",
   "type": "module",
-  "version": "2.0.15",
+  "version": "2.0.16",
   "description": "@antdv-next1/pro-card",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/archiesong/pro-components.git",
+    "url": "git+https://github.com/lucasjeke/pro-components.git",
     "directory": "packages/card"
   },
   "sideEffects": [

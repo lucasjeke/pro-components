@@ -1,10 +1,8 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
-import type { ComputedRef } from 'vue'
-import { useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
-import { Keyframes } from '@antdv-next/cssinjs'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
+import { useStyle } from '@antdv-next1/pro-provider'
+import { Keyframes, mergeToken } from '@antdv-next/cssinjs'
 
-export interface ProCheckCardGroupToken extends ProAliasToken {
-  componentCls: string
+export interface ProCheckCardGroupToken extends ProAliasCssVarToken {
 }
 
 export const cardLoading = new Keyframes('card-loading', {
@@ -32,13 +30,7 @@ const genProCheckCardGroupStyle: GenerateStyle<ProCheckCardGroupToken> = (token)
   }
 }
 
-export function useStyle(prefixCls: ComputedRef<string>) {
-  return useAntdStyle('ProCheckCardGroup', (token) => {
-    const proCheckCardGroupToken: ProCheckCardGroupToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
-    }
-
-    return [genProCheckCardGroupStyle(proCheckCardGroupToken)]
-  })
-}
+export default useStyle('ProCheckCardGroup', (token) => {
+  const proCheckCardGroupToken = mergeToken<ProCheckCardGroupToken>(token, {})
+  return [genProCheckCardGroupStyle(proCheckCardGroupToken)]
+})

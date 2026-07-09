@@ -15,7 +15,7 @@ import { FilterOutlined } from '@antdv-next/icons'
 import { classNames } from '@v-c/util'
 import { useConfig } from 'antdv-next/dist/config-provider/context'
 import { cloneVNode, computed, defineComponent } from 'vue'
-import { useStyle } from './style'
+import useStyle from './style'
 
 export interface ProLightFilterContainerProps {
   items?: VNode[]
@@ -40,7 +40,7 @@ const ProLightFilterContainer = defineComponent<ProLightFilterContainerProps>((p
   const config = useConfig()
   const prefixCls = computed(() => props.prefixCls || config.value.getPrefixCls('pro'))
   const lightFilterClassName = computed(() => `${prefixCls.value}-form-light-filter`)
-  const { wrapSSR, hashId } = useStyle(lightFilterClassName)
+  const [hashId, cssVarCls] = useStyle(lightFilterClassName)
   const [moreValues, setMoreValues] = useState<Record<string, any>>(() => {
     return { ...props.values }
   })
@@ -55,7 +55,7 @@ const ProLightFilterContainer = defineComponent<ProLightFilterContainerProps>((p
     if (props.collapse) {
       return (
         <FilterOutlined
-          class={classNames(`${lightFilterClassName.value}-collapse-icon`, hashId.value)}
+          class={classNames(`${lightFilterClassName.value}-collapse-icon`, hashId.value, cssVarCls.value)}
         />
       )
     }
@@ -101,11 +101,12 @@ const ProLightFilterContainer = defineComponent<ProLightFilterContainerProps>((p
   })
   return () => {
     const { size = 'middle', onValuesChange, variant, values, footerRender, placement, popoverProps } = props
-    return wrapSSR(
+    return (
       <div
         class={classNames(
           lightFilterClassName.value,
           hashId.value,
+          cssVarCls.value,
           `${lightFilterClassName.value}-${size}`,
           {
             [`${lightFilterClassName.value}-effective`]: Object.keys(values!).some(key =>
@@ -114,7 +115,7 @@ const ProLightFilterContainer = defineComponent<ProLightFilterContainerProps>((p
           },
         )}
       >
-        <div class={classNames(`${lightFilterClassName.value}-container`, hashId.value)}>
+        <div class={classNames(`${lightFilterClassName.value}-container`, hashId.value, cssVarCls.value)}>
           {items.value.outsideItems.map((child, index) => {
             if (!child?.props) {
               return child
@@ -127,7 +128,7 @@ const ProLightFilterContainer = defineComponent<ProLightFilterContainerProps>((p
             const newPlacement = fieldProps?.placement ? fieldProps?.placement : placement
             return (
               <div
-                class={classNames(`${lightFilterClassName.value}-item`, hashId.value)}
+                class={classNames(`${lightFilterClassName.value}-item`, hashId.value, cssVarCls.value)}
                 key={key || index}
               >
                 {cloneVNode(child, {
@@ -150,7 +151,7 @@ const ProLightFilterContainer = defineComponent<ProLightFilterContainerProps>((p
           })}
           {items.value.collapseItems.length ? (
             <div
-              class={classNames(`${lightFilterClassName.value}-item`, hashId.value)}
+              class={classNames(`${lightFilterClassName.value}-item`, hashId.value, cssVarCls.value)}
               key="more"
             >
               <FilterDropdown
@@ -202,7 +203,7 @@ const ProLightFilterContainer = defineComponent<ProLightFilterContainerProps>((p
                   const newPlacement = fieldProps?.placement ? fieldProps?.placement : placement
                   return (
                     <div
-                      class={classNames(`${lightFilterClassName.value}-line`, hashId.value)}
+                      class={classNames(`${lightFilterClassName.value}-line`, hashId.value, cssVarCls.value)}
                       key={key!}
                     >
                       {cloneVNode(child, {
@@ -218,7 +219,7 @@ const ProLightFilterContainer = defineComponent<ProLightFilterContainerProps>((p
             </div>
           ) : null}
         </div>
-      </div>,
+      </div>
     )
   }
 }, {

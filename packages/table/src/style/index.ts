@@ -1,10 +1,8 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
-import type { ComputedRef } from 'vue'
-import { useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
-import { Keyframes } from '@antdv-next/cssinjs'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
+import { useStyle } from '@antdv-next1/pro-provider'
+import { Keyframes, mergeToken } from '@antdv-next/cssinjs'
 
-export interface ProTableToken extends ProAliasToken {
-  componentCls: string
+export interface ProTableToken extends ProAliasCssVarToken {
 }
 
 export const turn = new Keyframes('turn', {
@@ -60,7 +58,7 @@ export const genProTableStyle: GenerateStyle<ProTableToken> = (token) => {
         },
       },
       '& &-search': {
-        marginBlockEnd: '16px',
+        marginBlockEnd: 16,
         background: token.colorBgContainer,
         '&-ghost': {
           background: 'transparent',
@@ -85,8 +83,8 @@ export const genProTableStyle: GenerateStyle<ProTableToken> = (token) => {
         '@media (max-width: 575px)': {
           [token.componentCls]: {
             height: 'auto !important',
-            paddingBlockEnd: '24px',
-            [`${token.antCls}-form-item-label`]: { minWidth: '80px', textAlign: 'start' },
+            paddingBlockEnd: 24,
+            [`${token.antCls}-form-item-label`]: { minWidth: 80, textAlign: 'start' },
           },
         },
       },
@@ -94,7 +92,7 @@ export const genProTableStyle: GenerateStyle<ProTableToken> = (token) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        height: '64px',
+        height: 64,
         paddingInline: 24,
         paddingBlock: 0,
         '&-option': { display: 'flex', alignItems: 'center', justifyContent: 'flex-end' },
@@ -102,7 +100,7 @@ export const genProTableStyle: GenerateStyle<ProTableToken> = (token) => {
           flex: '1',
           color: token.colorTextLabel,
           fontWeight: '500',
-          fontSize: '16px',
+          fontSize: 16,
           lineHeight: '24px',
           opacity: '0.85',
         },
@@ -113,6 +111,35 @@ export const genProTableStyle: GenerateStyle<ProTableToken> = (token) => {
           marginBlockEnd: -5,
           marginInlineStart: 0,
           marginInlineEnd: 0,
+        },
+      },
+      [`${token.antCls}-table-cell-resizable`]: {
+        position: 'relative',
+        [`${token.antCls}-table-cell-resizable-handle`]: {
+          position: 'absolute',
+          top: 0,
+          insetInlineEnd: -4,
+          zIndex: 10,
+          width: 12,
+          height: '100%',
+          cursor: 'col-resize',
+          userSelect: 'none',
+          touchAction: 'none',
+          '&::before': {
+            position: 'absolute',
+            top: '50%',
+            height: '1.6em',
+            insetInlineEnd: 4,
+            transform: 'translateY(-50%)',
+            width: 1,
+            background: token.colorPrimary,
+            opacity: 0,
+            transition: `opacity ${token.motionDurationMid}`,
+            content: '""',
+          },
+          '&:hover::before': {
+            opacity: 1,
+          },
         },
       },
     },
@@ -138,11 +165,11 @@ export const genProTableStyle: GenerateStyle<ProTableToken> = (token) => {
         alignItems: 'flex-start',
         justifyContent: 'flex-start',
         height: 'auto',
-        marginBlockEnd: '16px',
-        marginInlineStart: '16px',
+        marginBlockEnd: 16,
+        marginInlineStart: 16,
         paddingBlock: 8,
         paddingInline: 8,
-        paddingBlockStart: '16px',
+        paddingBlockStart: 16,
         lineHeight: 'normal',
         '&-title': {
           marginBlockEnd: 16,
@@ -158,13 +185,7 @@ export const genProTableStyle: GenerateStyle<ProTableToken> = (token) => {
     },
   }
 }
-export function useStyle(prefixCls: ComputedRef<string>) {
-  return useAntdStyle('ProTable', (token) => {
-    const proTableToken: ProTableToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
-    }
-
-    return [genProTableStyle(proTableToken)]
-  })
-}
+export default useStyle('ProTable', (token) => {
+  const proTableToken = mergeToken<ProTableToken>(token, {})
+  return [genProTableStyle(proTableToken)]
+})

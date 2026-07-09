@@ -1,10 +1,8 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
-import type { ComputedRef } from 'vue'
-import { useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
-import { Keyframes } from '@antdv-next/cssinjs'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
+import { useStyle } from '@antdv-next1/pro-provider'
+import { Keyframes, mergeToken } from '@antdv-next/cssinjs'
 
-export interface ProCheckCardToken extends ProAliasToken {
-  componentCls: string
+export interface ProCheckCardToken extends ProAliasCssVarToken {
 }
 
 function proCheckCardActive(token: ProCheckCardToken) {
@@ -71,19 +69,19 @@ const genProCheckCardStyle: GenerateStyle<ProCheckCardToken> = (token) => {
           [`${token.antCls}-card-cover`]: {
             '&:after': {
               opacity: 1,
-              border: `${token.borderRadius + 4}px solid ${token.colorPrimary}`,
-              borderBlockEnd: `${token.borderRadius + 4}px  solid transparent`,
-              borderInlineStart: `${token.borderRadius + 4}px  solid transparent`,
-              borderStartEndRadius: `${token.borderRadius}px`,
+              border: `${token.calc(token.borderRadius).add(4).equal()} ${token.lineType} ${token.colorPrimary}`,
+              borderBlockEnd: `${token.calc(token.borderRadius).add(4).equal()} ${token.lineType} transparent`,
+              borderInlineStart: `${token.calc(token.borderRadius).add(4).equal()} ${token.lineType} transparent`,
+              borderStartEndRadius: token.borderRadius,
             },
           },
           [`${token.antCls}-card-body`]: {
             '&:after': {
               opacity: 1,
-              border: `${token.borderRadius + 4}px solid ${token.colorPrimary}`,
-              borderBlockEnd: `${token.borderRadius + 4}px  solid transparent`,
-              borderInlineStart: `${token.borderRadius + 4}px  solid transparent`,
-              borderStartEndRadius: `${token.borderRadius}px`,
+              border: `${token.calc(token.borderRadius).add(4).equal()} ${token.lineType} ${token.colorPrimary}`,
+              borderBlockEnd: `${token.calc(token.borderRadius).add(4).equal()} ${token.lineType} transparent`,
+              borderInlineStart: `${token.calc(token.borderRadius).add(4).equal()} ${token.lineType} transparent`,
+              borderStartEndRadius: token.borderRadius,
             },
           },
         },
@@ -109,9 +107,9 @@ const genProCheckCardStyle: GenerateStyle<ProCheckCardToken> = (token) => {
             height: 0,
             opacity: 0,
             transition: `all 0.3s ${token.motionEaseInOut}`,
-            borderBlockEnd: `${token.borderRadius + 4}px  solid transparent`,
-            borderInlineStart: `${token.borderRadius + 4}px  solid transparent`,
-            borderStartEndRadius: `${token.borderRadius}px`,
+            borderBlockEnd: `${token.calc(token.borderRadius).add(4).equal()} ${token.lineType} transparent`,
+            borderInlineStart: `${token.calc(token.borderRadius).add(4).equal()} ${token.lineType} transparent`,
+            borderStartEndRadius: token.borderRadius,
           },
         },
         [`${token.antCls}-card-body`]: {
@@ -195,9 +193,9 @@ const genProCheckCardStyle: GenerateStyle<ProCheckCardToken> = (token) => {
             height: 0,
             opacity: 0,
             transition: `all 0.3s ${token.motionEaseInOut}`,
-            borderBlockEnd: `${token.borderRadius + 4}px  solid transparent`,
-            borderInlineStart: `${token.borderRadius + 4}px  solid transparent`,
-            borderStartEndRadius: `${token.borderRadius}px`,
+            borderBlockEnd: `${token.calc(token.borderRadius).add(4).equal()} ${token.lineType} transparent`,
+            borderInlineStart: `${token.calc(token.borderRadius).add(4).equal()} ${token.lineType} transparent`,
+            borderStartEndRadius: token.borderRadius,
           },
         },
       },
@@ -212,10 +210,10 @@ const genProCheckCardStyle: GenerateStyle<ProCheckCardToken> = (token) => {
             insetInlineEnd: 2,
             width: 0,
             height: 0,
-            border: `${token.borderRadius + 4}px solid ${token.colorTextDisabled}`,
-            borderBlockEnd: `${token.borderRadius + 4}px  solid transparent`,
-            borderInlineStart: `${token.borderRadius + 4}px  solid transparent`,
-            borderStartEndRadius: `${token.borderRadius}px`,
+            border: `${token.calc(token.borderRadius).add(4).equal()} ${token.lineType} ${token.colorTextDisabled}`,
+            borderBlockEnd: `${token.calc(token.borderRadius).add(4).equal()} ${token.lineType} transparent`,
+            borderInlineStart: `${token.calc(token.borderRadius).add(4).equal()} ${token.lineType} transparent`,
+            borderStartEndRadius: token.borderRadius,
           },
         },
       },
@@ -228,13 +226,7 @@ const genProCheckCardStyle: GenerateStyle<ProCheckCardToken> = (token) => {
   }
 }
 
-export function useStyle(prefixCls: ComputedRef<string>) {
-  return useAntdStyle('ProCheckCard', (token) => {
-    const proCheckCardToken: ProCheckCardToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
-    }
-
-    return [genProCheckCardStyle(proCheckCardToken)]
-  })
-}
+export default useStyle('ProCheckCard', (token) => {
+  const proCheckCardToken = mergeToken<ProCheckCardToken>(token, {})
+  return [genProCheckCardStyle(proCheckCardToken)]
+})

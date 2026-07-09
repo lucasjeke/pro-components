@@ -12,7 +12,7 @@ import AppsLogoComponents from '../AppsLogoComponents'
 import ActionsContent from '../GlobalHeader/ActionsContent'
 import BaseMenu from '../SiderMenu/BaseMenu'
 import { renderLogoAndTitle } from '../SiderMenu/SiderMenu'
-import { useStyle } from './style'
+import useStyle from './style'
 
 export type TopNavHeaderProps = PrivateSiderMenuProps & SiderMenuProps & GlobalHeaderProps
 
@@ -33,10 +33,9 @@ const TopNavHeader = defineComponent<TopNavHeaderProps, {}, string, CustomSlotsT
   }
 >>((props, { slots, attrs }) => {
   const config = useConfig()
-  // const proProvide = useProConfig()
-  const prefixCls = computed(() => `${props.prefixCls || config.value.getPrefixCls('pro')}-top-nav-header`)
-
-  const { wrapSSR, hashId } = useStyle(prefixCls)
+  const prefixCls = computed(() => `${props.prefixCls || config.value.getPrefixCls('pro')}`)
+  const baseClassName = computed(() => `${prefixCls.value}-top-nav-header`)
+  const [hashId, cssVarCls] = useStyle(baseClassName)
 
   const headerDom = computed(() => {
     let renderKey: HeaderRenderKey | undefined
@@ -103,7 +102,7 @@ const TopNavHeader = defineComponent<TopNavHeaderProps, {}, string, CustomSlotsT
           {...props}
           menuItemRender={menuItemRender}
           subMenuItemRender={subMenuItemRender}
-          class={`${prefixCls.value}-base-menu`}
+          class={`${baseClassName.value}-base-menu`}
           theme={props.navTheme !== 'realDark' ? props.navTheme : 'dark'}
           collapsed={false}
           menuRenderType="header"
@@ -121,32 +120,32 @@ const TopNavHeader = defineComponent<TopNavHeaderProps, {}, string, CustomSlotsT
     const { contentWidth, layout, onMenuHeaderClick, navTheme, avatarProps } = props
     const actionsRender = getSlot(slots, props, 'actionsRender')
     const appListRender = getSlot(slots, props, 'appListRender')
-    return wrapSSR(
+    return (
       <div
-        class={classNames(prefixCls.value, hashId.value, attrs.class, {
-          [`${prefixCls.value}-${navTheme}`]: true,
+        class={classNames(baseClassName.value, hashId?.value, cssVarCls?.value, attrs.class, {
+          [`${baseClassName.value}-${navTheme}`]: true,
         })}
         style={attrs.style}
       >
         <div
-          class={classNames(`${prefixCls.value}-main`, hashId.value, {
-            [`${prefixCls.value}-wide`]: contentWidth === 'Fixed' && layout === 'top',
+          class={classNames(`${baseClassName.value}-main`, hashId?.value, cssVarCls?.value, {
+            [`${baseClassName.value}-wide`]: contentWidth === 'Fixed' && layout === 'top',
           })}
         >
           {headerDom.value && (
-            <div class={classNames(`${prefixCls.value}-main-left`, hashId.value)} onClick={onMenuHeaderClick}>
+            <div class={classNames(`${baseClassName.value}-main-left`, hashId?.value, cssVarCls?.value)} onClick={onMenuHeaderClick}>
               <AppsLogoComponents {...props} appListRender={appListRender} />
-              <div class={classNames(`${prefixCls.value}-logo`, hashId.value)} key="logo" id="logo">
+              <div class={classNames(`${baseClassName.value}-logo`, hashId?.value, cssVarCls?.value)} key="logo" id="logo">
                 {headerDom.value}
               </div>
             </div>
           )}
-          <div style={{ flex: 1 }} class={classNames(`${prefixCls.value}-menu`, hashId.value)}>
+          <div style={{ flex: 1 }} class={classNames(`${baseClassName.value}-menu`, hashId?.value, cssVarCls?.value)}>
             {contentDom.value}
           </div>
-          {(actionsRender || avatarProps) && <ActionsContent {...props} actionsRender={actionsRender} prefixCls={prefixCls.value} />}
+          {(actionsRender || avatarProps) && <ActionsContent {...props} actionsRender={actionsRender} prefixCls={baseClassName.value} />}
         </div>
-      </div>,
+      </div>
     )
   }
 }, {

@@ -11,7 +11,7 @@ import { useConfig } from 'antdv-next/dist/config-provider/context'
 import { computed, defineComponent, shallowRef } from 'vue'
 import { useProFormInstanceExpose } from '../../utils'
 import ProForm from '../ProForm'
-import { useStyle } from './style'
+import useStyle from './style'
 
 export type ProLoginFormPageProps<T extends Record<string, any>, U extends Record<string, any>> = {
   /**
@@ -79,7 +79,7 @@ const ProLoginFormPage = defineComponent(<T extends Record<string, any>, U exten
   const baseClassName = computed(() => `${prefixCls.value}-form-login-page`)
   const formRef = shallowRef<ProFormRef<T>>()
   const intl = useIntl()
-  const { wrapSSR, hashId } = useStyle(baseClassName)
+  const [hashId, cssVarCls] = useStyle(baseClassName)
   /** 生成logo 的dom，如果是string 设置为图片 如果是个 dom 就原样保留 */
   const logoDom = computed(() => {
     if (!props.logo)
@@ -129,9 +129,9 @@ const ProLoginFormPage = defineComponent(<T extends Record<string, any>, U exten
       submitButtonProps: genSubmitButtonProps(),
     } as ProFormProps<T, U>['submitter']
 
-    return wrapSSR(
+    return (
       <div
-        class={classNames(baseClassName.value, hashId.value)}
+        class={classNames(baseClassName.value, hashId.value, cssVarCls.value)}
         style={{
           ...((style || {}) as CSSProperties),
           position: 'relative',
@@ -169,15 +169,15 @@ const ProLoginFormPage = defineComponent(<T extends Record<string, any>, U exten
             />
           </div>
         ) : null}
-        <div class={classNames(baseClassName.value, hashId.value)}>
-          <div class={classNames(`${baseClassName.value}-notice`, hashId.value)}>
+        <div class={classNames(baseClassName.value, hashId.value, cssVarCls.value)}>
+          <div class={classNames(`${baseClassName.value}-notice`, hashId.value, cssVarCls.value)}>
             {activityConfig && (
               <div
-                class={classNames(`${baseClassName.value}-notice-activity`, hashId.value)}
+                class={classNames(`${baseClassName.value}-notice-activity`, hashId.value, cssVarCls.value)}
                 style={activityConfig.style}
               >
                 {activityConfig.title && (
-                  <div class={classNames(`${baseClassName.value}-notice-activity-title`, hashId.value)}>
+                  <div class={classNames(`${baseClassName.value}-notice-activity-title`, hashId.value, cssVarCls.value)}>
                     {activityConfig.title}
                   </div>
                 )}
@@ -186,6 +186,7 @@ const ProLoginFormPage = defineComponent(<T extends Record<string, any>, U exten
                     class={classNames(
                       `${baseClassName.value}-notice-activity-subTitle`,
                       hashId.value,
+                      cssVarCls.value,
                     )}
                   >
                     {activityConfig.subTitle}
@@ -193,7 +194,7 @@ const ProLoginFormPage = defineComponent(<T extends Record<string, any>, U exten
                 )}
                 {activityConfig.action && (
                   <div
-                    class={classNames(`${baseClassName.value}-notice-activity-action`, hashId.value)}
+                    class={classNames(`${baseClassName.value}-notice-activity-action`, hashId.value, cssVarCls.value)}
                   >
                     {activityConfig.action}
                   </div>
@@ -201,33 +202,33 @@ const ProLoginFormPage = defineComponent(<T extends Record<string, any>, U exten
               </div>
             )}
           </div>
-          <div class={classNames(`${baseClassName.value}-left`, hashId.value)}>
+          <div class={classNames(`${baseClassName.value}-left`, hashId.value, cssVarCls.value)}>
             <div
-              class={classNames(`${baseClassName.value}-container`, hashId.value)}
+              class={classNames(`${baseClassName.value}-container`, hashId.value, cssVarCls.value)}
               style={containerStyle}
             >
-              <div class={classNames(`${baseClassName.value}-top`, hashId.value)}>
+              <div class={classNames(`${baseClassName.value}-top`, hashId.value, cssVarCls.value)}>
                 {title || logoDom.value ? (
-                  <div class={classNames(`${baseClassName.value}-header`, hashId.value)}>
+                  <div class={classNames(`${baseClassName.value}-header`, hashId.value, cssVarCls.value)}>
                     {logoDom.value ? (
-                      <span class={classNames(`${baseClassName.value}-logo`, hashId.value)}>
+                      <span class={classNames(`${baseClassName.value}-logo`, hashId.value, cssVarCls.value)}>
                         {logoDom.value}
                       </span>
                     ) : null}
                     {title ? (
-                      <span class={classNames(`${baseClassName.value}-title`, hashId.value)}>
+                      <span class={classNames(`${baseClassName.value}-title`, hashId.value, cssVarCls.value)}>
                         {title}
                       </span>
                     ) : null}
                   </div>
                 ) : null}
                 {subTitle ? (
-                  <div class={classNames(`${baseClassName.value}-desc`, hashId.value)}>
+                  <div class={classNames(`${baseClassName.value}-desc`, hashId.value, cssVarCls.value)}>
                     {subTitle}
                   </div>
                 ) : null}
               </div>
-              <div class={classNames(`${baseClassName.value}-main`, hashId.value)} style={mainStyle}>
+              <div class={classNames(`${baseClassName.value}-main`, hashId.value, cssVarCls.value)} style={mainStyle}>
                 <ProForm
                   {...restAttrs}
                   isKeyPressSubmit
@@ -246,7 +247,7 @@ const ProLoginFormPage = defineComponent(<T extends Record<string, any>, U exten
                 />
                 {actions ? (
                   <div
-                    class={classNames(`${baseClassName.value}-other`, hashId.value)}
+                    class={classNames(`${baseClassName.value}-other`, hashId.value, cssVarCls.value)}
                     style={otherStyle}
                   >
                     {actions}
@@ -256,7 +257,7 @@ const ProLoginFormPage = defineComponent(<T extends Record<string, any>, U exten
             </div>
           </div>
         </div>
-      </div>,
+      </div>
     )
   }
 }, {

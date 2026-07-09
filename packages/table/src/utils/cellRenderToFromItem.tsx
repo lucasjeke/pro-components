@@ -1,22 +1,24 @@
 import type { ProFieldEmptyText } from '@antdv-next1/pro-field'
 import type { ProFormFieldProps } from '@antdv-next1/pro-form'
 import type { ProFieldValueObjectType, ProFieldValueType, ProSchemaComponentTypes, UseEditableUtilType } from '@antdv-next1/pro-utils'
-import type { AnyObject, Key, VueNode } from '@v-c/util/dist/type'
+import type { AnyObject, CustomSlotsType, Key, VueNode } from '@v-c/util/dist/type'
 import type { NamePath } from 'antdv-next/dist/form/types'
+import type { SetupContext } from 'vue'
 import type { ContainerReturnType } from '../Store/Provide'
 import type { ProColumnType } from '../typing'
 import { ProForm, ProFormField, useFieldContextInject } from '@antdv-next1/pro-form'
+import { useIntl } from '@antdv-next1/pro-provider'
 import {
   FormItem,
   getFieldPropsOrFormItemProps,
   InlineErrorFormItem,
   runFunction,
 } from '@antdv-next1/pro-utils'
+import { defineComponent } from 'vue'
 
 const SHOW_EMPTY_TEXT_LIST = ['', null, undefined]
 
 interface CellRenderFromItemProps<T extends AnyObject, U extends Record<string, any>, ValueType extends (ProFieldValueType | ProFieldValueObjectType)> {
-  key?: Key
   text: VueNode
   valueType: ProColumnType<T, ValueType>['valueType']
   index: number
@@ -53,125 +55,134 @@ export function spellNamePath(...rest: any[]): Key[] {
     })
     .flat(1)
 }
-
-function CellRenderFromItem<T extends Record<string, any>, U extends Record<string, any>, ValueType extends (ProFieldValueType | ProFieldValueObjectType)>(props: CellRenderFromItemProps<T, U, ValueType>) {
+const CellRenderFromItem = defineComponent(<T extends Record<string, any>, U extends Record<string, any>, ValueType extends (ProFieldValueType | ProFieldValueObjectType)>(props: CellRenderFromItemProps<T, U, ValueType>, { expose }: SetupContext<{}, CustomSlotsType<{
+  default?: () => VueNode
+}>>) => {
+  const intl = useIntl()
   const formContext = useFieldContextInject()
-  const {
-    columnProps,
-    prefixName,
-    text,
-    counter,
-    rowData,
-    index,
-    recordKey,
-    subName,
-    proFieldProps,
-    editableUtils,
-  } = props
   const editableForm = ProForm.useFormInstance()
-  const key = recordKey || index
-  const realIndex = editableUtils?.getRealIndex?.(rowData!) ?? index
-  const formItemName = spellNamePath(
-    prefixName,
-    prefixName ? subName : [],
-    prefixName ? realIndex : key,
-    columnProps?.key ?? columnProps?.dataIndex ?? index,
-  )
-  const rowName = formItemName.slice(0, -1)
-
-  const needProps = [
-    editableForm,
-    {
-      ...columnProps,
-      rowKey: rowName,
-      rowIndex: index,
-      isEditable: true,
-    },
-  ] as const
-
-  const generateFormItem = () => {
-    const formItemProps = {
-      ...getFieldPropsOrFormItemProps(columnProps?.formItemProps, ...needProps),
-    }
-    formItemProps.messageVariables = {
-      label: (columnProps?.title as string) || '此项',
-      type: (columnProps?.valueType as string) || '文本',
-      ...formItemProps?.messageVariables,
-    }
-    formItemProps.initialValue
-      = (prefixName ? null : text)
-        ?? formItemProps?.initialValue
-        ?? columnProps?.initialValue
-    let fieldDom: VueNode = (
-      <ProFormField
-        key={formItemName.join('-')}
-        name={formItemName}
-        proFormFieldKey={key}
-        ignoreFormItem
-        fieldProps={{
-          style: {
-            width: '100%',
-          },
-          ...getFieldPropsOrFormItemProps(columnProps?.fieldProps, ...needProps),
-        }}
-        {...proFieldProps}
-      />
+  expose({})
+  return () => {
+    const {
+      columnProps,
+      prefixName,
+      text,
+      counter,
+      rowData,
+      index,
+      recordKey,
+      subName,
+      proFieldProps,
+      editableUtils,
+    } = props
+    const key = recordKey || index
+    const realIndex = editableUtils?.getRealIndex?.(rowData!) ?? index
+    const formItemName = spellNamePath(
+      prefixName,
+      prefixName ? subName : [],
+      prefixName ? realIndex : key,
+      columnProps?.key ?? columnProps?.dataIndex ?? index,
     )
-    /**
-     * 如果没有自定义直接返回
-     */
-    if (columnProps?.formItemRender) {
-      fieldDom = columnProps.formItemRender(
-        {
-          ...columnProps,
-          index,
-          isEditable: true,
-          type: 'table',
-        },
-        {
-          defaultRender: () => <>{fieldDom}</>,
-          type: 'form',
-          recordKey,
-          record: {
-            ...rowData,
-            ...editableForm?.getFieldsValue([key]),
-          } as T,
-          isEditable: true,
-        },
-        editableForm!,
-        props.editableUtils,
+    const rowName = formItemName.slice(0, -1)
+
+    const needProps = [
+      editableForm,
+      {
+        ...columnProps,
+        rowKey: rowName,
+        rowIndex: index,
+        isEditable: true,
+      },
+    ] as const
+
+    const generateFormItem = () => {
+      const formItemProps = {
+        ...getFieldPropsOrFormItemProps(columnProps?.formItemProps, ...needProps),
+      }
+      formItemProps.messageVariables = {
+        label: (columnProps?.title as string) || intl.value.getMessage({ id: 'editableTable.defaultFieldLabel', defaultMessage: '此项' }),
+        type: (columnProps?.valueType as string) || intl.value.getMessage({ id: 'editableTable.defaultFieldType', defaultMessage: '文本' }),
+        ...formItemProps?.messageVariables,
+      }
+      formItemProps.initialValue
+        = (prefixName ? null : text)
+          ?? formItemProps?.initialValue
+          ?? columnProps?.initialValue
+      let fieldDom: VueNode = (
+        <ProFormField
+          key={formItemName.join('-')}
+          name={formItemName}
+          proFormFieldKey={key}
+          ignoreFormItem
+          fieldProps={{
+            style: {
+              width: '100%',
+            },
+            ...getFieldPropsOrFormItemProps(columnProps?.fieldProps, ...needProps),
+          }}
+          {...proFieldProps}
+        />
       )
-      // 如果需要完全自定义可以不要name
-      if (columnProps.ignoreFormItem)
-        return <>{fieldDom}</>
-    }
-    return (
-      <InlineErrorFormItem
-        key={formItemName.join('-')}
-        {...formItemProps}
-        errorType="popover"
-        popoverProps={{
-          getPopupContainer:
+      /**
+       * 如果没有自定义直接返回
+       */
+      if (columnProps?.formItemRender) {
+        fieldDom = columnProps.formItemRender(
+          {
+            ...columnProps,
+            index,
+            isEditable: true,
+            type: 'table',
+          },
+          {
+            defaultRender: () => <>{fieldDom}</>,
+            type: 'form',
+            recordKey,
+            record: {
+              ...rowData,
+              ...editableForm?.getFieldsValue([key]),
+            } as T,
+            isEditable: true,
+          },
+          editableForm!,
+          props.editableUtils,
+        )
+        // 如果需要完全自定义可以不要name
+        if (columnProps.ignoreFormItem)
+          return <>{fieldDom}</>
+      }
+      return (
+        <InlineErrorFormItem
+          key={formItemName.join('-')}
+          {...formItemProps}
+          errorType="popover"
+          popoverProps={{
+            getPopupContainer:
             formContext.getPopupContainer?.value! as () => HTMLElement
             || (() => counter?.rootDomRef?.value! || document.body),
-        }}
-        name={formItemName}
-      >
-        {fieldDom}
-      </InlineErrorFormItem>
-    )
+          }}
+          name={formItemName}
+        >
+          {fieldDom}
+        </InlineErrorFormItem>
+      )
+    }
+    if (formItemName.length === 0)
+      return null
+    if (
+      typeof columnProps?.formItemRender === 'function'
+      || typeof columnProps?.fieldProps === 'function'
+      || typeof columnProps?.formItemProps === 'function'
+    ) {
+      return <FormItem noStyle>{() => generateFormItem()}</FormItem>
+    }
+    return generateFormItem()
   }
-  if (formItemName.length === 0)
-    return null
-  if (
-    typeof columnProps?.formItemRender === 'function'
-    || typeof columnProps?.fieldProps === 'function'
-    || typeof columnProps?.formItemProps === 'function'
-  ) {
-    return <FormItem noStyle>{() => generateFormItem()}</FormItem>
-  }
-  return generateFormItem()
-}
+}, {
+  name: 'CellRenderFromItem',
+  inheritAttrs: false,
+  props: ['columnEmptyText', 'columnProps', 'counter', 'editableUtils', 'index', 'mode', 'mode', 'prefixName', 'proFieldProps', 'recordKey', 'rowData', 'subName', 'text', 'type', 'valueType'],
+})
 
 /**
  * 根据不同的类型来转化数值
@@ -245,10 +256,12 @@ function cellRenderToFromItem<T extends AnyObject, U extends Record<string, any>
     )
   }
 
-  return CellRenderFromItem<T, U, ValueType>({
-    key: config.recordKey,
-    ...config,
-    proFieldProps,
-  })
+  return (
+    <CellRenderFromItem<T, U, ValueType>
+      key={config.recordKey}
+      {...config}
+      proFieldProps={proFieldProps}
+    />
+  )
 }
 export default cellRenderToFromItem

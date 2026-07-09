@@ -5,7 +5,7 @@ import { onMounted, ref, useTemplateRef } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useLocale } from '@/composables/use-locale'
 import { useAppStore } from '@/stores/app'
-import { covers } from './covers'
+import { getComponentCover } from './covers'
 
 defineOptions({ name: 'ComponentOverview' })
 
@@ -108,7 +108,7 @@ onMounted(() => {
                   </template>
                   <div class="components-overview-img">
                     <img
-                      :src="darkMode ? covers?.[getComponentName(comp.key)]?.coverDark : covers?.[getComponentName(comp.key)]?.cover"
+                      :src="getComponentCover(getComponentName(comp.key), darkMode)"
                       :alt="siderLocales?.[comp.key]?.[locale] ?? comp.label"
                     >
                   </div>

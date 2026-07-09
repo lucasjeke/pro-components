@@ -4,7 +4,9 @@ const msMY: ProLocale = {
   moneySymbol: 'RM',
   deleteThisLine: 'Padam baris ini',
   copyThisLine: 'Salin baris ini',
-  emptyListValidateMessage: '列表不能为空',
+  sortUpThisLine: 'Alih ke atas',
+  sortDownThisLine: 'Alih ke bawah',
+  emptyListValidateMessage: 'Senarai tidak boleh kosong',
   form: {
     lightFilter: {
       more: 'Lebih banyak',
@@ -12,13 +14,26 @@ const msMY: ProLocale = {
       confirm: 'Mengesahkan',
       itemUnit: 'Item',
     },
+    captcha: {
+      getCaptcha: 'Dapatkan kod pengesahan',
+      resendAfter: 's untuk hantar semula',
+    },
+    upload: {
+      buttonText: 'Klik untuk muat naik',
+      draggerTitle: 'Klik atau seret fail ke kawasan ini untuk dimuat naik',
+      draggerDescription: 'Menyokong muat naik tunggal atau pukal',
+    },
+    modal: {
+      okText: 'Sahkan',
+      cancelText: 'Batal',
+    },
   },
   time: {
-    seconds: 'seconds',
-    minutes: 'minutes',
-    hours: 'hours',
-    days: 'days',
-    ago: 'ago',
+    seconds: 'saat',
+    minutes: 'minit',
+    hours: 'jam',
+    days: 'hari',
+    ago: 'yang lalu',
   },
   tableForm: {
     search: 'Cari',
@@ -69,6 +84,8 @@ const msMY: ProLocale = {
     submitText: 'Log Masuk',
   },
   editableTable: {
+    defaultFieldLabel: 'Medan ini',
+    defaultFieldType: 'Teks',
     onlyOneLineEditor: 'Hanya satu baris boleh disunting pada satu masa',
     onlyAddOneLine: 'Hanya satu baris boleh ditambah pada satu masa',
     action: {

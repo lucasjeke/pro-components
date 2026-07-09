@@ -16,7 +16,7 @@ import { GroupIcon } from './icon/group'
 import { SubIcon } from './icon/sub'
 import { getFormatMessage, LayoutSetting, renderLayoutSettingItem } from './LayoutChange'
 import RegionalSetting from './RegionalChange'
-import { useStyle } from './style'
+import useStyle from './style'
 import ThemeColor from './ThemeColor'
 
 type MergerSettingsType<T> = Partial<T> & {
@@ -38,12 +38,13 @@ export interface SettingDrawerProps {
 interface BodyProps {
   title: string
   prefixCls: string
+  cssVarCls: string
   hashId: string
 }
 
-const SeetingBody: FunctionalComponent<BodyProps> = ({ hashId, prefixCls, title }, { slots }) => (
+const SeetingBody: FunctionalComponent<BodyProps> = ({ hashId, prefixCls, title, cssVarCls }, { slots }) => (
   <div style={{ marginBlockEnd: '12px' }}>
-    <h3 class={`${prefixCls}-body-title ${hashId}`}>{title}</h3>
+    <h3 class={classNames(`${prefixCls}-body-title`, hashId, cssVarCls)}>{title}</h3>
     {slots.default?.()}
   </div>
 )
@@ -74,13 +75,13 @@ const SettingDrawer = defineComponent<SettingDrawerProps>((props) => {
   const baseClassName = computed(() => `${props.prefixCls || config.value.getPrefixCls('pro')}-setting-drawer`)
   const formatMessage = getFormatMessage()
   const drawerRef = shallowRef(null)
-  const { wrapSSR, hashId } = useStyle(baseClassName)
+  const [hashId, cssVarCls] = useStyle(baseClassName)
   const [open, setOpen] = useMountMergeState(false, {
     value: props.collapsed === undefined ? undefined : ref(props.collapsed),
     onChange: value => props['onUpdate:collapsed']?.(value) && props.onCollapse?.(value),
   })
   const className = computed(() =>
-    classNames(baseClassName.value, hashId.value, {
+    classNames(baseClassName.value, hashId?.value, cssVarCls?.value, {
       [`${baseClassName.value}-collapsed`]: !open.value,
       // [`${baseClassName.value}-realDark`]: props.settings?.navTheme === 'realDark',
     }),
@@ -153,54 +154,17 @@ const SettingDrawer = defineComponent<SettingDrawerProps>((props) => {
         { key: 'geekblue', color: '#2F54EB' },
         { key: 'purple', color: '#722ED1' },
       ],
-      // transitionList = [
-      //   {
-      //     value: 'null',
-      //     label: formatMessage({
-      //       id: 'app.setting.transitionName.empty',
-      //       defaultMessage: 'Null',
-      //     }),
-      //   },
-      //   {
-      //     value: `${getPrefixCls('pro')}-slide-fadein-up`,
-      //     label: formatMessage({
-      //       id: 'app.setting.transitionName.slide.up',
-      //       defaultMessage: 'Slide Up',
-      //     }),
-      //   },
-      //   {
-      //     value: `${getPrefixCls('pro')}-slide-fadein-right`,
-      //     label: formatMessage({
-      //       id: 'app.setting.transitionName.slide.right',
-      //       defaultMessage: 'Slide Right',
-      //     }),
-      //   },
-      //   {
-      //     value: `${getPrefixCls('pro')}-zoom-fadein`,
-      //     label: formatMessage({
-      //       id: 'app.setting.transitionName.fade.in',
-      //       defaultMessage: 'Fade In',
-      //     }),
-      //   },
-      //   {
-      //     value: `${getPrefixCls('pro')}-fadein`,
-      //     label: formatMessage({
-      //       id: 'app.setting.transitionName.zoom',
-      //       defaultMessage: 'Zoom',
-      //     }),
-      //   },
-      // ],
       hideCopyButton,
       hideHintAlert,
     } = props
 
-    return wrapSSR(
+    return (
       <>
         <Teleport to="body">
           {!open.value && (
             <div>
-              <div class={classNames(`${baseClassName.value}-handle-container`, hashId.value)}>
-                <div class={classNames(`${baseClassName.value}-handle`, hashId.value)} onClick={() => setOpen(!open.value)}>
+              <div class={classNames(`${baseClassName.value}-handle-container`, hashId?.value, cssVarCls?.value)}>
+                <div class={classNames(`${baseClassName.value}-handle`, hashId?.value, cssVarCls?.value)} onClick={() => setOpen(!open.value)}>
                   <SettingOutlined spin style={{ color: 'rgb(255,255,255)', fontSize: '20px' }} />
                 </div>
               </div>
@@ -217,7 +181,7 @@ const SettingDrawer = defineComponent<SettingDrawerProps>((props) => {
           drawerRender={(dom) => {
             return (
               <>
-                <div ref={drawerRef} class={classNames(`${baseClassName.value}-handle`, hashId.value)} onClick={() => setOpen(!open.value)}>
+                <div ref={drawerRef} class={classNames(`${baseClassName.value}-handle`, hashId?.value, cssVarCls?.value)} onClick={() => setOpen(!open.value)}>
                   {!open.value
                     ? (
                         <SettingOutlined spin style={{ color: 'rgb(255,255,255)', fontSize: '20px' }} />
@@ -231,17 +195,19 @@ const SettingDrawer = defineComponent<SettingDrawerProps>((props) => {
             )
           }}
         >
-          <div class={classNames(`${baseClassName.value}-content`, hashId.value)}>
+          <div class={classNames(`${baseClassName.value}-content`, hashId?.value, cssVarCls?.value)}>
             <SeetingBody
               prefixCls={baseClassName.value}
-              hashId={hashId.value as string}
+              hashId={hashId?.value as string}
+              cssVarCls={cssVarCls?.value as string}
               title={formatMessage({
                 id: 'app.setting.pagestyle',
                 defaultMessage: '整体风格设置',
               })}
             >
               <BlockCheckbox
-                hashId={hashId.value}
+                hashId={hashId?.value!}
+                cssVarCls={cssVarCls?.value!}
                 prefixCls={baseClassName.value}
                 list={[
                   {
@@ -274,7 +240,8 @@ const SettingDrawer = defineComponent<SettingDrawerProps>((props) => {
             </SeetingBody>
             {colorList !== false && (
               <SeetingBody
-                hashId={hashId.value}
+                hashId={hashId?.value!}
+                cssVarCls={cssVarCls?.value!}
                 title={formatMessage({
                   id: 'app.setting.themecolor',
                   defaultMessage: '主题色',
@@ -282,7 +249,8 @@ const SettingDrawer = defineComponent<SettingDrawerProps>((props) => {
                 prefixCls={baseClassName.value}
               >
                 <ThemeColor
-                  hashId={hashId.value}
+                  hashId={hashId?.value!}
+                  cssVarCls={cssVarCls?.value!}
                   prefixCls={baseClassName.value}
                   colorList={colorList}
                   formatMessage={formatMessage}
@@ -307,7 +275,8 @@ const SettingDrawer = defineComponent<SettingDrawerProps>((props) => {
             )}
             <Divider />
             <SeetingBody
-              hashId={hashId.value}
+              hashId={hashId?.value!}
+              cssVarCls={cssVarCls?.value!}
               title={formatMessage({
                 id: 'app.setting.navigationmode',
                 defaultMessage: '导航模式',
@@ -318,7 +287,8 @@ const SettingDrawer = defineComponent<SettingDrawerProps>((props) => {
                 prefixCls={baseClassName.value}
                 value={settingState.value.layout}
                 key="layout"
-                hashId={hashId.value}
+                hashId={hashId?.value}
+                cssVarCls={cssVarCls?.value}
                 configType="layout"
                 list={[
                   {
@@ -356,7 +326,8 @@ const SettingDrawer = defineComponent<SettingDrawerProps>((props) => {
             {settingState.value.layout === 'side' || settingState.value.layout === 'mix' || settingState.value.layout === 'left'
               ? (
                   <SeetingBody
-                    hashId={hashId.value}
+                    hashId={hashId?.value!}
+                    cssVarCls={cssVarCls?.value!}
                     prefixCls={baseClassName.value}
                     title={formatMessage({
                       id: 'app.setting.sidermenutype',
@@ -367,7 +338,8 @@ const SettingDrawer = defineComponent<SettingDrawerProps>((props) => {
                       prefixCls={baseClassName.value}
                       value={settingState.value.siderMenuType}
                       key="siderMenuType"
-                      hashId={hashId.value}
+                      hashId={hashId?.value}
+                      cssVarCls={cssVarCls?.value}
                       configType="siderMenuType"
                       list={[
                         {
@@ -394,7 +366,8 @@ const SettingDrawer = defineComponent<SettingDrawerProps>((props) => {
               : null}
             <LayoutSetting
               prefixCls={baseClassName.value}
-              hashId={hashId.value}
+              hashId={hashId?.value!}
+              cssVarCls={cssVarCls?.value!}
               formatMessage={formatMessage}
               settings={{
                 ...settingState.value,
@@ -403,7 +376,8 @@ const SettingDrawer = defineComponent<SettingDrawerProps>((props) => {
             />
             <Divider />
             <SeetingBody
-              hashId={hashId.value}
+              hashId={hashId?.value!}
+              cssVarCls={cssVarCls?.value!}
               prefixCls={baseClassName.value}
               title={formatMessage({
                 id: 'app.setting.regionalsettings',
@@ -411,7 +385,8 @@ const SettingDrawer = defineComponent<SettingDrawerProps>((props) => {
               })}
             >
               <RegionalSetting
-                hashId={hashId.value}
+                hashId={hashId?.value!}
+                cssVarCls={cssVarCls?.value!}
                 prefixCls={baseClassName.value}
                 formatMessage={formatMessage}
                 settings={{
@@ -422,7 +397,8 @@ const SettingDrawer = defineComponent<SettingDrawerProps>((props) => {
             </SeetingBody>
             <Divider />
             <SeetingBody
-              hashId={hashId.value}
+              hashId={hashId?.value!}
+              cssVarCls={cssVarCls?.value!}
               prefixCls={baseClassName.value}
               title={formatMessage({
                 id: 'app.setting.othersettings',
@@ -430,63 +406,13 @@ const SettingDrawer = defineComponent<SettingDrawerProps>((props) => {
               })}
             >
               <Listy
-                class={classNames(`${baseClassName.value}-list`, hashId.value)}
+                class={classNames(`${baseClassName.value}-list`, hashId?.value, cssVarCls?.value)}
                 split={false}
                 size="small"
                 rowKey="title"
                 variant="borderless"
                 itemRender={item => renderLayoutSettingItem(item)}
                 items={[
-                // transitionList !== false && {
-                //   title: formatMessage({
-                //     id: 'app.setting.transitionName',
-                //     defaultMessage: '路由动画',
-                //   }),
-                //   action: (
-                //     <Select
-                //       size="small"
-                //       value={transitionName}
-                //       onSelect={(value: any) => changeSetting('transitionName', value)}
-                //       style.ts={{ width: '110px' }}
-                //       options={transitionList}
-                //     />
-                //   ),
-                // },
-                // {
-                //   title: formatMessage({
-                //     id: 'app.setting.multitab',
-                //     defaultMessage: '多标签',
-                //   }),
-                //   action: (
-                //     <Switch
-                //       size="small"
-                //       checked={!!multiTab}
-                //       onChange={(checked) => {
-                //         changeSetting('multiTab', checked as boolean);
-                //       }}
-                //     />
-                //   ),
-                // },
-                // {
-                //   title: formatMessage({
-                //     id: 'app.setting.multitabFixed',
-                //     defaultMessage: '固定多标签',
-                //   }),
-                //   disabled: !(multiTab && fixedHeader),
-                //   disabledReason: formatMessage({
-                //     id: 'app.setting.multitab.fixed.hit',
-                //     defaultMessage: '固定多标签需要先开启多标签并且固定 Header',
-                //   }),
-                //   action: (
-                //     <Switch
-                //       size="small"
-                //       checked={!!multiTabFixed}
-                //       onChange={(checked) => {
-                //         changeSetting('multiTabFixed', checked as boolean);
-                //       }}
-                //     />
-                //   ),
-                // },
                   {
                     title: formatMessage({
                       id: 'app.setting.weakmode',
@@ -541,8 +467,7 @@ const SettingDrawer = defineComponent<SettingDrawerProps>((props) => {
                 )}
           </div>
         </Drawer>
-      </>,
-
+      </>
     )
   }
 }, {

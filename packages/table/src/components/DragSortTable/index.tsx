@@ -11,7 +11,7 @@ import { useConfig } from 'antdv-next/dist/config-provider/context'
 import { computed, defineComponent, toRef } from 'vue'
 import ProTable from '../../Table'
 import { useDragSort } from '../../utils/useDragSort'
-import { useStyle } from './style'
+import useStyle from './style'
 
 export type DragSortTableProps<T, U, ValueType> = ProTableProps<T, U, ValueType> & {
   /** @name dragSortKey 拖动排序列key值 如配置此参数，则会在该 key 对应的行显示拖拽排序把手，允许拖拽排序 */
@@ -40,14 +40,14 @@ const DragSortTable = defineComponent(<DataType extends Record<string, any>, Par
   const { token } = useToken()
   const prefixCls = computed(() => props.prefixCls || config.value.getPrefixCls('pro'))
   const baseClassName = computed(() => `${prefixCls.value}-table-drag`)
-  const { wrapSSR, hashId } = useStyle(baseClassName)
+  const [hashId, cssVarCls] = useStyle(baseClassName)
   // 默认拖拽把手
   const DragHandle = (dragHandleProps: any) => {
     const { rowData, index, className, ref: $ref, ...rest } = dragHandleProps
     const defaultDom = (
       <HolderOutlined
         {...rest}
-        class={`${baseClassName.value}-icon ${className || ''} ${hashId.value || ''}`.trim()}
+        class={classNames(`${baseClassName.value}-icon`, className, hashId.value, cssVarCls.value)}
       />
     )
 
@@ -88,10 +88,10 @@ const DragSortTable = defineComponent(<DataType extends Record<string, any>, Par
       onLoad,
       ...otherProps
     } = props
-    return wrapSSR(
+    return (
       <ProTable
         {...otherProps}
-        class={classNames(attrs.class, baseClassName.value, hashId.value)}
+        class={classNames(attrs.class, baseClassName.value, hashId.value, cssVarCls.value)}
         columns={otherProps.columns?.map((item) => {
           if (item.dataIndex === dragSortKey || item.key === dragSortKey) {
             if (!item.render) {
@@ -107,7 +107,7 @@ const DragSortTable = defineComponent(<DataType extends Record<string, any>, Par
         dataSource={dataSource.value}
         onDataSourceChange={onDataSourceChange}
         v-slots={slots}
-      />,
+      />
     )
   }
 }, {

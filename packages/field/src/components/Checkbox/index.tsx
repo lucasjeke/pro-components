@@ -15,7 +15,7 @@ import { useConfig } from 'antdv-next/dist/config-provider/context'
 import { useFormItemInputContext } from 'antdv-next/dist/form/context'
 import { computed, defineComponent, shallowRef } from 'vue'
 import { useFieldFetchData } from '../Select'
-import { useStyle } from './style'
+import useStyle from './style'
 
 export type FieldCheckBoxProps = ProFieldFC<{
   layout?: 'horizontal' | 'vertical'
@@ -36,7 +36,7 @@ const FieldCheckbox = defineComponent<FieldCheckBoxProps, {}, string, CustomSlot
     const formItemInputContext = useFormItemInputContext()
     const layoutClassName = computed(() => config.value.getPrefixCls('pro-field-checkbox'))
     const [loading, options, fetchData] = useFieldFetchData(props)
-    const { wrapSSR, hashId } = useStyle(layoutClassName)
+    const [hashId, cssVarCls] = useStyle(layoutClassName)
     const { token } = useToken()
     const checkBoxRef = shallowRef<FieldCheckboxRef | null>(null)
     expose({
@@ -84,7 +84,7 @@ const FieldCheckbox = defineComponent<FieldCheckBoxProps, {}, string, CustomSlot
         )
       }
       if (mode === 'edit') {
-        const dom = wrapSSR(
+        const dom = (
           <CheckboxGroup
             ref={checkBoxRef}
             {...omit(attrs, ['lightProps'])}
@@ -92,6 +92,7 @@ const FieldCheckbox = defineComponent<FieldCheckBoxProps, {}, string, CustomSlot
             class={classNames(
               rest.fieldProps?.class,
               hashId.value,
+              cssVarCls.value,
               `${layoutClassName.value}-${layout}`,
               {
                 [`${layoutClassName.value}-error`]: formItemInputContext.value.status === 'error',
@@ -99,7 +100,7 @@ const FieldCheckbox = defineComponent<FieldCheckBoxProps, {}, string, CustomSlot
               },
             )}
             options={options.value as CheckboxGroupProps['options']}
-          />,
+          />
         )
         if (formItemRender) {
           return (

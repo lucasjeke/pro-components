@@ -1,6 +1,7 @@
 import type { CustomSlotsType, VueNode } from '@v-c/util/dist/type'
 import type { SetupContext } from 'vue'
 import type { ActionRenderConfig } from '../typing'
+import { useIntl } from '@antdv-next1/pro-provider'
 import { LoadingOutlined } from '@antdv-next/icons'
 import { Popconfirm } from 'antdv-next'
 import { defineComponent } from 'vue'
@@ -30,6 +31,7 @@ export interface DeleteEditableActionProps<T> {
 const DeleteEditableAction = defineComponent(<T extends Record<string, any>>(props: DeleteEditableActionProps<T>, { slots, expose }: SetupContext<{}, CustomSlotsType<{
   default?: () => VueNode
 }>>) => {
+  const intl = useIntl()
   const [loading, setLoading] = useMountMergeState<boolean>(false)
   const onConfirm = async () => {
     try {
@@ -76,7 +78,7 @@ const DeleteEditableAction = defineComponent(<T extends Record<string, any>>(pro
                     />
                   )
                 : null}
-              {slots.default?.() || '删除'}
+              {slots.default?.() || intl.value.getMessage({ id: 'editableTable.action.delete', defaultMessage: '删除' })}
             </a>
           </Popconfirm>
         )

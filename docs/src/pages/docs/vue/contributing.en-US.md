@@ -61,8 +61,8 @@ The following steps assume you have already installed and configured pnpm.
 
 ## Acknowledgements
 
-Thanks to all the friends who contributed code and documentation to ProComponents of Vuents of Vue. You make this project better! We look forward to more contributors joining this project to promote the develProComponents of VueProComponents of Vue together.
+Thanks to all the friends who contributed code and documentation to ProComponents  of Vue. You make this project better! We look forward to more contributors joining this project to promote the devel  ProComponents of Vue together.
 
-<a href="https://github.com/antdv-next/antdv-next/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=antdv-next/antdv-next&max=100&columns=15" />
+<a href="https://github.com/lucasjeke/pro-components/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=lucasjeke/pro-components&max=100&columns=15" />
 </a>

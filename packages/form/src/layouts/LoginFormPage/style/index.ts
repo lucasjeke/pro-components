@@ -1,15 +1,8 @@
-import type {
-  GenerateStyle,
-  ProAliasToken,
-} from '@antdv-next1/pro-provider'
-import type { ComputedRef } from 'vue'
-import {
-  setAlpha,
-  useStyle as useAntdStyle,
-} from '@antdv-next1/pro-provider'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
+import { setAlpha, useStyle } from '@antdv-next1/pro-provider'
+import { mergeToken } from '@antdv-next/cssinjs'
 
-export interface ProLoginFormPageToken extends ProAliasToken {
-  componentCls: string
+export interface ProLoginFormPageToken extends ProAliasCssVarToken {
 }
 
 const genProLoginFormPageStyle: GenerateStyle<ProLoginFormPageToken> = (token) => {
@@ -32,9 +25,9 @@ const genProLoginFormPageStyle: GenerateStyle<ProLoginFormPageToken> = (token) =
           marginInline: 24,
           paddingInline: 24,
           paddingBlock: 24,
-          '&-title': { fontWeight: '500', fontSize: '28px' },
-          '&-subTitle': { marginBlockStart: 8, fontSize: '16px' },
-          '&-action': { marginBlockStart: '24px' },
+          '&-title': { fontWeight: '500', fontSize: 28 },
+          '&-subTitle': { marginBlockStart: 8, fontSize: 16 },
+          '&-action': { marginBlockStart: 24 },
         },
       },
       '&-left': {
@@ -70,7 +63,7 @@ const genProLoginFormPageStyle: GenerateStyle<ProLoginFormPageToken> = (token) =
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        minHeight: '44px',
+        minHeight: 44,
         lineHeight: '44px',
         a: {
           textDecoration: 'none',
@@ -78,31 +71,31 @@ const genProLoginFormPageStyle: GenerateStyle<ProLoginFormPageToken> = (token) =
       },
       '&-title': {
         position: 'relative',
-        tinsetBlockStartop: '2px',
+        insetBlockStart: 2,
         color: token.colorTextHeading,
         fontWeight: '600',
-        fontSize: '33px',
+        fontSize: 33,
       },
       '&-logo': {
-        width: '44px',
-        height: '44px',
-        marginInlineEnd: '16px',
+        width: 44,
+        height: 44,
+        marginInlineEnd: 16,
         verticalAlign: 'top',
         img: {
           width: '100%',
         },
       },
       '&-desc': {
-        marginBlockStart: '12px',
-        marginBlockEnd: '40px',
+        marginBlockStart: 12,
+        marginBlockEnd: 40,
         color: token.colorTextSecondary,
         fontSize: token.fontSize,
       },
       '&-main': {
-        width: '328px',
+        width: 328,
         margin: '0 auto',
         '&-other': {
-          marginBlockStart: '24px',
+          marginBlockStart: 24,
           lineHeight: '22px',
           textAlign: 'start',
         },
@@ -116,7 +109,7 @@ const genProLoginFormPageStyle: GenerateStyle<ProLoginFormPageToken> = (token) =
           padding: 24,
           boxShadow: 'none',
           backgroundImage: 'none',
-          borderRadius: '0px',
+          borderRadius: 0,
         },
         '&-notice': {
           display: 'flex',
@@ -140,19 +133,14 @@ const genProLoginFormPageStyle: GenerateStyle<ProLoginFormPageToken> = (token) =
     },
     [`@media (max-width: ${token.screenSM}px)`]: {
       [token.componentCls]: {
-        '&-main': { width: '95%', maxWidth: '328px' },
+        '&-main': { width: '95%', maxWidth: 328 },
       },
     },
   }
 }
 
-export function useStyle(prefixCls: ComputedRef<string>) {
-  return useAntdStyle('ProLoginFormPage', (token) => {
-    const proLoginFormPageToken: ProLoginFormPageToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
-    }
+export default useStyle('ProLoginFormPage', (token) => {
+  const proLoginFormPageToken = mergeToken<ProLoginFormPageToken>(token, {})
 
-    return [genProLoginFormPageStyle(proLoginFormPageToken)]
-  })
-}
+  return [genProLoginFormPageStyle(proLoginFormPageToken)]
+})

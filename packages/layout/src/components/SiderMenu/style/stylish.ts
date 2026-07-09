@@ -1,9 +1,9 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
 import type { ComputedRef } from 'vue'
 import { useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
+import { mergeToken } from '@antdv-next/cssinjs'
 
-export interface SiderMenuToken extends ProAliasToken {
-  componentCls: string
+export interface SiderMenuToken extends ProAliasCssVarToken {
   proLayoutCollapsedWidth: number
   proLayoutFirstMenuWidth?: number
 }
@@ -20,13 +20,11 @@ export function useStylish(
     proLayoutFirstMenuWidth?: number
   },
 ) {
-  return useAntdStyle('ProLayoutSiderMenuStylish', (token) => {
-    const siderMenuToken: SiderMenuToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
+  const genStyleHooks = useAntdStyle('ProLayoutSiderMenuStylish', (token) => {
+    const siderMenuToken = mergeToken<SiderMenuToken>(token, {
       proLayoutCollapsedWidth,
       proLayoutFirstMenuWidth,
-    }
+    })
     if (!stylish)
       return []
     return [
@@ -37,4 +35,5 @@ export function useStylish(
       },
     ]
   })
+  return genStyleHooks(prefixCls)
 }

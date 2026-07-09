@@ -18,7 +18,7 @@ import {
 import { classNames, omit } from '@v-c/util'
 import { useConfig } from 'antdv-next/dist/config-provider/context'
 import { cloneVNode, computed, defineComponent, isVNode } from 'vue'
-import { useStyle } from './style'
+import useStyle from './style'
 
 export interface LightWrapperProps {
   label?: VueNode
@@ -56,7 +56,7 @@ const LightWrapper = defineComponent<LightWrapperProps, {}, string, CustomSlotsT
     const prefixCls = computed(() => config.value.getPrefixCls('pro'))
     const baseClassName = computed(() => `${prefixCls.value}-field-light-wrapper`)
 
-    const { wrapSSR, hashId } = useStyle(baseClassName)
+    const [hashId, cssVarCls] = useStyle(baseClassName)
 
     const labelValue = computed(() => attrs[props.valuePropName as keyof typeof props] as any)
 
@@ -115,7 +115,7 @@ const LightWrapper = defineComponent<LightWrapperProps, {}, string, CustomSlotsT
       } = props
 
       const children: VNode<any, any, { fieldProps?: any, [key: string]: any }>[] = childrenToArray(slots.default?.(props.form), true)
-      return wrapSSR(
+      return (
         <FilterDropdown
           disabled={disabled}
           open={open.value}
@@ -148,7 +148,7 @@ const LightWrapper = defineComponent<LightWrapperProps, {}, string, CustomSlotsT
           footerRender={footerRender}
         >
           <div
-            class={classNames(`${baseClassName.value}-container`, hashId.value, attrs.class)}
+            class={classNames(`${baseClassName.value}-container`, hashId.value, cssVarCls.value, attrs.class)}
             style={attrs.style}
           >
             {children.map((child) => {
@@ -175,7 +175,7 @@ const LightWrapper = defineComponent<LightWrapperProps, {}, string, CustomSlotsT
               return child
             })}
           </div>
-        </FilterDropdown>,
+        </FilterDropdown>
       )
     }
   },

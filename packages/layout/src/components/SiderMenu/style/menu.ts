@@ -1,11 +1,10 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
 import type { MenuProps } from 'antdv-next'
 import type { ComputedRef } from 'vue'
 import { useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
+import { mergeToken } from '@antdv-next/cssinjs'
 
-export interface ProLayoutBaseMenuToken extends ProAliasToken {
-  componentCls: string
-}
+export interface ProLayoutBaseMenuToken extends ProAliasCssVarToken {}
 
 const genProLayoutBaseMenuStyle: GenerateStyle<ProLayoutBaseMenuToken> = (
   token,
@@ -49,14 +48,12 @@ const genProLayoutBaseMenuStyle: GenerateStyle<ProLayoutBaseMenuToken> = (
 }
 
 export function useStyle(prefixCls: ComputedRef<string>, mode?: MenuProps['mode']) {
-  return useAntdStyle(
+  const genStyleHooks = useAntdStyle(
     `ProLayoutBaseMenu${(mode || 'inline').charAt(0).toUpperCase()}${(mode || 'inline').slice(1)}`,
     (token) => {
-      const proLayoutMenuToken: ProLayoutBaseMenuToken = {
-        ...token,
-        componentCls: `.${prefixCls.value}`,
-      }
+      const proLayoutMenuToken = mergeToken<ProLayoutBaseMenuToken>(token, {})
       return [genProLayoutBaseMenuStyle(proLayoutMenuToken, mode || 'inline')]
     },
   )
+  return genStyleHooks(prefixCls)
 }

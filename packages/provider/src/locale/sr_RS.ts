@@ -4,7 +4,9 @@ const srRS: ProLocale = {
   moneySymbol: 'RSD',
   deleteThisLine: 'Obriši ovaj red',
   copyThisLine: 'Kopiraj ovaj red',
-  emptyListValidateMessage: '列表不能为空',
+  sortUpThisLine: 'Pomeri nagore',
+  sortDownThisLine: 'Pomeri nadole',
+  emptyListValidateMessage: 'Lista ne može biti prazna',
   form: {
     lightFilter: {
       more: 'Više',
@@ -12,13 +14,26 @@ const srRS: ProLocale = {
       confirm: 'Potvrdi',
       itemUnit: 'Stavke',
     },
+    captcha: {
+      getCaptcha: 'Preuzmi verifikacioni kod',
+      resendAfter: 's do ponovnog slanja',
+    },
+    upload: {
+      buttonText: 'Kliknite za otpremanje',
+      draggerTitle: 'Kliknite ili prevucite datoteku u ovu oblast za otpremanje',
+      draggerDescription: 'Podržava pojedinačno ili grupno otpremanje',
+    },
+    modal: {
+      okText: 'Potvrdi',
+      cancelText: 'Otkaži',
+    },
   },
   time: {
-    seconds: 'seconds',
-    minutes: 'minutes',
-    hours: 'hours',
-    days: 'days',
-    ago: 'ago',
+    seconds: 'sekundi',
+    minutes: 'minuta',
+    hours: 'sati',
+    days: 'dana',
+    ago: 'pre',
   },
   tableForm: {
     search: 'Pronađi',
@@ -69,6 +84,8 @@ const srRS: ProLocale = {
     submitText: 'Prijavi se',
   },
   editableTable: {
+    defaultFieldLabel: 'Ovo polje',
+    defaultFieldType: 'Tekst',
     onlyOneLineEditor: 'Može se uređivati samo jedan red odjednom',
     onlyAddOneLine: 'Može se dodati samo jedan red odjednom',
     action: {

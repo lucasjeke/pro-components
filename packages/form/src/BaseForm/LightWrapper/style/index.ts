@@ -1,12 +1,12 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
-import type { ComputedRef } from 'vue'
-import { useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
+import { useStyle } from '@antdv-next1/pro-provider'
+import { mergeToken } from '@antdv-next/cssinjs'
 
-export interface ProToken extends ProAliasToken {
+export interface ProLightWrapperToken extends ProAliasCssVarToken {
   componentCls: string
 }
 
-const genProStyle: GenerateStyle<ProToken> = (token) => {
+const genProLightWrapperStyle: GenerateStyle<ProLightWrapperToken> = (token) => {
   return {
     [`${token.componentCls}-collapse-label`]: {
       boxSizing: 'border-box',
@@ -22,13 +22,7 @@ const genProStyle: GenerateStyle<ProToken> = (token) => {
   }
 }
 
-export function useStyle(prefixCls: ComputedRef<string>) {
-  return useAntdStyle('LightWrapper', (token) => {
-    const proToken: ProToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
-    }
-
-    return [genProStyle(proToken)]
-  })
-}
+export default useStyle('LightWrapper', (token) => {
+  const proLightWrapperToken = mergeToken<ProLightWrapperToken>(token, {})
+  return [genProLightWrapperStyle(proLightWrapperToken)]
+})

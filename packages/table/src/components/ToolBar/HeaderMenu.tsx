@@ -1,5 +1,4 @@
 import type { Key, VueNode } from '@antdv-next1/pro-utils'
-import { useProConfig } from '@antdv-next1/pro-provider'
 import { DownOutlined } from '@antdv-next/icons'
 import { classNames, useMergedState } from '@v-c/util'
 import { Dropdown, Space, Tabs } from 'antdv-next'
@@ -19,9 +18,9 @@ export interface ToolBarHeaderMenuProps {
   onChange?: (activeKey?: Key) => void
   prefixCls?: string
   hashId?: string
+  cssVarCls?: string
 }
 const HeaderMenu = defineComponent<ToolBarHeaderMenuProps>((props) => {
-  const proProvide = useProConfig()
   const [activeKey, setActiveKey] = useMergedState<Key | undefined>(
     props.activeKey || (props.defaultActiveKey as Key),
     {
@@ -31,7 +30,7 @@ const HeaderMenu = defineComponent<ToolBarHeaderMenuProps>((props) => {
   )
 
   return () => {
-    const { items = [], hashId, type = 'inline', prefixCls } = props
+    const { items = [], hashId, cssVarCls, type = 'inline', prefixCls } = props
     if (items.length < 1) {
       return null
     }
@@ -45,7 +44,8 @@ const HeaderMenu = defineComponent<ToolBarHeaderMenuProps>((props) => {
           class={classNames(
             `${prefixCls}-menu`,
             `${prefixCls}-inline-menu`,
-            hashId || proProvide.value.hashId,
+            hashId,
+            cssVarCls,
           )}
         >
           {items.map((item, index) => (
@@ -55,7 +55,8 @@ const HeaderMenu = defineComponent<ToolBarHeaderMenuProps>((props) => {
               class={classNames(
                 `${prefixCls}-inline-menu-item`,
                 activeItem?.key === item.key ? `${prefixCls}-inline-menu-item-active` : undefined,
-                hashId || proProvide.value.hashId,
+                hashId,
+                cssVarCls,
               )}
             >
               {item.label}
@@ -78,7 +79,7 @@ const HeaderMenu = defineComponent<ToolBarHeaderMenuProps>((props) => {
       )
     }
     return (
-      <div class={classNames(`${prefixCls}-menu`, `${prefixCls}-dropdownmenu`, hashId || proProvide.value.hashId)}>
+      <div class={classNames(`${prefixCls}-menu`, `${prefixCls}-dropdownmenu`, hashId, cssVarCls)}>
         <Dropdown
           trigger={['click']}
           menu={{
@@ -94,7 +95,7 @@ const HeaderMenu = defineComponent<ToolBarHeaderMenuProps>((props) => {
           }}
           v-slots={{
             default: () => (
-              <Space class={classNames(`${prefixCls}-dropdownmenu-label`, hashId || proProvide.value.hashId)}>
+              <Space class={classNames(`${prefixCls}-dropdownmenu-label`, hashId, cssVarCls)}>
                 {activeItem?.label}
                 <DownOutlined />
               </Space>

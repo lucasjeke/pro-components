@@ -33,7 +33,7 @@ export type AppListRender = (options: { props: AppListProps, dom: VueNode }) => 
 export type ActionsRender = (options: { props: HeaderViewProps | (PrivateSiderMenuProps & SiderMenuProps) }) => VueNode
 export type CollapsedButtonRender = (options: { collapsed?: boolean, dom?: VueNode }) => VueNode
 
-export type TagsViewRender = (props: ProLayoutProps) => VueNode
+export type MultiTabRender = (props: ProLayoutProps) => VueNode
 
 export type PageHeaderRender = (props: PageContainerProps) => VueNode
 export type BreadcrumbRender = (props: PageHeaderProps, defaultDom: VueNode) => VueNode
@@ -48,7 +48,7 @@ export type FooterRender = (options: {
 export type FooterToolbarContentRender = (options: { props: FooterToolbarProps & RouteContextType & { leftWidth?: string }, dom: VueNode }) => VueNode
 
 export interface SlotsRenderType {
-  tagsViewRender?: TagsViewRender
+  multiTabRender?: MultiTabRender
   footerRender?: FooterRender
   footerToolbarContentRender?: FooterToolbarContentRender
   collapsedButtonRender?: CollapsedButtonRender

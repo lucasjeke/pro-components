@@ -26,7 +26,7 @@ const SiderMenuWrapper = defineComponent<SiderMenuWrapperProps>((props, { attrs 
     }
   }, [() => props.isMobile])
 
-  const { wrapSSR, hashId } = useStyle(baseClassName, {
+  const [hashId, cssVarCls] = useStyle(baseClassName, {
     proLayoutCollapsedWidth: 64,
   })
 
@@ -48,49 +48,47 @@ const SiderMenuWrapper = defineComponent<SiderMenuWrapperProps>((props, { attrs 
     if (props.hide) {
       return null
     }
-    return wrapSSR(
-      props.isMobile
-        ? (
-            <Drawer
-              placement={direction === 'rtl' ? 'right' : 'left'}
-              class={classNames(`${prefixCls}-drawer-sider`, attrs.class, hashId.value)}
-              open={!collapsed}
-              style={{
-                padding: 0,
+    return props.isMobile
+      ? (
+          <Drawer
+            placement={direction === 'rtl' ? 'right' : 'left'}
+            class={classNames(`${prefixCls}-drawer-sider`, attrs.class, hashId?.value, cssVarCls?.value)}
+            open={!collapsed}
+            style={{
+              padding: 0,
+              height: '100vh',
+              ...(attrs.style as CSSProperties),
+            }}
+            onClose={() => onCollapse?.(true)}
+            closable={false}
+            getContainer={getContainer}
+            mask={{
+              closable: true,
+            }}
+            width={siderWidth}
+            styles={{
+              body: {
                 height: '100vh',
-                ...(attrs.style as CSSProperties),
-              }}
-              onClose={() => onCollapse?.(true)}
-              closable={false}
-              getContainer={getContainer}
-              mask={{
-                closable: true,
-              }}
-              width={siderWidth}
-              styles={{
-                body: {
-                  height: '100vh',
-                  padding: 0,
-                  display: 'flex',
-                  flexDirection: 'row',
-                  backgroundColor: drawerMenuBackground.value,
-                },
-              }}
-            >
-              <SiderMenu
-                {...props}
-                isMobile={true}
-                class={classNames(baseClassName.value, attrs.class)}
-                collapsed={isMobile ? false : collapsed}
-                splitMenus={false}
-                originCollapsed={collapsed}
-              />
-            </Drawer>
-          )
-        : (
-            <SiderMenu {...props} class={classNames(baseClassName.value, attrs.class)} originCollapsed={collapsed} />
-          ),
-    )
+                padding: 0,
+                display: 'flex',
+                flexDirection: 'row',
+                backgroundColor: drawerMenuBackground.value,
+              },
+            }}
+          >
+            <SiderMenu
+              {...props}
+              isMobile={true}
+              class={classNames(baseClassName.value, attrs.class)}
+              collapsed={isMobile ? false : collapsed}
+              splitMenus={false}
+              originCollapsed={collapsed}
+            />
+          </Drawer>
+        )
+      : (
+          <SiderMenu {...props} class={classNames(baseClassName.value, attrs.class)} originCollapsed={collapsed} />
+        )
   }
 }, {
   name: 'SiderMenuWrapper',

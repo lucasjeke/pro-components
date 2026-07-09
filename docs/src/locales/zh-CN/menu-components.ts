@@ -27,10 +27,10 @@ export default {
     editableTable: 'EditableProTable 编辑表格',
     dragSortTable: 'DragSortProTable 拖动排序表格',
     listy: 'ProListy 高级列表',
-    descriptions: 'ProDescriptions 描述列表',
+    // descriptions: 'ProDescriptions 描述列表',
     // General
     general: '通用',
-    skeleton: 'ProSkeleton 骨架屏',
+    // skeleton: 'ProSkeleton 骨架屏',
     field: 'ProField 原子组件',
   },
 } as const

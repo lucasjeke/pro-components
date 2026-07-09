@@ -1,9 +1,8 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
-import type { ComputedRef } from 'vue'
-import { useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
+import { useStyle } from '@antdv-next1/pro-provider'
+import { mergeToken } from '@antdv-next/cssinjs'
 
-export interface ProTableToolBarToken extends ProAliasToken {
-  componentCls: string
+export interface ProTableToolBarToken extends ProAliasCssVarToken {
 }
 
 const genProTableToolBarStyle: GenerateStyle<ProTableToolBarToken> = (token) => {
@@ -117,12 +116,7 @@ const genProTableToolBarStyle: GenerateStyle<ProTableToolBarToken> = (token) => 
   }
 }
 
-export function useStyle(prefixCls: ComputedRef<string>) {
-  return useAntdStyle(`ProTableToolBar`, (token) => {
-    const proTableToolBarToken: ProTableToolBarToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
-    }
-    return [genProTableToolBarStyle(proTableToolBarToken)]
-  })
-}
+export default useStyle(`ProTableToolBar`, (token) => {
+  const proTableToolBarToken = mergeToken<ProTableToolBarToken>(token, {})
+  return [genProTableToolBarStyle(proTableToolBarToken)]
+})

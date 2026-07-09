@@ -19,9 +19,9 @@ export interface SearchConfig {
 
 export interface SubmitterProps<T extends Record<string, any> = Record<string, any>> {
   /** @name onSubmit 提交方法 */
-  onSubmit?: (value?: T) => void
+  onSubmit?: (values?: T) => void
   /** @name onReset 重置方法 */
-  onReset?: (value?: T) => void
+  onReset?: (values?: T) => void
   /** @name searchConfig 搜索的配置，一般用来配置文本 */
   searchConfig?: SearchConfig
   /** @name submitButtonProps 提交按钮的 props */
@@ -57,7 +57,7 @@ const Submitter = defineComponent(
     const intl = useIntl()
     const submit = () => {
       form?.submit()
-      props.onSubmit?.()
+      props.onSubmit?.(undefined)
     }
     const reset = () => {
       form?.resetFields()

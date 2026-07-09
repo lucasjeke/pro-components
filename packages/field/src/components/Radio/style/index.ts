@@ -1,9 +1,8 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
-import type { ComputedRef } from 'vue'
-import { useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
+import { useStyle } from '@antdv-next1/pro-provider'
+import { mergeToken } from '@antdv-next/cssinjs'
 
-export interface ProFieldRadioToken extends ProAliasToken {
-  componentCls: string
+export interface ProFieldRadioToken extends ProAliasCssVarToken {
 }
 
 const genProFieldRadioStyle: GenerateStyle<ProFieldRadioToken> = (token) => {
@@ -24,13 +23,8 @@ const genProFieldRadioStyle: GenerateStyle<ProFieldRadioToken> = (token) => {
   }
 }
 
-export function useStyle(prefixCls: ComputedRef<string>) {
-  return useAntdStyle('ProFieldRadio', (token) => {
-    const proFieldRadioToken: ProFieldRadioToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
-    }
+export default useStyle('ProFieldRadio', (token) => {
+  const proFieldRadioToken = mergeToken<ProFieldRadioToken>(token, {})
 
-    return [genProFieldRadioStyle(proFieldRadioToken)]
-  })
-}
+  return [genProFieldRadioStyle(proFieldRadioToken)]
+})

@@ -1,6 +1,5 @@
 import type { CustomSlotsType, VueNode } from '@v-c/util/dist/type'
 import type { ErrorBoundaryRender, SlotsRenderType } from './RenderTypings'
-import { useProConfig } from '@antdv-next1/pro-provider'
 import { ErrorBoundary, getSlot } from '@antdv-next1/pro-utils'
 import { classNames } from '@v-c/util'
 import { LayoutContent } from 'antdv-next'
@@ -14,6 +13,8 @@ export interface WrapContentProps {
   contentHeight?: number | string
   errorBoundaryRender?: ErrorBoundaryRender | false
   hasHeader?: boolean
+  hashId?: string
+  cssVarCls?: string
 }
 
 const WrapContent = defineComponent<WrapContentProps, {}, string, CustomSlotsType<
@@ -21,11 +22,10 @@ const WrapContent = defineComponent<WrapContentProps, {}, string, CustomSlotsTyp
     default?: () => VueNode[]
   }
 >>((props, { slots, attrs }) => {
-  const proProvide = useProConfig()
   return () => {
-    const { prefixCls, hasHeader, hasPageContainer } = props
+    const { prefixCls, hasHeader, hasPageContainer, hashId, cssVarCls } = props
     const errorBoundaryRender = getSlot(slots, props, 'errorBoundaryRender')
-    const contentClassName = classNames(`${prefixCls}-content`, proProvide.value.hashId, {
+    const contentClassName = classNames(`${prefixCls}-content`, hashId, cssVarCls, {
       [`${prefixCls}-has-header`]: hasHeader,
       [`${prefixCls}-content-has-page-container`]: (hasPageContainer || 0) > 0,
     })

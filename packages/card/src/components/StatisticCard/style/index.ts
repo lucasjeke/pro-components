@@ -1,12 +1,11 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
-import type { ComputedRef } from 'vue'
-import { useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
+import { useStyle } from '@antdv-next1/pro-provider'
+import { mergeToken, unit } from '@antdv-next/cssinjs'
 
-export interface ProListToken extends ProAliasToken {
-  componentCls: string
+export interface ProStatisticCardToken extends ProAliasCssVarToken {
 }
 
-const genProStyle: GenerateStyle<ProListToken> = (token) => {
+const genProStyle: GenerateStyle<ProStatisticCardToken> = (token) => {
   return {
     [token.componentCls]: {
       boxSizing: 'border-box',
@@ -32,19 +31,13 @@ const genProStyle: GenerateStyle<ProListToken> = (token) => {
       '&-footer': {
         marginBlockStart: 8,
         paddingBlockStart: 8,
-        borderBlockStart: `${token.lineWidth}px ${token.lineType} ${token.colorBorder}`,
+        borderBlockStart: `${unit(token.lineWidth)} ${token.lineType} ${token.colorBorder}`,
       },
     },
   }
 }
 
-export function useStyle(prefixCls: ComputedRef<string>) {
-  return useAntdStyle('StatisticCard', (token) => {
-    const proListToken: ProListToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
-    }
-
-    return [genProStyle(proListToken)]
-  })
-}
+export default useStyle('StatisticCard', (token) => {
+  const proStatisticCardToken = mergeToken<ProStatisticCardToken>(token, {})
+  return [genProStyle(proStatisticCardToken)]
+})

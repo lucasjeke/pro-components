@@ -7,28 +7,13 @@ import { components } from './components'
 // Helper to flatten nested docs locales
 function flattenDocsLocales(nestedLocales: Menu) {
   const vue = nestedLocales.docs.vue
-  const blog = nestedLocales.blog
   return {
     '/docs/vue/introduce': vue.introduce,
     '/docs/vue/use': vue.use,
     '/docs/vue/getting-started': vue.gettingStarted,
-    // '/docs/vue/ai': vue.ai,
-    // '/docs/vue/llms': vue.llms,
-    // '/docs/vue/skills': vue.skills,
-    // '/docs/vue/nuxt': vue.nuxt,
-    '/docs/vue/advanced/use': vue.advancedUse,
-    '/docs/vue/secondary-development': vue.secondaryDevelopment,
-    '/docs/vue/unocss': vue.unocss,
-    '/docs/vue/tailwindcss': vue.tailwindcss,
-    '/docs/vue/customize-theme': vue.customizeTheme,
-    '/docs/vue/compatible-style': vue.compatibleStyle,
-    '/docs/vue/i18n': vue.i18n,
-    '/docs/vue/common-props': vue.commonProps,
     '/docs/vue/other': vue.other,
-    '/docs/vue/awesome': vue.awesome,
-    // '/docs/vue/contributing': vue.contributing,
+    '/docs/vue/release-process': vue.releaseProcess,
     '/docs/vue/faq': vue.faq,
-    '/blog/pro-components-release': blog.proComponentsRelease,
   }
 }
 
@@ -66,78 +51,15 @@ export const docsMenus: Record<string, AntdvMenuItem[]> = {
         },
       ],
     },
-    // {
-    //   key: '/docs/vue/ai',
-    //   label: '/docs/vue/ai',
-    //   type: 'group',
-    //   children: [
-    //     {
-    //       key: '/docs/vue/llms',
-    //       label: '/docs/vue/llms',
-    //     },
-    //     {
-    //       key: '/docs/vue/skills',
-    //       label: '/docs/vue/skills',
-    //       tag: 'New',
-    //     },
-    //   ],
-    // },
-    // {
-    //   key: '/docs/vue/advanced/use',
-    //   label: '/docs/vue/advanced/use',
-    //   type: 'group',
-    //   children: [
-    //     {
-    //       key: '/docs/vue/secondary-development',
-    //       label: '/docs/vue/secondary-development',
-    //       tag: 'New',
-    //     },
-    //     {
-    //       key: '/docs/vue/unocss',
-    //       label: '/docs/vue/unocss',
-    //       tag: 'New',
-    //     },
-    //     {
-    //       key: '/docs/vue/tailwindcss',
-    //       label: '/docs/vue/tailwindcss',
-    //       tag: 'New',
-    //     },
-    //     {
-    //       key: '/docs/vue/customize-theme',
-    //       label: '/docs/vue/customize-theme',
-    //     },
-    //     {
-    //       key: '/docs/vue/compatible-style',
-    //       label: '/docs/vue/compatible-style',
-    //     },
-    //     {
-    //       key: '/docs/vue/i18n',
-    //       label: '/docs/vue/i18n',
-    //     },
-    //     {
-    //       key: '/docs/vue/common-props',
-    //       label: '/docs/vue/common-props',
-    //     },
-    //     {
-    //       key: '/docs/vue/nuxt',
-    //       label: '/docs/vue/nuxt',
-    //       tag: 'New',
-    //     },
-    //   ],
-    // },
     {
       key: '/docs/vue/other',
       label: '/docs/vue/other',
       type: 'group',
       children: [
-        // {
-        //   key: '/docs/vue/awesome',
-        //   label: '/docs/vue/awesome',
-        // },
-        // {
-        //   key: '/docs/vue/contributing',
-        //   label: '/docs/vue/contributing',
-        // },
+        {
+          key: '/docs/vue/release-process',
+          label: '/docs/vue/release-process',
+        },
         {
           key: '/docs/vue/faq',
           label: '/docs/vue/faq',
@@ -146,10 +68,4 @@ export const docsMenus: Record<string, AntdvMenuItem[]> = {
     },
   ],
   '/components': components,
-  '/blog': [
-    {
-      key: '/blog/pro-components-release',
-      label: '/blog/pro-components-release',
-    },
-  ],
 }

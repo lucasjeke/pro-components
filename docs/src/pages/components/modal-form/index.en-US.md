@@ -1,75 +1,72 @@
 ---
 category: Components
 title: Modal/Drawer
-description: Stick an element to the viewport.
+subtitle: Layer Form
 cover: https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*YSm4RI3iOJ8AAAAAAAAAAAAADrJ8AQ/original
 coverDark: https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*03dxS64LxeQAAAAAAAAAAAAADrJ8AQ/original
-demo:
-  cols: 2
 group: Data Entry
 ---
 
+ModalForm and DrawerForm are ProForm-based layer forms rendered inside Modal and Drawer. They keep ProForm field, submit, request, and readonly capabilities while adding open-state management and close-after-submit behavior.
 
 ## When To Use {#when-to-use}
 
-On longer web pages, it's helpful to stick component into the viewport. This is common for menus and actions.
-
-Please note that Affix should not cover other content on the page, especially when the size of the viewport is small.
+- Create or edit forms should be completed in a modal or drawer.
+- A `trigger` node should open the layer without extra state code.
+- The layer should close automatically after successful submit.
 
 ## Examples {#examples}
-<!-- 
+
 <demo-group>
-    <demo src="./demo/basic.vue">Basic</demo>
-    <demo src="./demo/on-change.vue">Callback</demo>
-    <demo src="./demo/target.vue">Container to scroll.</demo>
-</demo-group> -->
+  <demo src="./demo/modal-form.vue">Modal form</demo>
+  <demo src="./demo/drawer-form.vue">Drawer form</demo>
+  <demo src="./demo/modal-form-submitter.vue">Custom submitter</demo>
+</demo-group>
 
 ## API
 
-### Props
+### ModalForm
 
-Common props ref：[Common props](/docs/vue/common-props)
+ModalForm inherits most ProForm props.
+
+#### Props {#modal-form-props}
 
 | Property | Description | Type | Default | Version |
 | --- | --- | --- | --- | --- |
-| offsetTop | Offset from the top of the viewport (in pixels) | number | 0 | - |
-| offsetBottom | Offset from the bottom of the viewport (in pixels) | number | - | - |
-| target | Specifies the scrollable area DOM node | () =&gt; Window \| HTMLElement \| null | () =&gt; window | - |
+| trigger | Node that opens the modal | `VNode` | - | - |
+| open | Controlled open state | `boolean` | - | - |
+| modalProps | Props passed to Modal | `Omit<ModalProps, 'open'>` | - | - |
+| title | Modal title | `VueNode` | - | - |
+| width | Modal width | `ModalProps['width']` | `800` | - |
+| submitTimeout | Timeout for disabling cancel button during submit | `number` | - | - |
 
-### Events
+#### Events {#modal-form-events}
 
 | Event | Description | Type | Version |
 | --- | --- | --- | --- |
-| change | Callback for when Affix state is changed | (affixed?: boolean) =&gt; void | - |
+| update:open | Triggered when open state changes | `(open: boolean) => void` | - |
+| openChange | Triggered when open state changes | `(open: boolean) => void` | - |
+| finish | Triggered on successful submit. Truthy return closes the modal | `(formData) => Promise<any>` | - |
 
-### Methods
+### DrawerForm
 
-| Method | Description | Type | Version |
+DrawerForm inherits most ProForm props.
+
+#### Props {#drawer-form-props}
+
+| Property | Description | Type | Default | Version |
+| --- | --- | --- | --- | --- |
+| trigger | Node that opens the drawer | `VNode` | - | - |
+| open | Controlled open state | `boolean` | - | - |
+| drawerProps | Props passed to Drawer | `Omit<DrawerProps, 'open'>` | - | - |
+| title | Drawer title | `VueNode` | - | - |
+| width | Drawer width | `DrawerProps['size']` | `800` | - |
+| resize | Enable resizing or provide resize config | `boolean \| { minWidth?: DrawerProps['size']; maxWidth?: DrawerProps['size']; resize?: () => void }` | `false` | - |
+| submitTimeout | Timeout for disabling cancel button during submit | `number` | - | - |
+
+#### Events {#drawer-form-events}
+
+| Event | Description | Type | Version |
 | --- | --- | --- | --- |
-| updatePosition | - | ReturnType&lt;typeof throttleByAnimationFrame&gt; | - |
-
-**Note:** Children of `Affix` must not have the property `position: absolute`, but you can set `position: absolute` on `Affix` itself:
-
-```html
-<a-affix style="position: absolute;top: y; left: x">...</a-affix>
-```
-
-## Design Token {#design-token}
-
-<ComponentTokenTable component="Affix"></ComponentTokenTable>
-
-See [Customize Theme](/docs/vue/customize-theme) to learn how to use Design Token.
-
-## FAQ
-
-### When binding container with `target` in Affix, elements sometimes move out of the container. {#faq-target-container}
-
-We only listen to container scroll events for performance consideration. You can add custom listeners if you still want to: <https://codesandbox.io/s/stupefied-maxwell-ophqnm?file=/index.js>
-
-Related issues：[#3938](https://github.com/ant-design/ant-design/issues/3938) [#5642](https://github.com/ant-design/ant-design/issues/5642) [#16120](https://github.com/ant-design/ant-design/issues/16120)
-
-### When Affix is ​​used in a horizontal scroll container, the position of the element `left` is incorrect. {#faq-horizontal-scroll}
-
-Affix is ​​generally only applicable to areas with one-way scrolling, and only supports usage in vertical scrolling containers. If you want to use it in a horizontal container, you can consider implementing with the native `position: sticky` property.
-
-Related issues：[#29108](https://github.com/ant-design/ant-design/issues/29108)
+| openChange | Triggered when open state changes | `(open: boolean) => void` | - |
+| finish | Triggered on successful submit. Truthy return closes the drawer | `(formData) => Promise<any>` | - |

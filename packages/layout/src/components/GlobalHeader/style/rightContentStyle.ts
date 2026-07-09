@@ -1,11 +1,10 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
-import type { ComputedRef } from 'vue'
-import { useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
+import { useStyle } from '@antdv-next1/pro-provider'
+import { mergeToken } from '@antdv-next/cssinjs'
 
-export interface ProToken extends ProAliasToken {
-  componentCls: string
+export interface ProLayoutRightContentToken extends ProAliasCssVarToken {
 }
-const genTopNavHeaderStyle: GenerateStyle<ProToken> = (token) => {
+const genTopNavHeaderStyle: GenerateStyle<ProLayoutRightContentToken> = (token) => {
   return {
     [`${token.proComponentsCls}-layout-header`]: {
       [`${token.proComponentsCls}-top-nav-header,${token.proComponentsCls}-global-header`]: {
@@ -81,7 +80,7 @@ const genTopNavHeaderStyle: GenerateStyle<ProToken> = (token) => {
           paddingInline: 2,
           height: 'inherit',
           lineHeight: 'inherit',
-          color: token.layout?.header?.colorTextRightActionsItem,
+          color: token.proLayoutHeaderColorTextRightActionsItem,
           fontSize: '16px',
           cursor: 'pointer',
           borderRadius: token.borderRadius,
@@ -90,13 +89,13 @@ const genTopNavHeaderStyle: GenerateStyle<ProToken> = (token) => {
             paddingBlock: 6,
             borderRadius: token.borderRadius,
             height: 'inherit',
-            color: token.layout?.header?.colorTextRightActionsItem,
+            color: token.proLayoutHeaderColorTextRightActionsItem,
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
             lineHeight: '100%',
             '&:hover': {
-              backgroundColor: token.layout?.header?.colorBgRightActionsItemHover,
+              backgroundColor: token.proLayoutHeaderColorBgRightActionsItemHover,
             },
           },
         },
@@ -108,10 +107,10 @@ const genTopNavHeaderStyle: GenerateStyle<ProToken> = (token) => {
           lineHeight: 'inherit',
           paddingInlineStart: token.padding,
           cursor: 'pointer',
-          color: token.layout?.header?.colorTextRightActionsItem,
+          color: token.proLayoutHeaderColorTextRightActionsItem,
           '> span': {
             height: 'inherit',
-            color: token.layout?.header?.colorTextRightActionsItem,
+            color: token.proLayoutHeaderColorTextRightActionsItem,
             paddingInline: 8,
             paddingBlock: 8,
             cursor: 'pointer',
@@ -120,7 +119,7 @@ const genTopNavHeaderStyle: GenerateStyle<ProToken> = (token) => {
             lineHeight: '100%',
             borderRadius: token.borderRadius,
             '&:hover': {
-              backgroundColor: token.layout?.header?.colorBgRightActionsItemHover,
+              backgroundColor: token.proLayoutHeaderColorBgRightActionsItemHover,
             },
           },
         },
@@ -129,13 +128,7 @@ const genTopNavHeaderStyle: GenerateStyle<ProToken> = (token) => {
   }
 }
 
-export function useStyle(prefixCls: ComputedRef<string>) {
-  return useAntdStyle('ProLayoutRightContent', (token) => {
-    const proToken: ProToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
-    }
-
-    return [genTopNavHeaderStyle(proToken)]
-  })
-}
+export default useStyle('ProLayoutRightContent', (token) => {
+  const proToken = mergeToken<ProLayoutRightContentToken>(token, {})
+  return [genTopNavHeaderStyle(proToken)]
+})

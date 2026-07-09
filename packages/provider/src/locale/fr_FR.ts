@@ -4,7 +4,9 @@ const frFR: ProLocale = {
   moneySymbol: '€',
   deleteThisLine: 'Supprimer cette ligne',
   copyThisLine: 'Copier cette ligne',
-  emptyListValidateMessage: '列表不能为空',
+  sortUpThisLine: 'Déplacer vers le haut',
+  sortDownThisLine: 'Déplacer vers le bas',
+  emptyListValidateMessage: 'La liste ne peut pas être vide',
   form: {
     lightFilter: {
       more: 'Plus',
@@ -12,13 +14,26 @@ const frFR: ProLocale = {
       confirm: 'Confirmer',
       itemUnit: 'Items',
     },
+    captcha: {
+      getCaptcha: 'Obtenir le code de vérification',
+      resendAfter: 's avant renvoi',
+    },
+    upload: {
+      buttonText: 'Cliquer pour téléverser',
+      draggerTitle: 'Cliquer ou déposer le fichier dans cette zone pour le téléverser',
+      draggerDescription: 'Prend en charge le téléversement simple ou multiple',
+    },
+    modal: {
+      okText: 'Confirmer',
+      cancelText: 'Annuler',
+    },
   },
   time: {
-    seconds: 'seconds',
+    seconds: 'secondes',
     minutes: 'minutes',
-    hours: 'hours',
-    days: 'days',
-    ago: 'ago',
+    hours: 'heures',
+    days: 'jours',
+    ago: 'il y a',
   },
   tableForm: {
     search: 'Rechercher',
@@ -69,6 +84,8 @@ const frFR: ProLocale = {
     submitText: 'Se connecter',
   },
   editableTable: {
+    defaultFieldLabel: 'Ce champ',
+    defaultFieldType: 'Texte',
     onlyOneLineEditor: 'Une seule ligne peut être modifiée à la fois',
     onlyAddOneLine: 'Une seule ligne peut être ajoutée à la fois',
     action: {

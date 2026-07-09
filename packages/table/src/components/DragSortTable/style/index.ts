@@ -1,9 +1,8 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
-import type { ComputedRef } from 'vue'
-import { useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
+import { useStyle } from '@antdv-next1/pro-provider'
+import { mergeToken } from '@antdv-next/cssinjs'
 
-export interface ProDragSortTableToken extends ProAliasToken {
-  componentCls: string
+export interface ProDragSortTableToken extends ProAliasCssVarToken {
 }
 
 const genProDragSortTableStyle: GenerateStyle<ProDragSortTableToken> = (token) => {
@@ -26,9 +25,6 @@ const genProDragSortTableStyle: GenerateStyle<ProDragSortTableToken> = (token) =
           '&-tbody': {
             [`${token.antCls}-table-row`]: {
               [`${token.antCls}-table-cell`]: {
-                // ['&.']:{
-                //   borderBlockEnd: '1px solid #ccc',
-                // }
               },
             },
           },
@@ -38,12 +34,7 @@ const genProDragSortTableStyle: GenerateStyle<ProDragSortTableToken> = (token) =
   }
 }
 
-export function useStyle(prefixCls: ComputedRef<string>) {
-  return useAntdStyle('ProDragSortTable', (token) => {
-    const proDragSortTableToken: ProDragSortTableToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
-    }
-    return [genProDragSortTableStyle(proDragSortTableToken)]
-  })
-}
+export default useStyle('ProDragSortTable', (token) => {
+  const proDragSortTableToken = mergeToken<ProDragSortTableToken>(token, {})
+  return [genProDragSortTableStyle(proDragSortTableToken)]
+})

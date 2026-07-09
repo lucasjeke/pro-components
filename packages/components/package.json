@@ -1,11 +1,11 @@
 {
   "name": "@antdv-next1/pro-components",
   "type": "module",
-  "version": "1.0.28",
+  "version": "1.0.29",
   "description": "@antdv-next1/pro-components",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/archiesong/pro-components.git",
+    "url": "git+https://github.com/lucasjeke/pro-components.git",
     "directory": "packages/components"
   },
   "sideEffects": [
@@ -38,7 +38,8 @@
     "package.json"
   ],
   "scripts": {
-    "build": "run-s build:esm build:vite:parallel",
+    "update:version": "tsx ./scripts/update-version.ts",
+    "build": "run-s update:version build:esm build:vite:parallel",
     "build:esm": "tsdown --config-loader unrun",
     "build:vite:parallel": "run-p build:umd build:full-esm",
     "build:full-esm": "vite build --config ./vite.esm.config.ts",

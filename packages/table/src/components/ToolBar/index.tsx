@@ -13,7 +13,6 @@ import { proTheme, useIntl } from '@antdv-next1/pro-provider'
 import { isSpecialNode, LabelIconTip, omitUndefined, useEffect, useState } from '@antdv-next1/pro-utils'
 import { unit } from '@antdv-next/cssinjs'
 import { ReloadOutlined } from '@antdv-next/icons'
-// import type { ListToolBarProps, SearchPropType } from '../ListToolBar'
 import ResizeObserver from '@v-c/resize-observer'
 import { classNames } from '@v-c/util'
 import { InputSearch, Tabs, Tooltip } from 'antdv-next'
@@ -21,11 +20,10 @@ import { useConfig } from 'antdv-next/dist/config-provider/context'
 import { cloneVNode, computed, defineComponent, Fragment, isVNode } from 'vue'
 import { useTableContextInject } from '../../Store/Provide'
 import ColumnSetting from '../ColumnSetting'
-// import ListToolBar from '../ListToolBar'
 import DensityIcon from './DensityIcon'
 import FullScreenIcon from './FullScreenIcon'
 import HeaderMenu from './HeaderMenu'
-import { useStyle } from './style'
+import useStyle from './style'
 
 export type OptionsFunctionType<T> = (e: MouseEvent, action?: ActionType<any, T>) => void
 
@@ -187,6 +185,7 @@ export interface ToolBarProps<T, ValueType> {
   action?: ActionType<Record<string, any>, T>
   options?: OptionConfig<T, ValueType> | false
   optionsRender?: OptionsRender<T, ValueType>
+  loading?: boolean
   type?: ProSchemaComponentTypes
   selectedRowKeys?: (string | number)[]
   selectedRows?: (T | undefined)[]
@@ -265,7 +264,7 @@ function getButtonText<T extends Record<string, any>, U extends (ProFieldValueTy
  */
 function renderDefaultOption<T extends Record<string, any>, U extends Record<string, any>, ValueType extends (ProFieldValueType | ProFieldValueObjectType)>(options: OptionConfig<T, ValueType>, defaultOptions: OptionConfig<T, ValueType> & {
   intl: IntlType
-}, actions: ActionType<Record<string, any>, T>, columns: ProColumns<T, ValueType>[]) {
+}, actions: ActionType<Record<string, any>, T>, columns: ProColumns<T, ValueType>[], loading?: boolean) {
   return Object.keys(options)
     .filter(item => item)
     .map((key) => {
@@ -299,7 +298,12 @@ function renderDefaultOption<T extends Record<string, any>, U extends Record<str
       if (optionItem) {
         return (
           <span key={key} onClick={onClick}>
-            <Tooltip title={optionItem.text}>{optionItem.icon}</Tooltip>
+            <Tooltip title={optionItem.text}>
+              { key === 'reload' ? cloneVNode(optionItem.icon, {
+                ...optionItem.icon.props,
+                spin: loading,
+              }) : optionItem.icon}
+            </Tooltip>
           </span>
         )
       }
@@ -317,7 +321,7 @@ const Toolbar = defineComponent(<T extends Record<string, any>, U extends Record
   const prefixCls = computed(() => props.prefixCls || config.value.getPrefixCls('pro'))
   const baseClassName = computed(() => `${prefixCls.value}-table-list-toolbar`)
   const { token } = proTheme.useToken()
-  const { wrapSSR, hashId } = useStyle(baseClassName)
+  const [hashId, cssVarCls] = useStyle(baseClassName)
   const [isMobile, setIsMobile] = useState(false)
 
   const searchConfig = computed(() => {
@@ -374,7 +378,7 @@ const Toolbar = defineComponent(<T extends Record<string, any>, U extends Record
   const filtersNode = computed(() => {
     if (searchNode.value) {
       return (
-        <div class={classNames(`${baseClassName.value}-filter`, hashId.value)}>
+        <div class={classNames(`${baseClassName.value}-filter`, hashId.value, cssVarCls.value)}>
           {searchNode.value}
         </div>
       )
@@ -469,6 +473,7 @@ const Toolbar = defineComponent(<T extends Record<string, any>, U extends Record
       },
       props.action!,
       props.columns!,
+      props.loading,
     )
     if (props.optionsRender) {
       return props.optionsRender(
@@ -511,13 +516,13 @@ const Toolbar = defineComponent(<T extends Record<string, any>, U extends Record
   const startTitleDom = computed(() => {
     // 保留dom是为了占位，不然 right 就变到左边了
     if (!hasStart.value && hasEnd.value) {
-      return <div class={classNames(`${baseClassName.value}-left`, hashId.value)} />
+      return <div class={classNames(`${baseClassName.value}-left`, hashId.value, cssVarCls.value)} />
     }
     // 减少 space 的dom，渲染的时候能节省点性能
     if (!props.toolbar?.menu && (hasTitle.value || !searchNode.value)) {
       return (
-        <div class={classNames(`${baseClassName.value}-left`, hashId.value)}>
-          <div class={classNames(`${baseClassName.value}-title`, hashId.value)}>
+        <div class={classNames(`${baseClassName.value}-left`, hashId.value, cssVarCls.value)}>
+          <div class={classNames(`${baseClassName.value}-title`, hashId.value, cssVarCls.value)}>
             <LabelIconTip tooltip={props.tooltip} label={props.headerTitle || props.toolbar?.title} subTitle={props.toolbar?.subTitle} />
           </div>
         </div>
@@ -525,23 +530,23 @@ const Toolbar = defineComponent(<T extends Record<string, any>, U extends Record
     }
     return (
       <div
-        class={classNames(`${baseClassName.value}-left`, hashId.value, {
+        class={classNames(`${baseClassName.value}-left`, hashId.value, cssVarCls.value, {
           [`${baseClassName.value}-left-has-tabs`]: props.toolbar?.menu?.type === 'tab',
           [`${baseClassName.value}-left-has-dropdown`]: props.toolbar?.menu?.type === 'dropdown',
           [`${baseClassName.value}-left-has-inline-menu`]: props.toolbar?.menu?.type === 'inline',
         })}
       >
         {hasTitle.value && !props.toolbar?.menu && (
-          <div class={classNames(`${baseClassName.value}-title`, hashId.value)}>
+          <div class={classNames(`${baseClassName.value}-title`, hashId.value, cssVarCls.value)}>
             <LabelIconTip tooltip={props.tooltip} label={props.toolbar?.title} subTitle={props.toolbar?.subTitle} />
           </div>
         )}
         {props.toolbar?.menu && (
         // 这里面实现了 tabs 的逻辑
-          <HeaderMenu {...props.toolbar?.menu} prefixCls={prefixCls.value} hashId={hashId.value} />
+          <HeaderMenu {...props.toolbar?.menu} prefixCls={prefixCls.value} hashId={hashId.value} cssVarCls={cssVarCls.value} />
         )}
         {!hasTitle.value && searchNode.value ? (
-          <div class={classNames(`${prefixCls.value}-search`, hashId.value)}>{searchNode.value}</div>
+          <div class={classNames(`${prefixCls.value}-search`, hashId.value, cssVarCls.value)}>{searchNode.value}</div>
         ) : null}
       </div>
     )
@@ -602,7 +607,7 @@ const Toolbar = defineComponent(<T extends Record<string, any>, U extends Record
     if (hideToolbar) {
       return null
     }
-    return wrapSSR(
+    return (
       <ResizeObserver
         onResize={({ width }) => {
           if ((width < 375) !== isMobile.value) {
@@ -623,13 +628,13 @@ const Toolbar = defineComponent(<T extends Record<string, any>, U extends Record
             multipleLine={toolbar?.multipleLine!}
           />
         </div>
-      </ResizeObserver>,
+      </ResizeObserver>
     )
   }
 }, {
   name: 'Toolbar',
   inheritAttrs: false,
-  props: ['action', 'type', 'columns', 'headerTitle', 'onSearch', 'options', 'optionsRender', 'selectedRowKeys', 'selectedRows', 'toolBarRender', 'toolbar', 'tooltip', 'searchNode', 'hideToolbar'],
+  props: ['action', 'type', 'columns', 'headerTitle', 'onSearch', 'options', 'optionsRender', 'selectedRowKeys', 'selectedRows', 'toolBarRender', 'toolbar', 'tooltip', 'searchNode', 'hideToolbar', 'loading'],
 
 })
 

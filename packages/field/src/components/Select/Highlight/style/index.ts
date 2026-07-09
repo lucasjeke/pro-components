@@ -1,33 +1,24 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
-import type { ComputedRef } from 'vue'
-import { useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
+import { useStyle } from '@antdv-next1/pro-provider'
+import { mergeToken } from '@antdv-next/cssinjs'
 
-export interface ProToken extends ProAliasToken {
-  lightCls: string
-  optionCls: string
+export interface ProHighlightToken extends ProAliasCssVarToken {
 }
 
-const genProStyle: GenerateStyle<ProToken> = (token) => {
+const genProStyle: GenerateStyle<ProHighlightToken> = (token) => {
   return {
-    [token.lightCls]: {
-      color: token.colorPrimary,
-    },
-    [token.optionCls]: {
+    [token.componentCls]: {
       flex: 'auto',
       overflow: 'hidden',
       whiteSpace: 'nowrap',
       textOverflow: 'ellipsis',
     },
+    [`${token.componentCls}-light`]: {
+      color: token.colorPrimary,
+    },
   }
 }
-export function useStyle(lightCls: ComputedRef<string>, optionCls: ComputedRef<string>) {
-  return useAntdStyle('Highlight', (token) => {
-    const proToken: ProToken = {
-      ...token,
-      lightCls: `.${lightCls.value}`,
-      optionCls: `.${optionCls.value}`,
-    }
-
-    return [genProStyle(proToken)]
-  })
-}
+export default useStyle('Highlight', (token) => {
+  const proHighlightToken = mergeToken<ProHighlightToken>(token, {})
+  return [genProStyle(proHighlightToken)]
+})

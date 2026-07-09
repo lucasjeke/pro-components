@@ -7,14 +7,13 @@ coverDark: https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*03dxS64LxeQAAA
 group: 数据录入
 ---
 
-提供了用来进行结构化数据的录入。
-- ProFormList 录入结构化的多维数组数据。
-- ProFormFieldSet 录入结构化的一维数组数据。
-- ProFormDependency 数据依赖的相关组件
+ProFormList 用于录入结构化数组数据，支持新增、删除、复制、排序、嵌套列表和自定义操作按钮。它必须放在 ProForm 内部使用，并会把列表数据作为表单字段提交。
 
 ## 何时使用 {#when-to-use}
 
-当表单数据为结构化的数据时使用。
+- 表单中存在联系人、明细行、规则项等可增删的数组数据时。
+- 需要对列表项做复制、删除、排序和自定义渲染时。
+- 需要在 FormList 内嵌套 ProForm 其它表单项时。
 
 ## 代码演示 {#examples}
 
@@ -25,50 +24,46 @@ group: 数据录入
 
 ## API
 
-### 属性 {#props}
+### ProFormList
 
-通用属性参考：[通用属性](/docs/vue/common-props)
+#### 属性 {#props}
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
-| offsetTop | 距离窗口顶部达到指定偏移量后触发 | number | 0 | - |
-| offsetBottom | 距离窗口底部达到指定偏移量后触发 | number | - | - |
-| target | 设置 `Affix` 需要监听其滚动事件的元素，值为一个返回对应 DOM 元素的函数 | () =&gt; Window \| HTMLElement \| null | () =&gt; window | - |
+| name | 列表字段名 | `NamePath` | - | - |
+| label | 标签 | `VueNode` | - | - |
+| tooltip | 标签提示 | `FormItemTooltipType` | - | - |
+| rules | 校验规则 | `Rule[]` | - | - |
+| wrapperCol | FormItem wrapperCol | `ColProps` | - | - |
+| hidden | 是否隐藏 | `boolean` | `false` | - |
+| required | 是否必填 | `boolean` | `false` | - |
+| readonly | 是否只读 | `boolean` | `false` | - |
+| creatorButtonProps | 新增按钮配置，设置为 `false` 可隐藏 | `false \| ButtonProps & { creatorButtonText?: VueNode; position?: 'top' \| 'bottom' }` | - | - |
+| actionGuard | 新增、删除等操作前置守卫 | `FormListActionGuard` | - | - |
+| isValidateList | 是否校验列表不能为空 | `boolean` | `false` | - |
+| emptyListMessage | 列表为空时的校验文案 | `string` | - | - |
+| containerStyle | 列表容器样式 | `CSSProperties` | - | - |
+| containerClassName | 列表容器类名 | `string` | - | - |
+| colProps | 栅格 Col 配置 | `ColProps` | - | - |
+| rowProps | 栅格 Row 配置 | `RowProps` | - | - |
+| itemRender | 自定义列表项渲染 | `(dom, listMeta) => VueNode` | - | - |
+| itemContainerRender | 自定义列表项容器 | `(doms, listMeta) => VueNode` | - | - |
+| actionRender | 自定义每项操作按钮 | `(field, action, defaultActionDom, count) => VueNode[]` | - | - |
+| fieldExtraRender | 自定义字段额外内容 | `(fieldAction, meta) => VueNode` | - | - |
 
-### 事件 {#events}
+#### 事件 {#events}
 
 | 事件名 | 说明 | 类型 | 版本 |
-| ----- | --- | --- | --- |
-| change | 固定状态改变时触发的回调函数 | (affixed?: boolean) =&gt; void | - |
+| --- | --- | --- | --- |
+| afterAdd | 新增成功后触发 | `(...params) => void` | - |
+| afterRemove | 删除成功后触发 | `(...params) => void` | - |
 
-### 方法 {#methods}
+#### 方法 {#methods}
 
 | 方法 | 说明 | 类型 | 版本 |
 | --- | --- | --- | --- |
-| updatePosition | - | ReturnType&lt;typeof throttleByAnimationFrame&gt; | - |
-
-**注意：**`Affix` 内的元素不要使用绝对定位，如需要绝对定位的效果，可以直接设置 `Affix` 为绝对定位：
-
-```html
-<a-affix style="position: absolute;top: y; left: x">...</a-affix>
-```
-
-## 主题变量（Design Token）{#design-token}
-
-<ComponentTokenTable component="Affix"></ComponentTokenTable>
-
-查看 [定制主题](/docs/vue/customize-theme) 了解如何使用主题变量。
-
-## FAQ
-
-### Affix 使用 `target` 绑定容器时，元素会跑到容器外。 {#faq-target-container}
-
-从性能角度考虑，我们只监听容器滚动事件。如果希望任意滚动，你可以在窗体添加滚动监听：<https://codesandbox.io/s/stupefied-maxwell-ophqnm?file=/index.js>
-
-相关 issue：[#3938](https://github.com/ant-design/ant-design/issues/3938) [#5642](https://github.com/ant-design/ant-design/issues/5642) [#16120](https://github.com/ant-design/ant-design/issues/16120)
-
-### Affix 在水平滚动容器中使用时， 元素 `left` 位置不正确。 {#faq-horizontal-scroll}
-
-Affix 一般只适用于单向滚动的区域，只支持在垂直滚动容器中使用。如果希望在水平容器中使用，你可以考虑使用 原生 `position: sticky` 实现。
-
-相关 issue: [#29108](https://github.com/ant-design/ant-design/issues/29108)
+| add | 新增一项 | `(defaultValue?: StoreValue, insertIndex?: number) => void` | - |
+| remove | 删除一项或多项 | `(index: number \| number[]) => void` | - |
+| move | 移动项目位置 | `(from: number, to: number) => void` | - |
+| get | 获取指定项 | `(index: number) => StoreValue` | - |
+| getList | 获取整个列表 | `() => StoreValue[]` | - |

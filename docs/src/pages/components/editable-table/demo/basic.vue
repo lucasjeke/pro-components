@@ -61,6 +61,15 @@ function createEditableRowId(): string {
   editableRowIdCounter += 1
   return String(editableRowIdCounter)
 }
+function handleTableChange(value?: DataSourceType[]) {
+  dataSource.value = value || []
+}
+function removeEditableRow(recordId: string | number) {
+  dataSource.value = dataSource.value.filter(item => item.id !== recordId)
+  editableKeys.value = editableKeys.value.filter(
+    key => key !== recordId && String(key) !== String(recordId),
+  )
+}
 const DEMO_TASK_STATUS_ENUM = {
   all: { text: '全部', status: 'Default' },
   open: { text: '待处理', status: 'Error' },
@@ -123,9 +132,7 @@ const columns: ProColumns<DataSourceType>[] = shallowReactive([
     width: 200,
     render: (_1, record, _, action) => [
       h('a', { key: 'editable', onClick: () => action?.startEditable?.(record.id) }, '编辑'),
-      h('a', { key: 'delete', onClick: () => {
-        dataSource.value = dataSource.value.filter(item => item.id !== record.id)
-      } }, '删除'),
+      h('a', { key: 'delete', onClick: () => removeEditableRow(record.id) }, '删除'),
     ],
   },
 ])
@@ -191,16 +198,7 @@ const columns: ProColumns<DataSourceType>[] = shallowReactive([
           editableKeys = value
         },
       }"
-      @change="(value) => {
-        const newMap = new Map(value?.map((item) => [item.id, item]));
-        const merged = dataSource.map((item) => newMap.get(item.id) || item);
-        value?.forEach((item) => {
-          if (!dataSource.find((old) => old.id === item.id)) {
-            merged.push(item);
-          }
-        });
-        dataSource = merged
-      }"
+      @change="handleTableChange"
     />
   </div>
 </template>

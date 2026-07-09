@@ -1,10 +1,8 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
-import type { ComputedRef } from 'vue'
-import { useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
+import { useStyle } from '@antdv-next1/pro-provider'
+import { mergeToken } from '@antdv-next/cssinjs'
 
-export interface GlobalFooterToken extends ProAliasToken {
-  componentCls: string
-  probgLayout?: string
+export interface GlobalFooterToken extends ProAliasCssVarToken {
 }
 const genGlobalFooterStyle: GenerateStyle<GlobalFooterToken> = (token) => {
   return {
@@ -30,16 +28,12 @@ const genGlobalFooterStyle: GenerateStyle<GlobalFooterToken> = (token) => {
           color: token.colorPrimary,
         },
       },
-      '&-copyright': { fontSize: '14px', color: token.colorText },
+      '&-copyright': { fontSize: 14, color: token.colorText },
     },
   }
 }
-export function useStyle(prefixCls: ComputedRef<string>) {
-  return useAntdStyle('ProLayoutGlobalFooter', (token) => {
-    const globalFooterToken: GlobalFooterToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
-    }
-    return [genGlobalFooterStyle(globalFooterToken)]
+export default useStyle('ProLayoutGlobalFooter', (token) => {
+  const globalFooterToken = mergeToken<GlobalFooterToken>(token, {
   })
-}
+  return [genGlobalFooterStyle(globalFooterToken)]
+})

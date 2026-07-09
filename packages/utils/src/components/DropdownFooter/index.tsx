@@ -6,7 +6,7 @@ import { classNames } from '@v-c/util'
 import { Button } from 'antdv-next'
 import { useConfig } from 'antdv-next/dist/config-provider/context'
 import { computed, defineComponent } from 'vue'
-import { useStyle } from './style'
+import useStyle from './style'
 
 type LightFilterFooterRender
   = | ((onConfirm?: (e?: MouseEvent) => void, onClear?: (e?: MouseEvent) => void) => VueNode)
@@ -29,7 +29,7 @@ const DropdownFooter = defineComponent<DropdownFooterProps, {}, string, CustomSl
   const config = useConfig()
   const prefixCls = computed(() => props.prefixCls || config.value.getPrefixCls('pro'))
   const baseClassName = computed(() => `${prefixCls.value}-core-field-dropdown-footer`)
-  const { wrapSSR, hashId } = useStyle(baseClassName)
+  const [hashId, cssVarCls] = useStyle(baseClassName)
 
   return () => {
     const { onClear, onConfirm, disabled, footerRender } = props
@@ -67,14 +67,14 @@ const DropdownFooter = defineComponent<DropdownFooterProps, {}, string, CustomSl
     }
 
     const renderDom = footerRender?.(onConfirm, onClear) || defaultFooter
-    return wrapSSR(
+    return (
       <div
-        class={classNames(baseClassName.value, hashId.value)}
+        class={classNames(baseClassName.value, hashId.value, cssVarCls.value)}
         onClick={e =>
           (e.target as Element).getAttribute('data-type') !== 'confirm' && e.stopPropagation()}
       >
         {renderDom}
-      </div>,
+      </div>
     )
   }
 }, {

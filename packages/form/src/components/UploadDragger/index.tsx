@@ -4,6 +4,7 @@ import type { UploadProps } from 'antdv-next'
 import type { DraggerProps } from 'antdv-next/dist/upload/index'
 import type { SetupContext, VNode } from 'vue'
 import type { ProFormFieldItemProps } from '../../typing'
+import { useIntl } from '@antdv-next1/pro-provider'
 import { childrenToArray, omitUndefined } from '@antdv-next1/pro-utils'
 import { unit } from '@antdv-next/cssinjs'
 import { InboxOutlined } from '@antdv-next/icons'
@@ -58,6 +59,7 @@ export type ProFormUploadDraggerProps<T extends Record<string, any>> = ProFormFi
 const BaseProFormUploadDragger = defineComponent(<T extends Record<string, any>>(props: ProFormUploadDraggerProps<T>, { expose, slots }: SetupContext<{}, CustomSlotsType<{
   default?: () => VueNode
 }>>) => {
+  const intl = useIntl()
   const config = useConfig()
   const modeContext = useEditOrReadOnlyContextInject()
   const prefixCls = computed(() => config.value.getPrefixCls('pro'))
@@ -65,7 +67,7 @@ const BaseProFormUploadDragger = defineComponent(<T extends Record<string, any>>
 
   expose({})
   return () => {
-    const { fieldProps, title = '单击或拖动文件到此区域进行上传', icon = <InboxOutlined />, description = '支持单次或批量上传', action, accept, onChange, value, max, proFieldProps } = props
+    const { fieldProps, title = intl.value.getMessage({ id: 'form.upload.draggerTitle', defaultMessage: '单击或拖动文件到此区域进行上传' }), icon = <InboxOutlined />, description = intl.value.getMessage({ id: 'form.upload.draggerDescription', defaultMessage: '支持单次或批量上传' }), action, accept, onChange, value, max, proFieldProps } = props
     const mode = proFieldProps?.mode || modeContext.mode.value || 'edit'
     // 如果配置了 max ，并且 超过了文件列表的大小，就不展示按钮
     const showUploadButton

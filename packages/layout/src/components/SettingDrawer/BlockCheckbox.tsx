@@ -12,17 +12,19 @@ const BlockCheckbox: FunctionalComponent<{
   prefixCls?: string
   value?: string
   hashId?: string
+  cssVarCls?: string
   configType?: string
   onChange?: (value: string) => void
 }> = (props) => {
   const baseClassName = `${props.prefixCls}-block-checkbox`
   return (
-    <div class={classNames(baseClassName, props.hashId)}>
+    <div class={classNames(baseClassName, props.hashId, props.cssVarCls)}>
       {(props.list || []).map(item => (
         <Tooltip title={item.title} key={item.key}>
           <div
             class={classNames(
               props.hashId,
+              props.cssVarCls,
               `${baseClassName}-item`,
               `${baseClassName}-item-${item.key}`,
               `${baseClassName}-${props.configType}-item`,
@@ -30,17 +32,17 @@ const BlockCheckbox: FunctionalComponent<{
             onClick={() => props.onChange?.(item.key)}
           >
             {item.key === 'left' && (
-              <div class={`${baseClassName}-item-left-inner ${props.hashId}`} />
+              <div class={classNames(`${baseClassName}-item-left-inner`, props.hashId, props.cssVarCls)} />
             )}
             <CheckOutlined
-              class={`${baseClassName}-selectIcon ${props.hashId}`}
+              class={classNames(`${baseClassName}-selectIcon`, props.hashId, props.cssVarCls)}
               style={{
                 display: props.value === item.key ? 'block' : 'none',
               }}
             />
             {item?.icon
               ? (
-                  <div class={`${baseClassName}-icon ${props.hashId}`}>{item.icon}</div>
+                  <div class={classNames(`${baseClassName}-icon`, props.hashId, props.cssVarCls)}>{item.icon}</div>
                 )
               : null}
           </div>

@@ -1,12 +1,11 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
-import type { ComputedRef } from 'vue'
-import { useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
+import { useStyle } from '@antdv-next1/pro-provider'
+import { mergeToken, unit } from '@antdv-next/cssinjs'
 
-export interface ProToken extends ProAliasToken {
-  componentCls: string
+export interface ProDropdownFooterToken extends ProAliasCssVarToken {
 }
 
-const genProStyle: GenerateStyle<ProToken> = (token) => {
+const genProDropdownFooterStyle: GenerateStyle<ProDropdownFooterToken> = (token) => {
   return {
     [token.componentCls]: {
       display: 'flex',
@@ -14,18 +13,13 @@ const genProStyle: GenerateStyle<ProToken> = (token) => {
       paddingBlock: 8,
       paddingInlineStart: 8,
       paddingInlineEnd: 8,
-      borderBlockStart: `1px solid ${token.colorSplit}`,
+      borderBlockStart: `${unit(token.lineWidth)} ${token.lineType} ${token.colorSplit}`,
     },
   }
 }
 
-export function useStyle(prefixCls: ComputedRef<string>) {
-  return useAntdStyle('DropdownFooter', (token) => {
-    const proToken: ProToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
-    }
+export default useStyle('DropdownFooter', (token) => {
+  const proDropdownFooterToken = mergeToken<ProDropdownFooterToken>(token, {})
 
-    return [genProStyle(proToken)]
-  })
-}
+  return [genProDropdownFooterStyle(proDropdownFooterToken)]
+})

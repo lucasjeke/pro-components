@@ -2,6 +2,7 @@ import type { CustomSlotsType, VueNode } from '@v-c/util/dist/type'
 import type { FormInstance } from 'antdv-next'
 import type { SetupContext } from 'vue'
 import type { ActionRenderConfig } from '../typing'
+import { useIntl } from '@antdv-next1/pro-provider'
 import { LoadingOutlined } from '@antdv-next/icons'
 import { get, set } from '@v-c/util'
 import { Form } from 'antdv-next'
@@ -34,6 +35,7 @@ export interface SaveEditableActionProps<T> {
 const SaveEditableAction = defineComponent(<T extends Record<string, any>>(props: SaveEditableActionProps<T>, { slots, expose }: SetupContext<{}, CustomSlotsType<{
   default?: () => VueNode
 }>>) => {
+  const intl = useIntl()
   const form = (Form as unknown as { useFormInstance: () => FormInstance }
   ).useFormInstance()
   const context = useProFormContextInject()
@@ -114,7 +116,7 @@ const SaveEditableAction = defineComponent(<T extends Record<string, any>>(props
             />
           )
         : null}
-      {slots.default?.() || '保存'}
+      {slots.default?.() || intl.value.getMessage({ id: 'editableTable.action.save', defaultMessage: '保存' })}
     </a>
   )
 }, {

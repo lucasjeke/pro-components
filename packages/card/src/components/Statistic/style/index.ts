@@ -1,12 +1,11 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
-import type { ComputedRef } from 'vue'
-import { useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
+import { useStyle } from '@antdv-next1/pro-provider'
+import { mergeToken } from '@antdv-next/cssinjs'
 
-export interface ProListToken extends ProAliasToken {
-  componentCls: string
+export interface ProStatisticToken extends ProAliasCssVarToken {
 }
 
-const genProStyle: GenerateStyle<ProListToken> = (token) => {
+const genProStatisticStyle: GenerateStyle<ProStatisticToken> = (token) => {
   return {
     [token.componentCls]: {
       boxSizing: 'border-box',
@@ -95,13 +94,8 @@ const genProStyle: GenerateStyle<ProListToken> = (token) => {
   }
 }
 
-export function useStyle(prefixCls: ComputedRef<string>) {
-  return useAntdStyle('Statistic', (token) => {
-    const proListToken: ProListToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
-    }
+export default useStyle('Statistic', (token) => {
+  const proStatisticToken = mergeToken<ProStatisticToken>(token, {})
 
-    return [genProStyle(proListToken)]
-  })
-}
+  return [genProStatisticStyle(proStatisticToken)]
+})

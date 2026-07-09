@@ -12,7 +12,7 @@ import { useConfig } from 'antdv-next/dist/config-provider/context'
 import { computed, defineComponent, shallowRef } from 'vue'
 import { useProFormInstanceExpose } from '../../utils'
 import ProForm from '../ProForm'
-import { useStyle } from './style'
+import useStyle from './style'
 
 export type ProLoginFormProps<T, U> = {
   /**
@@ -66,7 +66,7 @@ const ProLoginForm = defineComponent(<T extends Record<string, any>, U extends R
   const formRef = shallowRef<ProFormRef<T>>()
   const prefixCls = computed(() => props.prefixCls || config.value.getPrefixCls('pro'))
   const baseClassName = computed(() => `${prefixCls.value}-form-login`)
-  const { wrapSSR, hashId } = useStyle(baseClassName)
+  const [hashId, cssVarCls] = useStyle(baseClassName)
 
   const intl = useIntl()
   /** 生成logo 的dom，如果是string 设置为图片 如果是个 dom 就原样保留 */
@@ -125,25 +125,25 @@ const ProLoginForm = defineComponent(<T extends Record<string, any>, U extends R
             },
           } as ProFormProps<T, U>['submitter'])
 
-    return wrapSSR(
-      <div class={classNames(`${baseClassName.value}-container`, className, hashId.value)} style={containerStyle}>
-        <div class={classNames(`${baseClassName.value}-top`, hashId.value)}>
+    return (
+      <div class={classNames(`${baseClassName.value}-container`, className, hashId.value, cssVarCls.value)} style={containerStyle}>
+        <div class={classNames(`${baseClassName.value}-top`, hashId.value, cssVarCls.value)}>
           {title || logoDom.value ? (
-            <div class={classNames(`${baseClassName.value}-header`, hashId.value)}>
+            <div class={classNames(`${baseClassName.value}-header`, hashId.value, cssVarCls.value)}>
               {logoDom.value ? (
-                <span class={classNames(`${baseClassName.value}-logo`, hashId.value)}>{logoDom.value}</span>
+                <span class={classNames(`${baseClassName.value}-logo`, hashId.value, cssVarCls.value)}>{logoDom.value}</span>
               ) : null}
               {title ? (
-                <span class={classNames(`${baseClassName.value}-title`, hashId.value)}>{title}</span>
+                <span class={classNames(`${baseClassName.value}-title`, hashId.value, cssVarCls.value)}>{title}</span>
               ) : null}
             </div>
           ) : null}
           {subTitle ? (
-            <div class={classNames(`${baseClassName.value}-desc`, hashId.value)}>{subTitle}</div>
+            <div class={classNames(`${baseClassName.value}-desc`, hashId.value, cssVarCls.value)}>{subTitle}</div>
           ) : null}
         </div>
         <div
-          class={classNames(`${baseClassName.value}-main`, hashId.value)}
+          class={classNames(`${baseClassName.value}-main`, hashId.value, cssVarCls.value)}
           style={{
             width: unit(328),
             ...contentStyle,
@@ -169,12 +169,12 @@ const ProLoginForm = defineComponent(<T extends Record<string, any>, U extends R
             }
           />
           {actions ? (
-            <div class={classNames(`${baseClassName.value}-main-other`, hashId.value)} style={otherStyle}>
+            <div class={classNames(`${baseClassName.value}-main-other`, hashId.value, cssVarCls.value)} style={otherStyle}>
               {actions}
             </div>
           ) : null}
         </div>
-      </div>,
+      </div>
     )
   }
 }, {

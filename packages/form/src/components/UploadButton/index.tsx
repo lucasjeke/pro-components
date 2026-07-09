@@ -2,6 +2,7 @@ import type { VueNode } from '@v-c/util'
 import type { ButtonProps, ImageProps, UploadProps } from 'antdv-next'
 import type { UploadFile, VcFile } from 'antdv-next/dist/upload/interface'
 import type { ProFormFieldItemProps } from '../../typing'
+import { useIntl } from '@antdv-next1/pro-provider'
 import { useState } from '@antdv-next1/pro-utils'
 import { UploadOutlined } from '@antdv-next/icons'
 import { Button, Image, Upload } from 'antdv-next'
@@ -75,6 +76,7 @@ function getBase64(file: VcFile): Promise<string> {
 }
 
 const BaseProFormUploadButton = defineComponent<ProFormUploadButtonProps>((props) => {
+  const intl = useIntl()
   const [previewOpen, setPreviewOpen] = useState(false)
   const [previewImage, setPreviewImage] = useState('')
   const modeContext = useEditOrReadOnlyContextInject()
@@ -90,7 +92,7 @@ const BaseProFormUploadButton = defineComponent<ProFormUploadButtonProps>((props
   }
 
   return () => {
-    const { fieldProps, action, accept, listType, title = '单击上传', max, icon = <UploadOutlined />, buttonProps, disabled, proFieldProps, imageProps,
+    const { fieldProps, action, accept, listType, title = intl.value.getMessage({ id: 'form.upload.buttonText', defaultMessage: '单击上传' }), max, icon = <UploadOutlined />, buttonProps, disabled, proFieldProps, imageProps,
 
     } = props
     const mode = proFieldProps?.mode || modeContext.mode.value || 'edit'

@@ -4,7 +4,9 @@ const idID: ProLocale = {
   moneySymbol: 'RP',
   deleteThisLine: 'Hapus baris ini',
   copyThisLine: 'Salin baris ini',
-  emptyListValidateMessage: '列表不能为空',
+  sortUpThisLine: 'Pindahkan ke atas',
+  sortDownThisLine: 'Pindahkan ke bawah',
+  emptyListValidateMessage: 'Daftar tidak boleh kosong',
   form: {
     lightFilter: {
       more: 'Lebih',
@@ -12,13 +14,26 @@ const idID: ProLocale = {
       confirm: 'Konfirmasi',
       itemUnit: 'Unit',
     },
+    captcha: {
+      getCaptcha: 'Dapatkan kode verifikasi',
+      resendAfter: 'd untuk kirim ulang',
+    },
+    upload: {
+      buttonText: 'Klik untuk mengunggah',
+      draggerTitle: 'Klik atau seret file ke area ini untuk mengunggah',
+      draggerDescription: 'Mendukung unggahan tunggal atau massal',
+    },
+    modal: {
+      okText: 'Konfirmasi',
+      cancelText: 'Batal',
+    },
   },
   time: {
-    seconds: 'seconds',
-    minutes: 'minutes',
-    hours: 'hours',
-    days: 'days',
-    ago: 'ago',
+    seconds: 'detik',
+    minutes: 'menit',
+    hours: 'jam',
+    days: 'hari',
+    ago: 'lalu',
   },
   tableForm: {
     search: 'Cari',
@@ -69,6 +84,8 @@ const idID: ProLocale = {
     submitText: 'Login',
   },
   editableTable: {
+    defaultFieldLabel: 'Kolom ini',
+    defaultFieldType: 'Teks',
     onlyOneLineEditor: 'Hanya satu baris yang dapat diedit sekaligus',
     onlyAddOneLine: 'Hanya satu baris yang dapat ditambahkan sekaligus',
     action: {

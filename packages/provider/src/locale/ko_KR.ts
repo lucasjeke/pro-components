@@ -4,7 +4,9 @@ const koKR: ProLocale = {
   moneySymbol: '₩',
   deleteThisLine: '이 행 삭제',
   copyThisLine: '이 행 복사',
-  emptyListValidateMessage: '列表不能为空',
+  sortUpThisLine: '위로 이동',
+  sortDownThisLine: '아래로 이동',
+  emptyListValidateMessage: '목록은 비워 둘 수 없습니다',
   form: {
     lightFilter: {
       more: '더보기',
@@ -12,13 +14,26 @@ const koKR: ProLocale = {
       confirm: '확인',
       itemUnit: '건수',
     },
+    captcha: {
+      getCaptcha: '인증 코드 받기',
+      resendAfter: '초 후 다시 받기',
+    },
+    upload: {
+      buttonText: '클릭하여 업로드',
+      draggerTitle: '파일을 클릭하거나 이 영역으로 드래그하여 업로드',
+      draggerDescription: '단일 또는 일괄 업로드 지원',
+    },
+    modal: {
+      okText: '확인',
+      cancelText: '취소',
+    },
   },
   time: {
-    seconds: 'seconds',
-    minutes: 'minutes',
-    hours: 'hours',
-    days: 'days',
-    ago: 'ago',
+    seconds: '초',
+    minutes: '분',
+    hours: '시간',
+    days: '일',
+    ago: '전',
   },
   tableForm: {
     search: '조회',
@@ -69,6 +84,8 @@ const koKR: ProLocale = {
     submitText: '로그인',
   },
   editableTable: {
+    defaultFieldLabel: '이 항목',
+    defaultFieldType: '텍스트',
     onlyOneLineEditor: '한 번에 한 행만 편집할 수 있습니다',
     onlyAddOneLine: '한 번에 한 행만 추가할 수 있습니다',
     action: {

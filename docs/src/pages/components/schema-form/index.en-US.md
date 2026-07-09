@@ -1,72 +1,70 @@
 ---
 category: Components
 title: SchemaForm
-description: Stick an element to the viewport.
-cover: https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*YSm4RI3iOJ8AAAAAAAAAAAAADrJ8AQ/original
-coverDark: https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*03dxS64LxeQAAAAAAAAAAAAADrJ8AQ/original
-demo:
-  cols: 2
+subtitle: JSON Form
 group: Data Entry
 ---
 
+SchemaForm uses `columns` to describe form structure and generates ProForm fields by `valueType`. It is useful for backend-driven forms, configurable forms, and reusing one field definition across Form, ModalForm, DrawerForm, QueryFilter, StepsForm, and other layouts.
+
 ## When To Use {#when-to-use}
 
-On longer web pages, it's helpful to stick component into the viewport. This is common for menus and actions.
-
-Please note that Affix should not cover other content on the page, especially when the size of the viewport is small.
+- Form fields come from configuration or an API.
+- You want to describe forms with ProTable-style columns.
+- The same field definition should be reused across different form layouts through `layoutType`.
 
 ## Examples {#examples}
 
 <demo-group>
-  <demo src="./demo/schema.vue">基础 Schema 表单</demo>
+  <demo src="./demo/schema.vue">Basic</demo>
 </demo-group>
 
 ## API
 
-### Props
+### SchemaForm
 
-Common props ref：[Common props](/docs/vue/common-props)
+SchemaForm inherits props from the selected `layoutType` and adds the following configs.
+
+#### Props {#props}
 
 | Property | Description | Type | Default | Version |
 | --- | --- | --- | --- | --- |
-| offsetTop | Offset from the top of the viewport (in pixels) | number | 0 | - |
-| offsetBottom | Offset from the bottom of the viewport (in pixels) | number | - | - |
-| target | Specifies the scrollable area DOM node | () =&gt; Window \| HTMLElement \| null | () =&gt; window | - |
+| columns | Form column definitions | `ProFormColumnsType[] \| ProFormColumnsType[][]` | `[]` | - |
+| layoutType | Form layout type | `'Form' \| 'ModalForm' \| 'DrawerForm' \| 'QueryFilter' \| 'LightFilter' \| 'StepForm' \| 'StepsForm' \| 'Embed'` | `'Form'` | - |
+| type | Field render scene | `ProSchemaComponentTypes` | `'form'` | - |
+| action | Action instance passed to custom renderers | `ProCoreActionType` | - | - |
+| title | Form title | `VueNode \| ((schema, type, dom) => VueNode)` | - | - |
+| description | Form description | `VueNode` | - | - |
+| steps | StepForm configs | `ProStepFormProps[]` | - | - |
+| open | ModalForm / DrawerForm open state | `boolean` | - | - |
 
-### Events
+#### ProFormColumnsType
 
-| Event | Description | Type | Version |
-| --- | --- | --- | --- |
-| change | Callback for when Affix state is changed | (affixed?: boolean) =&gt; void | - |
+| Property | Description | Type | Default | Version |
+| --- | --- | --- | --- | --- |
+| title | Field title | `VueNode \| ((schema, type, dom) => VueNode)` | - | - |
+| name | Form field name | `NamePath \| NamePath[]` | - | - |
+| key | Field key | `Key` | - | - |
+| valueType | Field type | `ProFieldValueType \| ProFieldValueObjectType \| FormFieldType` | `'text'` | - |
+| valueEnum | Enum config | `Map \| Record` | - | - |
+| fieldProps | Props passed to form control | `Record<string, any> \| ((form, column) => Record<string, any>)` | - | - |
+| formItemProps | Props passed to FormItem | `Record<string, any> \| ((form, column) => Record<string, any>)` | - | - |
+| initialValue | Initial value | `any` | - | - |
+| readonly | Readonly state | `boolean` | `false` | - |
+| colSize | Grid span size | `number` | `1` | - |
+| colProps | Col config | `ColProps` | - | - |
+| rowProps | Row config | `RowProps` | - | - |
+| order | Form order. Larger value comes first | `number` | - | - |
+| columns | Nested fields | `ProFormColumnsType[] \| ((values) => ProFormColumnsType[])` | - | - |
+| dependencies | Dependency fields | `NamePath[]` | - | - |
+| convertValue | Transform value when reading | `SearchConvertKeyFn` | - | - |
+| transform | Transform value before submit | `SearchTransformKeyFn` | - | - |
+| render | Custom read renderer | `(...args) => VueNode` | - | - |
+| formItemRender | Custom form item renderer | `(...args) => VueNode` | - | - |
+| request | Load options remotely | `ProFieldRequestData` | - | - |
+| params | Remote request params | `Record<string, any>` | - | - |
+| debounceTime | Remote request debounce time | `number` | - | - |
 
-### Methods
+#### Events {#events}
 
-| Method | Description | Type | Version |
-| --- | --- | --- | --- |
-| updatePosition | - | ReturnType&lt;typeof throttleByAnimationFrame&gt; | - |
-
-**Note:** Children of `Affix` must not have the property `position: absolute`, but you can set `position: absolute` on `Affix` itself:
-
-```html
-<a-affix style="position: absolute;top: y; left: x">...</a-affix>
-```
-
-## Design Token {#design-token}
-
-<ComponentTokenTable component="Affix"></ComponentTokenTable>
-
-See [Customize Theme](/docs/vue/customize-theme) to learn how to use Design Token.
-
-## FAQ
-
-### When binding container with `target` in Affix, elements sometimes move out of the container. {#faq-target-container}
-
-We only listen to container scroll events for performance consideration. You can add custom listeners if you still want to: <https://codesandbox.io/s/stupefied-maxwell-ophqnm?file=/index.js>
-
-Related issues：[#3938](https://github.com/ant-design/ant-design/issues/3938) [#5642](https://github.com/ant-design/ant-design/issues/5642) [#16120](https://github.com/ant-design/ant-design/issues/16120)
-
-### When Affix is ​​used in a horizontal scroll container, the position of the element `left` is incorrect. {#faq-horizontal-scroll}
-
-Affix is ​​generally only applicable to areas with one-way scrolling, and only supports usage in vertical scrolling containers. If you want to use it in a horizontal container, you can consider implementing with the native `position: sticky` property.
-
-Related issues：[#29108](https://github.com/ant-design/ant-design/issues/29108)
+SchemaForm events come from the selected form layout, such as `finish`, `submit`, `reset`, `valuesChange`, `fieldsChange`, `loadingChange`, and `openChange`.

@@ -1,11 +1,11 @@
 {
   "name": "@antdv-next1/pro-table",
   "type": "module",
-  "version": "1.0.26",
+  "version": "1.0.27",
   "description": "@antdv-next1/pro-table",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/archiesong/pro-components.git",
+    "url": "git+https://github.com/lucasjeke/pro-components.git",
     "directory": "packages/table"
   },
   "sideEffects": [

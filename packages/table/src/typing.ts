@@ -103,6 +103,10 @@ export type ProColumnType<T = unknown, ValueType = 'text'> = ProSchema<
 
     /** @name copyable 是否拷贝 */
     copyable?: boolean
+    /**
+     * @name resizable 列宽调整
+     */
+    resizable?: boolean
 
     /** 在查询表单中隐藏 */
     search?: WithFalse<{

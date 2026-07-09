@@ -1,9 +1,8 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
-import type { ComputedRef } from 'vue'
-import { useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
+import { useStyle } from '@antdv-next1/pro-provider'
+import { mergeToken } from '@antdv-next/cssinjs'
 
-export interface ProFieldCheckboxToken extends ProAliasToken {
-  componentCls: string
+export interface ProFieldCheckboxToken extends ProAliasCssVarToken {
 }
 
 const genProFieldCheckboxStyle: GenerateStyle<ProFieldCheckboxToken> = (token) => {
@@ -38,13 +37,8 @@ const genProFieldCheckboxStyle: GenerateStyle<ProFieldCheckboxToken> = (token) =
   }
 }
 
-export function useStyle(prefixCls: ComputedRef<string>) {
-  return useAntdStyle('ProFieldCheckbox', (token) => {
-    const proFieldCheckboxToken: ProFieldCheckboxToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
-    }
+export default useStyle('ProFieldCheckbox', (token) => {
+  const proFieldCheckboxToken = mergeToken<ProFieldCheckboxToken>(token, {})
 
-    return [genProFieldCheckboxStyle(proFieldCheckboxToken)]
-  })
-}
+  return [genProFieldCheckboxStyle(proFieldCheckboxToken)]
+})

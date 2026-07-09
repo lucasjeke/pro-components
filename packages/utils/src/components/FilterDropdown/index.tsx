@@ -9,7 +9,7 @@ import { useConfig } from 'antdv-next/dist/config-provider/context'
 import { computed, defineComponent, shallowRef } from 'vue'
 import { useMemo } from '../../hooks'
 import DropdownFooter from '../DropdownFooter'
-import { useStyle } from './style'
+import useStyle from './style'
 
 export type FooterRender
   = | ((
@@ -51,7 +51,7 @@ const FilterDropdown = defineComponent<FilterDropdownProps, {}, string, CustomSl
   const config = useConfig()
   const prefixCls = computed(() => config.value.getPrefixCls('pro'))
   const baseClassName = computed(() => `${prefixCls.value}-core-field-dropdown`)
-  const { wrapSSR, hashId } = useStyle(baseClassName)
+  const [hashId, cssVarCls] = useStyle(baseClassName)
   const htmlRef = shallowRef<HTMLDivElement | null>(null)
   const styles = useMemo(
     () => ({
@@ -65,7 +65,7 @@ const FilterDropdown = defineComponent<FilterDropdownProps, {}, string, CustomSl
   )
   return () => {
     const { label, footer, open, popoverProps, onOpenChange, disabled, footerRender, placement } = props
-    return wrapSSR(
+    return (
       <Popover
         {...popoverProps}
         placement={placement}
@@ -82,10 +82,11 @@ const FilterDropdown = defineComponent<FilterDropdownProps, {}, string, CustomSl
                 [`${baseClassName.value}-overlay-${placement}`]: placement,
               },
               hashId.value,
+              cssVarCls.value,
             )}
           >
             <ConfigProvider getPopupContainer={() => htmlRef.value || document.body}>
-              <div class={classNames(`${baseClassName.value}-content`, hashId.value)}>
+              <div class={classNames(`${baseClassName.value}-content`, hashId.value, cssVarCls.value)}>
                 {slots.default?.()}
               </div>
             </ConfigProvider>
@@ -95,8 +96,8 @@ const FilterDropdown = defineComponent<FilterDropdownProps, {}, string, CustomSl
           </div>
         )}
       >
-        <span class={classNames(`${baseClassName.value}-label`, hashId.value)}>{label}</span>
-      </Popover>,
+        <span class={classNames(`${baseClassName.value}-label`, hashId.value, cssVarCls.value)}>{label}</span>
+      </Popover>
     )
   }
 }, {

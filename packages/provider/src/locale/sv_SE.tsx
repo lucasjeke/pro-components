@@ -4,7 +4,9 @@ const svSE: ProLocale = {
   moneySymbol: 'SEK',
   deleteThisLine: 'Radera denna rad',
   copyThisLine: 'Kopiera denna rad',
-  emptyListValidateMessage: '列表不能为空',
+  sortUpThisLine: 'Flytta upp',
+  sortDownThisLine: 'Flytta ned',
+  emptyListValidateMessage: 'Listan får inte vara tom',
   form: {
     lightFilter: {
       more: 'Fler filter',
@@ -12,13 +14,26 @@ const svSE: ProLocale = {
       confirm: 'Bekräfta',
       itemUnit: 'objekt',
     },
+    captcha: {
+      getCaptcha: 'Hämta verifieringskod',
+      resendAfter: 's till omsändning',
+    },
+    upload: {
+      buttonText: 'Klicka för att ladda upp',
+      draggerTitle: 'Klicka eller dra filen till detta område för uppladdning',
+      draggerDescription: 'Stöd för enstaka eller flera uppladdningar',
+    },
+    modal: {
+      okText: 'Bekräfta',
+      cancelText: 'Avbryt',
+    },
   },
   time: {
-    seconds: 'seconds',
-    minutes: 'minutes',
-    hours: 'hours',
-    days: 'days',
-    ago: 'ago',
+    seconds: 'sekunder',
+    minutes: 'minuter',
+    hours: 'timmar',
+    days: 'dagar',
+    ago: 'sedan',
   },
   tableForm: {
     search: 'Sök',
@@ -69,6 +84,8 @@ const svSE: ProLocale = {
     submitText: 'Logga in',
   },
   editableTable: {
+    defaultFieldLabel: 'Detta fält',
+    defaultFieldType: 'Text',
     onlyOneLineEditor: 'Endast en rad kan redigeras åt gången',
     onlyAddOneLine: 'Endast en rad kan läggas till åt gången',
     action: {

@@ -30,14 +30,15 @@ export interface ThemeColorProps {
   onChange: (color: string) => void
   formatMessage: (data: { id: string, defaultMessage?: string }) => string
   hashId: string
+  cssVarCls: string
 }
-const ThemeColor: FunctionalComponent<ThemeColorProps> = ({ value, colorList, onChange, prefixCls, formatMessage, hashId }) => {
+const ThemeColor: FunctionalComponent<ThemeColorProps> = ({ value, colorList, onChange, prefixCls, formatMessage, hashId, cssVarCls }) => {
   if (!colorList || colorList?.length < 1) {
     return null
   }
   const baseClassName = `${prefixCls}-theme-color`
   return (
-    <div class={classNames(`${baseClassName}`, hashId)}>
+    <div class={classNames(`${baseClassName}`, hashId, cssVarCls)}>
       {colorList?.map(({ key, color, title }) => {
         if (!key)
           return null
@@ -53,7 +54,7 @@ const ThemeColor: FunctionalComponent<ThemeColorProps> = ({ value, colorList, on
           >
             <Wave component="Tag" disabled={(value.startsWith('#') ? value.toUpperCase() : value) === color}>
               <Tag
-                class={classNames(`${baseClassName}-block`, hashId)}
+                class={classNames(`${baseClassName}-block`, hashId, cssVarCls)}
                 color={color}
                 check={(value.startsWith('#') ? value.toUpperCase() : value) === color}
                 onClick={() => onChange && onChange(color)}

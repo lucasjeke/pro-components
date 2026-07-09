@@ -29,10 +29,11 @@ const _ProConfigProvider = defineComponent<ProConfigProviderProps, {}, string, C
 }>>((props, { slots, attrs }) => {
   const config = useConfig()
   const proProvide = useProConfig()
+  const mergedProps = computed(() => ({ ...attrs, ...props }) as ProConfigProviderProps)
   const mergeAlgorithm = () => {
     const algorithm = config.value.theme?.algorithm
-    const isDark = props.dark ?? proProvide.value.dark
-    const isCompact = props.compact ?? proProvide.value.compact
+    const isDark = mergedProps.value.dark ?? proProvide.value.dark
+    const isCompact = mergedProps.value.compact ?? proProvide.value.compact
     if (algorithm) {
       if (!Array.isArray(algorithm)) {
         if (isDark && !isCompact) {
@@ -72,9 +73,9 @@ const _ProConfigProvider = defineComponent<ProConfigProviderProps, {}, string, C
   }
   // 是不是不需要渲染 provide
   const isNullProvide = computed(
-    () => props.needDeps
+    () => mergedProps.value.needDeps
       && proProvide.value.hashId !== undefined
-      && Object.keys(Object.fromEntries(Object.entries(props).filter(([, v]) => v !== undefined)))
+      && Object.keys(Object.fromEntries(Object.entries(mergedProps.value).filter(([, v]) => v !== undefined)))
         .sort()
         .join('-') === 'needDeps',
   )
@@ -90,7 +91,7 @@ const _ProConfigProvider = defineComponent<ProConfigProviderProps, {}, string, C
     }
   })
   return () => {
-    const { token } = props
+    const { token } = mergedProps.value
     if (isNullProvide.value) {
       return <>{slots.default?.()}</>
     }
@@ -98,7 +99,7 @@ const _ProConfigProvider = defineComponent<ProConfigProviderProps, {}, string, C
       <AntdConfigProvider
         {...configProviderProps.value}
       >
-        <ConfigProviderContainer {...attrs} {...props} token={token} v-slots={slots} />
+        <ConfigProviderContainer {...mergedProps.value} token={token} v-slots={slots} />
       </AntdConfigProvider>
     )
   }

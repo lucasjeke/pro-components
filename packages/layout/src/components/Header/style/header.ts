@@ -1,17 +1,15 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
-import type { ComputedRef } from 'vue'
-import { useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
+import { useStyle } from '@antdv-next1/pro-provider'
+import { mergeToken } from '@antdv-next/cssinjs'
 
-export interface ProLayoutHeaderToken extends ProAliasToken {
-  componentCls: string
-}
+export interface ProLayoutHeaderToken extends ProAliasCssVarToken {}
 
 const genProLayoutHeaderStyle: GenerateStyle<ProLayoutHeaderToken> = (token) => {
   return {
     [`${token.componentCls}`]: {
       [`&${token.antCls}-layout-header`]: {
-        height: token?.layout?.header?.heightLayoutHeader || 56,
-        lineHeight: `${token?.layout?.header?.heightLayoutHeader || 56}px`,
+        height: token?.proLayoutHeaderHeightLayoutHeader || 56,
+        lineHeight: token.calc(token?.proLayoutHeaderHeightLayoutHeader || 56).equal(),
         zIndex: 9,
         paddingBlock: 0,
         paddingInline: 0,
@@ -46,12 +44,7 @@ const genProLayoutHeaderStyle: GenerateStyle<ProLayoutHeaderToken> = (token) => 
   }
 }
 
-export function useStyle(prefixCls: ComputedRef<string>) {
-  return useAntdStyle('ProLayoutHeader', (token) => {
-    const ProLayoutHeaderToken: ProLayoutHeaderToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
-    }
-    return [genProLayoutHeaderStyle(ProLayoutHeaderToken)]
-  })
-}
+export default useStyle('ProLayoutHeader', (token) => {
+  const ProLayoutHeaderToken = mergeToken<ProLayoutHeaderToken>(token, {})
+  return [genProLayoutHeaderStyle(ProLayoutHeaderToken)]
+})

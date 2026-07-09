@@ -31,20 +31,6 @@ const [messageApi, ContextHolder] = message.useMessage()
       auto-focus-first-input
       :trigger="h(Button, { type: 'primary' }, () => [h(PlusOutlined), 'Create New Form'])"
       :submit-timeout="2000"
-      :request="async () => {
-        await waitTime(2000);
-        return {
-          name: '张三',
-          company: '公司A',
-          contract: '合同123',
-          contractTime: ['2023-01-01', '2023-01-31'],
-          useMode: 'chapter',
-          unusedMode: 'time',
-          id: '123456',
-          project: '项目A',
-          mangerName: '书琰',
-        }
-      }"
       @finish="async () => {
         await waitTime(2000);
         messageApi.success('Submission successful');

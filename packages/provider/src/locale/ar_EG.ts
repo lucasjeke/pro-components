@@ -4,7 +4,9 @@ const arEG: ProLocale = {
   moneySymbol: '$',
   deleteThisLine: 'احذف هذا السطر',
   copyThisLine: 'انسخ هذا السطر',
-  emptyListValidateMessage: 'list cannot be empty',
+  sortUpThisLine: 'نقل للأعلى',
+  sortDownThisLine: 'نقل للأسفل',
+  emptyListValidateMessage: 'لا يمكن أن تكون القائمة فارغة',
   form: {
     lightFilter: {
       more: 'المزيد',
@@ -12,13 +14,26 @@ const arEG: ProLocale = {
       confirm: 'تأكيد',
       itemUnit: 'عناصر',
     },
+    captcha: {
+      getCaptcha: 'احصل على رمز التحقق',
+      resendAfter: 'ثانية لإعادة الإرسال',
+    },
+    upload: {
+      buttonText: 'انقر للرفع',
+      draggerTitle: 'انقر أو اسحب الملف إلى هذه المنطقة للرفع',
+      draggerDescription: 'يدعم الرفع الفردي أو المتعدد',
+    },
+    modal: {
+      okText: 'تأكيد',
+      cancelText: 'إلغاء',
+    },
   },
   time: {
-    seconds: 'ثوانٍ',
-    minutes: 'minutes',
-    hours: 'hours',
-    days: 'days',
-    ago: 'ago',
+    seconds: 'ثانية',
+    minutes: 'دقيقة',
+    hours: 'ساعة',
+    days: 'يوم',
+    ago: 'مضت',
   },
   tableForm: {
     search: 'ابحث',
@@ -69,6 +84,8 @@ const arEG: ProLocale = {
     submitText: 'تسجيل الدخول',
   },
   editableTable: {
+    defaultFieldLabel: 'هذا الحقل',
+    defaultFieldType: 'نص',
     onlyOneLineEditor: 'يمكن تحرير سطر واحد فقط في كل مرة',
     onlyAddOneLine: 'يمكن إضافة سطر واحد فقط في كل مرة',
     action: {

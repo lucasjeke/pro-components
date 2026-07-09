@@ -10,6 +10,8 @@ const zhCN = {
   moneySymbol: '￥',
   deleteThisLine: '删除此行',
   copyThisLine: '复制此行',
+  sortUpThisLine: '向上排序',
+  sortDownThisLine: '向下排序',
   emptyListValidateMessage: '列表不能为空',
   form: {
     lightFilter: {
@@ -17,6 +19,19 @@ const zhCN = {
       clear: '清除',
       confirm: '确认',
       itemUnit: '项',
+    },
+    captcha: {
+      getCaptcha: '获取验证码',
+      resendAfter: '秒后重新获取',
+    },
+    upload: {
+      buttonText: '单击上传',
+      draggerTitle: '单击或拖动文件到此区域进行上传',
+      draggerDescription: '支持单次或批量上传',
+    },
+    modal: {
+      okText: '确认',
+      cancelText: '取消',
     },
   },
   tableForm: {
@@ -68,6 +83,8 @@ const zhCN = {
     submitText: '登录',
   },
   editableTable: {
+    defaultFieldLabel: '此项',
+    defaultFieldType: '文本',
     onlyOneLineEditor: '只能同时编辑一行',
     onlyAddOneLine: '只能同时新增一行',
     action: {

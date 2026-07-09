@@ -44,13 +44,14 @@ export const LayoutSetting: FunctionalComponent<{
   settings: Partial<PureSettings>
   changeSetting: (key: string, value: any) => void
   hashId: string
+  cssVarCls: string
   prefixCls: string
   formatMessage: (data: MessageDescriptor) => string
-}> = ({ settings = {}, prefixCls, formatMessage, changeSetting, hashId }) => {
+}> = ({ settings = {}, prefixCls, formatMessage, changeSetting, cssVarCls, hashId }) => {
   const { compact, contentWidth, splitMenus, fixedHeader, layout, fixedSiderbar } = settings || defaultSettings
   return (
     <Listy
-      class={classNames(`${prefixCls}-list`, hashId)}
+      class={classNames(`${prefixCls}-list`, hashId, cssVarCls)}
       split={false}
       rowKey="title"
       variant="borderless"
@@ -65,7 +66,7 @@ export const LayoutSetting: FunctionalComponent<{
             <Select
               value={contentWidth || 'Fixed'}
               size="small"
-              class={classNames(`content-width`, hashId)}
+              class={classNames(`content-width`, hashId, cssVarCls)}
               onSelect={(value: SelectValue) => changeSetting('contentWidth', value)}
               style={{ width: 80 }}
               options={

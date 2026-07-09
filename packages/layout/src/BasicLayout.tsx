@@ -5,7 +5,7 @@ import type { GetPageTitleProps } from './getPageTitle'
 import type { ProLayoutProps } from './ProLayout'
 import type { SlotsRenderType } from './RenderTypings'
 import type { MenuDataItem, MessageDescriptor } from './typing'
-// import { useProConfig } from '@antdv-next1/pro-provider'
+import { useProConfig } from '@antdv-next1/pro-provider'
 import { useBreakpoint, useDocumentTitle, useMountMergeState, useState } from '@antdv-next1/pro-utils'
 import { getMatchMenu } from '@antdv-next1/route-utils'
 import { classNames, omit } from '@v-c/util'
@@ -15,12 +15,13 @@ import { useConfig } from 'antdv-next/dist/config-provider/context'
 import { computed, defineComponent, shallowRef, toRef } from 'vue'
 import Footer from './components/Footer'
 import Header from './components/Header'
+import MultiTab from './components/MultiTab'
 import PageLoading from './components/PageLoading'
 import SiderMenu from './components/SiderMenu'
 import { useRouteContext, useRouteContextProvider } from './context/RouteContext'
 import { getPageTitleInfo } from './getPageTitle'
 import { gLocaleObject } from './locales'
-import { useStyle } from './style'
+import useStyle from './style'
 import { clearMenuItem } from './utils'
 import { getBreadcrumbProps } from './utils/getBreadcrumbProps'
 import { getMenuData } from './utils/getMenuData'
@@ -136,11 +137,11 @@ const BasicLayout = defineComponent<ProLayoutProps, {}, string, CustomSlotsType<
   }
 >>((props, { slots, attrs, expose }) => {
   const config = useConfig()
-  // const proProvide = useProConfig()
+  const proProvide = useProConfig()
   const layoutRef = shallowRef<InstanceType<typeof Layout> | null>(null)
   const prefixCls = computed(() => props.prefixCls ?? config.value.getPrefixCls('pro'))
   const proLayoutClassName = computed(() => `${prefixCls.value}-basicLayout`)
-  const { wrapSSR, hashId } = useStyle(proLayoutClassName)
+  const [hashId, cssVarCls] = useStyle(proLayoutClassName)
   const routeContextProvide = useRouteContext()
   const proLayoutRender = useProLayoutRender(slots, props)
 
@@ -209,7 +210,7 @@ const BasicLayout = defineComponent<ProLayoutProps, {}, string, CustomSlotsType<
     const { menu, siderMenuType } = props
     return omit(
       {
-        ...omit(props, ['headerRender', 'footerRender', 'menuRender', 'menuHeaderRender', 'menuItemRender', 'subMenuItemRender', 'menuExtraRender', 'menuContentRender', 'headerContentRender', 'headerTitleRender', 'appListRender', 'actionsRender', 'collapsedButtonRender', 'errorBoundaryRender', 'menuFooterRender', 'tagsViewRender']),
+        ...omit(props, ['headerRender', 'footerRender', 'menuRender', 'menuHeaderRender', 'menuItemRender', 'subMenuItemRender', 'menuExtraRender', 'menuContentRender', 'headerContentRender', 'headerTitleRender', 'appListRender', 'actionsRender', 'collapsedButtonRender', 'errorBoundaryRender', 'menuFooterRender', 'multiTabRender', 'multiTab']),
         ...proLayoutRender.value,
         location: currentLocation.value,
         prefixCls: prefixCls.value,
@@ -348,6 +349,31 @@ const BasicLayout = defineComponent<ProLayoutProps, {}, string, CustomSlotsType<
     }),
   )
 
+  const multiTabDom = computed(() => {
+    const { multiTabRender } = proLayoutRender.value
+    if (multiTabRender === false)
+      return null
+    const layoutProps = {
+      ...defaultProps.value,
+      isMobile: isMobile.value,
+      collapsed: collapsed.value,
+    } as ProLayoutProps
+    if (multiTabRender)
+      return multiTabRender(layoutProps)
+    if (!props.multiTab)
+      return null
+    const multiTabProps = props.multiTab === true
+      ? { items: [] }
+      : props.multiTab
+    return (
+      <MultiTab
+        prefixCls={prefixCls.value}
+        formatMessage={formatMessage}
+        {...multiTabProps}
+      />
+    )
+  })
+
   useDocumentTitle(
     pageTitleInfo,
     computed(() => props.title || false),
@@ -376,73 +402,57 @@ const BasicLayout = defineComponent<ProLayoutProps, {}, string, CustomSlotsType<
   }))
 
   useRouteContextProvider(routeContextProps)
-  // #242525
   expose({})
   return () => {
     const { fixedSiderbar, pure, contentStyle, navTheme, loading, ...rest } = { ...props, ...currentMenuLayoutProps.value }
-    //  theme={navTheme === 'realDark' ? {
-    //         components: {
-    //           Layout: {
-    //             // bodyBg: '#2a2c2c',
-    //             // bodyBg: 'red',
-    //             // headerBg: '#242525',
-    //           },
-    //         },
-    //       // token: {
-    //       //   colorBgContainer: '#242525',
-    //       // },
-    //       } : {
-    //         // components: {
-    //         //   Layout: {
-    //         //     headerBg: proProvide.value.token.colorBgContainer,
-    //         //   },
-    //         // },
-    //       }}
-    return wrapSSR(
+    return (
       <>
-        {pure ? slots.default?.() : (
+        {props.pure ? slots.default?.() : (
           <ConfigProvider getTargetContainer={config.value.getPopupContainer || (() => layoutRef.value?.$el)}>
             <Layout
               ref={layoutRef}
-              class={classNames(proLayoutClassName.value, attrs.class, hashId.value, {
+              class={classNames(proLayoutClassName.value, {
                 [`screen-${colSize.value}`]: colSize.value,
                 [`${proLayoutClassName.value}-is-children`]: isChildrenLayout.value,
                 [`${proLayoutClassName.value}-fix-siderbar`]: fixedSiderbar,
                 [`${proLayoutClassName.value}-${props.layout}`]: props.layout,
                 [`${proLayoutClassName.value}-${props.navTheme}`]: props.navTheme,
-              })}
+              }, attrs.class, hashId?.value, cssVarCls?.value)}
               style={attrs.style}
             >
-              {bgImgStyleList.value && <div class={classNames(`${proLayoutClassName.value}-bg-list`, hashId.value)}>{bgImgStyleList.value}</div>}
+              {bgImgStyleList.value && <div class={classNames(`${proLayoutClassName.value}-bg-list`, hashId?.value, cssVarCls?.value)}>{bgImgStyleList.value}</div>}
               <ConfigProvider>{siderMenuDom.value}</ConfigProvider>
               <Layout>
                 {headerDom.value}
+                {multiTabDom.value}
                 <WrapContent
                   {...rest}
                   hasPageContainer={hasPageContainer.value}
                   isChildrenLayout={isChildrenLayout.value}
                   hasHeader={!!headerDom.value}
+                  hashId={hashId?.value}
+                  cssVarCls={cssVarCls?.value}
                   prefixCls={proLayoutClassName.value}
                   style={contentStyle}
                   v-slots={slots}
                 >
                   {loading ? <PageLoading /> : slots.default?.()}
                 </WrapContent>
-                {/* {footerDom.value}
+                {footerDom.value}
                 {hasFooterToolbar.value && (
                   <div
-                    class={`${proLayoutClassName.value}-has-footer`}
+                    class={classNames(`${proLayoutClassName.value}-has-footer`, hashId?.value, cssVarCls?.value)}
                     style={{
                       height: '44px',
                       marginBlockStart: `${proProvide.value.token.layout?.pageContainer?.paddingBlockPageContainerContent}px`,
                     }}
                   />
-                )} */}
+                )}
               </Layout>
             </Layout>
           </ConfigProvider>
         )}
-      </>,
+      </>
     )
   }
 }, {

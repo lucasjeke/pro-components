@@ -18,7 +18,7 @@ import { useConfig } from 'antdv-next/dist/config-provider/context'
 import { computed, defineComponent, reactive, ref, toRef } from 'vue'
 import ProCard from '../../ProCard'
 import ProCheckCardGroup, { useCheckCardGroupContextInject } from './Group'
-import { useStyle } from './style'
+import useStyle from './style'
 
 export type ProCheckCardProps = CardMetaProps & Omit<CardProps, 'title'
   | 'onTabChange'
@@ -82,7 +82,7 @@ const _ProCheckCard = defineComponent<ProCheckCardProps, {}, string, CustomSlots
   const baseClassName = computed(() => `${prefixCls.value}-checkcard`)
   const multiple = ref<boolean | undefined>(false)
   const checkCardGroupProvide = useCheckCardGroupContextInject()
-  const { wrapSSR, hashId } = useStyle(baseClassName)
+  const [hashId, cssVarCls] = useStyle(baseClassName)
   const checkCardProps = reactive({} as CheckCardProps)
   const [stateChecked, setStateChecked] = useMountMergeState<boolean>(
     props.defaultChecked || false,
@@ -171,23 +171,23 @@ const _ProCheckCard = defineComponent<ProCheckCardProps, {}, string, CustomSlots
     const headerDom = isNil(titleDom ?? extraDom) ? null : (
       <>
         { titleDom && (
-          <div class={classNames(`${baseClassName.value}-meta-header`, hashId.value)}>
-            <div class={classNames(`${baseClassName.value}-meta-title`, `${baseClassName.value}-meta-title-with-ellipsis`, hashId.value)}>
+          <div class={classNames(`${baseClassName.value}-meta-header`, hashId.value, cssVarCls.value)}>
+            <div class={classNames(`${baseClassName.value}-meta-title`, `${baseClassName.value}-meta-title-with-ellipsis`, hashId.value, cssVarCls.value)}>
               {titleDom}
             </div>
           </div>
         ) }
         {extraDom && (
-          <div class={classNames(`${baseClassName.value}-meta-title-extra`, hashId.value)}>
+          <div class={classNames(`${baseClassName.value}-meta-title-extra`, hashId.value, cssVarCls.value)}>
             {extraDom}
           </div>
         ) }
       </>
     )
-    return wrapSSR(
+    return (
       <ProCard
         style={attrs.style}
-        class={classNames(baseClassName.value, attrs.class, hashId.value, {
+        class={classNames(baseClassName.value, attrs.class, hashId.value, cssVarCls.value, {
           [`${baseClassName.value}-checked`]: propsChecked,
           [`${baseClassName.value}-multiple`]: checkCardProps.multiple,
           [`${baseClassName.value}-disabled`]: disabled,
@@ -212,7 +212,7 @@ const _ProCheckCard = defineComponent<ProCheckCardProps, {}, string, CustomSlots
                 <CardMeta
                   title={headerDom}
                   description={descriptionDom as AntVueNode}
-                  class={classNames(`${baseClassName.value}-meta`, hashId.value, {
+                  class={classNames(`${baseClassName.value}-meta`, hashId.value, cssVarCls.value, {
                     [`${baseClassName.value}-meta-avatar-header`]:
                           avatarDom && headerDom && !descriptionDom,
                     [`${baseClassName.value}-meta-extra-header`]: !isNil(
@@ -223,14 +223,14 @@ const _ProCheckCard = defineComponent<ProCheckCardProps, {}, string, CustomSlots
                 />
               )}
               {slots.default?.() && (
-                <div class={classNames(`${baseClassName.value}-body`, hashId.value)}>
+                <div class={classNames(`${baseClassName.value}-body`, hashId.value, cssVarCls.value)}>
                   {slots.default?.()}
                 </div>
               ) }
             </>
           ),
         }}
-      />,
+      />
     )
   }
 }, {

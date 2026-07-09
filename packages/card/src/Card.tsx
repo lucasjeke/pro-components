@@ -41,7 +41,7 @@ const InternalProCard = defineComponent<ProCardProps, {}, string, CustomSlotsTyp
     const config = useConfig()
     const prefixCls = computed(() => props.prefixCls || config.value.getPrefixCls('pro'))
     const baseClassName = computed(() => `${prefixCls.value}-card`)
-    const { wrapSSR, hashId } = useStyle(baseClassName)
+    const [hashId, cssVarCls] = useStyle(baseClassName)
     const screens = useBreakpoint()
     const collapsed = shallowRef<boolean>(props.defaultCollapsed || false)
     // const [collapsed, setCollapsed] = useMergedState<boolean | undefined>(false, {
@@ -177,7 +177,7 @@ const InternalProCard = defineComponent<ProCardProps, {}, string, CustomSlotsTyp
                   ...colStyle,
                 }}
                 key={index}
-                class={classNames([`${baseClassName.value}-col`], colPropsClass, hashId.value, {
+                class={classNames([`${baseClassName.value}-col`], colPropsClass, hashId.value, cssVarCls.value, {
                   [`${baseClassName.value}-split-horizontal`]: split === 'horizontal' && index !== childrenArray.length - 1,
                   [`${baseClassName.value}-split-vertical`]: split === 'vertical' && index !== childrenArray.length - 1,
                 })}
@@ -205,7 +205,7 @@ const InternalProCard = defineComponent<ProCardProps, {}, string, CustomSlotsTyp
               }}
               class={classNames({
                 [`${baseClassName.value}-split-vertical`]: split === 'vertical' && index !== childrenArray.length - 1,
-              }, hashId.value)}
+              }, hashId.value, cssVarCls.value)}
               key={index}
             >
               {cloneVNode(element, {
@@ -230,7 +230,7 @@ const InternalProCard = defineComponent<ProCardProps, {}, string, CustomSlotsTyp
           } : {})}
           collapsible={typeof collapsible !== 'boolean' && collapsible !== 'header' ? collapsible : undefined}
           defaultActiveKey={defaultCollapsed ? undefined : ['collapseCard']}
-          class={classNames(baseClassName.value, attrs.class, hashId.value, {
+          class={classNames(baseClassName.value, attrs.class, hashId.value, cssVarCls.value, {
             [`${baseClassName.value}-headerBordered`]: headerBordered,
             [`${baseClassName.value}-type-inner`]: type === 'inner',
             [`${baseClassName.value}-ghost`]: ghost,
@@ -245,7 +245,7 @@ const InternalProCard = defineComponent<ProCardProps, {}, string, CustomSlotsTyp
             body: classNames({
               [`${baseClassName.value}-body-direction-column`]: direction === 'column',
               [`${baseClassName.value}-body-layout-center`]: layout === 'center',
-            }, hashId.value),
+            }, hashId.value, cssVarCls.value),
             ...rest.classes,
           }}
           styles={{
@@ -272,7 +272,7 @@ const InternalProCard = defineComponent<ProCardProps, {}, string, CustomSlotsTyp
                   </Row>
                 ) : (
                   <div
-                    class={classNames(`${baseClassName.value}-col`, hashId.value, {
+                    class={classNames(`${baseClassName.value}-col`, hashId.value, cssVarCls.value, {
                       // [`${baseClassName.value}-direction-column`]: layout === 'center' && direction === 'column',
                     })}
                     style={{
@@ -300,7 +300,7 @@ const InternalProCard = defineComponent<ProCardProps, {}, string, CustomSlotsTyp
           {...attrs}
           {...rest}
           type={containProCard ? undefined : type}
-          class={classNames(baseClassName.value, attrs.class, hashId.value, {
+          class={classNames(baseClassName.value, attrs.class, hashId.value, cssVarCls.value, {
             [`${baseClassName.value}-ghost`]: ghost,
             [`${baseClassName.value}-split`]: split,
             [`${baseClassName.value}-disabled`]: disabled,
@@ -313,7 +313,7 @@ const InternalProCard = defineComponent<ProCardProps, {}, string, CustomSlotsTyp
             body: classNames(`${baseClassName.value}-body`, {
               [`${baseClassName.value}-body-direction-column`]: direction === 'column',
               [`${baseClassName.value}-body-layout-center`]: layout === 'center',
-            }, hashId.value),
+            }, hashId.value, cssVarCls.value),
             ...rest.classes,
           }}
           {...(title && !tooltip && !slotTitle ? { title } : {})}
@@ -341,21 +341,21 @@ const InternalProCard = defineComponent<ProCardProps, {}, string, CustomSlotsTyp
             </Row>
           ) : (
             <div
-              class={classNames(`${baseClassName.value}-row`, hashId.value)}
+              class={classNames(`${baseClassName.value}-row`, hashId.value, cssVarCls.value)}
             >
               {childrenDom}
             </div>
           ) : childrenDom }
         </Card>
       )
-      return wrapSSR(
+      return (
         <>
           {typeof collapsible !== 'boolean' ? (hasBorderBeamDom ? (<BorderBeam {...(typeof borderBeam === 'boolean' ? {} : borderBeam)}>{collapseCardDom}</BorderBeam>) : collapseCardDom) : (hasBorderBeamDom ? (
             <BorderBeam {...(typeof borderBeam === 'boolean' ? {} : borderBeam)}>
               {cardDom}
             </BorderBeam>
           ) : cardDom)}
-        </>,
+        </>
       )
     }
   },

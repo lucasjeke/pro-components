@@ -1,9 +1,8 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
-import type { ComputedRef } from 'vue'
-import { useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
+import { useStyle } from '@antdv-next1/pro-provider'
+import { mergeToken, unit } from '@antdv-next/cssinjs'
 
-export interface FooterToolBarToken extends ProAliasToken {
-  componentCls: string
+export interface FooterToolBarToken extends ProAliasCssVarToken {
 }
 
 const genFooterToolBarStyle: GenerateStyle<FooterToolBarToken> = (token) => {
@@ -21,9 +20,8 @@ const genFooterToolBarStyle: GenerateStyle<FooterToolBarToken> = (token) => {
       boxSizing: 'border-box',
       lineHeight: '44px',
       backgroundColor: token.colorBgElevated,
-      // borderBlockStart: `1px solid ${token.colorSplit}`,
+      borderBlockStart: `${unit(token.lineWidth)} ${token.lineType} ${token.colorSplit}`,
       boxShadow: token.boxShadowSecondary,
-      // boxShadow: '#0d0d0da6 0 2px 8px 0',
       transition: `all ${token.motionDurationMid}`,
       '&-left': {
         flex: 1,
@@ -41,13 +39,8 @@ const genFooterToolBarStyle: GenerateStyle<FooterToolBarToken> = (token) => {
   }
 }
 
-export function useStyle(prefixCls: ComputedRef<string>) {
-  return useAntdStyle('ProLayoutFooterToolbar', (token) => {
-    const proCardToken: FooterToolBarToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
-    }
-
-    return [genFooterToolBarStyle(proCardToken)]
+export default useStyle('ProLayoutFooterToolbar', (token) => {
+  const proCardToken = mergeToken<FooterToolBarToken>(token, {
   })
-}
+  return [genFooterToolBarStyle(proCardToken)]
+})

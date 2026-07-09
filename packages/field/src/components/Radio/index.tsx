@@ -14,7 +14,7 @@ import { useConfig } from 'antdv-next/dist/config-provider/context'
 import { useFormItemInputContext } from 'antdv-next/dist/form/context'
 import { computed, defineComponent, ref } from 'vue'
 import { useFieldFetchData } from '../Select'
-import { useStyle } from './style'
+import useStyle from './style'
 
 export type FieldRadioProps = ProFieldFC<{
   options?: RadioGroupProps['options']
@@ -31,7 +31,7 @@ const FieldRadio = defineComponent<FieldRadioProps, {}, string, CustomSlotsType<
     const layoutClassName = computed(() => config.value.getPrefixCls('pro-field-radio'))
     const [loading, options, fetchData] = useFieldFetchData(props)
     const radioRef = ref()
-    const { wrapSSR, hashId } = useStyle(layoutClassName)
+    const [hashId, cssVarCls] = useStyle(layoutClassName)
     expose({
       fetchData: (keyWord: string) => fetchData(keyWord),
     })
@@ -57,7 +57,7 @@ const FieldRadio = defineComponent<FieldRadioProps, {}, string, CustomSlotsType<
       }
 
       if (props.mode === 'edit') {
-        const dom = wrapSSR(
+        const dom = (
           <RadioGroup
             ref={radioRef}
             {...attrs}
@@ -70,10 +70,11 @@ const FieldRadio = defineComponent<FieldRadioProps, {}, string, CustomSlotsType<
                 [`${layoutClassName.value}-warning`]: formItemInputContext.value.status === 'warning',
               },
               hashId.value,
+              cssVarCls.value,
               `${layoutClassName.value}-${props.fieldProps?.layout || 'horizontal'}`,
             )}
             options={options.value as CheckboxGroupProps['options']}
-          />,
+          />
         )
         if (formItemRender) {
           return (

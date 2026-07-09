@@ -1,4 +1,5 @@
 import type { GlobalToken } from 'antdv-next'
+import { unitless } from 'antdv-next/dist/theme/useToken'
 import { setAlpha } from '../useStyle'
 
 export interface BaseLayoutDesignToken {
@@ -105,6 +106,12 @@ export type DeepPartial<T> = T extends object
     }
   : T
 
+export const proLayoutUnitless = {
+  ...unitless,
+  themeId: true,
+  // proLayoutHeaderHeightLayoutHeader: true,
+}
+
 export type LayoutDesignToken = BaseLayoutDesignToken
 
 export const getLayoutDesignToken: (
@@ -200,3 +207,45 @@ export const getLayoutDesignToken: (
 export interface ProTokenType {
   layout?: DeepPartial<LayoutDesignToken>
 }
+
+type Primitive
+  = | string
+    | number
+    | boolean
+    | bigint
+    | symbol
+    | null
+    | undefined
+
+type CapitalizeKey<S extends string>
+  = S extends `${infer F}${infer R}`
+    ? `${Uppercase<F>}${R}`
+    : S
+
+type UnionToIntersection<U>
+  = (
+    U extends any ? (x: U) => any : never
+  ) extends (x: infer R) => any
+    ? R
+    : never
+
+type FlattenToken<
+  T,
+  Prefix extends string = 'proLayout',
+  Path extends string = '',
+>
+  = UnionToIntersection<
+    {
+      [K in keyof T]:
+      T[K] extends Primitive
+        ? {
+            [P in `${Prefix}${Path}${CapitalizeKey<K & string>}`]: T[K]
+          }
+        : FlattenToken<
+          T[K],
+          Prefix,
+              `${Path}${CapitalizeKey<K & string>}`
+        >
+    }[keyof T]
+  >
+export type ProFlattenTokenType = FlattenToken<LayoutDesignToken>

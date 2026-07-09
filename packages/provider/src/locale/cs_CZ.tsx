@@ -4,13 +4,15 @@ const csCZ: ProLocale = {
   moneySymbol: 'Kč',
   deleteThisLine: 'Smazat tento řádek',
   copyThisLine: 'Kopírovat tento řádek',
-  emptyListValidateMessage: 'list cannot be empty',
+  sortUpThisLine: 'Přesunout nahoru',
+  sortDownThisLine: 'Přesunout dolů',
+  emptyListValidateMessage: 'Seznam nesmí být prázdný',
   time: {
-    seconds: 'seconds',
-    minutes: 'minutes',
-    hours: 'hours',
-    days: 'days',
-    ago: 'ago',
+    seconds: 'sekund',
+    minutes: 'minut',
+    hours: 'hodin',
+    days: 'dnů',
+    ago: 'před',
   },
   form: {
     lightFilter: {
@@ -18,6 +20,19 @@ const csCZ: ProLocale = {
       clear: 'Vymazat',
       confirm: 'Potvrdit',
       itemUnit: 'Položky',
+    },
+    captcha: {
+      getCaptcha: 'Získat ověřovací kód',
+      resendAfter: 's do opětovného odeslání',
+    },
+    upload: {
+      buttonText: 'Klikněte pro nahrání',
+      draggerTitle: 'Klikněte nebo přetáhněte soubor do této oblasti',
+      draggerDescription: 'Podporuje jedno i hromadné nahrávání',
+    },
+    modal: {
+      okText: 'Potvrdit',
+      cancelText: 'Zrušit',
     },
   },
   tableForm: {
@@ -69,6 +84,8 @@ const csCZ: ProLocale = {
     submitText: 'Přihlásit se',
   },
   editableTable: {
+    defaultFieldLabel: 'Toto pole',
+    defaultFieldType: 'Text',
     onlyOneLineEditor: 'Upravit lze pouze jeden řádek',
     onlyAddOneLine: 'Přidat lze pouze jeden řádek',
     action: {

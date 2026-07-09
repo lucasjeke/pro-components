@@ -6,13 +6,14 @@ import type {
   ProTableEditableFnType,
   UseEditableUtilType,
 } from '@antdv-next1/pro-utils'
-import type { AnyObject, VueNode } from '@v-c/util/dist/type'
+import type { AnyObject, CustomSlotsType, VueNode } from '@v-c/util/dist/type'
+import type { SetupContext } from 'vue'
 import type { ContainerReturnType } from '../Store/Provide'
 import type { ProColumns } from '../typing'
 import { genCopyable, isNil, LabelIconTip } from '@antdv-next1/pro-utils'
 import get from '@v-c/util/dist/utils/get'
 import { Divider, Flex, Space } from 'antdv-next'
-import { isVNode } from 'vue'
+import { defineComponent, isVNode } from 'vue'
 import cellRenderToFromItem from './cellRenderToFromItem'
 
 /** 转化列的定义 */
@@ -76,6 +77,40 @@ export function defaultOnFilter(value: string, record: any, dataIndex: string | 
   return String(itemValue) === String(value)
 }
 
+interface EditableOptionActionsProps<T, ValueType> {
+  editableUtils?: UseEditableUtilType<T>
+  rowData?: T
+  index: number
+  type: ProSchemaComponentTypes
+  marginSM?: number
+  columnProps?: ProColumns<T, ValueType>
+}
+
+const EditableOptionActions = defineComponent(<T extends AnyObject, ValueType extends (ProFieldValueType | ProFieldValueObjectType)>(props: EditableOptionActionsProps<T, ValueType>, { expose }: SetupContext<{}, CustomSlotsType<{
+  default?: () => VueNode
+}>>) => {
+  expose({})
+  return () => {
+    const { editableUtils, rowData, index, columnProps, marginSM, type } = props
+    const actions = editableUtils?.actionRender?.({
+      ...rowData!,
+      index,
+    })
+    if (!actions) {
+      return null
+    }
+    return type === 'table' ? (
+      <Space align="center" size={0} separator={<Divider orientation="vertical" />}>
+        {actions}
+      </Space>
+    ) : (<Flex align="center" gap={marginSM} justify={columnProps?.align === 'center' ? 'center' : 'flex-start'}>{actions}</Flex>)
+  }
+}, {
+  name: 'EditableOptionActions',
+  inheritAttrs: false,
+  props: ['editableUtils', 'rowData', 'index', 'columnProps', 'type', 'marginSM'],
+})
+
 /**
  * 这个组件负责单元格的具体渲染
  *
@@ -124,15 +159,7 @@ function columnRender<T extends AnyObject, U extends Record<string, any>, ValueT
   /** 如果是编辑模式，并且 renderFormItem 存在直接走 renderFormItem */
   if (mode === 'edit') {
     if (columnProps.valueType === 'option') {
-      const actions = editableUtils?.actionRender?.({
-        ...rowData,
-        index: columnProps.index || index,
-      })
-      return type === 'table' ? (
-        <Space align="center" size={0} separator={<Divider orientation="vertical" />}>
-          {actions}
-        </Space>
-      ) : (<Flex align="center" gap={marginSM} justify={columnProps.align === 'center' ? 'center' : 'flex-start'}>{actions}</Flex>)
+      return <EditableOptionActions type={type} marginSM={marginSM} columnProps={columnProps} editableUtils={editableUtils} rowData={rowData} index={columnProps.index || index} />
     }
     return dom
   }

@@ -1,12 +1,11 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
-import type { ComputedRef } from 'vue'
-import { useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
+import { useStyle } from '@antdv-next1/pro-provider'
+import { mergeToken } from '@antdv-next/cssinjs'
 
-export interface ProToken extends ProAliasToken {
-  componentCls: string
+export interface ProFilterDropdownToken extends ProAliasCssVarToken {
 }
 
-const genProStyle: GenerateStyle<ProToken> = (token) => {
+const genProFilterDropdownStyle: GenerateStyle<ProFilterDropdownToken> = (token) => {
   return {
     [`${token.componentCls}-label`]: { cursor: 'pointer' },
     [`${token.componentCls}-overlay`]: {
@@ -17,13 +16,7 @@ const genProStyle: GenerateStyle<ProToken> = (token) => {
   }
 }
 
-export function useStyle(prefixCls: ComputedRef<string>) {
-  return useAntdStyle('FilterDropdown', (token) => {
-    const proToken: ProToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
-    }
-
-    return [genProStyle(proToken)]
-  })
-}
+export default useStyle('FilterDropdown', (token) => {
+  const proFilterDropdownToken = mergeToken<ProFilterDropdownToken>(token, {})
+  return [genProFilterDropdownStyle(proFilterDropdownToken)]
+})

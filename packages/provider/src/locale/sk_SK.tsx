@@ -4,13 +4,15 @@ const skSK: ProLocale = {
   moneySymbol: '€',
   deleteThisLine: 'Odstrániť tento riadok',
   copyThisLine: 'Skopírujte tento riadok',
-  emptyListValidateMessage: '列表不能为空',
+  sortUpThisLine: 'Presunúť nahor',
+  sortDownThisLine: 'Presunúť nadol',
+  emptyListValidateMessage: 'Zoznam nemôže byť prázdny',
   time: {
-    seconds: 'seconds',
-    minutes: 'minutes',
-    hours: 'hours',
-    days: 'days',
-    ago: 'ago',
+    seconds: 'sekúnd',
+    minutes: 'minút',
+    hours: 'hodín',
+    days: 'dní',
+    ago: 'pred',
   },
   form: {
     lightFilter: {
@@ -18,6 +20,19 @@ const skSK: ProLocale = {
       clear: 'Vyčistiť',
       confirm: 'Potvrďte',
       itemUnit: 'Položky',
+    },
+    captcha: {
+      getCaptcha: 'Získať overovací kód',
+      resendAfter: 's do opätovného odoslania',
+    },
+    upload: {
+      buttonText: 'Kliknite pre nahratie',
+      draggerTitle: 'Kliknite alebo presuňte súbor do tejto oblasti pre nahratie',
+      draggerDescription: 'Podporuje jedno aj hromadné nahrávanie',
+    },
+    modal: {
+      okText: 'Potvrdiť',
+      cancelText: 'Zrušiť',
     },
   },
   tableForm: {
@@ -69,6 +84,8 @@ const skSK: ProLocale = {
     submitText: 'Prihlásiť sa',
   },
   editableTable: {
+    defaultFieldLabel: 'Toto pole',
+    defaultFieldType: 'Text',
     onlyOneLineEditor: 'Upravovať možno iba jeden riadok',
     onlyAddOneLine: 'Pridať možno iba jeden riadok',
     action: {

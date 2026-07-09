@@ -3,6 +3,7 @@ import type { CustomSlotsType } from '@v-c/util/dist/type'
 import type { ButtonProps, FormInstance, InputProps, InputRef } from 'antdv-next'
 import type { NamePath } from 'antdv-next/dist/form/types'
 import type { ProFormFieldItemProps } from '../../typing'
+import { useIntl } from '@antdv-next1/pro-provider'
 import { useEffect, useState } from '@antdv-next1/pro-utils'
 import { unit } from '@antdv-next/cssinjs'
 import { Button, Form, Input } from 'antdv-next'
@@ -44,6 +45,7 @@ export const BaseProFormCaptcha = defineComponent<ProFormCaptchaProps, {}, strin
   default?: () => VueNode
 }>>(
   (props, { attrs, expose }) => {
+    const intl = useIntl()
     const form = (
       Form as unknown as { useFormInstance: () => FormInstance }
     ).useFormInstance()
@@ -95,11 +97,17 @@ export const BaseProFormCaptcha = defineComponent<ProFormCaptchaProps, {}, strin
       endTiming: () => setTiming(false),
     })
     return () => {
+      const defaultCaptchaTextRender = (paramsTiming: boolean, paramsCount: number) => {
+        if (paramsTiming) {
+          return `${paramsCount} ${intl.value.getMessage({ id: 'form.captcha.resendAfter', defaultMessage: '秒后重新获取' })}`
+        }
+        return intl.value.getMessage({ id: 'form.captcha.getCaptcha', defaultMessage: '获取验证码' })
+      }
       const {
         phoneName,
         fieldProps,
         proFieldProps,
-        captchaTextRender = (paramsTiming, paramsCount) => paramsTiming ? `${paramsCount} 秒后重新获取` : '获取验证码',
+        captchaTextRender = defaultCaptchaTextRender,
         captchaProps,
         ...restProps
       } = props

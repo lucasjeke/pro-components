@@ -18,7 +18,7 @@ import { computed, defineComponent, shallowRef } from 'vue'
 import { BaseForm } from '../../BaseForm'
 import { useProFormInstanceExpose } from '../../utils'
 import ProQueryFilterContent from './QueryFilterContent'
-import { useStyle } from './style'
+import useStyle from './style'
 
 export type BaseProQueryFilterProps = Omit<ActionsProps, 'submitter' | 'setCollapsed' | 'isForm'> & {
   defaultCollapsed?: boolean
@@ -241,7 +241,7 @@ const ProQueryFilter = defineComponent(
     const config = useConfig()
     const prefixCls = computed(() => props.prefixCls || config.value.getPrefixCls('pro'))
     const baseClassName = computed(() => `${prefixCls.value}-query-filter`)
-    const { wrapSSR, hashId } = useStyle(baseClassName)
+    const [hashId, cssVarCls] = useStyle(baseClassName)
     const { token } = theme.useToken()
     const [width, setWidth] = useMountMergeState(
       () => (typeof (attrs.style as CSSProperties)?.width === 'number' ? (attrs.style as CSSProperties)?.width : defaultWidth) as number,
@@ -312,7 +312,7 @@ const ProQueryFilter = defineComponent(
         submitterColSpanProps,
         ...rest
       } = { ...props, ...transformedProps }
-      return wrapSSR(
+      return (
         <ResizeObserver
           key="resize-observer"
           onResize={(offset) => {
@@ -322,7 +322,7 @@ const ProQueryFilter = defineComponent(
           }}
         >
           <div
-            class={classNames(`${baseClassName.value}-container`, hashId.value)}
+            class={classNames(`${baseClassName.value}-container`, hashId.value, cssVarCls.value)}
             style={props.containerStyle}
           >
             <BaseForm
@@ -330,7 +330,7 @@ const ProQueryFilter = defineComponent(
               {...rest}
               {...transformedProps}
               ref={formRef}
-              class={classNames(baseClassName.value, hashId.value, attrs.class)}
+              class={classNames(baseClassName.value, hashId.value, cssVarCls.value, attrs.class)}
               preserve={typeof preserve === 'string' ? true : preserve}
               name={props.name || 'query-filter-form'}
               isKeyPressSubmit={(typeof rest.isKeyPressSubmit === 'string' ? true : rest.isKeyPressSubmit) || true}
@@ -376,8 +376,7 @@ const ProQueryFilter = defineComponent(
               v-slots={slots}
             />
           </div>
-
-        </ResizeObserver>,
+        </ResizeObserver>
       )
     }
   },

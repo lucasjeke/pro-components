@@ -1,17 +1,15 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
-import type { ComputedRef } from 'vue'
-import { useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
-import { unit } from '@antdv-next/cssinjs'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
+import { useStyle } from '@antdv-next1/pro-provider'
+import { mergeToken } from '@antdv-next/cssinjs'
 
-export interface ProLightFilterToken extends ProAliasToken {
-  componentCls: string
+export interface ProLightFilterToken extends ProAliasCssVarToken {
 }
 
 const genProLightFilterStyle: GenerateStyle<ProLightFilterToken> = (token) => {
   return {
     [token.componentCls]: {
       boxSizing: 'border-box',
-      lineHeight: unit(30),
+      lineHeight: token.calc(30).equal(),
       // @see https://yuque.antfin-inc.com/tech-ui/topics/523
       '&::before': {
         display: 'block',
@@ -55,13 +53,7 @@ const genProLightFilterStyle: GenerateStyle<ProLightFilterToken> = (token) => {
   }
 }
 
-export function useStyle(prefixCls: ComputedRef<string>) {
-  return useAntdStyle('ProLightFilter', (token) => {
-    const proLightFilterToken: ProLightFilterToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
-    }
-
-    return [genProLightFilterStyle(proLightFilterToken)]
-  })
-}
+export default useStyle('ProLightFilter', (token) => {
+  const proLightFilterToken = mergeToken<ProLightFilterToken>(token, {})
+  return [genProLightFilterStyle(proLightFilterToken)]
+})

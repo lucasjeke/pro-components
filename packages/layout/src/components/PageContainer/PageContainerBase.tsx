@@ -6,7 +6,7 @@ import type { VNode } from 'vue'
 import type { BreadcrumbRender, PageHeaderRender } from '../../RenderTypings'
 import type { FooterToolbarProps } from '../FooterToolbar'
 import type { PageHeaderProps } from '../PageHeader'
-import type { PageContainerToken, pageContainerToken } from './style'
+import type { PageContainerToken } from './style'
 import type { stylishToken } from './style/stylish'
 import { useProConfig } from '@antdv-next1/pro-provider'
 import { useEffect } from '@antdv-next1/pro-utils'
@@ -19,7 +19,7 @@ import FooterToolbar from '../FooterToolbar'
 import GridContent from '../GridContent'
 import PageHeader from '../PageHeader'
 import PageLoading from '../PageLoading'
-import { useStyle } from './style'
+import useStyle from './style'
 import { useStylish } from './style/stylish'
 
 function genLoading(spinProps: boolean | SpinProps | null) {
@@ -38,6 +38,7 @@ function renderFooter({
   tabActiveKey,
   onTabChange,
   hashId,
+  cssVarCls,
   tabBarExtraContent,
   tabProps,
   prefixedClassName,
@@ -45,6 +46,7 @@ function renderFooter({
   PageContainerProps & {
     prefixedClassName: string
     hashId: string
+    cssVarCls: string
   },
   'title'
 >) {
@@ -52,7 +54,7 @@ function renderFooter({
     return (
       <Tabs
         {...tabProps}
-        class={classNames(`${prefixedClassName}-tabs`, hashId)}
+        class={classNames(`${prefixedClassName}-tabs`, hashId, cssVarCls)}
         activeKey={tabActiveKey}
         tabBarExtraContent={tabBarExtraContent}
         onChange={(key) => {
@@ -76,16 +78,16 @@ function renderFooter({
   }
   return null
 }
-function renderPageHeader(content: VueNode, extraContent: VueNode, prefixedClassName: string, hashId: string) {
+function renderPageHeader(content: VueNode, extraContent: VueNode, prefixedClassName: string, hashId: string, cssVarCls: string) {
   if (!content && !extraContent) {
     return null
   }
   return (
-    <div class={classNames(`${prefixedClassName}-detail`, hashId)}>
-      <div class={classNames(`${prefixedClassName}-main `, hashId)}>
-        <div class={classNames(`${prefixedClassName}-row`, hashId)}>
-          {content && <div class={classNames(`${prefixedClassName}-content`, hashId)}>{content}</div>}
-          {extraContent && <div class={classNames(`${prefixedClassName}-extraContent`, hashId)}>{extraContent}</div>}
+    <div class={classNames(`${prefixedClassName}-detail`, hashId, cssVarCls)}>
+      <div class={classNames(`${prefixedClassName}-main `, hashId, cssVarCls)}>
+        <div class={classNames(`${prefixedClassName}-row`, hashId, cssVarCls)}>
+          {content && <div class={classNames(`${prefixedClassName}-content`, hashId, cssVarCls)}>{content}</div>}
+          {extraContent && <div class={classNames(`${prefixedClassName}-extraContent`, hashId, cssVarCls)}>{extraContent}</div>}
         </div>
       </div>
     </div>
@@ -124,10 +126,6 @@ export type PageContainerProps = {
   content?: VueNode
   footer?: VueNode | VNode | VNode[]
   extraContent?: VueNode
-  /**
-   * @name token 自定义的 token
-   */
-  token?: pageContainerToken
   /**
    * 与 Ant Design 完全相同
    *
@@ -177,10 +175,7 @@ const PageContainerBase = defineComponent<PageContainerProps, {}, string, Custom
   const config = useConfig()
   const prefixCls = computed(() => props.prefixCls || config.value.getPrefixCls('pro'))
   const baseClassName = computed(() => `${prefixCls.value}-page-container`)
-  const { wrapSSR, hashId } = useStyle(
-    baseClassName,
-    computed(() => props.token),
-  )
+  const [hashId, cssVarCls] = useStyle(baseClassName)
   /** 告诉 props 是否存在 footerBar */
   useEffect(() => {
     if (!routeContext.value || !routeContext.value?.setHasPageContainer) {
@@ -192,7 +187,7 @@ const PageContainerBase = defineComponent<PageContainerProps, {}, string, Custom
     }
   }, [])
 
-  const stylish = useStylish(
+  useStylish(
     computed(() => `${baseClassName.value}.${baseClassName.value}-stylish`),
     {
       stylish: computed(() => props.stylish as GenerateStyle<stylishToken>),
@@ -227,7 +222,6 @@ const PageContainerBase = defineComponent<PageContainerProps, {}, string, Custom
       footer,
       affixProps,
       pageHeaderRender,
-      token: propsToken,
       fixedHeader,
       breadcrumbRender = memoBreadcrumbRender.value,
       footerToolBarProps,
@@ -255,7 +249,8 @@ const PageContainerBase = defineComponent<PageContainerProps, {}, string, Custom
       title: pageHeaderTitle,
       footer: renderFooter({
         ...restProps,
-        hashId: hashId.value,
+        hashId: hashId?.value!,
+        cssVarCls: cssVarCls?.value!,
         breadcrumbRender,
         prefixedClassName: baseClassName.value,
       }),
@@ -274,11 +269,11 @@ const PageContainerBase = defineComponent<PageContainerProps, {}, string, Custom
     ) {
       return null
     }
-    const children = restProps.header?.children || renderPageHeader(restProps.content as VueNode, restProps.extraContent as VueNode, baseClassName.value, hashId.value)
+    const children = restProps.header?.children || renderPageHeader(restProps.content as VueNode, restProps.extraContent as VueNode, baseClassName.value, hashId?.value!, cssVarCls?.value!)
     return (
       <PageHeader
         {...pageHeaderProps}
-        class={classNames(`${baseClassName.value}-wrap-page-header`, hashId.value, {
+        class={classNames(`${baseClassName.value}-wrap-page-header`, {
           [`${baseClassName.value}-wrap-page-header-wide`]: routeContext.value.contentWidth === 'Fixed' && routeContext.value.layout === 'top',
         })}
         breadcrumb={
@@ -299,7 +294,7 @@ const PageContainerBase = defineComponent<PageContainerProps, {}, string, Custom
     return slots.default?.()
       ? (
           <div
-            class={classNames(`${baseClassName.value}-children-content`, hashId.value, {
+            class={classNames(`${baseClassName.value}-children-content`, hashId?.value, cssVarCls?.value, {
               [`${baseClassName.value}-children-content-no-header`]: !pageHeaderDom.value,
             })}
           >
@@ -328,38 +323,36 @@ const PageContainerBase = defineComponent<PageContainerProps, {}, string, Custom
         )
   })
   return () => {
-    const { loading, footer, affixProps, token: propsToken, fixedHeader, breadcrumbRender, footerToolBarProps, ...restProps } = props
+    const { loading, footer, affixProps, fixedHeader, breadcrumbRender, footerToolBarProps, ...restProps } = props
 
-    const containerClassName = classNames(baseClassName.value, hashId.value, attrs.class, {
+    const containerClassName = classNames(baseClassName.value, hashId?.value, cssVarCls?.value, attrs.class, {
       [`${baseClassName.value}-with-footer`]: footer,
       [`${baseClassName.value}-with-affix`]: fixedHeader && pageHeaderDom.value,
       [`${baseClassName.value}-stylish`]: !!restProps.stylish,
     })
-    return wrapSSR(
-      stylish.wrapSSR(
-        <>
-          <div class={containerClassName}>
-            {fixedHeader && pageHeaderDom.value ? (
+    return (
+      <>
+        <div class={containerClassName}>
+          {fixedHeader && pageHeaderDom.value ? (
             // 在 hasHeader 且 fixedHeader 的情况下，才需要设置高度
-              <Affix
-                {...affixProps}
-                offsetTop={routeContext.value.hasHeader && routeContext.value.fixedHeader ? proProvide.value.token.layout?.header?.heightLayoutHeader : 1}
-                class={classNames(`${baseClassName.value}-affix`, hashId.value)}
-              >
-                <div class={classNames(`${baseClassName.value}-wrap`, hashId.value)}>{pageHeaderDom.value}</div>
-              </Affix>
-            ) : (
-              <div class={classNames(`${baseClassName.value}-wrap`, hashId.value)}>{pageHeaderDom.value}</div>
-            )}
-            {renderContentDom.value && <GridContent>{renderContentDom.value}</GridContent>}
-          </div>
-          {footer && (
-            <FooterToolbar {...footerToolBarProps} stylish={restProps.footerStylish} prefixCls={prefixCls.value}>
-              {footer}
-            </FooterToolbar>
+            <Affix
+              {...affixProps}
+              offsetTop={routeContext.value.hasHeader && routeContext.value.fixedHeader ? proProvide.value.token.layout?.header?.heightLayoutHeader : 1}
+              class={classNames(`${baseClassName.value}-affix`, hashId?.value, cssVarCls?.value)}
+            >
+              <div class={classNames(`${baseClassName.value}-wrap`, hashId?.value, cssVarCls?.value)}>{pageHeaderDom.value}</div>
+            </Affix>
+          ) : (
+            <div class={classNames(`${baseClassName.value}-wrap`, hashId?.value, cssVarCls?.value)}>{pageHeaderDom.value}</div>
           )}
-        </>,
-      ),
+          {renderContentDom.value && <GridContent>{renderContentDom.value}</GridContent>}
+        </div>
+        {footer && (
+          <FooterToolbar {...footerToolBarProps} stylish={restProps.footerStylish} prefixCls={prefixCls.value}>
+            {footer}
+          </FooterToolbar>
+        )}
+      </>
     )
   }
 }, {

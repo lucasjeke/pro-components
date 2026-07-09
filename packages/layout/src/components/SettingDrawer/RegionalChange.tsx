@@ -10,14 +10,15 @@ const RegionalSetting: FunctionalComponent<{
   settings: Partial<RenderSetting>
   changeSetting: (key: string, value: any, hideLoading?: boolean) => void
   hashId: string
+  cssVarCls: string
   prefixCls: string
   formatMessage: (data: MessageDescriptor) => string
-}> = ({ settings = {}, prefixCls, changeSetting, formatMessage, hashId }) => {
-  const regionalSetting = ['header', 'footer', 'menu', 'menuHeader']
+}> = ({ settings = {}, prefixCls, changeSetting, formatMessage, cssVarCls, hashId }) => {
+  const regionalSetting = ['header', 'footer', 'siderMenu', 'menuHeader']
   return (
     <Listy
       split={false}
-      class={classNames(`${prefixCls}-list`, hashId)}
+      class={classNames(`${prefixCls}-list`, hashId, cssVarCls)}
       itemRender={item => renderLayoutSettingItem(item)}
       rowKey="title"
       variant="borderless"
@@ -27,7 +28,7 @@ const RegionalSetting: FunctionalComponent<{
           action: (
             <Switch
               size="small"
-              class={classNames(`regional-${key}`, hashId)}
+              class={classNames(`regional-${key}`, hashId, cssVarCls)}
               checked={
                 (settings[`${key}Render` as 'headerRender']
                   || settings[`${key}Render` as 'headerRender']) === undefined

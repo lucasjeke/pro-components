@@ -14,7 +14,7 @@ export default {
       links: '友链',
     },
     madeWith: 'Made with',
-    teamName: 'Antdv Next Team',
+    teamName: 'Pro Components of Vue Team',
   },
 
   contributors: {

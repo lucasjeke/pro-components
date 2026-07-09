@@ -8,7 +8,7 @@ import { classNames } from '@v-c/util'
 import { useConfig } from 'antdv-next'
 import { useConfig as useAntdConfig } from 'antdv-next/dist/config-provider/context'
 import { computed, defineComponent, shallowRef } from 'vue'
-import { useStyle } from './style'
+import useStyle from './style'
 
 export interface FieldLabelProps {
   label?: VueNode
@@ -38,7 +38,7 @@ const FieldLabel = defineComponent<FieldLabelProps, {}, string, CustomSlotsType<
     const { componentSize } = useConfig()
     const prefixCls = computed(() => config.value.getPrefixCls('pro'))
     const baseClassName = computed(() => `${prefixCls.value}-core-field-label`)
-    const { wrapSSR, hashId } = useStyle(baseClassName)
+    const [hashId, cssVarCls] = useStyle(baseClassName)
     const intl = useIntl()
     const clearRef = shallowRef<HTMLSpanElement | null>(null)
     const labelRef = shallowRef<HTMLSpanElement | null>(null)
@@ -151,11 +151,12 @@ const FieldLabel = defineComponent<FieldLabelProps, {}, string, CustomSlotsType<
         allowClear = true,
       } = props
       const size = componentSize.value ? componentSize.value : 'middle'
-      return wrapSSR(
+      return (
         <span
           class={classNames(
             baseClassName.value,
             hashId.value,
+            cssVarCls.value,
             `${baseClassName.value}-${propsSize ?? size ?? 'middle'}`,
             {
               [`${baseClassName.value}-${variant || 'borderless'}-active`]:
@@ -181,6 +182,7 @@ const FieldLabel = defineComponent<FieldLabelProps, {}, string, CustomSlotsType<
               class={classNames(
                 `${baseClassName.value}-icon`,
                 hashId.value,
+                cssVarCls.value,
                 `${baseClassName.value}-close`,
               )}
               title={intl.value.getMessage({
@@ -205,12 +207,13 @@ const FieldLabel = defineComponent<FieldLabelProps, {}, string, CustomSlotsType<
                   class={classNames(
                     `${baseClassName.value}-icon`,
                     hashId.value,
+                    cssVarCls.value,
                     `${baseClassName.value}-arrow`,
                   )}
                 />
               ))
             : null}
-        </span>,
+        </span>
       )
     }
   },

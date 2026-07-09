@@ -11,14 +11,10 @@ export const headerItems: MenuItemType[] = [
     key: '/components',
     label: '/components',
   },
-  {
-    key: '/blog',
-    label: '/blog',
-  },
-  {
-    key: '/playground',
-    label: '/playground',
-  },
+  // {
+  //   key: '/playground',
+  //   label: '/playground',
+  // },
 ]
 
 // Helper to flatten nested header locales
@@ -26,9 +22,8 @@ function flattenHeaderLocales(nestedLocales: typeof locales['zh-CN']['menu']['he
   return {
     '/docs/vue': nestedLocales.docs.vue,
     '/components': nestedLocales.components,
-    '/blog': nestedLocales.blog,
     '/docs/resources': nestedLocales.resources,
-    '/playground': nestedLocales.playground,
+    // '/playground': nestedLocales.playground,
   }
 }
 

@@ -359,7 +359,6 @@ const ProFormListItem = defineComponent<
         </Tooltip>
       )
     })
-
     const upIcon = computed(() => {
       if (!props.arrowSort) {
         return null

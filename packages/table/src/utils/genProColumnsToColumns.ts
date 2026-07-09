@@ -10,7 +10,10 @@ import type { FilterValue, ProColumns, ProColumnType, ProSorter } from '../typin
 import { proFieldParsingValueEnumToArray } from '@antdv-next1/pro-field'
 import { omitBoolean, omitUndefinedAndEmptyArr, runFunction } from '@antdv-next1/pro-utils'
 import { Table } from 'antdv-next'
+import { shallowReactive } from 'vue'
 import columnRender, { defaultOnFilter, renderColumnsTitle } from './columnRender'
+
+type ResizeWidthMap = Record<string, number>
 
 type ColumnToColumnParams<T, U, ValueType> = {
   columns?: ProColumns<T, ValueType>[]
@@ -22,7 +25,26 @@ type ColumnToColumnParams<T, U, ValueType> = {
   childrenColumnName?: string
   proFilter?: Record<string, FilterValue>
   proSort?: Record<string, SortOrder>
+  columnResizeWidthMap?: ResizeWidthMap
 } & Partial<Pick<TableProps<T>, 'rowKey'>>
+
+const columnResizeWidthMaps = new WeakMap<object, ResizeWidthMap>()
+
+function getColumnResizeWidthMap<T, ValueType>(
+  columns: ProColumns<T, ValueType>[] | undefined,
+  inheritedMap?: ResizeWidthMap,
+) {
+  if (inheritedMap)
+    return inheritedMap
+  if (!columns)
+    return shallowReactive<ResizeWidthMap>({})
+  const existingMap = columnResizeWidthMaps.get(columns)
+  if (existingMap)
+    return existingMap
+  const nextMap = shallowReactive<ResizeWidthMap>({})
+  columnResizeWidthMaps.set(columns, nextMap)
+  return nextMap
+}
 
 /**
  * 根据 key 和 dataIndex 生成唯一 id
@@ -254,6 +276,7 @@ export function genProColumnsToColumns<T extends Record<string, any>, U extends 
     childrenColumnName = 'children',
   } = params
   const subNameRecord = new Map<Key, string[]>()
+  const columnResizeWidthMap = getColumnResizeWidthMap(columns, params.columnResizeWidthMap)
   return columns
     ?.map((columnProps, columnsIndex) => {
       if (columnProps === Table.EXPAND_COLUMN)
@@ -289,6 +312,7 @@ export function genProColumnsToColumns<T extends Record<string, any>, U extends 
         columnKey,
         columnProps,
       )
+      const width = columnResizeWidthMap[columnKey] ?? columnProps.width ?? (columnProps.fixed ? 200 : undefined)
       const tempColumns: ProColumns<T, ValueType> & {
         index?: number
       } = {
@@ -302,12 +326,13 @@ export function genProColumnsToColumns<T extends Record<string, any>, U extends 
         filteredValue,
         sortOrder,
         fixed,
-        width: columnProps.width || (columnProps.fixed ? 200 : undefined),
+        width,
         children: columnProps.children
           ? genProColumnsToColumns<T, U, ValueType>(
               {
                 ...params,
                 columns: columnProps.children || [],
+                columnResizeWidthMap,
               },
               { ...columnProps, key: columnKey },
             )
@@ -323,7 +348,23 @@ export function genProColumnsToColumns<T extends Record<string, any>, U extends 
         }, subNameRecord),
 
       }
-      return omitUndefinedAndEmptyArr(tempColumns)
+      const finalColumns = omitUndefinedAndEmptyArr(tempColumns) as typeof tempColumns
+      if (columnProps.resizable) {
+        finalColumns.onHeaderCell = (data, cellIndex) => {
+          const headerCellProps = columnProps.onHeaderCell?.(data, cellIndex)
+          return {
+            ...headerCellProps,
+            resizable: true,
+            width: finalColumns.width,
+            onResize: (event: MouseEvent, { size }: { size: { width: number } }) => {
+              columnResizeWidthMap[columnKey] = size.width
+              finalColumns.width = size.width
+              ;(headerCellProps as any)?.onResize?.(event, { size })
+            },
+          } as any
+        }
+      }
+      return finalColumns
     })
     ?.filter(item => !item?.hideInTable)
 }

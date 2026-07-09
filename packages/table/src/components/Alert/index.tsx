@@ -7,7 +7,7 @@ import { classNames } from '@v-c/util'
 import { Alert, Space } from 'antdv-next'
 import { useConfig } from 'antdv-next/dist/config-provider/context'
 import { computed, defineComponent } from 'vue'
-import { useStyle } from './style'
+import useStyle from './style'
 
 export type TableAlertProps<T> = AlertProps & {
   selectedRowKeys?: Key[]
@@ -31,7 +31,7 @@ const TableAlert = defineComponent(
     const config = useConfig()
     const prefixCls = computed(() => props.prefixCls || config.value.getPrefixCls('pro'))
     const baseClassName = computed(() => `${prefixCls.value}-table-alert`)
-    const { wrapSSR, hashId } = useStyle(baseClassName)
+    const [hashId, cssVarCls] = useStyle(baseClassName)
     const intl = useIntl()
 
     return () => {
@@ -71,14 +71,14 @@ const TableAlert = defineComponent(
       if (dom === false || (selectedRowKeys.length < 1 && !alwaysShowAlert)) {
         return null
       }
-      return wrapSSR(
+      return (
         <Alert
-          class={classNames(baseClassName.value, hashId.value)}
+          class={classNames(baseClassName.value, hashId.value, cssVarCls.value)}
           v-slots={{
             message: () => dom,
             action: () => option,
           }}
-        />,
+        />
       )
     }
   },

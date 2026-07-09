@@ -45,17 +45,6 @@ export type SearchSelectProps<T = Record<string, any>> = Omit<
 
   options?: RequestOptionsType[]
 
-  // /**
-  //  * 样式
-  //  *
-  //  * @ignore
-  //  */
-  // style?: CSSProperties
-  // /**
-  //  * class 类名
-  //  *
-  //  */
-  // class?: string
   /**
    * Placeholder 输入提示
    *

@@ -1,9 +1,8 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
-import type { ComputedRef } from 'vue'
-import { useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
+import { useStyle } from '@antdv-next1/pro-provider'
+import { mergeToken } from '@antdv-next/cssinjs'
 
-export interface GridContentToken extends ProAliasToken {
-  componentCls: string
+export interface GridContentToken extends ProAliasCssVarToken {
 }
 
 const genGridContentStyle: GenerateStyle<GridContentToken> = (token) => {
@@ -18,12 +17,7 @@ const genGridContentStyle: GenerateStyle<GridContentToken> = (token) => {
   }
 }
 
-export function useStyle(prefixCls: ComputedRef<string>) {
-  return useAntdStyle('ProLayoutGridContent', (token) => {
-    const gridContentToken: GridContentToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
-    }
-    return [genGridContentStyle(gridContentToken)]
-  })
-}
+export default useStyle('ProLayoutGridContent', (token) => {
+  const gridContentToken = mergeToken<GridContentToken>(token, {})
+  return [genGridContentStyle(gridContentToken)]
+})

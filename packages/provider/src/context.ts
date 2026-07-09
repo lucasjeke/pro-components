@@ -1,7 +1,7 @@
-import type { InjectionKey, Ref } from 'vue'
+import type { ComputedRef, InjectionKey, Ref } from 'vue'
 import type { IntlType } from './intl'
 import type { ProRenderFieldPropsType } from './typing'
-import type { ProAliasToken } from './useStyle'
+import type { ProAliasCssVarToken, ProAliasToken } from './useStyle'
 import { theme as antdTheme } from 'antdv-next'
 import { inject, provide, ref } from 'vue'
 import { zhCNIntl } from './intl'
@@ -19,6 +19,16 @@ export interface ProConfigConsumerProps {
   compact?: boolean
   prefixCls?: string
 }
+
+export interface ProCacheTokenProps {
+  realToken?: ComputedRef<ProAliasCssVarToken>
+  token?: ComputedRef<ProAliasCssVarToken>
+}
+export const proCacheTokenKey: InjectionKey<ProCacheTokenProps> = Symbol('proCacheTokenContext')
+
+export const useProCacheTokenProvider = (props: ProCacheTokenProps) => provide(proCacheTokenKey, props)
+
+export const useProCacheToken = () => inject(proCacheTokenKey, {})
 
 export const proConfigConsumerKey: InjectionKey<Ref<ProConfigConsumerProps>> = Symbol('proConfigConsumerContext')
 

@@ -167,9 +167,10 @@ export type BaseFormProps<T extends Record<string, any>, U extends Record<string
   /** 是否回车提交 */
   isKeyPressSubmit?: boolean
   form?: FormInstance
+  onReset: (values?: Record<string, any>) => void
   /** Form 组件的类型，内部使用 */
   formComponentType?: 'DrawerForm' | 'ModalForm' | 'QueryFilter'
-} & Omit<FormProps, 'onFinish'>
+} & Omit<FormProps, 'onFinish' | 'onReset'>
 & CommonFormProps<T, U>
 /** 自动的formKey 防止重复 */
 let requestFormCacheId = 0

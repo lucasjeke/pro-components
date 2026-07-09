@@ -21,7 +21,7 @@ import CollapsedIcon from '../CollapsedIcon'
 import { renderLogoAndTitle } from '../SiderMenu/SiderMenu'
 import TopNavHeader from '../TopNavHeader'
 import ActionsContent from './ActionsContent'
-import { useStyle } from './style'
+import useStyle from './style'
 
 function renderLogo(menuHeaderRender: SiderMenuProps['menuHeaderRender'], logoDom: VueNode, props: SiderMenuProps) {
   if (menuHeaderRender === false) {
@@ -90,7 +90,22 @@ const GlobalHeader = defineComponent<GlobalHeaderProps & PrivateSiderMenuProps, 
   const config = useConfig()
   const proProvide = useProConfig()
   const baseClassName = computed(() => `${props.prefixCls || config.value.getPrefixCls('pro')}-global-header`)
-  const { wrapSSR, hashId } = useStyle(baseClassName)
+  const [hashId, cssVarCls] = useStyle(baseClassName)
+
+  const showCollapsed = computed(() => {
+    const { matchMenuKeys = [] } = props
+    let { menuData = [] } = props
+    if (matchMenuKeys.length) {
+      menuData = menuData?.find(item => item.key === matchMenuKeys[0])?.children || []
+    }
+    else {
+      menuData = []
+    }
+    if (!menuData.length) {
+      return false
+    }
+    return true
+  })
   return () => {
     const { navTheme, layout, isMobile, onCollapse, avatarProps, onMenuHeaderClick, logo, menuData = [], splitMenus, collapsed } = props
     const menuHeaderRender = getSlot(slots, props, 'menuHeaderRender')
@@ -120,7 +135,7 @@ const GlobalHeader = defineComponent<GlobalHeaderProps & PrivateSiderMenuProps, 
       )
     }
 
-    const logoClassNames = classNames(`${baseClassName.value}-logo`, hashId.value, {
+    const logoClassNames = classNames(`${baseClassName.value}-logo`, hashId?.value, cssVarCls?.value, {
       [`${baseClassName.value}-logo-rtl`]: config.value.direction === 'rtl',
       [`${baseClassName.value}-logo-mix`]: layout === 'mix',
       [`${baseClassName.value}-logo-mobile`]: isMobile,
@@ -130,9 +145,10 @@ const GlobalHeader = defineComponent<GlobalHeaderProps & PrivateSiderMenuProps, 
         <a>{defaultRenderLogo(logo)}</a>
       </span>
     )
-    return wrapSSR(
+
+    return (
       <div
-        class={classNames(attrs.class, baseClassName.value, hashId.value, {
+        class={classNames(attrs.class, baseClassName.value, hashId?.value, cssVarCls?.value, {
           [`${baseClassName.value}-light`]: navTheme === 'light' || ['side', 'left'].includes(layout!) || isMobile,
           [`${baseClassName.value}-dark`]: navTheme === 'dark' && !['side', 'left'].includes(layout!) && !isMobile,
           [`${baseClassName.value}-realDark`]: navTheme === 'realDark' && !['top', 'mix'].includes(layout!),
@@ -147,10 +163,10 @@ const GlobalHeader = defineComponent<GlobalHeaderProps & PrivateSiderMenuProps, 
             </div>
           </>
         )}
-        {(isMobile || layout === 'side' || layout === 'left') && menuRender !== false
+        {(isMobile || layout === 'side' || (layout === 'left' && showCollapsed.value)) && menuRender !== false
           ? (
               <span
-                class={classNames(`${baseClassName.value}-collapsed-button`, hashId.value)}
+                class={classNames(`${baseClassName.value}-collapsed-button`, hashId?.value, cssVarCls?.value)}
                 style={{
                   marginInlineStart: `${proProvide.value.token.marginXS}px`,
                 }}
@@ -165,7 +181,7 @@ const GlobalHeader = defineComponent<GlobalHeaderProps & PrivateSiderMenuProps, 
 
         <div style={{ flex: 1 }}>{slots.default?.()}</div>
         {(actionsRender || avatarProps) && <ActionsContent {...props} actionsRender={actionsRender} prefixCls={baseClassName.value} />}
-      </div>,
+      </div>
     )
   }
 }, {

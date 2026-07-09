@@ -28,7 +28,7 @@ import { useFieldContextProvider } from '../FieldContext'
 import { useGridContextProvider, useGridHelpers } from '../helpers'
 import { useProFormInstanceExpose, useUrlSearchParams } from '../utils'
 import { useEditOrReadOnlyContextProvider } from './EditOrReadOnlyContext'
-import { useStyle } from './style'
+import useStyle from './style'
 import Submitter from './Submitter'
 
 export function genParams<T extends Record<string, any>, U extends Record<string, any>>(
@@ -79,7 +79,7 @@ const BaseFormComponents = defineComponent(
     const formRef = shallowRef<FormInstance & { /** 聚焦方法 */
       focus?: () => void
     } | null>(null)
-    const { wrapSSR, hashId } = useStyle(baseClassName)
+    const [hashId, cssVarCls] = useStyle(baseClassName)
 
     /** 保存 transformKeyRef，用于对表单key transform */
     const transformKeyRef = shallowRef<Record<string, SearchTransformKeyFn | undefined>>({})
@@ -465,7 +465,7 @@ const BaseFormComponents = defineComponent(
             onReset={() => {
               const finalValues = transformKey?.(formRef.value?.getFieldsValue() as T, omitNil)
               submitterProps?.onReset?.(finalValues)
-              // onReset?.(finalValues)
+              onReset?.(finalValues)
               if (syncToUrl) {
                 // 把没有的值设置为未定义可以删掉 url 的参数
                 const params = Object.keys(transformKey?.(formRef.value?.getFieldsValue() as T, false)).reduce(
@@ -493,7 +493,7 @@ const BaseFormComponents = defineComponent(
       if (contentRender) {
         content = <>{contentRender(content, submitterNode, formRef.value!)}</>
       }
-      return wrapSSR(
+      return (
         <Form
           ref={(instance) => {
             formRef.value = instance as unknown as FormInstance
@@ -521,11 +521,11 @@ const BaseFormComponents = defineComponent(
               transformKey(changedValues as T, !!omitNil),
               transformKey(values as T, !!omitNil),
             )}
-          rootClass={classNames(baseClassName.value, hashId.value, rootClass)}
+          rootClass={classNames(baseClassName.value, hashId.value, cssVarCls.value, rootClass)}
           onFinish={handleFinish}
         >
           {content}
-        </Form>,
+        </Form>
       )
     }
   },

@@ -5,7 +5,7 @@
   "description": "@antdv-next1/route-utils",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/archiesong/pro-components.git",
+    "url": "git+https://github.com/lucasjeke/pro-components.git",
     "directory": "packages/route-utils"
   },
   "keywords": [],

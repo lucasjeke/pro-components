@@ -119,6 +119,7 @@ const RawList = defineComponent(<T, K extends Key = Key>(props: RawListProps<T, 
     }
     return h(component, {
       ...attrs,
+      ref: holderRef,
       style: {
         ...(attrs.style || {}) as CSSProperties,
         maxHeight: unit(height!),

@@ -22,6 +22,7 @@ ProLayout supports four layout modes: `side`, `top`, `mix`, and `left`. The `lef
 
 <demo-group>
   <demo src="./demo/basic.vue" iframe="550">Basic</demo>
+  <demo src="./demo/multi-tab.vue" iframe="550">MultiTab</demo>
   <demo src="./demo/help.vue" iframe="360">Help</demo>
 </demo-group>
 
@@ -83,7 +84,8 @@ ProLayout supports four layout modes: `side`, `top`, `mix`, and `left`. The `lef
 | logoStyle | Style of the menu logo area | `CSSProperties` | - | - |
 | waterMarkProps | Watermark config | `WatermarkProps` | - | - |
 | errorBoundaryRender | Custom error boundary | `ErrorBoundaryRender \| false` | - | - |
-| tagsViewRender | Custom tabs view area | `TagsViewRender \| false` | - | - |
+| multiTab | Built-in MultiTab config. Disabled by default | `boolean \| MultiTabProps` | - | - |
+| multiTabRender | Custom MultiTab area. Takes priority over built-in `multiTab` | `MultiTabRender \| false` | - | - |
 | siderMenuType | Side menu aggregation mode, shorthand for `menu.type` | `'sub' \| 'group'` | `'sub'` | - |
 | isChildrenLayout | Whether to render as a child layout | `boolean` | - | - |
 | headerRender | Customize Header. Set to `false` to hide Header | `HeaderRender \| false` | - | - |
@@ -159,7 +161,7 @@ Events are registered with Vue event syntax, such as `@collapse`, `@menu-header-
 | headerContentRender | Custom Header content rendering | `HeaderContentRender` | - |
 | actionsRender | Custom action area rendering | `ActionsRender` | - |
 | footerRender | Custom footer rendering | `FooterRender` | - |
-| tagsViewRender | Custom tabs view rendering | `TagsViewRender` | - |
+| multiTabRender | Custom MultiTab area rendering | `MultiTabRender` | - |
 | footerToolbarContentRender | Custom FooterToolbar content rendering | `FooterToolbarContentRender` | - |
 | collapsedButtonRender | Custom collapsed button rendering | `CollapsedButtonRender` | - |
 | errorBoundaryRender | Custom error boundary rendering | `ErrorBoundaryRender` | - |

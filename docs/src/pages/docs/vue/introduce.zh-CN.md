@@ -2,7 +2,7 @@
 title: Pro Components of Vue
 ---
 
-`Pro Components of Vue` 是基于 Pro Components(React) 的 Vue 实现，提供了许多的高阶组件，帮助开发者快速构建现代化的 Web 应用。
+`Pro Components Vue` 是基于 Pro Components(React) 的 Vue 实现，提供了许多的高阶组件，帮助开发者快速构建现代化的 Web 应用。
 
 <div class="pic-plus">
   <img width="150" draggable="false" src="../../../assets/antdv-next.svg"/>
@@ -14,14 +14,15 @@ title: Pro Components of Vue
 
 ---
 
-## ✨ 特性
+## Pro Components Vue
 
-- 🌈 提炼自企业级中后台产品的交互语言和视觉风格。
-- 📦 开箱即用的高质量 Vue3 组件。
-- 🛡 使用 TypeScript 开发，提供完整的类型定义文件。
-- ⚙️ 共享<a href="https://ant.design/docs/resources-cn" target="_blank" rel="noopener noreferrer"> Ant Design of React </a>设计资源体系。
-- 🌍 数十个国际化语言支持。
-- 🎨 深入每个细节的主题定制能力。
+ProComponents Vue 是基于 Antdv Next 而开发的模板组件，提供了更高级别的抽象支持，开箱即用。可以显著地提升制作 CRUD 页面的效率，更加专注于页面。
+
+- [ProLayout](/components/layout) 解决布局的问题，提供开箱即用的菜单和面包屑功能
+- [ProTable](/components/table) 表格模板组件，抽象网络请求和表格格式化
+- [ProForm](/components/form) 表单模板组件，预设常见布局和行为
+- [ProCard](/components/card) 提供卡片切分以及栅格布局能力
+- [ProListy](/components/listy) 高级列表组件
 
 ## 兼容环境
 
@@ -33,11 +34,9 @@ title: Pro Components of Vue
 | --- | --- | --- | --- | --- | --- |
 | Edge | last 2 versions | last 2 versions | last 2 versions | last 2 versions | last 2 versions |
 
-> `vue3` 之后不再支持 IE8。 `antdv-next` 默认不支持 IE。推荐从`vue@3.5.x`版本开始使。
+> `vue3` 之后不再支持 IE8。 `Pro Components Vue` 默认不支持 IE。推荐从`vue@3.5.x`版本开始使。
 
-## 版本
 
-- 稳定版：[![npm package](https://img.shields.io/npm/v/antdv-next.svg?style=flat-square)](https://www.npmjs.org/package/antdv-next)
 
 ## 安装
 
@@ -68,13 +67,3 @@ function handleSubmit(values: Record<string, any>) {
   </ProForm>
 </template>
 ```
-
-
-### TypeScript
-
-`pro-components` 使用 TypeScript 进行书写并提供了完整的定义文件。
-
-## 链接
-
-- [首页](/index-cn)
-- [所有组件](/components/overview-cn)

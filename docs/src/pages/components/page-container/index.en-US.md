@@ -45,7 +45,6 @@ group: Layout
 | breadcrumb | Breadcrumb configuration | `BreadcrumbProps` | - | - |
 | breadcrumbRender | Custom breadcrumb rendering | `(props: PageContainerProps) => VueNode` | - | - |
 | waterMarkProps | Watermark configuration | `WatermarkProps` | - | - |
-| children | Children | `VueNode` | - | - |
 
 #### Slots {#page-container-slots}
 

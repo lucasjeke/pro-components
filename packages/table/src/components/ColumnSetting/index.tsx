@@ -12,7 +12,7 @@ import { computed, defineComponent, shallowRef } from 'vue'
 import { useTableContextInject } from '../../Store/Provide'
 import { genColumnKey } from '../../utils/genProColumnsToColumns'
 import GroupCheckboxList from './GroupCheckboxList'
-import { useStyle } from './style'
+import useStyle from './style'
 
 export interface ColumnSettingProps<T, ValueType> {
   prefixCls?: string
@@ -33,7 +33,7 @@ const ColumnSetting = defineComponent(<T extends Record<string, any>, U extends 
   const config = useConfig()
   const prefixCls = computed(() => props.prefixCls || config.value.getPrefixCls('pro'))
   const baseClassName = computed(() => `${prefixCls.value}-table-column-setting`)
-  const { wrapSSR, hashId } = useStyle(baseClassName)
+  const [hashId, cssVarCls] = useStyle(baseClassName)
   const counter = useTableContextInject<T, U, ValueType>()
   const columnRef = shallowRef(null)
   /**
@@ -100,13 +100,13 @@ const ColumnSetting = defineComponent(<T extends Record<string, any>, U extends 
 
     // 是否已经选中
     const indeterminate = unCheckedKeys.length > 0 && unCheckedKeys.length !== columns.length
-    return wrapSSR(
+    return (
       <Popover
         arrow={false}
         trigger="click"
         placement="bottomRight"
         title={(
-          <div class={classNames(`${baseClassName.value}-title`, hashId.value)}>
+          <div class={classNames(`${baseClassName.value}-title`, hashId.value, cssVarCls.value)}>
             {checkable === false ? null : (
               <Checkbox
                 indeterminate={indeterminate}
@@ -128,7 +128,7 @@ const ColumnSetting = defineComponent(<T extends Record<string, any>, U extends 
             )}
             {checkedReset ? (
               <a
-                class={classNames(`${baseClassName.value}-action-rest-button`, hashId.value)}
+                class={classNames(`${baseClassName.value}-action-rest-button`, hashId.value, cssVarCls.value)}
                 onClick={clearClick}
               >
                 {intl.value.getMessage({ id: 'tableToolBar.reset', defaultMessage: '重置' })}
@@ -142,7 +142,7 @@ const ColumnSetting = defineComponent(<T extends Record<string, any>, U extends 
           </div>
         )}
         classes={{
-          root: classNames(`${baseClassName.value}-overlay`, hashId.value),
+          root: classNames(`${baseClassName.value}-overlay`, hashId.value, cssVarCls.value),
         }}
         content={(
           <GroupCheckboxList
@@ -165,7 +165,7 @@ const ColumnSetting = defineComponent(<T extends Record<string, any>, U extends 
             {settingIcon ?? <SettingOutlined />}
           </Tooltip>
         )}
-      </Popover>,
+      </Popover>
     )
   }
 }, {

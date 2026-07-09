@@ -192,7 +192,7 @@ pnpm test:coverage
 
 ## 📄 开源协议
 
-[MIT](./LICENSE) © [Chao Song](https://github.com/archiesong)
+[MIT](./LICENSE) © [lucasjeke](https://github.com/lucasjeke)
 
 ## 🙏 鸣谢
 

@@ -61,8 +61,8 @@ ProComponents of Vuents of Vue Team 会关注所有的 pull request，我们会 
 
 ## 致谢
 
-感谢所有为ProComponents of Vuents of Vue 贡献代码和文档的朋友们，是你们让这个项目变得更好！我们期待更多的贡献者加入到这个ProComponents of VueProComponents of Vue 的发展。
+感谢所有为ProComponents of Vue 贡献代码和文档的朋友们，是你们让这个项目变得更好！我们期待更多的贡献者加入到这个ProComponents of Vue 的发展。
 
-<a href="https://github.com/antdv-next/antdv-next/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=antdv-next/antdv-next&max=100&columns=15" />
+<a href="https://github.com/lucasjeke/pro-components/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=lucasjeke/pro-components&max=100&columns=15" />
 </a>

@@ -4,13 +4,15 @@ const ukUA: ProLocale = {
   moneySymbol: '₴',
   deleteThisLine: 'Видалити цей рядок',
   copyThisLine: 'Скопіювати рядок',
-  emptyListValidateMessage: '列表不能为空',
+  sortUpThisLine: 'Перемістити вгору',
+  sortDownThisLine: 'Перемістити вниз',
+  emptyListValidateMessage: 'Список не може бути порожнім',
   time: {
-    seconds: 'seconds',
-    minutes: 'minutes',
-    hours: 'hours',
-    days: 'days',
-    ago: 'ago',
+    seconds: 'секунд',
+    minutes: 'хвилин',
+    hours: 'годин',
+    days: 'днів',
+    ago: 'тому',
   },
   form: {
     lightFilter: {
@@ -18,6 +20,19 @@ const ukUA: ProLocale = {
       clear: 'Очистити',
       confirm: 'Ок',
       itemUnit: 'Позиції',
+    },
+    captcha: {
+      getCaptcha: 'Отримати код підтвердження',
+      resendAfter: 'с до повторного надсилання',
+    },
+    upload: {
+      buttonText: 'Натисніть, щоб завантажити',
+      draggerTitle: 'Натисніть або перетягніть файл у цю область для завантаження',
+      draggerDescription: 'Підтримує одиночне або пакетне завантаження',
+    },
+    modal: {
+      okText: 'Підтвердити',
+      cancelText: 'Скасувати',
     },
   },
   tableForm: {
@@ -69,6 +84,8 @@ const ukUA: ProLocale = {
     submitText: 'Вхід',
   },
   editableTable: {
+    defaultFieldLabel: 'Це поле',
+    defaultFieldType: 'Текст',
     onlyOneLineEditor: 'Тільки один рядок може бути редагований одночасно',
     onlyAddOneLine: 'Можна додати лише один рядок',
     action: {

@@ -4,13 +4,15 @@ const heIL: ProLocale = {
   moneySymbol: '₪',
   deleteThisLine: 'מחק שורה זו',
   copyThisLine: 'העתק שורה זו',
-  emptyListValidateMessage: '列表不能为空',
+  sortUpThisLine: 'הזז למעלה',
+  sortDownThisLine: 'הזז למטה',
+  emptyListValidateMessage: 'הרשימה לא יכולה להיות ריקה',
   time: {
-    seconds: 'seconds',
-    minutes: 'minutes',
-    hours: 'hours',
-    days: 'days',
-    ago: 'ago',
+    seconds: 'שניות',
+    minutes: 'דקות',
+    hours: 'שעות',
+    days: 'ימים',
+    ago: 'לפני',
   },
   form: {
     lightFilter: {
@@ -18,6 +20,19 @@ const heIL: ProLocale = {
       clear: 'נקה',
       confirm: 'אישור',
       itemUnit: 'פריטים',
+    },
+    captcha: {
+      getCaptcha: 'קבל קוד אימות',
+      resendAfter: 'שניות לשליחה מחדש',
+    },
+    upload: {
+      buttonText: 'לחץ להעלאה',
+      draggerTitle: 'לחץ או גרור קובץ לאזור זה כדי להעלות',
+      draggerDescription: 'תומך בהעלאה בודדת או מרובה',
+    },
+    modal: {
+      okText: 'אישור',
+      cancelText: 'ביטול',
     },
   },
   tableForm: {
@@ -69,6 +84,8 @@ const heIL: ProLocale = {
     submitText: 'כניסה',
   },
   editableTable: {
+    defaultFieldLabel: 'שדה זה',
+    defaultFieldType: 'טקסט',
     onlyOneLineEditor: 'ניתן לערוך רק שורה אחת',
     onlyAddOneLine: 'ניתן להוסיף רק שורה אחת',
     action: {

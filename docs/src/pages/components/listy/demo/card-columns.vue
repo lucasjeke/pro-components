@@ -73,17 +73,17 @@ const data: DataItem[] = [
     rating: 4.6,
     status: 'stable',
   },
-  {
-    id: '5',
-    title: 'ProDescriptions',
-    category: '描述列表',
-    description: '高级描述列表组件，支持编辑和请求',
-    avatar:
-      'https://gw.alipayobjects.com/zos/antfincdn/upvrAjAPQX/Logo_Tech%252520UI.svg',
-    downloads: 45000,
-    rating: 4.5,
-    status: 'stable',
-  },
+  // {
+  //   id: '5',
+  //   title: 'ProDescriptions',
+  //   category: '描述列表',
+  //   description: '高级描述列表组件，支持编辑和请求',
+  //   avatar:
+  //     'https://gw.alipayobjects.com/zos/antfincdn/upvrAjAPQX/Logo_Tech%252520UI.svg',
+  //   downloads: 45000,
+  //   rating: 4.5,
+  //   status: 'stable',
+  // },
   {
     id: '6',
     title: 'ProList',
@@ -95,17 +95,17 @@ const data: DataItem[] = [
     rating: 4.7,
     status: 'stable',
   },
-  {
-    id: '7',
-    title: 'ProSkeleton',
-    category: '骨架屏',
-    description: '高级骨架屏组件，更好的加载体验',
-    avatar:
-      'https://gw.alipayobjects.com/zos/antfincdn/aPkFc8Sj7n/method-draw-image.svg',
-    downloads: 34000,
-    rating: 4.4,
-    status: 'beta',
-  },
+  // {
+  //   id: '7',
+  //   title: 'ProSkeleton',
+  //   category: '骨架屏',
+  //   description: '高级骨架屏组件，更好的加载体验',
+  //   avatar:
+  //     'https://gw.alipayobjects.com/zos/antfincdn/aPkFc8Sj7n/method-draw-image.svg',
+  //   downloads: 34000,
+  //   rating: 4.4,
+  //   status: 'beta',
+  // },
   {
     id: '8',
     title: 'ProField',

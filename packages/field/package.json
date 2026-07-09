@@ -1,11 +1,11 @@
 {
   "name": "@antdv-next1/pro-field",
   "type": "module",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "@antdv-next1/pro-field",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/archiesong/pro-field.git",
+    "url": "git+https://github.com/lucasjeke/pro-field.git",
     "directory": "packages/field"
   },
   "sideEffects": [

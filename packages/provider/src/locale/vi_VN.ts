@@ -4,13 +4,15 @@ const viVN: ProLocale = {
   moneySymbol: '₫',
   deleteThisLine: 'Xóa dòng này',
   copyThisLine: 'Sao chép dòng này',
-  emptyListValidateMessage: '列表不能为空',
+  sortUpThisLine: 'Di chuyển lên',
+  sortDownThisLine: 'Di chuyển xuống',
+  emptyListValidateMessage: 'Danh sách không được để trống',
   time: {
-    seconds: '秒',
-    minutes: '分钟',
-    hours: '小时',
-    days: '天',
-    ago: '前',
+    seconds: 'giây',
+    minutes: 'phút',
+    hours: 'giờ',
+    days: 'ngày',
+    ago: 'trước',
   },
   form: {
     lightFilter: {
@@ -18,6 +20,19 @@ const viVN: ProLocale = {
       clear: 'Xóa',
       confirm: 'Xác nhận',
       itemUnit: 'Mục',
+    },
+    captcha: {
+      getCaptcha: 'Lấy mã xác minh',
+      resendAfter: 'giây để gửi lại',
+    },
+    upload: {
+      buttonText: 'Nhấn để tải lên',
+      draggerTitle: 'Nhấn hoặc kéo tệp vào khu vực này để tải lên',
+      draggerDescription: 'Hỗ trợ tải lên một hoặc nhiều tệp',
+    },
+    modal: {
+      okText: 'Xác nhận',
+      cancelText: 'Hủy',
     },
   },
   tableForm: {
@@ -69,6 +84,8 @@ const viVN: ProLocale = {
     submitText: 'Đăng nhập',
   },
   editableTable: {
+    defaultFieldLabel: 'Trường này',
+    defaultFieldType: 'Văn bản',
     onlyOneLineEditor: 'Chỉ có thể chỉnh sửa một dòng cùng lúc',
     onlyAddOneLine: 'Chỉ có thể thêm một dòng cùng lúc',
     action: {

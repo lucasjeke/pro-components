@@ -4,7 +4,9 @@ const mnMN: ProLocale = {
   moneySymbol: '₮',
   deleteThisLine: 'Энэ мөрийг устгах',
   copyThisLine: 'Энэ мөрийг хуулах',
-  emptyListValidateMessage: '列表不能为空',
+  sortUpThisLine: 'Дээш зөөх',
+  sortDownThisLine: 'Доош зөөх',
+  emptyListValidateMessage: 'Жагсаалт хоосон байж болохгүй',
   form: {
     lightFilter: {
       more: 'Илүү',
@@ -12,13 +14,26 @@ const mnMN: ProLocale = {
       confirm: 'Баталгаажуулах',
       itemUnit: 'Нэгжүүд',
     },
+    captcha: {
+      getCaptcha: 'Баталгаажуулах код авах',
+      resendAfter: 'секундийн дараа дахин илгээх',
+    },
+    upload: {
+      buttonText: 'Байршуулахын тулд дарна уу',
+      draggerTitle: 'Файлыг энэ хэсэгт дарж эсвэл чирж байршуулна уу',
+      draggerDescription: 'Нэг эсвэл олон файл байршуулахыг дэмжинэ',
+    },
+    modal: {
+      okText: 'Батлах',
+      cancelText: 'Цуцлах',
+    },
   },
   time: {
-    seconds: 'seconds',
-    minutes: 'minutes',
-    hours: 'hours',
-    days: 'days',
-    ago: 'ago',
+    seconds: 'секунд',
+    minutes: 'минут',
+    hours: 'цаг',
+    days: 'өдөр',
+    ago: 'өмнө',
   },
   tableForm: {
     search: 'Хайх',
@@ -69,6 +84,8 @@ const mnMN: ProLocale = {
     submitText: 'Нэвтрэх',
   },
   editableTable: {
+    defaultFieldLabel: 'Энэ талбар',
+    defaultFieldType: 'Текст',
     onlyOneLineEditor: 'Зэрэгцээд зөвхөн нэг мөр засварлах боломжтой',
     onlyAddOneLine: 'Зэрэгцээд зөвхөн нэг мөр нэмэх боломжтой',
     action: {

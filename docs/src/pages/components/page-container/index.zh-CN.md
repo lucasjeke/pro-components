@@ -46,7 +46,6 @@ PageContainer 是一个页面容器组件，提供了统一的页面布局结构
 | breadcrumb | 面包屑配置 | `BreadcrumbProps` | - | - |
 | breadcrumbRender | 自定义面包屑渲染 | `(props: PageContainerProps) => VueNode` | - | - |
 | waterMarkProps | 水印配置 | `WatermarkProps` | - | - |
-| children | 子元素 | `VueNode` | - | - |
 
 #### 插槽 {#page-container-slots}
 

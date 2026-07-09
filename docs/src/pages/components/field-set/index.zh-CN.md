@@ -7,45 +7,40 @@ coverDark: https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*03dxS64LxeQAAA
 group: 数据录入
 ---
 
-一个表单除了 Form 之外还是需要一系列的表单项，ProForm 自带了数量可观的表单项，这些组件本质上是 Form.Item 和 组件的结合，我们可以把他们当成一个 FormItem 来使用，并且支持各种 props。每个表单项都支持 fieldProps 属性来支持设置输入组件的props。 我们支持了 placeholder 的透传，你可以直接在组件上设置 placeholder。
-
-每个表单项同时也支持了 readonly ，不同的组件会有不同的只读样式，与 disable 相比 readonly 展示更加友好。生成的 dom 也更小，比如 ProFormDigit 会自动格式化小数位数。
-
-ProFormText 是 FormItem + Input 的产物，可以类比于以下的代码：
-
-```tsx
-const ProFormText = (props) => {
-  return (
-    <ProFormItem {...props}>
-      <Input placeholder={props.placeholder} {...props.fieldProps} />
-    </ProFormItem>
-  );
-};
-```
+ProFormFields 是 ProForm 内置的一组表单项组件。它们本质上是 `Form.Item` 与具体输入组件的组合，统一支持 `name`、`label`、`rules`、`fieldProps`、`readonly`、`placeholder` 等表单项能力。
 
 ## 何时使用 {#when-to-use}
 
-一个表单除了 Form 之外还是需要一系列的表单项，ProForm 自带了数量可观的表单项，这些组件本质上是 Form.Item 和 组件的结合，我们可以把他们当成一个 FormItem 来使用，并且支持各种 props。每个表单项都支持 fieldProps 属性来支持设置输入组件的props。 我们支持了 placeholder 的透传，你可以直接在组件上设置 placeholder。
+- 希望少写 FormItem 样板代码，快速组合业务表单时。
+- 需要输入态与只读态使用同一份字段配置时。
+- 需要金额、日期、选择、上传、验证码等常见表单项时。
 
 ## 代码演示 {#examples}
 
 <demo-group>
-    <demo src="./demo/components-other.vue">表单项</demo>
+  <demo src="./demo/components-other.vue">表单项</demo>
 </demo-group>
 
 ## API
 
-### 属性 {#props}
+### 通用属性 {#common-props}
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
+| name | 表单字段名 | `NamePath` | - | - |
+| label | 标签 | `VueNode` | - | - |
+| tooltip | 标签提示 | `FormItemTooltipType` | - | - |
+| rules | 校验规则 | `Rule[]` | - | - |
+| width | 表单项宽度，支持 `xs`、`sm`、`md`、`lg`、`xl` | `number \| string` | - | - |
+| fieldProps | 透传给底层输入组件的属性 | `Record<string, any>` | - | - |
+| formItemProps | 透传给 FormItem 的属性 | `Record<string, any>` | - | - |
+| placeholder | 占位文案 | `string \| string[]` | - | - |
+| readonly | 只读态 | `boolean` | `false` | - |
+| disabled | 禁用态 | `boolean` | `false` | - |
+| initialValue | 初始值 | `any` | - | - |
+| transform | 提交时转换值 | `(value, namePath, allValues) => any` | - | - |
+| convertValue | 读取时转换值 | `(value, namePath) => any` | - | - |
 
-### 事件 {#events}
+### 导出组件 {#exports}
 
-| 事件名 | 说明 | 类型 | 版本 |
-| ----- | --- | --- | --- |
-
-### 方法 {#methods}
-
-| 方法 | 说明 | 类型 | 版本 |
-| --- | --- | --- | --- |
+常用组件包括 `ProFormText`、`ProFormTextArea`、`ProFormPassword`、`ProFormDigit`、`ProFormMoney`、`ProFormSelect`、`ProFormTreeSelect`、`ProFormCascader`、`ProFormCheckbox`、`ProFormRadio`、`ProFormSwitch`、`ProFormSlider`、`ProFormRate`、`ProFormDatePicker`、`ProFormDateRangePicker`、`ProFormTimePicker`、`ProFormUploadButton`、`ProFormUploadDragger`、`ProFormCaptcha` 等。

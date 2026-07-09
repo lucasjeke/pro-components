@@ -1,11 +1,10 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
-import type { ComputedRef } from 'vue'
-import { useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
+import { useStyle } from '@antdv-next1/pro-provider'
+import { mergeToken } from '@antdv-next/cssinjs'
 import { genAppsLogoComponentsDefaultListStyle } from './default'
 import { genAppsLogoComponentsSimpleListStyle } from './simple'
 
-export interface AppsLogoComponentsToken extends ProAliasToken {
-  componentCls: string
+export interface AppsLogoComponentsToken extends ProAliasCssVarToken {
 }
 
 const genAppsLogoComponentsStyle: GenerateStyle<AppsLogoComponentsToken> = (token) => {
@@ -44,23 +43,23 @@ const genAppsLogoComponentsStyle: GenerateStyle<AppsLogoComponentsToken> = (toke
         height: 28,
         width: 28,
         cursor: 'pointer',
-        // color: token.layout?.colorTextAppListIcon,
+        color: token.proLayoutColorTextAppListIcon,
         borderRadius: token.borderRadius,
         boxSizing: 'border-box',
         '&:hover': {
-          color: token.layout?.colorTextAppListIconHover,
-          backgroundColor: token.layout?.colorBgAppListIconHover,
+          color: token.proLayoutColorTextAppListIconHover,
+          backgroundColor: token.proLayoutColorBgAppListIconHover,
         },
         '&-active': {
-          color: token.layout?.colorTextAppListIconHover,
-          backgroundColor: token.layout?.colorBgAppListIconHover,
+          color: token.proLayoutColorTextAppListIconHover,
+          backgroundColor: token.proLayoutColorBgAppListIconHover,
         },
       },
       '&-item-title': {
-        marginInlineStart: '16px',
-        marginInlineEnd: '8px',
+        marginInlineStart: 16,
+        marginInlineEnd: 8,
         marginBlockStart: 0,
-        marginBlockEnd: '12px',
+        marginBlockEnd: 12,
         fontWeight: 600,
         color: 'rgba(0, 0, 0, 0.88)',
         fontSize: 16,
@@ -81,13 +80,8 @@ const genAppsLogoComponentsStyle: GenerateStyle<AppsLogoComponentsToken> = (toke
   }
 }
 
-export function useStyle(prefixCls: ComputedRef<string>) {
-  return useAntdStyle('AppsLogoComponents', (token) => {
-    const proCardToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
-    } as AppsLogoComponentsToken
-
-    return [genAppsLogoComponentsStyle(proCardToken)]
+export default useStyle('AppsLogoComponents', (token) => {
+  const proCardToken = mergeToken<AppsLogoComponentsToken>(token, {
   })
-}
+  return [genAppsLogoComponentsStyle(proCardToken)]
+})

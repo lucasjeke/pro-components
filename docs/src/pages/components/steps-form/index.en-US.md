@@ -1,74 +1,51 @@
 ---
 category: Components
-title: StepsProForm
-description: Stick an element to the viewport.
-cover: https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*YSm4RI3iOJ8AAAAAAAAAAAAADrJ8AQ/original
-coverDark: https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*03dxS64LxeQAAAAAAAAAAAAADrJ8AQ/original
-demo:
-  cols: 2
+title: StepsForm
+subtitle: Steps Form
 group: Data Entry
 ---
 
+StepsForm splits a complex form into multiple steps. It is composed with `ProStepsForm` and multiple `ProStepsForm.StepForm` components. Each step can have its own form config, while the final step submits all values together.
+
 ## When To Use {#when-to-use}
 
-On longer web pages, it's helpful to stick component into the viewport. This is common for menus and actions.
-
-Please note that Affix should not cover other content on the page, especially when the size of the viewport is small.
+- A form has many fields and should guide users step by step.
+- Each step needs validation, but values should be submitted together.
+- The steps, form area, or submitter should be customized.
 
 ## Examples {#examples}
-<!-- 
+
 <demo-group>
-    <demo src="./demo/basic.vue">Basic</demo>
-    <demo src="./demo/on-change.vue">Callback</demo>
-    <demo src="./demo/target.vue">Container to scroll.</demo>
-</demo-group> -->
+  <demo src="./demo/steps-from.vue">Basic</demo>
+</demo-group>
 
 ## API
 
-### Props
+### ProStepsForm
 
-Common props ref：[Common props](/docs/vue/common-props)
+#### Props {#props}
 
 | Property | Description | Type | Default | Version |
 | --- | --- | --- | --- | --- |
-| offsetTop | Offset from the top of the viewport (in pixels) | number | 0 | - |
-| offsetBottom | Offset from the bottom of the viewport (in pixels) | number | - | - |
-| target | Specifies the scrollable area DOM node | () =&gt; Window \| HTMLElement \| null | () =&gt; window | - |
+| current | Current step in controlled mode | `number` | - | - |
+| stepsProps | Props passed to Steps | `StepsProps` | - | - |
+| formProps | Default form props passed to each StepForm | `ProFormProps` | - | - |
+| formMap | Form instances of all steps | `FormInstance[]` | - | - |
+| submitter | Submitter config. Set to `false` to hide | `SubmitterProps<{ step: number; onPre: () => void; form?: FormInstance }> \| false` | - | - |
+| containerStyle | Container style | `CSSProperties` | - | - |
+| stepsRender | Custom steps renderer | `(steps, defaultDom) => VueNode` | - | - |
+| stepFormRender | Custom single form area renderer | `(formDom) => VueNode` | - | - |
+| stepsFormRender | Custom form and submitter area renderer | `(formDom, submitter) => VueNode` | - | - |
+| layoutRender | Custom full layout renderer | `(layoutDom: { stepsDom: VNode; formDom: VNode }) => VueNode` | - | - |
 
-### Events
+#### Events {#events}
 
 | Event | Description | Type | Version |
 | --- | --- | --- | --- |
-| change | Callback for when Affix state is changed | (affixed?: boolean) =&gt; void | - |
+| finish | Triggered on final submit. Returning `true` resets step and forms | `(values) => void \| Promise<boolean \| void>` | - |
+| currentChange | Triggered when current step changes | `(current: number) => void` | - |
+| update:formMap | Triggered when form instances change | `(formMap: FormInstance[]) => void` | - |
 
-### Methods
+### ProStepsForm.StepForm
 
-| Method | Description | Type | Version |
-| --- | --- | --- | --- |
-| updatePosition | - | ReturnType&lt;typeof throttleByAnimationFrame&gt; | - |
-
-**Note:** Children of `Affix` must not have the property `position: absolute`, but you can set `position: absolute` on `Affix` itself:
-
-```html
-<a-affix style="position: absolute;top: y; left: x">...</a-affix>
-```
-
-## Design Token {#design-token}
-
-<ComponentTokenTable component="Affix"></ComponentTokenTable>
-
-See [Customize Theme](/docs/vue/customize-theme) to learn how to use Design Token.
-
-## FAQ
-
-### When binding container with `target` in Affix, elements sometimes move out of the container. {#faq-target-container}
-
-We only listen to container scroll events for performance consideration. You can add custom listeners if you still want to: <https://codesandbox.io/s/stupefied-maxwell-ophqnm?file=/index.js>
-
-Related issues：[#3938](https://github.com/ant-design/ant-design/issues/3938) [#5642](https://github.com/ant-design/ant-design/issues/5642) [#16120](https://github.com/ant-design/ant-design/issues/16120)
-
-### When Affix is ​​used in a horizontal scroll container, the position of the element `left` is incorrect. {#faq-horizontal-scroll}
-
-Affix is ​​generally only applicable to areas with one-way scrolling, and only supports usage in vertical scrolling containers. If you want to use it in a horizontal container, you can consider implementing with the native `position: sticky` property.
-
-Related issues：[#29108](https://github.com/ant-design/ant-design/issues/29108)
+StepForm inherits most ProForm props. Common props include `name`, `title`, `layout`, `grid`, `submitter`, and `finish`.

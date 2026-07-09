@@ -25,7 +25,7 @@ export function useProLayoutRender(slots: SlotsRenderType, props: ProLayoutProps
     const menuContentRender = getSlot(slots, props, 'menuContentRender')
     const menuExtraRender = getSlot(slots, props, 'menuExtraRender')
     const menuFooterRender = getSlot(slots, props, 'menuFooterRender')
-    const tagsViewRender = getSlot(slots, props, 'tagsViewRender')
+    const multiTabRender = getSlot(slots, props, 'multiTabRender')
     // errorBoundary
     const errorBoundaryRender = getSlot(slots, props, 'errorBoundaryRender')
     return {
@@ -44,7 +44,7 @@ export function useProLayoutRender(slots: SlotsRenderType, props: ProLayoutProps
       collapsedButtonRender,
       errorBoundaryRender,
       menuFooterRender,
-      tagsViewRender,
+      multiTabRender,
     }
   })
 }

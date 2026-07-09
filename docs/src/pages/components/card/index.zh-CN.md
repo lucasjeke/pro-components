@@ -73,13 +73,13 @@ group: 布局
 | collapsed | 受控属性，是否折叠 | `boolean` | `false` | - |
 | collapsible | 配置是否可折叠，受控时无效 | `boolean` | `false` | - |
 | defaultCollapsed | 默认折叠，受控时无效 | `boolean` | `false` | - |
-| onCollapse | 收起卡片的事件，受控时无效 | `(collapsed: boolean) => void` | - | - |
 | tabs | 标签页配置 | 见下面 ProCardTabs | - | - |
 
 ### 事件 {#events}
 
 | 事件名 | 说明 | 类型 | 版本 |
 | ----- | --- | --- | --- |
+| collapse | 收起卡片时触发，受控时无效 | `(collapsed: boolean) => void` | - |
 
 ### 方法 {#methods}
 

@@ -1,10 +1,10 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
-import type { ComputedRef } from 'vue'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
 import { FastColor } from '@ant-design/fast-color'
-import { useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
+import { useStyle } from '@antdv-next1/pro-provider'
+import { mergeToken } from '@antdv-next/cssinjs'
 
-export interface ProListyToken extends ProAliasToken {
-  componentCls: string
+export interface ProListyToken extends ProAliasCssVarToken {
+  colorFillAlterSolid: string
   // /**
   //  * @desc 内容宽度
   //  * @descEN Width of content
@@ -73,9 +73,6 @@ export interface ProListyToken extends ProAliasToken {
 }
 
 const genProListyStyle: GenerateStyle<ProListyToken> = (token) => {
-  const colorFillAlterSolid = new FastColor(token.colorFillAlter)
-    .onBackground(token.colorBgContainer)
-    .toHexString()
   return {
     [token.componentCls]: {
       [`${token.antCls}-listy ${token.antCls}-listy-item`]: {
@@ -88,7 +85,7 @@ const genProListyStyle: GenerateStyle<ProListyToken> = (token) => {
       '&-container': {
         [`${token.componentCls}-item`]: {
           '&-hover': {
-            backgroundColor: colorFillAlterSolid,
+            backgroundColor: token.colorFillAlterSolid,
             transition: `background-color ${token.motionDurationSlow}`,
           },
           '&-header': {
@@ -163,23 +160,28 @@ const genProListyStyle: GenerateStyle<ProListyToken> = (token) => {
   }
 }
 
-export function useStyle(prefixCls: ComputedRef<string>) {
-  return useAntdStyle('ProListy', (token) => {
-    const proListyToken: ProListyToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
-      // itemPadding: `${unit(token.paddingContentVertical)} 0`,
-      // itemPaddingSM: `${unit(token.paddingContentVerticalSM)} ${unit(token.paddingContentHorizontal)}`,
-      // itemPaddingLG: `${unit(token.paddingContentVerticalLG)} ${unit(token.paddingContentHorizontalLG)}`,
-      // headerBg: 'transparent',
-      // footerBg: 'transparent',
-      // emptyTextPadding: token.padding,
-      // metaMarginBottom: token.padding,
-      // avatarMarginRight: token.padding,
-      // titleMarginBottom: token.paddingSM,
-      // descriptionFontSize: token.fontSize,
-      // minHeight: token.controlHeightLG,
-    }
-    return [genProListyStyle(proListyToken)]
+export default useStyle('ProListy', (token) => {
+  const proListyToken = mergeToken<ProListyToken>(token, {
+    colorFillAlterSolid: token.colorFillAlterSolid,
+    // itemPadding: `${unit(token.paddingContentVertical)} 0`,
+    // itemPaddingSM: `${unit(token.paddingContentVerticalSM)} ${unit(token.paddingContentHorizontal)}`,
+    // itemPaddingLG: `${unit(token.paddingContentVerticalLG)} ${unit(token.paddingContentHorizontalLG)}`,
+    // headerBg: 'transparent',
+    // footerBg: 'transparent',
+    // emptyTextPadding: token.padding,
+    // metaMarginBottom: token.padding,
+    // avatarMarginRight: token.padding,
+    // titleMarginBottom: token.paddingSM,
+    // descriptionFontSize: token.fontSize,
+    // minHeight: token.controlHeightLG,
   })
-}
+
+  return [genProListyStyle(proListyToken)]
+}, (token) => {
+  const colorFillAlterSolid = new FastColor(token.colorFillAlter)
+    .onBackground(token.colorBgContainer)
+    .toHexString()
+  return {
+    colorFillAlterSolid,
+  }
+})

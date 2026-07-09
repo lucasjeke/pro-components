@@ -5,7 +5,7 @@ import { classNames } from '@v-c/util'
 import { Tooltip } from 'antdv-next'
 import { useConfig } from 'antdv-next/dist/config-provider/context'
 import { computed, defineComponent, isVNode } from 'vue'
-import { useStyle } from './style'
+import useStyle from './style'
 
 export interface LabelIconTipProps {
   label?: VueNode
@@ -18,7 +18,7 @@ const LabelIconTip = defineComponent<LabelIconTipProps>(
     const config = useConfig()
     const prefixCls = computed(() => config.value.getPrefixCls('pro'))
     const baseClassName = computed(() => `${prefixCls.value}-core-label-tip`)
-    const { wrapSSR, hashId } = useStyle(baseClassName)
+    const [hashId, cssVarCls] = useStyle(baseClassName)
     return () => {
       const { tooltip, subTitle, label, ellipsis } = props
       if (!tooltip && !subTitle) {
@@ -31,31 +31,31 @@ const LabelIconTip = defineComponent<LabelIconTipProps>(
 
       const icon = tooltipProps?.icon || <InfoCircleOutlined />
 
-      return wrapSSR(
+      return (
         <div
-          class={classNames(baseClassName.value, hashId.value)}
+          class={classNames(baseClassName.value, hashId.value, cssVarCls.value)}
           onMousedown={e => e.stopPropagation()}
           onMouseleave={e => e.stopPropagation()}
           onMousemove={e => e.stopPropagation()}
         >
           <div
-            class={classNames(`${baseClassName.value}-title`, hashId.value, {
+            class={classNames(`${baseClassName.value}-title`, hashId.value, cssVarCls.value, {
               [`${baseClassName.value}-title-ellipsis`]: ellipsis,
             })}
           >
             {label}
           </div>
           {subTitle && (
-            <div class={classNames(`${baseClassName.value}-subtitle`, hashId.value)}>
+            <div class={classNames(`${baseClassName.value}-subtitle`, hashId.value, cssVarCls.value)}>
               {subTitle}
             </div>
           )}
           {tooltip && (
             <Tooltip {...tooltipProps}>
-              <span class={classNames(`${baseClassName.value}-icon`, hashId.value)}>{icon}</span>
+              <span class={classNames(`${baseClassName.value}-icon`, hashId.value, cssVarCls.value)}>{icon}</span>
             </Tooltip>
           )}
-        </div>,
+        </div>
       )
     }
   },

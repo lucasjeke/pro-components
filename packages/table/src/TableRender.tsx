@@ -13,6 +13,7 @@ import { editableRowByKey, omitUndefined, recordKeyToString } from '@antdv-next1
 import { classNames } from '@v-c/util'
 import { ConfigProvider, Table } from 'antdv-next'
 import { computed, defineComponent } from 'vue'
+import ResizableTableTitle from './ResizableTableTitle'
 import { useTableContextInject } from './Store/Provide'
 import { flattenColumns, genColumnKey, getServerFilterResult, getServerSorterResult, isBordered } from './utils'
 
@@ -113,6 +114,20 @@ function getTableCardBodyStyle<T, U, ValueType>({
   return { padding: 0 }
 }
 
+function mergeResizableTableComponents<RecordType>(
+  components: TableProps<RecordType>['components'],
+): TableProps<RecordType>['components'] {
+  if (components?.header?.cell)
+    return components
+  return {
+    ...components,
+    header: {
+      ...components?.header,
+      cell: ResizableTableTitle,
+    },
+  }
+}
+
 const TableRender = defineComponent(<
   RecordType extends Record<string, any> = Record<string, any>,
   Params extends ParamsType = ParamsType,
@@ -135,6 +150,7 @@ const TableRender = defineComponent(<
   }>>,
 ) => {
   const counter = useTableContextInject<RecordType, Params, ValueType>()
+
   /** 需要遍历一下，不然不支持嵌套表格 */
   const columns = computed(() => {
     const loopFilter = (column?: ProColumns<RecordType, ValueType>[]): ProColumns<RecordType, ValueType>[] => {
@@ -171,6 +187,7 @@ const TableRender = defineComponent(<
     const _columns = flattenColumns(columns.value)
     return _columns.filter(column => !!column.filters)
   })
+
   expose({})
   return () => {
     const {
@@ -240,6 +257,7 @@ const TableRender = defineComponent(<
       class: tableClass,
       style: tableStyle,
       columns: columns.value! as any,
+      components: mergeResizableTableComponents<RecordType>(rest.components),
       loading: action?.loading.value,
       dataSource: mergedDataSource.value,
       pagination,

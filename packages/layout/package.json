@@ -1,11 +1,11 @@
 {
   "name": "@antdv-next1/pro-layout",
   "type": "module",
-  "version": "1.0.23",
+  "version": "1.0.24",
   "description": "@antdv-next1/pro-layout",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/archiesong/pro-components.git",
+    "url": "git+https://github.com/lucasjeke/pro-components.git",
     "directory": "packages/layout"
   },
   "sideEffects": [
@@ -43,9 +43,6 @@
     "build:vite:parallel": "run-p build:umd build:full-esm",
     "build:full-esm": "vite build --config ./vite.esm.config.ts",
     "build:umd": "vite build",
-    "build:token-meta": "tsx ./scripts/token/generate-token-meta.ts",
-    "build:token-statistic": "cross-env NODE_ENV=production CSSINJS_STATISTIC=1 tsx ./scripts/token/collect-token-statistic.ts",
-    "build:token": "run-p build:token-meta",
     "prepublish": "pnpm build"
   },
   "browserslist": [

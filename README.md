@@ -190,7 +190,7 @@ This project follows [Conventional Commits](https://www.conventionalcommits.org/
 
 ## 📄 License
 
-[MIT](./LICENSE) © [Chao Song](https://github.com/archiesong)
+[MIT](./LICENSE) © [lucasjeke](https://github.com/lucasjeke)
 
 ## 🙏 Acknowledgements
 

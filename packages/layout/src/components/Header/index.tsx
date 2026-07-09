@@ -13,7 +13,7 @@ import { computed, defineComponent } from 'vue'
 import { clearMenuItem } from '../../utils'
 import GlobalHeader from '../GlobalHeader'
 import TopNavHeader from '../TopNavHeader'
-import { useStyle } from './style/header'
+import useStyle from './style/header'
 import { useStylish } from './style/stylish'
 
 export type HeaderViewProps = {
@@ -45,10 +45,10 @@ const HeaderView = defineComponent<HeaderViewProps & PrivateSiderMenuProps & {
   const proProvide = useProConfig()
   const baseClassName = computed(() => `${props.prefixCls}-layout-header`)
   const needFixedHeader = computed(() => props.fixedHeader || props.layout === 'mix')
-  const { wrapSSR, hashId } = useStyle(baseClassName)
+  const [hashId, cssVarCls] = useStyle(baseClassName)
   const collapsedWidth = computed(() => props.collapsedWidth || 64)
   const isTop = computed(() => props.layout === 'top')
-  const stylish = useStylish(
+  useStylish(
     computed(() => `${baseClassName.value}.${baseClassName.value}-stylish`),
     {
       proLayoutCollapsedWidth: collapsedWidth,
@@ -106,7 +106,7 @@ const HeaderView = defineComponent<HeaderViewProps & PrivateSiderMenuProps & {
 
     if (layout === 'side' && headerRender === false)
       return null
-    return stylish.wrapSSR(wrapSSR(
+    return (
       <>
         {needFixedHeader.value && (
           <LayoutHeader
@@ -119,7 +119,7 @@ const HeaderView = defineComponent<HeaderViewProps & PrivateSiderMenuProps & {
           />
         )}
         <LayoutHeader
-          class={classNames(baseClassName.value, attrs.class, hashId.value, {
+          class={classNames(baseClassName.value, attrs.class, hashId?.value, cssVarCls?.value, {
             [`${baseClassName.value}-fixed`]: needFixedHeader.value,
             [`${baseClassName.value}-stylish`]: !!props.stylish,
           })}
@@ -133,8 +133,7 @@ const HeaderView = defineComponent<HeaderViewProps & PrivateSiderMenuProps & {
         >
           {renderContent()}
         </LayoutHeader>
-      </>,
-    ),
+      </>
     )
   }
 }, {

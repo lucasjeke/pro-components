@@ -6,11 +6,12 @@ import type { AnyObject, VueNode } from 'antdv-next/dist/_util/type'
 import type { ItemType } from 'antdv-next/dist/breadcrumb/Breadcrumb'
 import type { App, CSSProperties, Plugin } from 'vue'
 import type { HeaderViewProps } from './components/Header'
+import type { MultiTabProps } from './components/MultiTab'
 import type { SiderMenuProps } from './components/SiderMenu/SiderMenu'
 import type { SiderMenuToken } from './components/SiderMenu/style'
 import type { PureSettings } from './defaultSettings'
 import type { GetPageTitleProps } from './getPageTitle'
-import type { ErrorBoundaryRender, FooterRender, SlotsRenderType, TagsViewRender } from './RenderTypings'
+import type { ErrorBoundaryRender, FooterRender, MultiTabRender, SlotsRenderType } from './RenderTypings'
 import type { MenuDataItem, MessageDescriptor, RouterTypes } from './typing'
 import { ProConfigProvider } from '@antdv-next1/pro-provider'
 import { ConfigProvider as AntdConfigProvider } from 'antdv-next'
@@ -94,9 +95,13 @@ export type ProLayoutProps = GlobalTypes & {
   onCollapse?: (collapsed: boolean) => void
   compact?: PureSettings['compact']
   /**
-   * @name tagsViewRender 多标签渲染配置
+   * @name multiTab 内置多标签页配置。默认不启用；传入对象时由外部控制标签数据和激活项。
    */
-  tagsViewRender?: TagsViewRender | false
+  multiTab?: boolean | MultiTabProps
+  /**
+   * @name multiTabRender 自定义多标签页区域渲染。优先级高于内置 multiTab。
+   */
+  multiTabRender?: MultiTabRender | false
   /**
    * @name footerRender 页脚的配置
    *

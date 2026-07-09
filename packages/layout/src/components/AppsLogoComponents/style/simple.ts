@@ -4,7 +4,7 @@ import type { AppsLogoComponentsToken } from './index'
 const genAppsLogoComponentsSimpleListStyle: GenerateStyle<AppsLogoComponentsToken> = (token) => {
   return {
     '&-content': {
-      maxHeight: 'calc(100vh - 48px)',
+      maxHeight: token.calc('100vh').sub(48).equal(),
       overflow: 'auto',
       '&-list': {
         boxSizing: 'border-box',
@@ -28,16 +28,19 @@ const genAppsLogoComponentsSimpleListStyle: GenerateStyle<AppsLogoComponentsToke
           transition: 'transform 0.2s cubic-bezier(0.333, 0, 0, 1)',
           borderRadius: token.borderRadius,
           '&-group': {
-            marginBottom: 16,
+            marginBlockEnd: 16,
             '&-title': {
-              margin: '16px 0 8px 12px',
+              marginBlockStart: 16,
+              marginInlineEnd: 0,
+              marginBlockEnd: 8,
+              marginInlineStart: 12,
               fontWeight: 600,
               color: 'rgba(0, 0, 0, 0.88)',
               fontSize: 16,
               opacity: 0.85,
               lineHeight: 1.5,
               '&:first-child': {
-                marginTop: 12,
+                marginBlockStart: 12,
               },
             },
           },

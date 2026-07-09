@@ -1,9 +1,8 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
-import type { ComputedRef } from 'vue'
-import { useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
+import { useStyle } from '@antdv-next1/pro-provider'
+import { mergeToken, unit } from '@antdv-next/cssinjs'
 
-export interface ProDrawerFormToken extends ProAliasToken {
-  componentCls: string
+export interface ProDrawerFormToken extends ProAliasCssVarToken {
 }
 
 const genProDrawerFormStyle: GenerateStyle<ProDrawerFormToken> = (token) => {
@@ -14,7 +13,7 @@ const genProDrawerFormStyle: GenerateStyle<ProDrawerFormToken> = (token) => {
         width: 5,
         cursor: 'ew-resize',
         padding: '4px 0 0',
-        borderTop: '1px solid transparent',
+        borderTop: `${unit(token.lineWidth)} ${token.lineType} transparent`,
         position: 'absolute',
         top: 0,
         left: 0,
@@ -32,12 +31,7 @@ const genProDrawerFormStyle: GenerateStyle<ProDrawerFormToken> = (token) => {
   }
 }
 
-export function useStyle(prefixCls: ComputedRef<string>) {
-  return useAntdStyle('ProDrawerForm', (token) => {
-    const proDrawerFormToken: ProDrawerFormToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
-    }
-    return [genProDrawerFormStyle(proDrawerFormToken)]
-  })
-}
+export default useStyle('ProDrawerForm', (token) => {
+  const proDrawerFormToken = mergeToken<ProDrawerFormToken>(token, {})
+  return [genProDrawerFormStyle(proDrawerFormToken)]
+})

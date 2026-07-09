@@ -11,7 +11,7 @@ import { computed, defineComponent, shallowRef } from 'vue'
 import { AppsLogo } from './AppsLogo'
 import DefaultContent, { defaultRenderLogo } from './DefaultContent'
 import SimpleContent from './SimpleContent'
-import { useStyle } from './style'
+import useStyle from './style'
 
 export interface AppsLogoComponentsProps {
   prefixCls?: string
@@ -30,7 +30,7 @@ const AppsLogoComponents = defineComponent<AppsLogoComponentsProps, {}, string, 
   const elRef = shallowRef<HTMLDivElement | null>(null)
   const popoverRef = shallowRef<HTMLSpanElement | null>(null)
   const baseClassName = computed(() => `${props.prefixCls}-layout-apps`)
-  const { wrapSSR, hashId } = useStyle(baseClassName)
+  const [hashId] = useStyle(baseClassName)
   const [open, setOpen] = useState(false)
   const cloneItemClick = (app: AppItemProps) => props.onItemClick?.(app, popoverRef)
   const defaultDomContent = computed(() => {
@@ -39,7 +39,7 @@ const AppsLogoComponents = defineComponent<AppsLogoComponentsProps, {}, string, 
     if (isSimple) {
       return (
         <SimpleContent
-          hashId={hashId.value}
+          hashId={hashId?.value}
           appList={appList}
           itemClick={onItemClick ? cloneItemClick : undefined}
           baseClassName={`${baseClassName.value}-simple`}
@@ -48,7 +48,7 @@ const AppsLogoComponents = defineComponent<AppsLogoComponentsProps, {}, string, 
     }
     return (
       <DefaultContent
-        hashId={hashId.value}
+        hashId={hashId?.value}
         appList={appList}
         itemClick={onItemClick ? cloneItemClick : undefined}
         baseClassName={`${baseClassName.value}-default`}
@@ -64,14 +64,14 @@ const AppsLogoComponents = defineComponent<AppsLogoComponentsProps, {}, string, 
     const { appList = [] } = props
     if (!appList.length)
       return null
-    return wrapSSR(
-      <div ref={elRef} class={classNames(baseClassName.value, hashId.value)} onClick={e => e.stopPropagation()}>
+    return (
+      <div ref={elRef} class={classNames(baseClassName.value, hashId?.value)} onClick={e => e.stopPropagation()}>
         <Popover
           placement="bottomRight"
           trigger={['click']}
           open={open.value}
           classes={{
-            root: classNames(`${baseClassName.value}-popover`, hashId.value),
+            root: classNames(`${baseClassName.value}-popover`, hashId?.value),
           }}
           onOpenChange={(visible: boolean) => setOpen(visible)}
           content={popoverContent.value as AntVueNode}
@@ -79,7 +79,7 @@ const AppsLogoComponents = defineComponent<AppsLogoComponentsProps, {}, string, 
         >
           <div ref={popoverRef} onClick={e => e.stopPropagation()} class={classNames(`${baseClassName.value}-wrapper`)}>
             <span
-              class={classNames(`${baseClassName.value}-icon`, hashId.value, {
+              class={classNames(`${baseClassName.value}-icon`, hashId?.value, {
                 [`${baseClassName.value}-icon-active`]: open.value,
               })}
             >
@@ -87,7 +87,7 @@ const AppsLogoComponents = defineComponent<AppsLogoComponentsProps, {}, string, 
             </span>
           </div>
         </Popover>
-      </div>,
+      </div>
     )
   }
 }, {

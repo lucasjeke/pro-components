@@ -1,9 +1,8 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
-import type { ComputedRef } from 'vue'
-import { useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
+import { useStyle } from '@antdv-next1/pro-provider'
+import { mergeToken } from '@antdv-next/cssinjs'
 
-export interface ProTableColumnSettingToken extends ProAliasToken {
-  componentCls: string
+export interface ProTableColumnSettingToken extends ProAliasCssVarToken {
 }
 
 const genProTableColumnSettingStyle: GenerateStyle<ProTableColumnSettingToken> = (token) => {
@@ -14,11 +13,11 @@ const genProTableColumnSettingStyle: GenerateStyle<ProTableColumnSettingToken> =
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        height: '32px',
+        height: 32,
       },
       '&-overlay': {
         [`${token.antCls}-popover-inner-content`]: {
-          width: '200px',
+          width: 200,
           paddingBlock: 0,
           paddingInline: 0,
           paddingBlockEnd: 8,
@@ -39,7 +38,7 @@ const genProTableColumnSettingStyle: GenerateStyle<ProTableColumnSettingToken> =
             },
           },
           [`${token.antCls}-tree-checkbox`]: {
-            marginInlineEnd: '4px',
+            marginInlineEnd: 4,
           },
           [`${token.antCls}-tree-title`]: {
             width: '100%',
@@ -59,11 +58,11 @@ const genProTableColumnSettingStyle: GenerateStyle<ProTableColumnSettingToken> =
         paddingBlockStart: 0,
       },
       '&-title': {
-        marginBlockStart: '6px',
-        marginBlockEnd: '6px',
-        paddingInlineStart: '24px',
+        marginBlockStart: 6,
+        marginBlockEnd: 6,
+        paddingInlineStart: 24,
         color: token.colorTextSecondary,
-        fontSize: '12px',
+        fontSize: 12,
       },
 
       '&-item': {
@@ -97,13 +96,7 @@ const genProTableColumnSettingStyle: GenerateStyle<ProTableColumnSettingToken> =
   }
 }
 
-export function useStyle(prefixCls: ComputedRef<string>) {
-  return useAntdStyle('ProTableColumnSetting', (token) => {
-    const proTableColumnSettingToken: ProTableColumnSettingToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
-    }
-
-    return [genProTableColumnSettingStyle(proTableColumnSettingToken)]
-  })
-}
+export default useStyle('ProTableColumnSetting', (token) => {
+  const proTableColumnSettingToken = mergeToken<ProTableColumnSettingToken>(token, {})
+  return [genProTableColumnSettingStyle(proTableColumnSettingToken)]
+})

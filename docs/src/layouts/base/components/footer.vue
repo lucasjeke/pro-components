@@ -15,6 +15,7 @@ const details = {
   Resources: [
     { name: 'Ant Design of React', url: 'https://ant.design/docs/react/introduce-cn' },
     { name: 'Ant Design of Angular', url: 'https://ng.ant.design/docs/introduce/zh' },
+    { name: 'Ant Design Pro Components', url: 'https://procomponents.ant.design' },
     { name: 'Antdv Next', url: 'https://www.antdv-next.cn/' },
     { name: 'Antdv Next X', url: 'https://x.antdv-next.com/' },
   ],

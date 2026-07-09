@@ -4,7 +4,9 @@ const faIR: ProLocale = {
   moneySymbol: 'تومان',
   deleteThisLine: 'حذف این خط',
   copyThisLine: 'کپی این خط',
-  emptyListValidateMessage: '列表不能为空',
+  sortUpThisLine: 'انتقال به بالا',
+  sortDownThisLine: 'انتقال به پایین',
+  emptyListValidateMessage: 'لیست نمی‌تواند خالی باشد',
   form: {
     lightFilter: {
       more: 'بیشتر',
@@ -12,13 +14,26 @@ const faIR: ProLocale = {
       confirm: 'تایید',
       itemUnit: 'مورد',
     },
+    captcha: {
+      getCaptcha: 'دریافت کد تأیید',
+      resendAfter: 'ثانیه تا ارسال مجدد',
+    },
+    upload: {
+      buttonText: 'برای بارگذاری کلیک کنید',
+      draggerTitle: 'برای بارگذاری کلیک کنید یا فایل را به این ناحیه بکشید',
+      draggerDescription: 'از بارگذاری تکی یا گروهی پشتیبانی می‌کند',
+    },
+    modal: {
+      okText: 'تأیید',
+      cancelText: 'لغو',
+    },
   },
   time: {
-    seconds: 'seconds',
-    minutes: 'minutes',
-    hours: 'hours',
-    days: 'days',
-    ago: 'ago',
+    seconds: 'ثانیه',
+    minutes: 'دقیقه',
+    hours: 'ساعت',
+    days: 'روز',
+    ago: 'پیش',
   },
   tableForm: {
     search: 'جستجو',
@@ -69,6 +84,8 @@ const faIR: ProLocale = {
     submitText: 'ورود',
   },
   editableTable: {
+    defaultFieldLabel: 'این فیلد',
+    defaultFieldType: 'متن',
     onlyOneLineEditor: 'فقط یک خط را می‌توان ویرایش کرد',
     onlyAddOneLine: 'فقط یک خط را می‌توان اضافه کرد',
     action: {

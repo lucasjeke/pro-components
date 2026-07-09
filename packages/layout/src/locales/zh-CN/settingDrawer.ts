@@ -1,4 +1,4 @@
-export default {
+const zhCN = {
   'app.setting.pagestyle': '整体风格设置',
   'app.setting.pagestyle.dark': '暗色菜单风格',
   'app.setting.pagestyle.light': '亮色菜单风格',
@@ -23,7 +23,7 @@ export default {
   'app.setting.sidermenutype-group': '分组模式',
   'app.setting.regionalsettings': '内容区域',
   'app.setting.regionalsettings.header': '顶栏',
-  'app.setting.regionalsettings.menu': '菜单',
+  'app.setting.regionalsettings.siderMenu': '菜单',
   'app.setting.regionalsettings.footer': '页脚',
   'app.setting.regionalsettings.menuHeader': '菜单头',
   'app.setting.sidemenu': '侧边菜单布局',
@@ -33,20 +33,11 @@ export default {
   'app.setting.splitMenus': '自动分割菜单',
   'app.setting.fixedheader': '固定 Header',
   'app.setting.fixedsidebar': '固定侧边菜单',
-  'app.setting.multitab': '多标签',
-  'app.setting.multitabFixed': '固定多标签',
   'app.setting.fixedsidebar.hint': '侧边菜单布局时可配置',
   'app.setting.layout.mix.hint': '将菜单分割成Header和Side',
   'app.setting.hideheader': '下滑时隐藏 Header',
   'app.setting.hideheader.hint': '固定 Header 时可配置',
-  'app.setting.transitionName': '路由动画',
-  'app.setting.transitionName.empty': '默认',
-  'app.setting.transitionName.slide.up': '滑动向上',
-  'app.setting.transitionName.slide.right': '滑动向右',
-  'app.setting.transitionName.fade.in': '消退',
-  'app.setting.transitionName.zoom': '渐变',
   'app.setting.fixedheader.hint': '混合模式必须开启固定 Header',
-  'app.setting.multitab.fixed.hit': '固定多标签需要先开启多标签并且固定 Header',
   'app.setting.othersettings': '其他设置',
   'app.setting.weakmode': '色弱模式',
   'app.setting.copy': '拷贝设置',
@@ -55,3 +46,15 @@ export default {
   'app.setting.production.hint':
     '配置栏只在开发环境用于预览，生产环境不会展现，请拷贝后手动修改配置文件',
 }
+
+/** 所有 locale 共享的基准类型，由 zh-CN 推断得出。 */
+export type ProLocale = {
+  -readonly [K in keyof typeof zhCN]: (typeof zhCN)[K] extends Record<
+    string,
+    any
+  >
+    ? { -readonly [P in keyof (typeof zhCN)[K]]: any }
+    : string;
+}
+
+export default zhCN

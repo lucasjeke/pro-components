@@ -1,74 +1,79 @@
 ---
 category: Components
 title: Query/LightFilter
-description: Stick an element to the viewport.
+subtitle: Filter Form
 cover: https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*YSm4RI3iOJ8AAAAAAAAAAAAADrJ8AQ/original
 coverDark: https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*03dxS64LxeQAAAAAAAAAAAAADrJ8AQ/original
-demo:
-  cols: 2
 group: Data Entry
 ---
 
+QueryFilter and LightFilter are ProForm layouts for filtering. QueryFilter is suitable for multi-condition search above tables and lists; LightFilter is for compact inline filtering in toolbars or card headers.
+
 ## When To Use {#when-to-use}
 
-On longer web pages, it's helpful to stick component into the viewport. This is common for menus and actions.
-
-Please note that Affix should not cover other content on the page, especially when the size of the viewport is small.
+- A filter form is used with ProTable, ProListy, or another data display component.
+- Many query fields need responsive collapse and expand behavior.
+- A compact inline or popover-based filter is needed.
 
 ## Examples {#examples}
-<!-- 
+
 <demo-group>
-    <demo src="./demo/basic.vue">Basic</demo>
-    <demo src="./demo/on-change.vue">Callback</demo>
-    <demo src="./demo/target.vue">Container to scroll.</demo>
-</demo-group> -->
+  <demo src="./demo/basic.vue">Query filter</demo>
+  <demo src="./demo/default-collapsed.vue">Default collapsed</demo>
+  <demo src="./demo/vertical.vue">Vertical layout</demo>
+  <demo src="./demo/search.vue">Search</demo>
+  <demo src="./demo/defaultFormItemsNumber.vue">Default visible count</demo>
+  <demo src="./demo/light-filter.vue">Light filter</demo>
+  <demo src="./demo/footer.vue">Custom footer</demo>
+  <demo src="./demo/bordered.vue">Light filter border</demo>
+  <demo src="./demo/collapse.vue">Light filter collapse</demo>
+  <demo src="./demo/placement.vue">Popover placement</demo>
+</demo-group>
 
 ## API
 
-### Props
+### QueryFilter
 
-Common props ref：[Common props](/docs/vue/common-props)
+QueryFilter inherits most ProForm props.
+
+#### Props {#query-filter-props}
 
 | Property | Description | Type | Default | Version |
 | --- | --- | --- | --- | --- |
-| offsetTop | Offset from the top of the viewport (in pixels) | number | 0 | - |
-| offsetBottom | Offset from the bottom of the viewport (in pixels) | number | - | - |
-| target | Specifies the scrollable area DOM node | () =&gt; Window \| HTMLElement \| null | () =&gt; window | - |
+| defaultCollapsed | Default collapsed state | `boolean` | `true` | - |
+| layout | Form layout | `'horizontal' \| 'inline' \| 'vertical'` | - | - |
+| defaultColsNumber | Default number of fields per row | `number` | - | - |
+| defaultFormItemsNumber | Default number of visible fields | `number` | - | - |
+| labelWidth | Label width | `number \| 'auto'` | - | - |
+| split | Show divider in vertical layout | `boolean` | `false` | - |
+| span | Grid column config | `number \| { xs?: number; sm?: number; md?: number; lg?: number; xl?: number; xxl?: number }` | - | - |
+| searchText | Search button text | `string` | - | - |
+| resetText | Reset button text | `string` | - | - |
+| searchGutter | Search grid gutter | `RowProps['gutter']` | - | - |
+| optionRender | Custom bottom actions | `OptionRender` | - | - |
+| ignoreRules | Ignore Form.Item rules | `boolean` | `false` | - |
+| showHiddenNum | Show hidden field count | `boolean` | `false` | - |
+| submitterColSpanProps | Submitter Col config | `ColProps & { span?: number }` | - | - |
+| containerStyle | Container style | `CSSProperties` | - | - |
 
-### Events
+#### Events {#query-filter-events}
 
 | Event | Description | Type | Version |
 | --- | --- | --- | --- |
-| change | Callback for when Affix state is changed | (affixed?: boolean) =&gt; void | - |
+| reset | Triggered when reset | `(values) => void` | - |
+| finish | Triggered when submit | `(values) => void \| Promise<void>` | - |
+| valuesChange | Triggered when values change | `(changedValues, values) => void` | - |
 
-### Methods
+### LightFilter
 
-| Method | Description | Type | Version |
-| --- | --- | --- | --- |
-| updatePosition | - | ReturnType&lt;typeof throttleByAnimationFrame&gt; | - |
+#### Props {#light-filter-props}
 
-**Note:** Children of `Affix` must not have the property `position: absolute`, but you can set `position: absolute` on `Affix` itself:
-
-```html
-<a-affix style="position: absolute;top: y; left: x">...</a-affix>
-```
-
-## Design Token {#design-token}
-
-<ComponentTokenTable component="Affix"></ComponentTokenTable>
-
-See [Customize Theme](/docs/vue/customize-theme) to learn how to use Design Token.
-
-## FAQ
-
-### When binding container with `target` in Affix, elements sometimes move out of the container. {#faq-target-container}
-
-We only listen to container scroll events for performance consideration. You can add custom listeners if you still want to: <https://codesandbox.io/s/stupefied-maxwell-ophqnm?file=/index.js>
-
-Related issues：[#3938](https://github.com/ant-design/ant-design/issues/3938) [#5642](https://github.com/ant-design/ant-design/issues/5642) [#16120](https://github.com/ant-design/ant-design/issues/16120)
-
-### When Affix is ​​used in a horizontal scroll container, the position of the element `left` is incorrect. {#faq-horizontal-scroll}
-
-Affix is ​​generally only applicable to areas with one-way scrolling, and only supports usage in vertical scrolling containers. If you want to use it in a horizontal container, you can consider implementing with the native `position: sticky` property.
-
-Related issues：[#29108](https://github.com/ant-design/ant-design/issues/29108)
+| Property | Description | Type | Default | Version |
+| --- | --- | --- | --- | --- |
+| collapse | Collapse into a popover filter | `boolean` | `false` | - |
+| collapseLabel | Label in collapsed state | `VueNode` | - | - |
+| variant | Style variant | `'outlined' \| 'filled' \| 'borderless'` | - | - |
+| ignoreRules | Ignore rules | `boolean` | `false` | - |
+| footerRender | Custom popover footer | `LightFilterFooterRender` | - | - |
+| placement | Popover placement | `TooltipPlacement` | `'bottomLeft'` | - |
+| popoverProps | Popover props in collapsed state | `PopoverProps` | - | - |

@@ -10,7 +10,7 @@ import { useConfig } from 'antdv-next/dist/config-provider/context'
 import { computed, defineComponent, isVNode, toRef } from 'vue'
 import { useFieldContextInject } from '../../FieldContext'
 import { useGridHelpers } from '../../helpers'
-import { useStyle } from './style'
+import useStyle from './style'
 
 export type ProFormGroupProps = ProFormBaseGroupProps & ProFormGridConfig
 
@@ -23,7 +23,7 @@ const ProFormGroup = defineComponent<ProFormGroupProps, {}, string, CustomSlotsT
     const mergeGroupProps = computed(() => ({ ...(groupProps || {}), ...props }))
     const prefixCls = computed(() => config.value.getPrefixCls('pro'))
     const baseClassName = computed(() => `${[prefixCls.value]}-form-group`)
-    const { wrapSSR, hashId } = useStyle(baseClassName)
+    const [hashId, cssVarCls] = useStyle(baseClassName)
     const [collapsed, setCollapsed] = useMountMergeState(
       () => mergeGroupProps.value.defaultCollapsed || false,
       {
@@ -78,6 +78,7 @@ const ProFormGroup = defineComponent<ProFormGroupProps, {}, string, CustomSlotsT
             class={classNames(
               `${baseClassName.value}-container`,
               hashId.value,
+              cssVarCls.value,
               spaceProps?.class,
             )}
             size={size}
@@ -104,10 +105,10 @@ const ProFormGroup = defineComponent<ProFormGroupProps, {}, string, CustomSlotsT
         }
         return vnode
       })
-      return wrapSSR(
+      return (
         <ColWrapper>
           <div
-            class={classNames(baseClassName.value, hashId.value, {
+            class={classNames(baseClassName.value, hashId.value, cssVarCls.value, {
               [`${baseClassName.value}-twoLine`]: labelLayout === 'twoLine',
             })}
           >
@@ -124,7 +125,7 @@ const ProFormGroup = defineComponent<ProFormGroupProps, {}, string, CustomSlotsT
               || tooltip
               || extra) && (
               <div
-                class={classNames(`${baseClassName.value}-title`, hashId.value)}
+                class={classNames(`${baseClassName.value}-title`, hashId.value, cssVarCls.value)}
                 style={titleStyle}
                 onClick={() => {
                   setCollapsed(!collapsed.value)
@@ -167,7 +168,7 @@ const ProFormGroup = defineComponent<ProFormGroupProps, {}, string, CustomSlotsT
               </RowWrapper>
             )}
           </div>
-        </ColWrapper>,
+        </ColWrapper>
       )
     }
   },

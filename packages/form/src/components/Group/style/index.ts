@@ -1,9 +1,8 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
-import type { ComputedRef } from 'vue'
-import { useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
+import { useStyle } from '@antdv-next1/pro-provider'
+import { mergeToken } from '@antdv-next/cssinjs'
 
-export interface ProFormGroupToken extends ProAliasToken {
-  componentCls: string
+export interface ProFormGroupToken extends ProAliasCssVarToken {
 }
 
 const genProFormGroupStyle: GenerateStyle<ProFormGroupToken> = (token) => {
@@ -44,13 +43,7 @@ const genProFormGroupStyle: GenerateStyle<ProFormGroupToken> = (token) => {
   }
 }
 
-export function useStyle(prefixCls: ComputedRef<string>) {
-  return useAntdStyle('ProFormGroup', (token) => {
-    const proFormGroupToken: ProFormGroupToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
-    }
-
-    return [genProFormGroupStyle(proFormGroupToken)]
-  })
-}
+export default useStyle('ProFormGroup', (token) => {
+  const proFormGroupToken = mergeToken<ProFormGroupToken>(token, {})
+  return [genProFormGroupStyle(proFormGroupToken)]
+})

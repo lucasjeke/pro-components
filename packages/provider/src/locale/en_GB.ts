@@ -4,13 +4,28 @@ const enGB: ProLocale = {
   moneySymbol: '£',
   deleteThisLine: 'Delete this line',
   copyThisLine: 'Copy this line',
-  emptyListValidateMessage: 'list cannot be empty',
+  sortUpThisLine: 'Move up',
+  sortDownThisLine: 'Move down',
+  emptyListValidateMessage: 'The list cannot be empty',
   form: {
     lightFilter: {
       more: 'More',
       clear: 'Clear',
       confirm: 'Confirm',
       itemUnit: 'Items',
+    },
+    captcha: {
+      getCaptcha: 'Get verification code',
+      resendAfter: 's to resend',
+    },
+    upload: {
+      buttonText: 'Click to upload',
+      draggerTitle: 'Click or drag file to this area to upload',
+      draggerDescription: 'Support single or bulk upload',
+    },
+    modal: {
+      okText: 'OK',
+      cancelText: 'Cancel',
     },
   },
   time: {
@@ -69,6 +84,8 @@ const enGB: ProLocale = {
     submitText: 'Login',
   },
   editableTable: {
+    defaultFieldLabel: 'This field',
+    defaultFieldType: 'Text',
     onlyOneLineEditor: 'Only one line can be edited',
     onlyAddOneLine: 'Only one line can be added',
     action: {

@@ -1,9 +1,8 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
-import type { ComputedRef } from 'vue'
-import { setAlpha, useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
+import { setAlpha, useStyle } from '@antdv-next1/pro-provider'
+import { mergeToken } from '@antdv-next/cssinjs'
 
-export interface ProTableAlertToken extends ProAliasToken {
-  componentCls: string
+export interface ProTableAlertToken extends ProAliasCssVarToken {
 }
 
 const genProTableAlertStyle: GenerateStyle<ProTableAlertToken> = (token) => {
@@ -20,13 +19,8 @@ const genProTableAlertStyle: GenerateStyle<ProTableAlertToken> = (token) => {
   }
 }
 
-export function useStyle(prefixCls: ComputedRef<string>) {
-  return useAntdStyle('ProTableAlert', (token) => {
-    const proTableAlertToken: ProTableAlertToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
-    }
+export default useStyle('ProTableAlert', (token) => {
+  const proTableAlertToken = mergeToken<ProTableAlertToken>(token, {})
 
-    return [genProTableAlertStyle(proTableAlertToken)]
-  })
-}
+  return [genProTableAlertStyle(proTableAlertToken)]
+})

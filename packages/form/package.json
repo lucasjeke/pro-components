@@ -1,11 +1,11 @@
 {
   "name": "@antdv-next1/pro-form",
   "type": "module",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "description": "@antdv-next1/pro-form",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/archiesong/pro-components.git",
+    "url": "git+https://github.com/lucasjeke/pro-components.git",
     "directory": "packages/form"
   },
   "sideEffects": [

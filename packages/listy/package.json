@@ -1,11 +1,11 @@
 {
   "name": "@antdv-next1/pro-listy",
   "type": "module",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "@antdv-next1/pro-listy",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/archiesong/pro-components.git",
+    "url": "git+https://github.com/lucasjeke/pro-components.git",
     "directory": "packages/listy"
   },
   "sideEffects": [

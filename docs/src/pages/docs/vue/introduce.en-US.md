@@ -14,7 +14,7 @@ Following the Pro Components specification, we developed a Vue UI library `antdv
 
 ---
 
-## ✨ Features
+## Pro Components Vue
 
 - 🌈 Enterprise-class UI designed for web applications.
 - 📦 A set of high-quality Vue3 components out of the box.

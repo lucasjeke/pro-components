@@ -7,20 +7,11 @@ Query Table
 </docs>
 
 <script setup lang="ts">
-import type { ProColumns } from '@antdv-next1/pro-table'
+import type { ProColumns, ProTableInstance } from '@antdv-next1/pro-table'
 import { ProTable, TableDropdown } from '@antdv-next1/pro-table'
 import { EllipsisOutlined, PlusOutlined } from '@antdv-next/icons'
 import { Button, Dropdown, Space, Tag } from 'antdv-next'
-import request from 'umi-request'
-import { h } from 'vue'
-
-async function waitTime(time: number = 100) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(true)
-    }, time)
-  })
-}
+import { h, ref, useTemplateRef } from 'vue'
 
 interface GithubIssueItem {
   url: string
@@ -38,7 +29,83 @@ interface GithubIssueItem {
   closed_at?: string
 }
 
-const columns: ProColumns<GithubIssueItem>[] = [
+interface JsonPlaceholderPost {
+  userId: number
+  id: number
+  title: string
+  body: string
+}
+
+const tableRef = useTemplateRef<ProTableInstance<GithubIssueItem>>('tableRef')
+async function waitTime(time: number = 100) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(true)
+    }, time)
+  })
+}
+
+const labelPalette = [
+  { name: 'docs', color: 'blue' },
+  { name: 'bug', color: 'red' },
+  { name: 'feature', color: 'green' },
+  { name: 'help wanted', color: 'purple' },
+]
+
+function getIssueState(id: number) {
+  if (id % 5 === 0)
+    return 'processing'
+  return id % 3 === 0 ? 'closed' : 'open'
+}
+
+function getIssueCreatedAt(id: number) {
+  const month = id % 12
+  const day = (id % 27) + 1
+  return new Date(Date.UTC(2024, month, day, 8, 30, 0)).toISOString()
+}
+
+function mapPostToIssue(post: JsonPlaceholderPost): GithubIssueItem {
+  const state = getIssueState(post.id)
+  const createdAt = getIssueCreatedAt(post.id)
+  const label = labelPalette[post.id % labelPalette.length]!
+
+  return {
+    url: `https://jsonplaceholder.typicode.com/posts/${post.id}`,
+    id: post.id,
+    number: post.id,
+    title: post.title,
+    labels: [
+      label,
+      { name: `user-${post.userId}`, color: 'default' },
+    ],
+    state,
+    comments: post.body.split('\n').length,
+    created_at: createdAt,
+    updated_at: createdAt,
+    closed_at: state === 'closed' ? createdAt : undefined,
+  }
+}
+
+async function getGithubIssueData(params: Record<string, any>) {
+  const searchParams = new URLSearchParams({
+    _page: String(params.current || 1),
+    _limit: String(params.pageSize || 5),
+  })
+
+  if (params.title)
+    searchParams.set('title_like', params.title)
+
+  const response = await fetch(`https://jsonplaceholder.typicode.com/posts?${searchParams.toString()}`)
+  const data = await response.json() as JsonPlaceholderPost[]
+
+  return {
+    data: data.map(mapPostToIssue),
+    success: response.ok,
+    total: Number(response.headers.get('X-Total-Count')) || data.length,
+  }
+}
+
+const columns = ref<ProColumns<GithubIssueItem>[]>([
   {
     dataIndex: 'index',
     valueType: 'indexBorder',
@@ -50,6 +117,7 @@ const columns: ProColumns<GithubIssueItem>[] = [
     copyable: true,
     ellipsis: true,
     tooltip: '标题过长会自动收缩',
+    resizable: true,
     formItemProps: {
       rules: [
         {
@@ -88,6 +156,7 @@ const columns: ProColumns<GithubIssueItem>[] = [
     title: '标签',
     dataIndex: 'labels',
     search: false,
+    resizable: true,
     formItemRender: (_, { defaultRender }) => {
       return defaultRender(_)
     },
@@ -149,25 +218,18 @@ const columns: ProColumns<GithubIssueItem>[] = [
       }),
     ],
   },
-]
+])
 </script>
 
 <template>
   <div class="p-6">
     <ProTable
+      ref="tableRef"
       :columns="columns"
       card-bordered
-      :request="async (params, sort, filter) => {
-        console.log(params, sort, filter);
-        await waitTime(2000);
-        return request<{
-          data: GithubIssueItem[];
-          }>('https://proapi.azurewebsites.net/github/issues', {
-            params,
-          });
-      }"
-      :expandable="{
-        defaultExpandAllRows: true,
+      :request="async (params) => {
+        await waitTime(600);
+        return getGithubIssueData(params);
       }"
       :editable="{
         type: 'multiple',
@@ -210,7 +272,7 @@ const columns: ProColumns<GithubIssueItem>[] = [
           icon: h(PlusOutlined),
           type: 'primary',
           onClick: () => {
-          // actionRef.current?.reload();
+            tableRef?.reload?.();
           },
         }, () => '新建'),
         h(Dropdown, {

@@ -1,16 +1,14 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
-import type { ComputedRef } from 'vue'
-import { useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
-import { Keyframes } from '@antdv-next/cssinjs'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
+import { useStyle } from '@antdv-next1/pro-provider'
+import { Keyframes, mergeToken, unit } from '@antdv-next/cssinjs'
 
-export interface ProHelpToken extends ProAliasToken {
-  componentCls: string
+export interface ProHelpToken extends ProAliasCssVarToken {
 }
 
 export const actionsInputAnimal = new Keyframes('actionsInputAnimal', {
-  '0%': { width: '0px' },
-  '30%': { width: '20px' },
-  '100%': { width: '120px' },
+  '0%': { width: 0 },
+  '30%': { width: 20 },
+  '100%': { width: 120 },
 })
 const genProHelpStyle: GenerateStyle<ProHelpToken> = (token) => {
   return {
@@ -22,7 +20,7 @@ const genProHelpStyle: GenerateStyle<ProHelpToken> = (token) => {
       },
       '&-popover-content': {
         maxWidth: 300,
-        height: '600px',
+        height: 600,
         maxHeight: token.calc?.('100vh').sub(200).equal(),
         overflow: 'auto',
         paddingInline: 20,
@@ -33,15 +31,15 @@ const genProHelpStyle: GenerateStyle<ProHelpToken> = (token) => {
       '&-left-panel': {
         overflow: 'auto',
         boxSizing: 'border-box',
-        borderInlineEnd: `${token?.lineWidth}px solid ${token?.colorBorderSecondary}`,
-        minHeight: '648px',
+        borderInlineEnd: `${unit(token?.lineWidth)} ${token.lineType} ${token?.colorBorderSecondary}`,
+        minHeight: 648,
         minWidth: 190,
         maxWidth: 190,
         '&-menu': {
           width: 190,
           boxSizing: 'border-box',
           minWidth: 190,
-          height: 'calc(100% - 40px)',
+          height: token.calc('100%').sub(40).equal(),
           marginBlock: 20,
         },
       },
@@ -111,12 +109,7 @@ const genProHelpStyle: GenerateStyle<ProHelpToken> = (token) => {
   }
 }
 
-export function useStyle(prefixCls: ComputedRef<string>) {
-  return useAntdStyle('ProHelp', (token) => {
-    const proHelpToken: ProHelpToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
-    }
-    return [genProHelpStyle(proHelpToken)]
-  })
-}
+export default useStyle('ProHelp', (token) => {
+  const proHelpToken = mergeToken<ProHelpToken>(token, {})
+  return [genProHelpStyle(proHelpToken)]
+})

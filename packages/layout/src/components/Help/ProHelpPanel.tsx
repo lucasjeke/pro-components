@@ -10,10 +10,11 @@ import { classNames } from '@v-c/util'
 import { Card, ConfigProvider, Menu } from 'antdv-next'
 import { useConfig } from 'antdv-next/dist/config-provider/context'
 import { computed, defineComponent, h, inject, provide, ref } from 'vue'
+import { gLocaleObject } from '../../locales'
 import { useProHelpContext } from './HelpProvide'
 import ProHelpContentPanel from './ProHelpContentPanel'
 import ProHelpSearch from './ProHelpSearch'
-import { useStyle } from './style'
+import useStyle from './style'
 
 export const selectKeyContextKey: InjectionKey<Ref<{
   selectedKey?: string
@@ -100,6 +101,12 @@ export interface ProHelpPanelProps {
     closeAction: VueNode,
   ) => VueNode
 }
+function getFormatMessage(): ((data: { id: string, defaultMessage?: string }) => string) {
+  return ({ id }: { id: string, defaultMessage?: string }): string => {
+    const locales = gLocaleObject()
+    return locales[id]!
+  }
+}
 
 const ProHelpPanel = defineComponent<ProHelpPanelProps, {
   'onUpdate:selectedKey': any
@@ -117,9 +124,10 @@ const ProHelpPanel = defineComponent<ProHelpPanelProps, {
   const prefixCls = computed(() => config.value.getPrefixCls('pro'))
   const baseClassName = computed(() => `${prefixCls.value}-help`)
   const proConfig = useProConfig()
-  const { wrapSSR, hashId } = useStyle(baseClassName)
+  const [hashId, cssVarCls] = useStyle(baseClassName)
   const proHelpContextProvide = useProHelpContext()
   const [openKey, setOpenKey] = useState('')
+  const formatMessage = getFormatMessage()
   const [selectedKey, setSelectedKey] = useMountMergeState(() => {
     if (props.selectedKey) {
       return props.selectedKey
@@ -178,7 +186,7 @@ const ProHelpPanel = defineComponent<ProHelpPanelProps, {
 
   return () => {
     const {
-      title = '帮助中心',
+      title = formatMessage({ id: 'app.help.title', defaultMessage: '帮助中心' }),
       variant = 'outlined',
       onClose,
       footer = slots.footer,
@@ -187,7 +195,7 @@ const ProHelpPanel = defineComponent<ProHelpPanelProps, {
     } = props
     const defaultExtraActions = {
       collapsePanelAction: (
-        <div class={classNames(`${baseClassName.value}-actions-item`, hashId.value)}>
+        <div class={classNames(`${baseClassName.value}-actions-item`, hashId?.value, cssVarCls?.value)}>
           <ProfileOutlined
             {...{ title: 'collapse panel' }}
             onClick={() => setShowLeftPanel(!showLeftPanel.value)}
@@ -196,8 +204,8 @@ const ProHelpPanel = defineComponent<ProHelpPanelProps, {
       ),
       helpSearchAction: (
         <ProHelpSearch
-          iconClassName={classNames(`${baseClassName.value}-actions-item`, hashId.value)}
-          class={classNames(`${baseClassName.value}-actions-input`, hashId.value)}
+          iconClassName={classNames(`${baseClassName.value}-actions-item`, hashId?.value, cssVarCls?.value)}
+          class={classNames(`${baseClassName.value}-actions-input`, hashId?.value, cssVarCls?.value)}
           value={selectedKey.value}
           basePrefixCls={baseClassName.value}
           onChange={(value, item) => {
@@ -207,7 +215,7 @@ const ProHelpPanel = defineComponent<ProHelpPanelProps, {
         />
       ),
       closeAction: (
-        <div class={classNames(`${baseClassName.value}-actions-item`, hashId.value)}>
+        <div class={classNames(`${baseClassName.value}-actions-item`, hashId?.value, cssVarCls?.value)}>
           <CloseOutlined
             onClick={() => onClose?.()}
           />
@@ -215,7 +223,7 @@ const ProHelpPanel = defineComponent<ProHelpPanelProps, {
       ),
     }
 
-    return wrapSSR(
+    return (
       <>
         <Card
           variant={variant}
@@ -231,7 +239,7 @@ const ProHelpPanel = defineComponent<ProHelpPanelProps, {
           }}
           size="small"
           extra={(
-            <div class={classNames(`${baseClassName.value}-actions`, hashId.value)}>
+            <div class={classNames(`${baseClassName.value}-actions`, hashId?.value, cssVarCls?.value)}>
               {extraRender ? (
                 extraRender(
                   defaultExtraActions.collapsePanelAction,
@@ -251,7 +259,7 @@ const ProHelpPanel = defineComponent<ProHelpPanelProps, {
 
           {showLeftPanel.value ? (
             <div
-              class={classNames(hashId.value, `${baseClassName.value}-left-panel`)}
+              class={classNames(hashId?.value, cssVarCls?.value, `${baseClassName.value}-left-panel`)}
               style={{
                 height: unit(height!),
               }}
@@ -293,7 +301,7 @@ const ProHelpPanel = defineComponent<ProHelpPanelProps, {
                 }}
               >
                 <Menu
-                  class={classNames(hashId.value, `${baseClassName.value}-left-panel-menu`)}
+                  class={classNames(hashId?.value, cssVarCls?.value, `${baseClassName.value}-left-panel-menu`)}
                   openKeys={[parentKey.value, openKey.value]}
                   onOpenChange={(keys) => {
                     setOpenKey(keys.at(-1) || '')
@@ -320,7 +328,7 @@ const ProHelpPanel = defineComponent<ProHelpPanelProps, {
             </div>
           ) : null}
           <div
-            class={classNames(hashId.value, `${baseClassName.value}-content-panel`)}
+            class={classNames(hashId?.value, cssVarCls?.value, `${baseClassName.value}-content-panel`)}
             style={{
               height: unit(height!),
             }}
@@ -328,17 +336,17 @@ const ProHelpPanel = defineComponent<ProHelpPanelProps, {
             {selectedKey.value ? (
               <ProHelpContentPanel
                 parentItem={dataSourceKeyMap.value.get(parentKey.value)}
-                class={classNames(`${baseClassName.value}-content-render`, hashId.value)}
+                class={classNames(`${baseClassName.value}-content-render`, hashId?.value, cssVarCls?.value)}
                 selectedKey={selectedKey.value}
                 onScroll={key => setSelectedKey(key!)}
               />
             ) : null}
             {footer ? (
-              <div class={classNames(`${baseClassName.value}-footer`, hashId.value)}>{ Array.isArray(footer) || typeof footer === 'boolean' || typeof footer === 'number' || typeof footer === 'string' ? footer : h(footer)}</div>
+              <div class={classNames(`${baseClassName.value}-footer`, hashId?.value, cssVarCls?.value)}>{ Array.isArray(footer) || typeof footer === 'boolean' || typeof footer === 'number' || typeof footer === 'string' ? footer : h(footer)}</div>
             ) : null}
           </div>
         </Card>
-      </>,
+      </>
     )
   }
 }, {

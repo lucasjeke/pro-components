@@ -2,7 +2,6 @@ import type { VueNode } from '@v-c/util'
 import type { PopoverProps } from 'antdv-next'
 import type { VNode } from 'vue'
 import type { FormItemProps } from '../FormItem'
-import { useToken } from '@antdv-next1/pro-provider'
 import { LoadingOutlined } from '@antdv-next/icons'
 import { classNames } from '@v-c/util'
 import { Popover } from 'antdv-next'
@@ -10,7 +9,7 @@ import { useConfig } from 'antdv-next/dist/config-provider/context'
 import { computed, defineComponent } from 'vue'
 import { useEffect } from '../../hooks/useEffect'
 import { useState } from '../../hooks/useState'
-import { useStyle } from './style'
+import useStyle from './style'
 
 export interface InlineErrorFormItemPopoverProps {
   prefixCls?: string
@@ -34,7 +33,6 @@ const InlineErrorFormItemPopover = defineComponent<InlineErrorFormItemPopoverPro
   // popoverProps?.open ||
   const config = useConfig()
   const prefixCls = computed(() => props.prefixCls || config.value.getPrefixCls())
-  const token = useToken()
 
   useEffect(() => {
     if (props.inputProps.validateStatus !== 'validating') {
@@ -46,7 +44,7 @@ const InlineErrorFormItemPopover = defineComponent<InlineErrorFormItemPopoverPro
   }, [() => props.inputProps.errors, () => props.inputProps.warnings, () => props.inputProps.validateStatus])
 
   const baseClassName = computed(() => `${prefixCls.value}-form-item`)
-  const { wrapSSR, hashId } = useStyle(baseClassName)
+  const [hashId, cssVarCls] = useStyle(baseClassName)
   return () => {
     const { popoverProps, inputProps, input, extra, errorList } = props
     const loading = inputProps.validateStatus === 'validating'
@@ -70,16 +68,16 @@ const InlineErrorFormItemPopover = defineComponent<InlineErrorFormItemPopoverPro
         placement={popoverProps?.placement || 'topLeft'}
         getPopupContainer={popoverProps?.getPopupContainer}
         getTooltipContainer={popoverProps?.getTooltipContainer}
-        content={wrapSSR(
+        content={(
           <div
-            class={classNames(baseClassName.value, hashId.value, token.hashId.value)}
+            class={classNames(baseClassName.value, hashId.value, cssVarCls.value)}
             style={{
               margin: 0,
               padding: 0,
             }}
           >
             <div
-              class={classNames(`${baseClassName.value}-with-help`, hashId.value, token.hashId.value)}
+              class={classNames(`${baseClassName.value}-with-help`, hashId.value, cssVarCls.value)}
             >
               {loading ? <LoadingOutlined /> : null}
               {hasMessages ? (
@@ -87,7 +85,7 @@ const InlineErrorFormItemPopover = defineComponent<InlineErrorFormItemPopoverPro
                   {messages.value.errors?.map((error, index) => (
                     <div
                       key={`error-${index}`}
-                      class={classNames(`${baseClassName.value}-explain-error`, hashId.value)}
+                      class={classNames(`${baseClassName.value}-explain-error`, hashId.value, cssVarCls.value)}
                     >
                       {error}
                     </div>
@@ -95,7 +93,7 @@ const InlineErrorFormItemPopover = defineComponent<InlineErrorFormItemPopoverPro
                   {messages.value.warnings?.map((warning, index) => (
                     <div
                       key={`warning-${index}`}
-                      class={classNames(`${baseClassName.value}-explain-warning`, hashId.value)}
+                      class={classNames(`${baseClassName.value}-explain-warning`, hashId.value, cssVarCls.value)}
                     >
                       {warning}
                     </div>
@@ -103,7 +101,7 @@ const InlineErrorFormItemPopover = defineComponent<InlineErrorFormItemPopoverPro
                 </>
               ) : errorList}
             </div>
-          </div>,
+          </div>
         )}
       >
         <>

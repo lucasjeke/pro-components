@@ -2,6 +2,7 @@ import type { CustomSlotsType, VueNode } from '@v-c/util/dist/type'
 import type { FormProps, ModalProps } from 'antdv-next'
 import type { SetupContext, VNode } from 'vue'
 import type { CommonFormProps, ProFormRef, SubmitterProps } from '../../BaseForm'
+import { useIntl } from '@antdv-next1/pro-provider'
 import { transformBooleanProps, useEffect, useState } from '@antdv-next1/pro-utils'
 import { merge, useMergedState } from '@v-c/util'
 import { Modal } from 'antdv-next'
@@ -68,6 +69,7 @@ const ProModalForm = defineComponent(
     >,
   ) => {
     const formRef = shallowRef<ProFormRef<T>>()
+    const intl = useIntl()
     const config = useConfig()
     const footerDomRef = shallowRef<HTMLDivElement | null>(null)
     const [loading, setLoading] = useState(false)
@@ -164,9 +166,9 @@ const ProModalForm = defineComponent(
           : merge(
               {
                 searchConfig: {
-                  submitText: modalProps?.okText ?? config.value.locale?.Modal?.okText ?? '确认',
+                  submitText: modalProps?.okText ?? config.value.locale?.Modal?.okText ?? intl.value.getMessage({ id: 'form.modal.okText', defaultMessage: '确认' }),
                   resetText:
-                    modalProps?.cancelText ?? config.value.locale?.Modal?.cancelText ?? '取消',
+                    modalProps?.cancelText ?? config.value.locale?.Modal?.cancelText ?? intl.value.getMessage({ id: 'form.modal.cancelText', defaultMessage: '取消' }),
                 },
                 resetButtonProps: {
                   preventDefault: true,

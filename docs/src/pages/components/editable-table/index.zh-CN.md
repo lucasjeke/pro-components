@@ -1,68 +1,66 @@
 ---
 category: Components
 title: EditableProTable
-subtitle: 可编辑表格
+subtitle: 编辑表格
 group: 数据展示
 ---
 
-可编辑表格 EditableProTable 与 ProTable 的功能基本相同，为了方便使用 EditableProTable 增加了一些预设，关掉了查询表单和操作栏，同时修改了 value 和 onChange 使其可以方便的继承到 antd 的 Form 中
+EditableProTable 是基于 ProTable 的可编辑表格，适合需要在表格中直接新增、编辑、保存行数据的场景。它继承 ProTable 的列配置、查询、工具栏和 Table 能力，并额外提供受控值、行创建按钮和可编辑表单实例。
 
 ## 何时使用 {#when-to-use}
 
-当前表格为可编辑的表格时使用。
+- 需要在表格内直接维护一组结构化数据时。
+- 需要与 ProForm 结合，把表格作为表单字段提交时。
+- 需要新增行、缓存行、限制最大行数或操作单行数据时。
 
 ## 代码演示 {#examples}
 
 <demo-group>
-    <demo src="./demo/basic.vue">可编辑表格</demo>
+  <demo src="./demo/basic.vue">基础用法</demo>
 </demo-group>
 
 ## API
 
-### 属性 {#props}
+### EditableProTable
 
-通用属性参考：[通用属性](/docs/vue/common-props)
+除下列属性外，EditableProTable 继承 ProTable 的大部分属性。
+
+#### 属性 {#props}
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
-| offsetTop | 距离窗口顶部达到指定偏移量后触发 | number | 0 | - |
-| offsetBottom | 距离窗口底部达到指定偏移量后触发 | number | - | - |
-| target | 设置 `Affix` 需要监听其滚动事件的元素，值为一个返回对应 DOM 元素的函数 | () =&gt; Window \| HTMLElement \| null | () =&gt; window | - |
+| value | 受控表格数据 | `T[]` | - | - |
+| defaultValue | 默认表格数据 | `T[]` | - | - |
+| editable | 可编辑行配置 | `RowEditableConfig<T>` | - | - |
+| editableFormRef | 可编辑表格内部表单实例 | `EditableFormInstance<T>` | - | - |
+| recordCreatorProps | 新建行按钮配置，设置为 `false` 可隐藏 | `false \| RecordCreatorProps<T> & ButtonProps & { creatorButtonText?: VueNode }` | - | - |
+| maxLength | 最大行数，达到后隐藏新建按钮 | `number` | - | - |
+| controlled | 是否完全受控，`value` 更新时会重置内部表单 | `boolean` | `false` | - |
+| formItemProps | 作为 FormItem 使用时的配置 | `Omit<FormItemProps, 'name'>` | - | - |
 
-### 事件 {#events}
+#### RecordCreatorProps
+
+| 属性 | 说明 | 类型 | 默认值 | 版本 |
+| --- | --- | --- | --- | --- |
+| record | 新增行默认值 | `T \| ((index: number, dataSource: T[]) => T)` | - | - |
+| position | 新增行位置 | `'top' \| 'bottom'` | `'bottom'` | - |
+| newRecordType | 新增行类型，`cache` 可取消，`dataSource` 直接写入数据源 | `'dataSource' \| 'cache'` | `'dataSource'` | - |
+| parentKey | 新增到指定父节点，常用于树形表格 | `Key \| ((index: number, dataSource: T[]) => Key)` | - | - |
+| creatorButtonText | 新建按钮文案 | `VueNode` | 国际化默认值 | - |
+
+#### 事件 {#events}
 
 | 事件名 | 说明 | 类型 | 版本 |
-| ----- | --- | --- | --- |
-| change | 固定状态改变时触发的回调函数 | (affixed?: boolean) =&gt; void | - |
+| --- | --- | --- | --- |
+| update:value | 受控数据变化时触发 | `(value?: T[]) => void` | - |
+| change | 表格数据变化时触发 | `(value?: T[]) => void` | - |
+| tableChange | 原始 Table change 事件 | `ProTableProps['change']` | - |
+| valuesChange | 表单值变化时触发 | `(values: T[], record: T) => void` | - |
 
-### 方法 {#methods}
+#### EditableFormInstance
 
 | 方法 | 说明 | 类型 | 版本 |
 | --- | --- | --- | --- |
-| updatePosition | - | ReturnType&lt;typeof throttleByAnimationFrame&gt; | - |
-
-**注意：**`Affix` 内的元素不要使用绝对定位，如需要绝对定位的效果，可以直接设置 `Affix` 为绝对定位：
-
-```html
-<a-affix style="position: absolute;top: y; left: x">...</a-affix>
-```
-
-## 主题变量（Design Token）{#design-token}
-
-<ComponentTokenTable component="Affix"></ComponentTokenTable>
-
-查看 [定制主题](/docs/vue/customize-theme) 了解如何使用主题变量。
-
-## FAQ
-
-### Affix 使用 `target` 绑定容器时，元素会跑到容器外。 {#faq-target-container}
-
-从性能角度考虑，我们只监听容器滚动事件。如果希望任意滚动，你可以在窗体添加滚动监听：<https://codesandbox.io/s/stupefied-maxwell-ophqnm?file=/index.js>
-
-相关 issue：[#3938](https://github.com/ant-design/ant-design/issues/3938) [#5642](https://github.com/ant-design/ant-design/issues/5642) [#16120](https://github.com/ant-design/ant-design/issues/16120)
-
-### Affix 在水平滚动容器中使用时， 元素 `left` 位置不正确。 {#faq-horizontal-scroll}
-
-Affix 一般只适用于单向滚动的区域，只支持在垂直滚动容器中使用。如果希望在水平容器中使用，你可以考虑使用 原生 `position: sticky` 实现。
-
-相关 issue: [#29108](https://github.com/ant-design/ant-design/issues/29108)
+| getRowData | 获取指定行数据，参数可以是行号或 rowKey | `(rowIndex: string \| number) => T \| undefined` | - |
+| getRowsData | 获取全部表格数据 | `() => T[] \| undefined` | - |
+| setRowData | 合并设置指定行数据 | `(rowIndex: string \| number, data: Partial<T>) => void` | - |

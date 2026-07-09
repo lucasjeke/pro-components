@@ -1,10 +1,9 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
 import type { ComputedRef } from 'vue'
 import { useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
-import { Keyframes } from '@antdv-next/cssinjs'
+import { Keyframes, mergeToken, unit } from '@antdv-next/cssinjs'
 
-export interface SiderMenuToken extends ProAliasToken {
-  componentCls: string
+export interface SiderMenuToken extends ProAliasCssVarToken {
   proLayoutCollapsedWidth: number
   proLayoutFirstMenuWidth?: number
 }
@@ -19,7 +18,6 @@ export const proLayoutTitleHide = new Keyframes('antBadgeLoadingCircle', {
   },
 })
 const genSiderMenuStyle: GenerateStyle<SiderMenuToken> = (token) => {
-  // rgba(13,13,13, 0.65)
   return {
     [token.componentCls]: {
       [`&${token.antCls}-layout-sider`]: {
@@ -101,7 +99,7 @@ const genSiderMenuStyle: GenerateStyle<SiderMenuToken> = (token) => {
         justifyContent: 'space-between',
         paddingInline: 8,
         paddingBlock: 16,
-        color: token.layout?.sider?.colorTextMenu,
+        color: token.proLayoutSiderColorTextMenu,
         cursor: 'pointer',
         '> a': {
           display: 'flex',
@@ -126,7 +124,7 @@ const genSiderMenuStyle: GenerateStyle<SiderMenuToken> = (token) => {
             height: 32,
             marginBlock: 0,
             marginInlineEnd: 0,
-            color: token.layout?.sider?.colorTextMenuTitle,
+            color: token.proLayoutSiderColorTextMenuTitle,
             animationName: proLayoutTitleHide,
             animationDuration: '.4s',
             animationTimingFunction: 'ease',
@@ -153,7 +151,7 @@ const genSiderMenuStyle: GenerateStyle<SiderMenuToken> = (token) => {
         justifyContent: 'space-between',
         marginBlock: 4,
         marginInline: 0,
-        color: token.layout?.sider?.colorTextMenu,
+        color: token.proLayoutSiderColorTextMenu,
         '&-collapsed': {
           flexDirection: 'column-reverse',
           paddingBlock: 0,
@@ -162,7 +160,7 @@ const genSiderMenuStyle: GenerateStyle<SiderMenuToken> = (token) => {
           transition: 'font-size 0.3s ease-in-out',
         },
         '&-list': {
-          color: token.layout?.sider?.colorTextMenuSecondary,
+          color: token.proLayoutSiderColorTextMenuSecondary,
           '&-collapsed': {
             marginBlockEnd: 8,
             animationName: 'none',
@@ -207,7 +205,7 @@ const genSiderMenuStyle: GenerateStyle<SiderMenuToken> = (token) => {
         width: '100%',
       },
       '&-footer': {
-        color: token.layout?.sider?.colorTextMenuSecondary,
+        color: token.proLayoutSiderColorTextMenuSecondary,
         paddingBlockEnd: 16,
         fontSize: token.fontSize,
         animationName: proLayoutTitleHide,
@@ -215,7 +213,7 @@ const genSiderMenuStyle: GenerateStyle<SiderMenuToken> = (token) => {
         animationTimingFunction: 'ease',
       },
       [`&&-mix${token.antCls}-layout-sider`]: {
-        insetBlockStart: `${token.layout?.header?.heightLayoutHeader || 56}px`,
+        insetBlockStart: token.proLayoutHeaderHeightLayoutHeader || 56,
       },
       '&&-left': {
         [`${token.componentCls}-left-container`]: {
@@ -223,9 +221,9 @@ const genSiderMenuStyle: GenerateStyle<SiderMenuToken> = (token) => {
           height: '100%',
         },
         [`${token.componentCls}-left-rail`]: {
-          flex: `0 0 ${token.proLayoutFirstMenuWidth || 80}px`,
+          flex: `0 0 ${token.calc(token.proLayoutFirstMenuWidth || 80).equal()}`,
           width: token.proLayoutFirstMenuWidth || 80,
-          borderInlineEnd: `${token.lineWidth}px ${token.lineType} ${token.colorSplit}`,
+          borderInlineEnd: `${unit(token.lineWidth)} ${token.lineType} ${token.colorSplit}`,
           [`${token.componentCls}-left-logo`]: {
             display: 'flex',
             justifyContent: 'center',
@@ -253,10 +251,10 @@ const genSiderMenuStyle: GenerateStyle<SiderMenuToken> = (token) => {
               alignItems: 'center',
               justifyContent: 'center',
               padding: 0,
-              height: token.calc?.(token.controlHeightLG).mul(1.5).equal(),
+              height: token.calc(token.controlHeightLG).mul(1.5).equal(),
               lineHeight: token.lineHeight,
               marginInline: token.marginXS,
-              width: token.calc?.('100%').sub(token.calc(token.margin).equal()).equal({ unit: false }),
+              width: token.calc('100%').sub(token.calc(token.margin).equal()).equal({ unit: false }),
               [`${token.iconCls}`]: {
                 fontSize: token.fontSizeXL,
               },
@@ -280,7 +278,7 @@ const genSiderMenuStyle: GenerateStyle<SiderMenuToken> = (token) => {
             justifyContent: 'space-between',
             paddingInline: token.padding,
             paddingBlock: token.padding,
-            color: token.layout?.sider?.colorTextMenuTitle,
+            color: token.proLayoutSiderColorTextMenuTitle,
             cursor: 'pointer',
             '> a': {
               display: 'flex',
@@ -292,7 +290,7 @@ const genSiderMenuStyle: GenerateStyle<SiderMenuToken> = (token) => {
                 display: 'inline-block',
                 height: 32,
                 marginBlock: 0,
-                color: token.layout?.sider?.colorTextMenuTitle,
+                color: token.proLayoutSiderColorTextMenuTitle,
                 animationName: proLayoutTitleHide,
                 animationDuration: '.4s',
                 animationTimingFunction: 'ease',
@@ -338,7 +336,7 @@ const genSiderMenuStyle: GenerateStyle<SiderMenuToken> = (token) => {
       zIndex: 99,
       height: '100%',
       '&-mix': {
-        height: `calc(100% - ${token.layout?.header?.heightLayoutHeader || 56}px)`,
+        height: token.calc('100%').sub(token.proLayoutHeaderHeightLayoutHeader || 56).equal(),
       },
     },
   }
@@ -354,14 +352,12 @@ export function useStyle(
     proLayoutFirstMenuWidth?: number
   },
 ) {
-  return useAntdStyle('ProLayoutSiderMenu', (token) => {
-    const siderMenuToken: SiderMenuToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
+  const genStyleHooks = useAntdStyle('ProLayoutSiderMenu', (token) => {
+    const siderMenuToken = mergeToken<SiderMenuToken>(token, {
       proLayoutCollapsedWidth,
       proLayoutFirstMenuWidth,
-    }
-
+    })
     return [genSiderMenuStyle(siderMenuToken)]
   })
+  return genStyleHooks(prefixCls)
 }

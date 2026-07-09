@@ -4,13 +4,15 @@ const nlNL: ProLocale = {
   moneySymbol: '€',
   deleteThisLine: 'Verwijder deze regel',
   copyThisLine: 'Kopieer deze regel',
-  emptyListValidateMessage: '列表不能为空',
+  sortUpThisLine: 'Omhoog verplaatsen',
+  sortDownThisLine: 'Omlaag verplaatsen',
+  emptyListValidateMessage: 'De lijst mag niet leeg zijn',
   time: {
-    seconds: 'seconds',
-    minutes: 'minutes',
-    hours: 'hours',
-    days: 'days',
-    ago: 'ago',
+    seconds: 'seconden',
+    minutes: 'minuten',
+    hours: 'uren',
+    days: 'dagen',
+    ago: 'geleden',
   },
   form: {
     lightFilter: {
@@ -18,6 +20,19 @@ const nlNL: ProLocale = {
       clear: 'Wissen',
       confirm: 'Bevestigen',
       itemUnit: 'item',
+    },
+    captcha: {
+      getCaptcha: 'Verificatiecode ophalen',
+      resendAfter: 's tot opnieuw verzenden',
+    },
+    upload: {
+      buttonText: 'Klik om te uploaden',
+      draggerTitle: 'Klik of sleep het bestand naar dit gebied om te uploaden',
+      draggerDescription: 'Ondersteunt enkele of bulk-upload',
+    },
+    modal: {
+      okText: 'Bevestigen',
+      cancelText: 'Annuleren',
     },
   },
   tableForm: {
@@ -69,6 +84,8 @@ const nlNL: ProLocale = {
     submitText: 'Inloggen',
   },
   editableTable: {
+    defaultFieldLabel: 'Dit veld',
+    defaultFieldType: 'Tekst',
     onlyOneLineEditor: 'Slechts één regel tegelijk bewerken',
     onlyAddOneLine: 'Slechts één regel tegelijk toevoegen',
     action: {

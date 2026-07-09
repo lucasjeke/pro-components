@@ -4,7 +4,9 @@ const deDE: ProLocale = {
   moneySymbol: '€',
   deleteThisLine: 'Diese Zeile löschen',
   copyThisLine: 'Diese Zeile kopieren',
-  emptyListValidateMessage: 'list cannot be empty',
+  sortUpThisLine: 'Nach oben verschieben',
+  sortDownThisLine: 'Nach unten verschieben',
+  emptyListValidateMessage: 'Die Liste darf nicht leer sein',
   form: {
     lightFilter: {
       more: 'Mehr',
@@ -12,13 +14,26 @@ const deDE: ProLocale = {
       confirm: 'Bestätigen',
       itemUnit: 'Einträge',
     },
+    captcha: {
+      getCaptcha: 'Bestätigungscode abrufen',
+      resendAfter: 's bis zum erneuten Senden',
+    },
+    upload: {
+      buttonText: 'Zum Hochladen klicken',
+      draggerTitle: 'Klicken oder Datei zum Hochladen hierher ziehen',
+      draggerDescription: 'Unterstützt einzelnes oder mehrfaches Hochladen',
+    },
+    modal: {
+      okText: 'Bestätigen',
+      cancelText: 'Abbrechen',
+    },
   },
   time: {
-    seconds: 'seconds',
-    minutes: 'minutes',
-    hours: 'hours',
-    days: 'days',
-    ago: 'ago',
+    seconds: 'Sekunden',
+    minutes: 'Minuten',
+    hours: 'Stunden',
+    days: 'Tage',
+    ago: 'vor',
   },
   tableForm: {
     search: 'Suchen',
@@ -69,6 +84,8 @@ const deDE: ProLocale = {
     submitText: 'Anmelden',
   },
   editableTable: {
+    defaultFieldLabel: 'Dieses Feld',
+    defaultFieldType: 'Text',
     onlyOneLineEditor: 'Es kann nur eine Zeile gleichzeitig bearbeitet werden',
     onlyAddOneLine: 'Es kann nur eine Zeile gleichzeitig hinzugefügt werden',
     action: {

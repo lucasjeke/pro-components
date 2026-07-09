@@ -4,13 +4,15 @@ const roRO: ProLocale = {
   moneySymbol: 'RON',
   deleteThisLine: 'Șterge acest rând',
   copyThisLine: 'Copiază acest rând',
-  emptyListValidateMessage: '列表不能为空',
+  sortUpThisLine: 'Mută în sus',
+  sortDownThisLine: 'Mută în jos',
+  emptyListValidateMessage: 'Lista nu poate fi goală',
   time: {
-    seconds: 'seconds',
-    minutes: 'minutes',
-    hours: 'hours',
-    days: 'days',
-    ago: 'ago',
+    seconds: 'secunde',
+    minutes: 'minute',
+    hours: 'ore',
+    days: 'zile',
+    ago: 'în urmă',
   },
   form: {
     lightFilter: {
@@ -18,6 +20,19 @@ const roRO: ProLocale = {
       clear: 'Curăță',
       confirm: 'Confirmă',
       itemUnit: 'elemente',
+    },
+    captcha: {
+      getCaptcha: 'Obține codul de verificare',
+      resendAfter: 's până la retrimitere',
+    },
+    upload: {
+      buttonText: 'Click pentru încărcare',
+      draggerTitle: 'Click sau trage fișierul în această zonă pentru încărcare',
+      draggerDescription: 'Acceptă încărcare unică sau în bloc',
+    },
+    modal: {
+      okText: 'Confirmă',
+      cancelText: 'Anulează',
     },
   },
   tableForm: {
@@ -69,6 +84,8 @@ const roRO: ProLocale = {
     submitText: 'Autentificare',
   },
   editableTable: {
+    defaultFieldLabel: 'Acest câmp',
+    defaultFieldType: 'Text',
     onlyOneLineEditor: 'Se poate edita doar un rând simultan',
     onlyAddOneLine: 'Se poate adăuga doar un rând simultan',
     action: {

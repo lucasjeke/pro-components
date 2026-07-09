@@ -4,7 +4,9 @@ const thTH: ProLocale = {
   moneySymbol: '฿',
   deleteThisLine: 'ลบบรรทัดนี้',
   copyThisLine: 'คัดลอกบรรทัดนี้',
-  emptyListValidateMessage: '列表不能为空',
+  sortUpThisLine: 'ย้ายขึ้น',
+  sortDownThisLine: 'ย้ายลง',
+  emptyListValidateMessage: 'รายการต้องไม่ว่าง',
   form: {
     lightFilter: {
       more: 'มากกว่า',
@@ -12,13 +14,26 @@ const thTH: ProLocale = {
       confirm: 'ยืนยัน',
       itemUnit: 'รายการ',
     },
+    captcha: {
+      getCaptcha: 'รับรหัสยืนยัน',
+      resendAfter: 'วินาทีเพื่อส่งอีกครั้ง',
+    },
+    upload: {
+      buttonText: 'คลิกเพื่ออัปโหลด',
+      draggerTitle: 'คลิกหรือลากไฟล์มาที่บริเวณนี้เพื่ออัปโหลด',
+      draggerDescription: 'รองรับการอัปโหลดไฟล์เดียวหรือหลายไฟล์',
+    },
+    modal: {
+      okText: 'ยืนยัน',
+      cancelText: 'ยกเลิก',
+    },
   },
   time: {
-    seconds: 'seconds',
-    minutes: 'minutes',
-    hours: 'hours',
-    days: 'days',
-    ago: 'ago',
+    seconds: 'วินาที',
+    minutes: 'นาที',
+    hours: 'ชั่วโมง',
+    days: 'วัน',
+    ago: 'ที่ผ่านมา',
   },
   tableForm: {
     search: 'สอบถาม',
@@ -69,6 +84,8 @@ const thTH: ProLocale = {
     submitText: 'เข้าสู่ระบบ',
   },
   editableTable: {
+    defaultFieldLabel: 'ฟิลด์นี้',
+    defaultFieldType: 'ข้อความ',
     onlyOneLineEditor: 'แก้ไขได้เพียงบรรทัดเดียวเท่านั้น',
     onlyAddOneLine: 'เพิ่มได้เพียงบรรทัดเดียวเท่านั้น',
     action: {

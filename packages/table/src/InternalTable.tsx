@@ -17,7 +17,7 @@ import Alert from './components/Alert'
 import FormSearch from './components/Form'
 import Toolbar from './components/ToolBar'
 import { useTableContextInject } from './Store/Provide'
-import { useStyle } from './style'
+import useStyle from './style'
 import TableRender from './TableRender'
 import useFetchData from './useFetchData'
 import { flattenColumns, genColumnKey, mergePagination, parseServerDefaultColumnConfig, useActionType } from './utils'
@@ -111,7 +111,7 @@ const InternalProTable = defineComponent(<
   /** 通用的来操作子节点的工具类 */
   const actionRef = shallowRef<ActionType<Record<string, any>, T> | undefined>()
   const counter = useTableContextInject<T, U, ValueType>()
-  const { wrapSSR, hashId } = useStyle(baseClassName)
+  const [hashId, cssVarCls] = useStyle(baseClassName)
   /** 单选多选的相关逻辑 */
   const [selectedRowKeys, setSelectedRowKeys] = useMountMergeState(
     props.rowSelection ? props.rowSelection?.defaultSelectedRowKeys || [] : undefined,
@@ -461,6 +461,7 @@ const InternalProTable = defineComponent(<
           headerTitle={headerTitle}
           hideToolbar={hideToolbar.value}
           selectedRows={selectedRows.value}
+          loading={loading.value}
           selectedRowKeys={selectedRowKeys.value!}
           columns={tableColumns.value}
           tooltip={tooltip}
@@ -488,10 +489,10 @@ const InternalProTable = defineComponent(<
         alwaysShowAlert={propsRowSelection?.alwaysShowAlert}
       />
     ) : null
-    return wrapSSR(
+    return (
       <TableRender
         {...props}
-        class={classNames(baseClassName.value, hashId.value)}
+        class={classNames(baseClassName.value, hashId.value, cssVarCls.value)}
         name={isEditorTable}
         prefixCls={baseClassName.value}
         size={counter.tableSize?.value}
@@ -518,7 +519,7 @@ const InternalProTable = defineComponent(<
         editableUtils={editableUtils}
         getRowKey={getRowKey.value}
         v-slots={slots}
-      />,
+      />
     )
   }
 }, {

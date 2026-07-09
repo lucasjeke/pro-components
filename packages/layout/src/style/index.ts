@@ -1,7 +1,7 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
 import type { CSSInterpolation } from 'antdv-next/dist/theme/interface/index'
-import type { ComputedRef } from 'vue'
-import { useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
+import { useStyle } from '@antdv-next1/pro-provider'
+import { mergeToken } from '@antdv-next/cssinjs'
 
 /**
  * 全局滚动条 CSS 变量。
@@ -66,28 +66,27 @@ export const proLayoutVar = {
   fixedHeaderStart: '--pro-layout-fixed-header-start',
 } as const
 
-export interface ProLayoutToken extends ProAliasToken {
-  componentCls: string
-}
+export interface ProLayoutToken extends ProAliasCssVarToken {}
 
 const genProLayoutStyle: GenerateStyle<ProLayoutToken> = (token) => {
+  const { componentCls } = token
   return {
-    [token.componentCls]: {
-      // [proLayoutVar.contentFixedMaxWidth]: '1152px',
-      // [proLayoutVar.headerHeight]: `${token.layout?.header?.heightLayoutHeader || 56}px`,
-      // [proLayoutScrollbarVar.thumb]: token.colorFill,
-      // [proLayoutScrollbarVar.thumbHover]: token.colorFillSecondary,
-      // [proLayoutScrollbarVar.track]: 'transparent',
-      // [proLayoutScrollbarVar.size]: '4px',
-      // [proLayoutScrollbarVar.radius]: `${token.borderRadiusSM}px`,
-      // '&-realDark': {
-      //   [`${token.antCls}-layout`]: {
-      //     background: '#2a2c2c',
-      //     // [`${token.componentCls}-content`]: {
-      //     //   backgroundColor: '#2a2c2c',
-      //     // },
-      //   },
-      // },
+    [componentCls]: {
+      [proLayoutVar.contentFixedMaxWidth]: 1152,
+      [proLayoutVar.headerHeight]: token.calc(token.proLayoutHeaderHeightLayoutHeader || 56).equal(),
+      [proLayoutScrollbarVar.thumb]: token.colorFill,
+      [proLayoutScrollbarVar.thumbHover]: token.colorFillSecondary,
+      [proLayoutScrollbarVar.track]: 'transparent',
+      [proLayoutScrollbarVar.size]: 4,
+      [proLayoutScrollbarVar.radius]: token.borderRadiusSM,
+      '&-realDark': {
+        [`${token.antCls}-layout`]: {
+          background: '#2a2c2c',
+          // [`${token.componentCls}-content`]: {
+          //   backgroundColor: '#2a2c2c',
+          // },
+        },
+      },
       boxSizing: 'border-box',
       '*, *::before, *::after': {
         boxSizing: 'border-box',
@@ -106,16 +105,16 @@ const genProLayoutStyle: GenerateStyle<ProLayoutToken> = (token) => {
         zIndex: 0,
         height: '100%',
         width: '100%',
-        background: token?.layout?.bgLayout,
+        background: token?.proLayoutBgLayout,
       },
       [`${token.componentCls}-content`]: {
         display: 'flex',
         flexDirection: 'column',
         width: '100%',
-        // backgroundColor: token.layout?.pageContainer?.colorBgPageContainer || 'transparent',
+        backgroundColor: token.proLayoutPageContainerColorBgPageContainer || 'transparent',
         position: 'relative',
-        paddingBlock: token.layout?.pageContainer?.paddingBlockPageContainerContent,
-        paddingInline: token.layout?.pageContainer?.paddingInlinePageContainerContent,
+        paddingBlock: token.proLayoutPageContainerPaddingBlockPageContainerContent,
+        paddingInline: token.proLayoutPageContainerPaddingInlinePageContainerContent,
         '&-has-page-container': {
           padding: 0,
         },
@@ -133,25 +132,21 @@ const genProLayoutStyle: GenerateStyle<ProLayoutToken> = (token) => {
         flexDirection: 'column',
         width: '100%',
       },
-      // '&&-fixed-header': {
-      //   [`${token.componentCls}-container`]: {
-      //     height: '100vh',
-      //     overflowY: 'auto',
-      //     overflowX: 'hidden',
-      //     ...getLayoutScrollbar(),
-      //   },
-      // },
+      '&&-fixed-header': {
+        [`${token.componentCls}-container`]: {
+          height: '100vh',
+          overflowY: 'auto',
+          overflowX: 'hidden',
+          ...getLayoutScrollbar(),
+        },
+      },
 
     },
   } as CSSInterpolation
 }
 
-export function useStyle(prefixCls: ComputedRef<string>) {
-  return useAntdStyle('ProLayout', (token) => {
-    const proLayoutToken: ProLayoutToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
-    }
-    return [genProLayoutStyle(proLayoutToken)]
+export default useStyle('ProLayout', (token) => {
+  const proLayoutToken = mergeToken<ProLayoutToken>(token, {
   })
-}
+  return [genProLayoutStyle(proLayoutToken)]
+})

@@ -14,7 +14,7 @@ import { toArray } from '@v-c/util/dist/Children/toArray'
 import { Input, Select } from 'antdv-next'
 import { useConfig } from 'antdv-next/dist/config-provider/context'
 import { computed, defineComponent } from 'vue'
-import { useStyle } from './style'
+import useStyle from './style'
 
 export type LightSelectProps = {
   label?: VueNode
@@ -63,7 +63,7 @@ const LightSelect = defineComponent<LightSelectProps, {}, string, CustomSlotsTyp
     const baseClassName = computed(() => `${prefixCls.value}-field-select-light-select`)
     const [open, setOpen] = useState<boolean>(props.open || false)
     const [keyword, setKeyword] = useState<string>('')
-    const { wrapSSR, hashId } = useStyle(baseClassName)
+    const [hashId, cssVarCls] = useStyle(baseClassName)
     const fieldNames = computed(() => ({
       label: props.fieldNames?.label || 'label',
       value: props.fieldNames?.value || 'value',
@@ -116,12 +116,13 @@ const LightSelect = defineComponent<LightSelectProps, {}, string, CustomSlotsTyp
         ...restProps
       } = props
       const { placeholder = label } = props
-      return wrapSSR(
+      return (
         <div
           class={classNames(
             baseClassName.value,
             attrs.class,
             hashId.value,
+            cssVarCls.value,
             {
               [`${baseClassName.value}-searchable`]: showSearch,
             },
@@ -248,7 +249,7 @@ const LightSelect = defineComponent<LightSelectProps, {}, string, CustomSlotsTyp
             ref={lightLabel}
             valueMaxLength={valueMaxLength}
           />
-        </div>,
+        </div>
       )
     }
   },

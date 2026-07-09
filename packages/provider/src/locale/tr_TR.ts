@@ -4,7 +4,9 @@ const trTR: ProLocale = {
   moneySymbol: '₺',
   deleteThisLine: 'Bu satırı sil',
   copyThisLine: 'Bu satırı kopyala',
-  emptyListValidateMessage: '列表不能为空',
+  sortUpThisLine: 'Yukarı taşı',
+  sortDownThisLine: 'Aşağı taşı',
+  emptyListValidateMessage: 'Liste boş olamaz',
   form: {
     lightFilter: {
       more: 'Daha Fazla',
@@ -12,13 +14,26 @@ const trTR: ProLocale = {
       confirm: 'Onayla',
       itemUnit: 'Öğeler',
     },
+    captcha: {
+      getCaptcha: 'Doğrulama kodunu al',
+      resendAfter: 'sn sonra tekrar gönder',
+    },
+    upload: {
+      buttonText: 'Yüklemek için tıklayın',
+      draggerTitle: 'Yüklemek için dosyayı bu alana tıklayın veya sürükleyin',
+      draggerDescription: 'Tekli veya toplu yüklemeyi destekler',
+    },
+    modal: {
+      okText: 'Onayla',
+      cancelText: 'İptal',
+    },
   },
   time: {
-    seconds: 'seconds',
-    minutes: 'minutes',
-    hours: 'hours',
-    days: 'days',
-    ago: 'ago',
+    seconds: 'saniye',
+    minutes: 'dakika',
+    hours: 'saat',
+    days: 'gün',
+    ago: 'önce',
   },
   tableForm: {
     search: 'Filtrele',
@@ -69,6 +84,8 @@ const trTR: ProLocale = {
     submitText: 'Giriş Yap',
   },
   editableTable: {
+    defaultFieldLabel: 'Bu alan',
+    defaultFieldType: 'Metin',
     onlyOneLineEditor: 'Aynı anda yalnızca bir satır düzenlenebilir',
     onlyAddOneLine: 'Aynı anda yalnızca bir satır eklenebilir',
     action: {

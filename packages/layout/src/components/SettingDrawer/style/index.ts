@@ -1,9 +1,8 @@
-import type { GenerateStyle, ProAliasToken } from '@antdv-next1/pro-provider'
-import type { ComputedRef } from 'vue'
-import { useStyle as useAntdStyle } from '@antdv-next1/pro-provider'
+import type { GenerateStyle, ProAliasCssVarToken } from '@antdv-next1/pro-provider'
+import { useStyle } from '@antdv-next1/pro-provider'
+import { mergeToken } from '@antdv-next/cssinjs'
 
-export interface SettingDrawerToken extends ProAliasToken {
-  componentCls: string
+export interface SettingDrawerToken extends ProAliasCssVarToken {
 }
 
 const genSettingDrawerStyle: GenerateStyle<SettingDrawerToken> = (token) => {
@@ -222,64 +221,7 @@ const genSettingDrawerStyle: GenerateStyle<SettingDrawerToken> = (token) => {
   }
 }
 
-// const genTransitionStyle: GenerateStyle<SettingDrawerToken> = (token) => {
-//   return {
-//     [`> ${token.proComponentsCls}-slide-fadein-right`]: {
-//       '&-enter-from': {
-//         transform: 'translate(-20px)',
-//         opacity: 0,
-//       },
-//       '&-leave-to': {
-//         transform: 'translate(20px)',
-//         opacity: 0,
-//       },
-//       '&-enter-active, &-leave-active': {
-//         transition: 'opacity .3s,transform .4s',
-//       },
-//     },
-//     [`> ${token.proComponentsCls}-slide-fadein-up`]: {
-//       '&-enter-from': {
-//         transform: 'translateY(20px)',
-//         opacity: 0,
-//       },
-//       '&-leave-to': {
-//         transform: 'translateY(-20px)',
-//         opacity: 0,
-//       },
-//       '&-enter-active, &-leave-active': {
-//         transition: 'opacity .3s,transform .4s',
-//       },
-//     },
-//     [`> ${token.proComponentsCls}-zoom-fadein`]: {
-//       '&-enter-from': {
-//         transform: 'scale(.99)',
-//         opacity: 0,
-//       },
-//       '&-leave-to': {
-//         transform: 'scale(1.01)',
-//         opacity: 0,
-//       },
-//       '&-enter-active, &-leave-active': {
-//         transition: 'transform .3s,opacity .3s ease-in-out',
-//       },
-//     },
-//     [`> ${token.proComponentsCls}-fadein`]: {
-//       '&-enter-from, &-leave-to': {
-//         opacity: 0,
-//       },
-
-//       '&-enter-active, &-leave-active': {
-//         transition: 'opacity .3s ease-in-out',
-//       },
-//     },
-//   };
-// };
-export function useStyle(prefixCls: ComputedRef<string>) {
-  return useAntdStyle('ProLayoutSettingDrawer', (token) => {
-    const settingDrawerToken = {
-      ...token,
-      componentCls: `.${prefixCls.value}`,
-    } as SettingDrawerToken
-    return [genSettingDrawerStyle(settingDrawerToken)]
-  })
-}
+export default useStyle('ProLayoutSettingDrawer', (token) => {
+  const settingDrawerToken = mergeToken<SettingDrawerToken>(token, {})
+  return [genSettingDrawerStyle(settingDrawerToken)]
+})

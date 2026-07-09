@@ -6,6 +6,44 @@ title: Component Changelog
 
 > This page is generated from package `CHANGELOG.md` files. Run `pnpm bump` before publishing.
 
+## V1.0.29
+
+**Release date:** 2026-07-09
+
+This release includes 11 changes across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-form`, `@antdv-next1/pro-table`, `@antdv-next1/pro-card`, `@antdv-next1/pro-field`, `@antdv-next1/pro-listy`, `@antdv-next1/pro-provider`, `@antdv-next1/pro-utils`, `@antdv-next1/route-utils`.
+
+### Features
+
+- **@antdv-next1/pro-layout**: add MultiTab layout support and update layout locales
+- **@antdv-next1/pro-table**: add resizable column title support
+
+### Fixes
+
+- **@antdv-next1/pro-card**: fix card css-in-js styles
+- **@antdv-next1/pro-field**: fix field css-in-js styles
+- **@antdv-next1/pro-form**: fix form layout and submitter behavior
+- **@antdv-next1/pro-listy**: fix listy style build and raw list behavior
+- **@antdv-next1/pro-provider**: fix provider styles and locale exports
+- **@antdv-next1/pro-utils**: fix shared utility component styles
+- **@antdv-next1/route-utils**: fix bugs
+
+### Dependencies
+
+- **@antdv-next1/pro-components**: Updated dependencies
+  - @antdv-next1/pro-card@2.0.16
+  - @antdv-next1/pro-field@1.0.16
+  - @antdv-next1/pro-form@1.0.23
+  - @antdv-next1/pro-layout@1.0.24
+  - @antdv-next1/pro-listy@1.0.17
+  - @antdv-next1/pro-provider@1.0.10
+  - @antdv-next1/pro-table@1.0.27
+  - @antdv-next1/pro-utils@1.0.18
+  - @antdv-next1/route-utils@1.0.6
+
+### Changes
+
+- **@antdv-next1/pro-components**: prepare pro components publish
+
 ## V1.0.27
 
 **Release date:** 2026-07-09

@@ -59,4 +59,32 @@ describe('generate docs changelog', () => {
     expect(content).toContain('### Details')
     expect(content.indexOf('### Dependencies')).toBeGreaterThan(content.indexOf('<details>'))
   })
+
+  it('uses singular wording for one English highlight', () => {
+    const content = createDocsChangelogContent([
+      {
+        version: '1.0.30',
+        date: '2026-07-09',
+        packages: ['@antdv-next1/pro-components', '@antdv-next1/pro-layout'],
+        categories: {
+          features: [],
+          fixes: [
+            {
+              packageName: '@antdv-next1/pro-layout',
+              text: 'fix SiderMenu title hide animation name',
+              children: [],
+            },
+          ],
+          docs: [],
+          tests: [],
+          dependencies: [],
+          refactors: [],
+          changes: [],
+        },
+      },
+    ], 'en-US')
+
+    expect(content).toContain('This release includes 1 highlight across')
+    expect(content).not.toContain('1 highlights')
+  })
 })

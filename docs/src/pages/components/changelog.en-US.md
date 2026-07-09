@@ -6,6 +6,32 @@ title: Component Changelog
 
 > This page is generated from package `CHANGELOG.md` files. Run `pnpm bump` before publishing.
 
+## V1.0.30
+
+**Release date:** 2026-07-09
+
+This release includes 1 highlight across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`.
+
+### Highlights
+
+- **@antdv-next1/pro-layout**: fix SiderMenu title hide animation name
+
+<details>
+<summary>Show dependency versions</summary>
+
+### Details
+
+### Fixes
+
+- **@antdv-next1/pro-layout**: fix SiderMenu title hide animation name
+
+### Dependencies
+
+- **@antdv-next1/pro-components**: Updated dependencies
+  - @antdv-next1/pro-layout@1.0.25
+
+</details>
+
 ## V1.0.29
 
 **Release date:** 2026-07-09
@@ -113,7 +139,7 @@ This release shows 4 highlights from 15 updates across `@antdv-next1/pro-compone
 
 **Release date:** 2026-07-09
 
-This release includes 1 highlights across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-form`, `@antdv-next1/pro-table`, `@antdv-next1/pro-listy`.
+This release includes 1 highlight across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-form`, `@antdv-next1/pro-table`, `@antdv-next1/pro-listy`.
 
 ### Highlights
 
@@ -142,7 +168,7 @@ This release includes 1 highlights across `@antdv-next1/pro-components`, `@antdv
 
 **Release date:** 2026-07-09
 
-This release includes 1 highlights across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-form`, `@antdv-next1/pro-table`, `@antdv-next1/pro-listy`.
+This release includes 1 highlight across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-form`, `@antdv-next1/pro-table`, `@antdv-next1/pro-listy`.
 
 ### Highlights
 
@@ -171,7 +197,7 @@ This release includes 1 highlights across `@antdv-next1/pro-components`, `@antdv
 
 **Release date:** 2026-07-09
 
-This release includes 1 highlights across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-form`, `@antdv-next1/pro-table`, `@antdv-next1/pro-listy`.
+This release includes 1 highlight across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-form`, `@antdv-next1/pro-table`, `@antdv-next1/pro-listy`.
 
 ### Highlights
 

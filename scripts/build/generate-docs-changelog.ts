@@ -116,10 +116,12 @@ const docsOutputMap = {
     summary: (note: ReleaseNote) => {
       const total = countHighlightEntries(note)
       const visible = countVisibleHighlights(note)
+      const visibleNoun = visible === 1 ? 'highlight' : 'highlights'
+      const totalNoun = total === 1 ? 'update' : 'updates'
       const packages = note.packages.map(name => `\`${name}\``).join(', ')
       if (total > visible)
-        return `This release shows ${visible} highlights from ${total} updates across ${packages}.`
-      return `This release includes ${total} highlights across ${packages}.`
+        return `This release shows ${visible} ${visibleNoun} from ${total} ${totalNoun} across ${packages}.`
+      return `This release includes ${total} ${total === 1 ? 'highlight' : 'highlights'} across ${packages}.`
     },
   },
 } as const

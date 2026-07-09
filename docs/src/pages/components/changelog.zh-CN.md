@@ -6,6 +6,32 @@ title: 组件更新日志
 
 > 本页面由各子包 `CHANGELOG.md` 自动生成。发布前运行 `pnpm bump` 更新。
 
+## V1.0.30
+
+**发布日期：** 2026-07-09
+
+本版本包含 1 项摘要更新，涉及 `@antdv-next1/pro-components`、`@antdv-next1/pro-layout`。
+
+### 版本摘要 Highlights
+
+- **@antdv-next1/pro-layout**: fix SiderMenu title hide animation name
+
+<details>
+<summary>展开依赖版本与完整详情</summary>
+
+### 完整详情 Details
+
+### 问题修复 Fixes
+
+- **@antdv-next1/pro-layout**: fix SiderMenu title hide animation name
+
+### 依赖更新 Dependencies
+
+- **@antdv-next1/pro-components**: Updated dependencies
+  - @antdv-next1/pro-layout@1.0.25
+
+</details>
+
 ## V1.0.29
 
 **发布日期：** 2026-07-09

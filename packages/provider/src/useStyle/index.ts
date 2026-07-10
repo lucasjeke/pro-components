@@ -28,7 +28,7 @@ import genMaxMin from '@antdv-next/cssinjs/dist/cssinjs-utils/util/maxmin'
 import useStyleRegister from '@antdv-next/cssinjs/dist/hooks/useStyleRegister'
 import { theme as antdTheme } from 'antdv-next'
 import { useConfig } from 'antdv-next/dist/config-provider/context'
-import { genCommonStyle } from 'antdv-next/dist/style/index'
+
 import useLocalToken, { unitless } from 'antdv-next/dist/theme/useToken'
 import { computed } from 'vue'
 import { useProCacheToken, useProConfig } from '../context'
@@ -177,12 +177,6 @@ function genStyleUtils(config: {
     zeroRuntime?: Ref<boolean>
   }
   useCSP?: UseCSP
-  getCommonStyle?: (
-    token: AliasToken,
-    componentPrefixCls: string,
-    rootCls?: string,
-    resetFont?: boolean,
-  ) => CSSObject
   getCompUnitless?: () => typeof unitless
   layer?: LayerConfig
 }) {
@@ -190,7 +184,6 @@ function genStyleUtils(config: {
     useCSP = useDefaultCSP,
     useToken: useAntdToken,
     usePrefix,
-    getCommonStyle,
     getCompUnitless,
   } = config
   function genStyleHooks(
@@ -200,8 +193,6 @@ function genStyleUtils(config: {
     }) => CSSInterpolation,
     getDefaultToken?: (token: AliasToken) => TokenMap,
     options?: {
-      resetStyle?: boolean
-      resetFont?: boolean
       /**
        * Component tokens that do not need unit.
        */
@@ -313,8 +304,6 @@ function genStyleUtils(config: {
     styleFn: (token: ProAliasCssVarToken, info: StyleInfo & { proComponentsCls: string }) => CSSInterpolation,
     getDefaultToken: ((token: AliasToken) => TokenMap) | undefined,
     options: {
-      resetStyle?: boolean
-      resetFont?: boolean
       // Deprecated token key map [["oldTokenKey", "newTokenKey"], ["oldTokenKey", "newTokenKey"]]
       deprecatedTokens?: any[]
       /**
@@ -424,26 +413,6 @@ function genStyleUtils(config: {
           mergedToken,
         }
       }
-
-      if (typeof getCommonStyle === 'function' && options.resetStyle !== false) {
-        useStyleRegister(
-          computed(() => {
-            return {
-              ...sharedConfig.value,
-              order: (options.order || -999) - 1,
-              path: [`${styleRegisterKey}-common`, prefixCls.value, prefix.value.iconPrefixCls],
-            }
-          }),
-          () => {
-            if (options.injectStyle === false)
-              return []
-
-            const { mergedToken } = getMergedToken()
-            return getCommonStyle(mergedToken, prefixCls.value, '', options.resetFont)
-          },
-        )
-      }
-
       useStyleRegister(
         computed(() => {
           return {
@@ -512,7 +481,6 @@ const {
     const configCtx = useConfig()
     return computed(() => configCtx.value?.csp ?? {})
   },
-  getCommonStyle: genCommonStyle,
   getCompUnitless: () => unitless,
 })
 

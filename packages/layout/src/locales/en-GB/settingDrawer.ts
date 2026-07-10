@@ -32,7 +32,7 @@ const enGB: ProLocale = {
   'app.setting.topmenu': 'Top Menu Layout',
   'app.setting.mixmenu': 'Mixed Menu Layout',
   'app.setting.leftmenu': 'Left Mixed Layout',
-  'app.setting.splitMenus': 'Split Menus Automatically',
+  'app.setting.splitMenus': 'Auto Split Menus',
   'app.setting.fixedheader': 'Fixed Header',
   'app.setting.fixedsidebar': 'Fixed Side Menu',
   'app.setting.fixedsidebar.hint': 'Available in side menu layout',
@@ -45,7 +45,7 @@ const enGB: ProLocale = {
   'app.setting.copy': 'Copy Settings',
   'app.setting.loading': 'Loading theme',
   'app.setting.copyinfo': 'Copied successfully. Please replace the default configuration in src/defaultSettings.js',
-  'app.setting.production.hint': 'The settings panel is only shown for preview in development and will not appear in production. Please copy it and manually update the configuration file',
+  'app.setting.production.hint': 'Setting panel shows in development environment only, please manually modify',
 }
 
 export default enGB

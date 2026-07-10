@@ -235,7 +235,7 @@ const BasicLayout = defineComponent<ProLayoutProps, {}, string, CustomSlotsType<
     const { menu, siderMenuType } = props
     return omit(
       {
-        ...omit(props, ['headerRender', 'footerRender', 'menuRender', 'menuHeaderRender', 'menuItemRender', 'subMenuItemRender', 'menuExtraRender', 'menuContentRender', 'headerContentRender', 'headerTitleRender', 'appListRender', 'actionsRender', 'collapsedButtonRender', 'errorBoundaryRender', 'menuFooterRender', 'multiTabRender', 'multiTabProps', 'multiTab']),
+        ...omit(props, ['headerRender', 'footerRender', 'menuRender', 'menuHeaderRender', 'menuItemRender', 'subMenuItemRender', 'menuExtraRender', 'menuContentRender', 'headerContentRender', 'headerTitleRender', 'appListRender', 'actionsRender', 'collapsedButtonRender', 'errorBoundaryRender', 'menuFooterRender', 'multiTabRender']),
         ...proLayoutRender.value,
         location: currentLocation.value,
         prefixCls: prefixCls.value,

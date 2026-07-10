@@ -1,3 +1,4 @@
+import type { VueNode } from '@v-c/util'
 import type { MessageType } from 'antdv-next/dist/message/interface'
 import type { FunctionalComponent } from 'vue'
 import type { ProSettings } from '../../defaultSettings'
@@ -34,7 +35,18 @@ export interface SettingDrawerProps {
   onSettingChange?: (config: MergerSettingsType<ProSettings>) => void
   onCollapse?: (collapsed: boolean) => void
   'onUpdate:collapsed'?: (collapsed: boolean) => void
+  otherSettingsRender?: (({ items, settings, changeSetting }: {
+    settings: Partial<ProSettings>
+    changeSetting: (key: string, value: any) => void
+    items: SettingDrawerOption[]
+  }) => SettingDrawerOption[]) | false
+
 }
+interface SettingDrawerOption {
+  title?: VueNode
+  action: VueNode
+}
+
 interface BodyProps {
   title?: string
   prefixCls: string
@@ -140,6 +152,36 @@ const SettingDrawer = defineComponent<SettingDrawerProps>((props) => {
     delete nextState.pwa
     setSettingState({ ...settingState.value, ...nextState })
   }
+  const otherSettingsOptions = computed(() => {
+    const { otherSettingsRender } = props
+    if (otherSettingsRender === false)
+      return []
+    let doms: SettingDrawerOption[] = [
+      {
+        title: formatMessage({
+          id: 'app.setting.weakmode',
+          defaultMessage: '色弱模式',
+        }),
+        action: (
+          <Switch
+            size="small"
+            class="color-weak"
+            checked={!!settingState.value.colorWeak}
+            onUpdate:checked={checked => changeSetting('colorWeak', checked as boolean)}
+            onChange={checked => changeSetting('colorWeak', checked as boolean)}
+          />
+        ),
+      },
+    ]
+    if (otherSettingsRender && typeof otherSettingsRender === 'function') {
+      doms = otherSettingsRender({
+        settings: { ...settingState.value },
+        changeSetting,
+        items: doms,
+      })
+    }
+    return doms
+  })
 
   return () => {
     const {
@@ -158,6 +200,10 @@ const SettingDrawer = defineComponent<SettingDrawerProps>((props) => {
       hideHintAlert,
     } = props
     const copyMessage = formatMessage({ id: 'app.setting.copyinfo', defaultMessage: '拷贝成功，请到 src/defaultSettings.js 中替换默认配置' })
+    const loadingMessage = formatMessage({
+      id: 'app.setting.loading',
+      defaultMessage: '正在加载主题',
+    })
     return (
       <>
         <Teleport to="body">
@@ -258,10 +304,7 @@ const SettingDrawer = defineComponent<SettingDrawerProps>((props) => {
                   onChange={async (color) => {
                     if (color !== settingState.value.colorPrimary) {
                       hideMessage.value = Message.loading(
-                        formatMessage({
-                          id: 'app.setting.loading',
-                          defaultMessage: '正在加载主题',
-                        }),
+                        loadingMessage,
                         0,
                       )
                     }
@@ -395,42 +438,30 @@ const SettingDrawer = defineComponent<SettingDrawerProps>((props) => {
                 changeSetting={changeSetting}
               />
             </SeetingBody>
-            <Divider />
-            <SeetingBody
-              hashId={hashId?.value!}
-              cssVarCls={cssVarCls?.value!}
-              prefixCls={baseClassName.value}
-              title={formatMessage({
-                id: 'app.setting.othersettings',
-                defaultMessage: '其他设置',
-              })}
-            >
-              <Listy
-                class={classNames(`${baseClassName.value}-list`, hashId?.value, cssVarCls?.value)}
-                split={false}
-                size="small"
-                rowKey="title"
-                variant="borderless"
-                itemRender={item => renderLayoutSettingItem(item)}
-                items={[
-                  {
-                    title: formatMessage({
-                      id: 'app.setting.weakmode',
-                      defaultMessage: '色弱模式',
-                    }),
-                    action: (
-                      <Switch
-                        size="small"
-                        class="color-weak"
-                        checked={!!settingState.value.colorWeak}
-                        onUpdate:checked={checked => changeSetting('colorWeak', checked as boolean)}
-                        onChange={checked => changeSetting('colorWeak', checked as boolean)}
-                      />
-                    ),
-                  },
-                ]}
-              />
-            </SeetingBody>
+            {otherSettingsOptions.value.length > 0 && (
+              <>
+                <Divider />
+                <SeetingBody
+                  hashId={hashId?.value!}
+                  cssVarCls={cssVarCls?.value!}
+                  prefixCls={baseClassName.value}
+                  title={formatMessage({
+                    id: 'app.setting.othersettings',
+                    defaultMessage: '其他设置',
+                  })}
+                >
+                  <Listy
+                    class={classNames(`${baseClassName.value}-list`, hashId?.value, cssVarCls?.value)}
+                    split={false}
+                    size="small"
+                    rowKey="title"
+                    variant="borderless"
+                    itemRender={item => renderLayoutSettingItem(item)}
+                    items={otherSettingsOptions.value}
+                  />
+                </SeetingBody>
+              </>
+            )}
             {hideHintAlert && hideCopyButton ? null : <Divider />}
             {hideHintAlert
               ? null

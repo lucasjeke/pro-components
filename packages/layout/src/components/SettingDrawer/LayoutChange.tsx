@@ -1,5 +1,6 @@
 import type { DefaultOptionType } from '@v-c/select'
-import type { VueNode } from 'antdv-next/dist/_util/type'
+import type { VueNode } from '@v-c/util'
+import type { VueNode as AntVueNode } from 'antdv-next/dist/_util/type'
 import type { SelectValue } from 'antdv-next/dist/select/index'
 import type { FunctionalComponent } from 'vue'
 import type { PureSettings } from '../../defaultSettings'
@@ -12,7 +13,7 @@ import defaultSettings from '../../defaultSettings'
 import { gLocaleObject } from '../../locales'
 
 export interface SettingItemProps {
-  title: VueNode
+  title?: VueNode
   action: VueNode
   disabled?: boolean
   disabledReason?: VueNode
@@ -32,7 +33,7 @@ export function renderLayoutSettingItem(item: SettingItemProps) {
     })
   }
   return (
-    <Tooltip title={item.disabled ? item.disabledReason : ''} placement="left">
+    <Tooltip title={item.disabled ? item.disabledReason as AntVueNode : undefined} placement="left">
       <ListyItem actions={[action]}>
         <span style={{ opacity: item.disabled ? 0.5 : 1 }}>{item.title}</span>
       </ListyItem>

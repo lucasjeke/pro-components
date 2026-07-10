@@ -84,12 +84,11 @@ const algorithm = computed(() => {
   return algorithms
 })
 
-const zeroRuntime = import.meta.env.PROD || import.meta.env.ANTDV_VIRTUAL_CSS_ENABLED
-
 const themeConfig = computed(() => {
   return {
     algorithm: algorithm.value,
-    zeroRuntime,
+    // Keep css-in-js runtime enabled for docs demos. The virtual antd.css file
+    // only covers antdv-next base styles; pro component styles still need runtime injection.
   } as any
 })
 const instance = getCurrentInstance()

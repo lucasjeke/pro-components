@@ -3,13 +3,17 @@ import type { CustomSlotsType, VueNode } from '@v-c/util/dist/type'
 import type { VNode } from 'vue'
 import type { MultiTabRender } from '../../RenderTypings'
 import type { MessageDescriptor } from '../../typing'
+import type { MultiTabAction, NormalizedMultiTabAction } from './action'
 import { CloseOutlined, EllipsisOutlined, ReloadOutlined } from '@antdv-next/icons'
 import { classNames } from '@v-c/util'
 import { Dropdown, Tabs } from 'antdv-next'
 import { useConfig } from 'antdv-next/dist/config-provider/index'
 import { computed, defineComponent } from 'vue'
 import { gLocaleObject } from '../../locales'
+import { normalizeMultiTabAction } from './action'
 import useStyle from './style'
+
+export type { LegacyMultiTabAction, MultiTabAction, NormalizedMultiTabAction } from './action'
 
 export interface MultiTabItem {
   key: string
@@ -22,14 +26,6 @@ export interface MultiTabItem {
   meta?: Record<string, any>
 }
 
-export type MultiTabAction
-  = | 'change'
-    | 'close'
-    | 'closeOther'
-    | 'closeLeft'
-    | 'closeRight'
-    | 'refresh'
-
 export interface MultiTabProps {
   prefixCls?: string
   items?: MultiTabItem[]
@@ -37,6 +33,7 @@ export interface MultiTabProps {
   hideWhenOnlyOne?: boolean
   showRefresh?: boolean
   showMore?: boolean
+  formatMessage?: (message: MessageDescriptor) => string | undefined
   itemRender?: (options: { item: MultiTabItem, active: boolean, dom: VueNode }) => VueNode
   menuRender?: (options: { item?: MultiTabItem, actions: MultiTabAction[] }) => VueNode
   multiTabRender?: MultiTabRender | false
@@ -65,7 +62,7 @@ export function getFormatMessage(): (data: MessageDescriptor) => string | undefi
 }
 
 const actionLocaleMap: Record<
-  Exclude<MultiTabAction, 'change'>,
+  Exclude<NormalizedMultiTabAction, 'change'>,
   {
     id: string
     defaultMessage: string
@@ -104,7 +101,8 @@ const MultiTab = defineComponent<
     const prefixCls = computed(() => props.prefixCls || config.value.getPrefixCls('pro'))
     const baseClassName = computed(() => `${prefixCls.value}-multi-tab`)
     const [hashId, cssVarCls] = useStyle(baseClassName)
-    const formatMessage = getFormatMessage()
+    const defaultFormatMessage = getFormatMessage()
+    const formatMessage = computed(() => props.formatMessage || defaultFormatMessage)
     const mergedShowMore = computed(() => props.showMore !== false)
     const mergedShowRefresh = computed(() => props.showRefresh !== false)
     const activeItem = computed(() => {
@@ -114,18 +112,19 @@ const MultiTab = defineComponent<
     const isActionDisabled = (action: Exclude<MultiTabAction, 'change'>, item?: MultiTabItem) => {
       if (!item)
         return true
+      const normalizedAction = normalizeMultiTabAction(action)
       const items = props.items || []
       const itemIndex = items.findIndex(tab => tab.key === item.key)
       const isClosable = (tab: MultiTabItem) => tab.closable !== false
-      if (action === 'close')
+      if (normalizedAction === 'close')
         return item.closable === false
-      if (action === 'closeLeft')
+      if (normalizedAction === 'closeLeft')
         return !items.slice(0, itemIndex).some(isClosable)
-      if (action === 'closeRight')
+      if (normalizedAction === 'closeRight')
         return !items.slice(itemIndex + 1).some(isClosable)
-      if (action === 'closeOther')
+      if (normalizedAction === 'closeOther')
         return !items.some(tab => tab.key !== item.key && isClosable(tab))
-      if (action === 'refresh')
+      if (normalizedAction === 'refresh')
         return !mergedShowRefresh.value || item.key !== props.activeKey
 
       return false
@@ -134,7 +133,7 @@ const MultiTab = defineComponent<
       if (!item)
         return []
       const actions: Exclude<MultiTabAction, 'change'>[] = []
-      actions.push('closeOther')
+      actions.push('close-other')
       if (mergedShowRefresh.value)
         actions.push('refresh')
       return actions
@@ -142,12 +141,12 @@ const MultiTab = defineComponent<
     const getTabActions = (item?: MultiTabItem): Exclude<MultiTabAction, 'change'>[] => {
       if (!item)
         return []
-      return ['close', 'closeLeft', 'closeRight', 'closeOther', 'refresh']
+      return ['close', 'close-left', 'close-right', 'close-other', 'refresh']
     }
     const emitAction = (action: MultiTabAction, item?: MultiTabItem) => {
       if (!item)
         return
-      emit(action, item.key, item)
+      emit(normalizeMultiTabAction(action), item.key, item)
     }
 
     const renderMenu = (item?: MultiTabItem, type: 'tab' | 'more' = 'tab') => {
@@ -160,7 +159,7 @@ const MultiTab = defineComponent<
       return {
         items: actions.map(action => ({
           key: action,
-          label: formatMessage?.(actionLocaleMap[action]),
+          label: formatMessage.value?.(actionLocaleMap[normalizeMultiTabAction(action) as Exclude<NormalizedMultiTabAction, 'change'>]),
           disabled: isActionDisabled(action, item),
         })),
         onClick: ({ key }: MenuInfo) => emitAction(key as Exclude<MultiTabAction, 'change'>, item),

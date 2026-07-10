@@ -6,6 +6,34 @@ title: 组件更新日志
 
 > 本页面由各子包 `CHANGELOG.md` 自动生成。发布前运行 `pnpm bump` 更新。
 
+## V1.0.32
+
+**发布日期：** 2026-07-10
+
+本版本包含 2 项摘要更新，涉及 `@antdv-next1/pro-components`、`@antdv-next1/pro-layout`。
+
+### 版本摘要 Highlights
+
+- **@antdv-next1/pro-components**: Fix layout MultiTab prop forwarding and compatibility handling.
+- **@antdv-next1/pro-layout**: Fix MultiTab prop forwarding and keep legacy MultiTab action compatibility.
+
+<details>
+<summary>展开依赖版本与完整详情</summary>
+
+### 完整详情 Details
+
+### 问题修复 Fixes
+
+- **@antdv-next1/pro-components**: Fix layout MultiTab prop forwarding and compatibility handling.
+- **@antdv-next1/pro-layout**: Fix MultiTab prop forwarding and keep legacy MultiTab action compatibility.
+
+### 依赖更新 Dependencies
+
+- **@antdv-next1/pro-components**: Updated dependencies
+  - @antdv-next1/pro-layout@1.0.27
+
+</details>
+
 ## V1.0.31
 
 **发布日期：** 2026-07-10

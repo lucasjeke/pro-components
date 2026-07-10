@@ -25,6 +25,7 @@ import useStyle from './style'
 import { clearMenuItem } from './utils'
 import { getBreadcrumbProps } from './utils/getBreadcrumbProps'
 import { getMenuData } from './utils/getMenuData'
+import { resolveMultiTabProps } from './utils/multiTab'
 import useCurrentMenuLayoutProps from './utils/useCurrentMenuLayoutProps'
 import { useProLayoutLocation } from './utils/useProLayoutLocation'
 import { useProLayoutRender } from './utils/useProLayoutRender'
@@ -88,14 +89,21 @@ function multiTabRender(props: ProLayoutProps) {
   const { multiTabRender, pure, prefixCls } = props
   if (multiTabRender === false || pure)
     return null
+  const multiTabProps = resolveMultiTabProps(props)
+  const mergedMultiTabProps = multiTabProps || {}
   const defaultDom = (
-    <MultiTab
-      {...props.multiTabProps || {}}
-      prefixCls={prefixCls}
-    />
+    multiTabProps === false
+      ? null
+      : (
+          <MultiTab
+            {...mergedMultiTabProps}
+            formatMessage={props.formatMessage}
+            prefixCls={prefixCls}
+          />
+        )
   )
   if (multiTabRender) {
-    return multiTabRender({ props: props.multiTabProps || {}, dom: defaultDom })
+    return multiTabRender({ props: mergedMultiTabProps, dom: defaultDom })
   }
 
   return defaultDom
@@ -227,7 +235,7 @@ const BasicLayout = defineComponent<ProLayoutProps, {}, string, CustomSlotsType<
     const { menu, siderMenuType } = props
     return omit(
       {
-        ...omit(props, ['headerRender', 'footerRender', 'menuRender', 'menuHeaderRender', 'menuItemRender', 'subMenuItemRender', 'menuExtraRender', 'menuContentRender', 'headerContentRender', 'headerTitleRender', 'appListRender', 'actionsRender', 'collapsedButtonRender', 'errorBoundaryRender', 'menuFooterRender', 'multiTabRender', 'multiTabProps']),
+        ...omit(props, ['headerRender', 'footerRender', 'menuRender', 'menuHeaderRender', 'menuItemRender', 'subMenuItemRender', 'menuExtraRender', 'menuContentRender', 'headerContentRender', 'headerTitleRender', 'appListRender', 'actionsRender', 'collapsedButtonRender', 'errorBoundaryRender', 'menuFooterRender', 'multiTabRender', 'multiTabProps', 'multiTab']),
         ...proLayoutRender.value,
         location: currentLocation.value,
         prefixCls: prefixCls.value,
@@ -366,7 +374,11 @@ const BasicLayout = defineComponent<ProLayoutProps, {}, string, CustomSlotsType<
     }),
   )
 
-  const multiTabDom = computed(() => multiTabRender(defaultProps.value))
+  const multiTabDom = computed(() => multiTabRender({
+    ...defaultProps.value,
+    multiTab: props.multiTab,
+    multiTabProps: props.multiTabProps,
+  }))
 
   useDocumentTitle(
     pageTitleInfo,

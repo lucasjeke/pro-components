@@ -6,6 +6,34 @@ title: Component Changelog
 
 > This page is generated from package `CHANGELOG.md` files. Run `pnpm bump` before publishing.
 
+## V1.0.32
+
+**Release date:** 2026-07-10
+
+This release includes 2 highlights across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`.
+
+### Highlights
+
+- **@antdv-next1/pro-components**: Fix layout MultiTab prop forwarding and compatibility handling.
+- **@antdv-next1/pro-layout**: Fix MultiTab prop forwarding and keep legacy MultiTab action compatibility.
+
+<details>
+<summary>Show dependency versions</summary>
+
+### Details
+
+### Fixes
+
+- **@antdv-next1/pro-components**: Fix layout MultiTab prop forwarding and compatibility handling.
+- **@antdv-next1/pro-layout**: Fix MultiTab prop forwarding and keep legacy MultiTab action compatibility.
+
+### Dependencies
+
+- **@antdv-next1/pro-components**: Updated dependencies
+  - @antdv-next1/pro-layout@1.0.27
+
+</details>
+
 ## V1.0.31
 
 **Release date:** 2026-07-10

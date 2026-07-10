@@ -95,6 +95,10 @@ export type ProLayoutProps = GlobalTypes & {
   onCollapse?: (collapsed: boolean) => void
   compact?: PureSettings['compact']
   /**
+   * @name multiTab 内置多标签页配置。保留为兼容入口；新代码建议使用 multiTabProps。
+   */
+  multiTab?: boolean | MultiTabProps
+  /**
    * @name multiTabProps 内置多标签页配置。默认不启用；传入对象时由外部控制标签数据和激活项。
    */
   multiTabProps?: MultiTabProps

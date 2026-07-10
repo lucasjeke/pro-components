@@ -84,8 +84,9 @@ ProLayout supports four layout modes: `side`, `top`, `mix`, and `left`. The `lef
 | logoStyle | Style of the menu logo area | `CSSProperties` | - | - |
 | waterMarkProps | Watermark config | `WatermarkProps` | - | - |
 | errorBoundaryRender | Custom error boundary | `ErrorBoundaryRender \| false` | - | - |
-| multiTab | Built-in MultiTab config. Disabled by default | `boolean \| MultiTabProps` | - | - |
-| multiTabRender | Custom MultiTab area. Takes priority over built-in `multiTab` | `MultiTabRender \| false` | - | - |
+| multiTabProps | Built-in MultiTab config. Disabled by default; recommended for new code | `MultiTabProps` | - | - |
+| multiTab | Legacy-compatible MultiTab config. Prefer `multiTabProps` for new code | `boolean \| MultiTabProps` | - | - |
+| multiTabRender | Custom MultiTab area. Takes priority over built-in MultiTab | `MultiTabRender \| false` | - | - |
 | siderMenuType | Side menu aggregation mode, shorthand for `menu.type` | `'sub' \| 'group'` | `'sub'` | - |
 | isChildrenLayout | Whether to render as a child layout | `boolean` | - | - |
 | headerRender | Customize Header. Set to `false` to hide Header | `HeaderRender \| false` | - | - |

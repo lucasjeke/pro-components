@@ -1,4 +1,13 @@
-export function SubIcon() {
+export function SubIcon({ dark }: { dark: boolean }) {
+  const color = dark ? {
+    bg: 'rgb(42, 44, 44)',
+    side: '#0f1c29',
+    header: 'rgb(36, 37, 37)',
+  } : {
+    bg: '#F0F2F5',
+    side: '#001529',
+    header: '#fff',
+  }
   return (
     <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width="1em" height="1em" viewBox="0 0 104 104">
       <defs>
@@ -26,10 +35,10 @@ export function SubIcon() {
       <g fill="none" fill-rule="evenodd" stroke="none" stroke-width="1">
         <g>
           <use fill="#000" filter="url(#filter-2)" xlinkHref="#path-1" />
-          <use fill="#F0F2F5" xlinkHref="#path-1" />
+          <use fill={color.bg} xlinkHref="#path-1" />
         </g>
-        <path fill="#FFF" d="M26 0h55c5.523 0 10 4.477 10 10v8H26V0z" />
-        <path fill="#001529" d="M10 0h19v72H10C4.477 72 0 67.523 0 62V10C0 4.477 4.477 0 10 0z" />
+        <path fill={color.header} d="M26 0h55c5.523 0 10 4.477 10 10v8H26V0z" />
+        <path fill={color.side} d="M10 0h19v72H10C4.477 72 0 67.523 0 62V10C0 4.477 4.477 0 10 0z" />
         <rect width="14" height="3" x="5" y="18" fill="#D7DDE6" opacity="0.2" rx="1.5" />
         <rect width="14" height="3" x="5" y="42" fill="#D7DDE6" opacity="0.2" rx="1.5" />
         <rect width="9" height="3" x="9" y="24" fill="#D7DDE6" opacity="0.2" rx="1.5" />

@@ -1,4 +1,6 @@
+import { findIntlKeyByAntdLocaleKey } from '@antdv-next1/pro-provider'
 import { isBrowser } from '@antdv-next1/pro-utils'
+import { useConfig } from 'antdv-next/dist/config-provider/index'
 import arEgLocal from './ar-EG'
 import caEsLocal from './ca-ES'
 import csCzLocal from './cs-CZ'
@@ -73,6 +75,10 @@ interface GLocaleWindow {
 }
 
 export function getLanguage(): string {
+  const config = useConfig()
+  if (config.value.locale?.locale) {
+    return findIntlKeyByAntdLocaleKey(config.value.locale?.locale)
+  }
   // support ssr
   if (!isBrowser())
     return 'zh-CN'

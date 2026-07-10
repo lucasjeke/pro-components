@@ -13,6 +13,13 @@ const genProMultiTabStyle: GenerateStyle<ProMultiTabToken> = (token) => {
         width: '100%',
         paddingBlockStart: token.paddingXS,
         zIndex: 8,
+        [`&${token.antCls}-tabs-card${token.antCls}-tabs-top`]: {
+          [`${token.antCls}-tabs-nav`]: {
+            [`${token.antCls}-tabs-tab+${token.antCls}-tabs-tab`]: {
+              marginInlineStart: token.calc(token.marginXS).sub(3).equal(),
+            },
+          },
+        },
         [`${componentCls}-extra-left`]: {
           width: 24,
         },

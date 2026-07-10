@@ -230,11 +230,11 @@ const PageContainerBase = defineComponent<PageContainerProps, {}, string, Custom
     if (pageHeaderRender === false)
       return null
     if (pageHeaderRender) {
-      return pageHeaderRender({
+      return pageHeaderRender({ props: {
         ...restProps,
         title: routeContext.value.title,
         breadcrumb: routeContext.value.breadcrumb,
-      })
+      } })
     }
 
     let pageHeaderTitle = restProps.title

@@ -2,6 +2,7 @@ import type { VueNode } from '@antdv-next1/pro-utils'
 import type { AppListProps } from './components/AppsLogoComponents/typing'
 import type { FooterToolbarProps } from './components/FooterToolbar'
 import type { HeaderViewProps } from './components/Header'
+import type { MultiTabProps } from './components/MultiTab'
 import type { PageContainerProps } from './components/PageContainer'
 import type { PageHeaderProps } from './components/PageHeader'
 import type { BaseMenuProps } from './components/SiderMenu/BaseMenu'
@@ -33,9 +34,9 @@ export type AppListRender = (options: { props: AppListProps, dom: VueNode }) => 
 export type ActionsRender = (options: { props: HeaderViewProps | (PrivateSiderMenuProps & SiderMenuProps) }) => VueNode
 export type CollapsedButtonRender = (options: { collapsed?: boolean, dom?: VueNode }) => VueNode
 
-export type MultiTabRender = (props: ProLayoutProps) => VueNode
+export type MultiTabRender = (options: { props: MultiTabProps, dom: VueNode }) => VueNode
 
-export type PageHeaderRender = (props: PageContainerProps) => VueNode
+export type PageHeaderRender = (options: { props: PageContainerProps }) => VueNode
 export type BreadcrumbRender = (props: PageHeaderProps, defaultDom: VueNode) => VueNode
 
 export type FooterRender = (options: {

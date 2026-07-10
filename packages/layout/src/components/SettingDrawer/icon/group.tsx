@@ -1,4 +1,19 @@
-export function GroupIcon() {
+export function GroupIcon({ dark }: { dark: boolean }) {
+  const color = dark ? {
+    bg: 'rgb(36, 37, 37)',
+    sider: 'rgb(42, 44, 44)',
+    header: 'rgb(42, 44, 44)',
+    content: 'rgb(42, 44, 44)',
+    firstLineOpacity: '0.2',
+    secendLineOpacity: '0.2',
+  } : {
+    bg: '#F0F2F5',
+    sider: '#E6EAF0',
+    header: '#E6EAF0',
+    content: '#FFF',
+    firstLineOpacity: '1',
+    secendLineOpacity: '1',
+  }
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -51,17 +66,17 @@ export function GroupIcon() {
       <g fill="none" fill-rule="evenodd" stroke="none" stroke-width="1">
         <g>
           <use fill="#000" filter="url(#filter-2)" xlinkHref="#path-1" />
-          <use fill="#F0F2F5" xlinkHref="#path-1" />
+          <use fill={color.sider} xlinkHref="#path-1" />
         </g>
-        <path fill="#FFF" d="M25 15h65v47c0 5.523-4.477 10-10 10H25V15z" />
-        <path stroke="#E6EAF0" stroke-linecap="square" d="M0.5 15.5L90.5 15.5" />
-        <rect width="14" height="3" x="4" y="26" fill="#D7DDE6" rx="1.5" />
-        <rect width="9" height="3" x="4" y="32" fill="#D7DDE6" rx="1.5" />
-        <rect width="9" height="3" x="4" y="42" fill="#E6EAF0" rx="1.5" />
-        <rect width="9" height="3" x="4" y="21" fill="#E6EAF0" rx="1.5" />
-        <rect width="9" height="3" x="4" y="53" fill="#D7DDE6" rx="1.5" />
-        <rect width="14" height="3" x="4" y="47" fill="#D7DDE6" rx="1.5" />
-        <path stroke="#E6EAF0" stroke-linecap="square" d="M25.5 15.5L25.5 72.5" />
+        <path fill={color.bg} d="M25 15h65v47c0 5.523-4.477 10-10 10H25V15z" />
+        <path stroke={color.header} stroke-linecap="square" d="M0.5 15.5L90.5 15.5" />
+        <rect width="14" height="3" x="4" y="26" fill="#D7DDE6" rx="1.5" opacity={color.firstLineOpacity} />
+        <rect width="9" height="3" x="4" y="32" fill="#D7DDE6" rx="1.5" opacity={color.firstLineOpacity} />
+        <rect width="9" height="3" x="4" y="42" fill="#E6EAF0" rx="1.5" opacity={color.secendLineOpacity} />
+        <rect width="9" height="3" x="4" y="21" fill="#E6EAF0" rx="1.5" opacity={color.secendLineOpacity} />
+        <rect width="9" height="3" x="4" y="53" fill="#D7DDE6" rx="1.5" opacity={color.firstLineOpacity} />
+        <rect width="14" height="3" x="4" y="47" fill="#D7DDE6" rx="1.5" opacity={color.firstLineOpacity} />
+        <path stroke={color.sider} stroke-linecap="square" d="M25.5 15.5L25.5 72.5" />
       </g>
     </svg>
   )

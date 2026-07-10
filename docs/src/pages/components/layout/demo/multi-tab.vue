@@ -25,7 +25,7 @@ const routeObj: MenuDataItem = {
       path: '/dashboard',
       name: 'Dashboard',
       meta: {
-        title: '工作台',
+        title: '仪表盘',
         icon: DashboardOutlined,
       },
     },
@@ -57,7 +57,7 @@ const routeObj: MenuDataItem = {
 }
 
 const pageTitleMap: Record<string, string> = {
-  '/dashboard': '工作台',
+  '/dashboard': '仪表盘',
   '/projects': '项目列表',
   '/team': '团队管理',
   '/settings': '系统设置',
@@ -67,7 +67,7 @@ const tabs = ref<MultiTabItem[]>([
   {
     key: '/dashboard',
     path: '/dashboard',
-    title: '工作台',
+    title: '仪表盘',
     closable: false,
   },
 ])

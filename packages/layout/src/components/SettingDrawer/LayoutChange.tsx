@@ -17,10 +17,10 @@ export interface SettingItemProps {
   disabled?: boolean
   disabledReason?: VueNode
 }
-export function getFormatMessage(): ((data: { id: string, defaultMessage?: string }) => string) {
-  return ({ id }: { id: string, defaultMessage?: string }): string => {
+export function getFormatMessage(): ((data: { id: string, defaultMessage?: string }) => string | undefined) {
+  return ({ id, defaultMessage }: { id: string, defaultMessage?: string }): string | undefined => {
     const locales = gLocaleObject()
-    return locales[id]!
+    return locales[id] || defaultMessage
   }
 }
 
@@ -46,7 +46,7 @@ export const LayoutSetting: FunctionalComponent<{
   hashId: string
   cssVarCls: string
   prefixCls: string
-  formatMessage: (data: MessageDescriptor) => string
+  formatMessage: (data: MessageDescriptor) => string | undefined
 }> = ({ settings = {}, prefixCls, formatMessage, changeSetting, cssVarCls, hashId }) => {
   const { compact, contentWidth, splitMenus, fixedHeader, layout, fixedSiderbar } = settings || defaultSettings
   return (

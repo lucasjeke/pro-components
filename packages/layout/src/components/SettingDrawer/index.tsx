@@ -36,7 +36,7 @@ export interface SettingDrawerProps {
   'onUpdate:collapsed'?: (collapsed: boolean) => void
 }
 interface BodyProps {
-  title: string
+  title?: string
   prefixCls: string
   cssVarCls: string
   hashId: string
@@ -75,6 +75,7 @@ const SettingDrawer = defineComponent<SettingDrawerProps>((props) => {
   const baseClassName = computed(() => `${props.prefixCls || config.value.getPrefixCls('pro')}-setting-drawer`)
   const formatMessage = getFormatMessage()
   const drawerRef = shallowRef(null)
+
   const [hashId, cssVarCls] = useStyle(baseClassName)
   const [open, setOpen] = useMountMergeState(false, {
     value: props.collapsed === undefined ? undefined : ref(props.collapsed),
@@ -83,7 +84,7 @@ const SettingDrawer = defineComponent<SettingDrawerProps>((props) => {
   const className = computed(() =>
     classNames(baseClassName.value, hashId?.value, cssVarCls?.value, {
       [`${baseClassName.value}-collapsed`]: !open.value,
-      // [`${baseClassName.value}-realDark`]: props.settings?.navTheme === 'realDark',
+      [`${baseClassName.value}-realDark`]: props.settings?.navTheme === 'realDark',
     }),
   )
   const [settingState, setSettingState] = useMountMergeState<Partial<ProSettings>>(defaultSettings, {
@@ -142,7 +143,6 @@ const SettingDrawer = defineComponent<SettingDrawerProps>((props) => {
 
   return () => {
     const {
-      // navTheme,
       colorList = [
         { key: 'techBlue', color: '#1677FF' },
         { key: 'daybreak', color: '#1890FF' },
@@ -157,7 +157,7 @@ const SettingDrawer = defineComponent<SettingDrawerProps>((props) => {
       hideCopyButton,
       hideHintAlert,
     } = props
-
+    const copyMessage = formatMessage({ id: 'app.setting.copyinfo', defaultMessage: '拷贝成功，请到 src/defaultSettings.js 中替换默认配置' })
     return (
       <>
         <Teleport to="body">
@@ -215,21 +215,21 @@ const SettingDrawer = defineComponent<SettingDrawerProps>((props) => {
                     title: formatMessage({
                       id: 'app.setting.pagestyle.light',
                       defaultMessage: '亮色菜单风格',
-                    }),
+                    })!,
                   },
                   {
                     key: 'dark',
                     title: formatMessage({
                       id: 'app.setting.pagestyle.dark',
                       defaultMessage: '暗色菜单风格',
-                    }),
+                    })!,
                   },
                   {
                     key: 'realDark',
                     title: formatMessage({
                       id: 'app.setting.pagestyle.realdark',
                       defaultMessage: '暗色风格',
-                    }),
+                    })!,
                   },
                 ]}
                 configType="theme"
@@ -296,28 +296,28 @@ const SettingDrawer = defineComponent<SettingDrawerProps>((props) => {
                     title: formatMessage({
                       id: 'app.setting.sidemenu',
                       defaultMessage: '侧边菜单布局',
-                    }),
+                    })!,
                   },
                   {
                     key: 'top',
                     title: formatMessage({
                       id: 'app.setting.topmenu',
                       defaultMessage: '顶部菜单布局',
-                    }),
+                    })!,
                   },
                   {
                     key: 'mix',
                     title: formatMessage({
                       id: 'app.setting.mixmenu',
                       defaultMessage: '混合菜单布局',
-                    }),
+                    })!,
                   },
                   {
                     key: 'left',
                     title: formatMessage({
                       id: 'app.setting.leftmenu',
                       defaultMessage: '左侧混合布局',
-                    }),
+                    })!,
                   },
                 ]}
                 onChange={value => changeSetting('layout', value)}
@@ -344,19 +344,19 @@ const SettingDrawer = defineComponent<SettingDrawerProps>((props) => {
                       list={[
                         {
                           key: 'sub',
-                          icon: <SubIcon />,
+                          icon: <SubIcon dark={props.settings?.navTheme === 'realDark'} />,
                           title: formatMessage({
                             id: 'app.setting.sidermenutype-sub',
                             defaultMessage: '经典模式',
-                          }),
+                          })!,
                         },
                         {
                           key: 'group',
-                          icon: <GroupIcon />,
+                          icon: <GroupIcon dark={props.settings?.navTheme === 'realDark'} />,
                           title: formatMessage({
                             id: 'app.setting.sidermenutype-group',
                             defaultMessage: '分组模式',
-                          }),
+                          })!,
                         },
                       ]}
                       onChange={value => changeSetting('siderMenuType', value)}
@@ -452,12 +452,7 @@ const SettingDrawer = defineComponent<SettingDrawerProps>((props) => {
                   <CopyToClipboard
                     text={genCopySettingJson(settingState.value)}
                     onCopy={() =>
-                      message.info(
-                        formatMessage({
-                          id: 'app.setting.copyinfo',
-                          defaultMessage: '拷贝成功，请到 src/defaultSettings.js 中替换默认配置',
-                        }),
-                      )}
+                      message.info(copyMessage)}
                   >
                     <ContextHolder />
                     <Button block icon={<CopyOutlined />} style={{ marginBlockEnd: '24px' }}>

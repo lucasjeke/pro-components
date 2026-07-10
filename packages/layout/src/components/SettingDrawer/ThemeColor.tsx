@@ -28,7 +28,7 @@ export interface ThemeColorProps {
   prefixCls: string
   value: string
   onChange: (color: string) => void
-  formatMessage: (data: { id: string, defaultMessage?: string }) => string
+  formatMessage: (data: { id: string, defaultMessage?: string }) => string | undefined
   hashId: string
   cssVarCls: string
 }

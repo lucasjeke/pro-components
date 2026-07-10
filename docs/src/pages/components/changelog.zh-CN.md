@@ -6,6 +6,43 @@ title: 组件更新日志
 
 > 本页面由各子包 `CHANGELOG.md` 自动生成。发布前运行 `pnpm bump` 更新。
 
+## V1.0.31
+
+**发布日期：** 2026-07-10
+
+本版本包含 3 项摘要更新，涉及 `@antdv-next1/pro-components`、`@antdv-next1/pro-layout`、`@antdv-next1/pro-form`、`@antdv-next1/pro-table`、`@antdv-next1/pro-card`、`@antdv-next1/pro-field`、`@antdv-next1/pro-listy`、`@antdv-next1/pro-provider`、`@antdv-next1/pro-utils`。
+
+### 版本摘要 Highlights
+
+- **@antdv-next1/pro-components**: Refine layout multi-tab rendering and setting drawer dark theme behavior.
+- **@antdv-next1/pro-layout**: Refine layout multi-tab rendering and setting drawer dark theme behavior.
+- **@antdv-next1/pro-provider**: Refine layout multi-tab rendering and setting drawer dark theme behavior.
+
+<details>
+<summary>展开依赖版本与完整详情</summary>
+
+### 完整详情 Details
+
+### 依赖更新 Dependencies
+
+- **@antdv-next1/pro-components**: Updated dependencies
+  - @antdv-next1/pro-layout@1.0.26
+  - @antdv-next1/pro-provider@1.0.11
+  - @antdv-next1/pro-card@2.0.17
+  - @antdv-next1/pro-field@1.0.17
+  - @antdv-next1/pro-form@1.0.24
+  - @antdv-next1/pro-listy@1.0.18
+  - @antdv-next1/pro-table@1.0.28
+  - @antdv-next1/pro-utils@1.0.19
+
+### 其他更新 Changes
+
+- **@antdv-next1/pro-components**: Refine layout multi-tab rendering and setting drawer dark theme behavior.
+- **@antdv-next1/pro-layout**: Refine layout multi-tab rendering and setting drawer dark theme behavior.
+- **@antdv-next1/pro-provider**: Refine layout multi-tab rendering and setting drawer dark theme behavior.
+
+</details>
+
 ## V1.0.30
 
 **发布日期：** 2026-07-09

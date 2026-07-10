@@ -6,6 +6,43 @@ title: Component Changelog
 
 > This page is generated from package `CHANGELOG.md` files. Run `pnpm bump` before publishing.
 
+## V1.0.31
+
+**Release date:** 2026-07-10
+
+This release includes 3 highlights across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-form`, `@antdv-next1/pro-table`, `@antdv-next1/pro-card`, `@antdv-next1/pro-field`, `@antdv-next1/pro-listy`, `@antdv-next1/pro-provider`, `@antdv-next1/pro-utils`.
+
+### Highlights
+
+- **@antdv-next1/pro-components**: Refine layout multi-tab rendering and setting drawer dark theme behavior.
+- **@antdv-next1/pro-layout**: Refine layout multi-tab rendering and setting drawer dark theme behavior.
+- **@antdv-next1/pro-provider**: Refine layout multi-tab rendering and setting drawer dark theme behavior.
+
+<details>
+<summary>Show dependency versions</summary>
+
+### Details
+
+### Dependencies
+
+- **@antdv-next1/pro-components**: Updated dependencies
+  - @antdv-next1/pro-layout@1.0.26
+  - @antdv-next1/pro-provider@1.0.11
+  - @antdv-next1/pro-card@2.0.17
+  - @antdv-next1/pro-field@1.0.17
+  - @antdv-next1/pro-form@1.0.24
+  - @antdv-next1/pro-listy@1.0.18
+  - @antdv-next1/pro-table@1.0.28
+  - @antdv-next1/pro-utils@1.0.19
+
+### Changes
+
+- **@antdv-next1/pro-components**: Refine layout multi-tab rendering and setting drawer dark theme behavior.
+- **@antdv-next1/pro-layout**: Refine layout multi-tab rendering and setting drawer dark theme behavior.
+- **@antdv-next1/pro-provider**: Refine layout multi-tab rendering and setting drawer dark theme behavior.
+
+</details>
+
 ## V1.0.30
 
 **Release date:** 2026-07-09

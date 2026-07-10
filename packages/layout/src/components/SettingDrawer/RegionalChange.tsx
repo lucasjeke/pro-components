@@ -12,7 +12,7 @@ const RegionalSetting: FunctionalComponent<{
   hashId: string
   cssVarCls: string
   prefixCls: string
-  formatMessage: (data: MessageDescriptor) => string
+  formatMessage: (data: MessageDescriptor) => string | undefined
 }> = ({ settings = {}, prefixCls, changeSetting, formatMessage, cssVarCls, hashId }) => {
   const regionalSetting = ['header', 'footer', 'siderMenu', 'menuHeader']
   return (

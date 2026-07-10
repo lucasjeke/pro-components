@@ -91,6 +91,15 @@ const genSettingDrawerStyle: GenerateStyle<SettingDrawerToken> = (token) => {
                 '&::before': { backgroundColor: '#0f1c29' },
                 '&::after': { backgroundColor: 'rgb(36, 37, 37)' },
               },
+              '&-sub': {
+                backgroundColor: 'rgb(42, 44, 44)',
+                boxShadow: 'rgba(13, 13, 13, 0.18) 0px 1px 2.5px',
+                '&::before': { zIndex: '1', backgroundColor: '#0f1c29' },
+                '&::after': { backgroundColor: 'rgb(36, 37, 37)' },
+              },
+              '&-group': {
+
+              },
             },
           },
         },

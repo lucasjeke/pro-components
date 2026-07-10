@@ -84,6 +84,23 @@ function footerRender(props: ProLayoutProps) {
   return null
 }
 
+function multiTabRender(props: ProLayoutProps) {
+  const { multiTabRender, pure, prefixCls } = props
+  if (multiTabRender === false || pure)
+    return null
+  const defaultDom = (
+    <MultiTab
+      {...props.multiTabProps || {}}
+      prefixCls={prefixCls}
+    />
+  )
+  if (multiTabRender) {
+    return multiTabRender({ props: props.multiTabProps || {}, dom: defaultDom })
+  }
+
+  return defaultDom
+}
+
 function defaultPageTitleRender(pageProps: GetPageTitleProps, props: ProLayoutProps): {
   title: string
   id: string
@@ -210,7 +227,7 @@ const BasicLayout = defineComponent<ProLayoutProps, {}, string, CustomSlotsType<
     const { menu, siderMenuType } = props
     return omit(
       {
-        ...omit(props, ['headerRender', 'footerRender', 'menuRender', 'menuHeaderRender', 'menuItemRender', 'subMenuItemRender', 'menuExtraRender', 'menuContentRender', 'headerContentRender', 'headerTitleRender', 'appListRender', 'actionsRender', 'collapsedButtonRender', 'errorBoundaryRender', 'menuFooterRender', 'multiTabRender', 'multiTab']),
+        ...omit(props, ['headerRender', 'footerRender', 'menuRender', 'menuHeaderRender', 'menuItemRender', 'subMenuItemRender', 'menuExtraRender', 'menuContentRender', 'headerContentRender', 'headerTitleRender', 'appListRender', 'actionsRender', 'collapsedButtonRender', 'errorBoundaryRender', 'menuFooterRender', 'multiTabRender', 'multiTabProps']),
         ...proLayoutRender.value,
         location: currentLocation.value,
         prefixCls: prefixCls.value,
@@ -349,30 +366,7 @@ const BasicLayout = defineComponent<ProLayoutProps, {}, string, CustomSlotsType<
     }),
   )
 
-  const multiTabDom = computed(() => {
-    const { multiTabRender } = proLayoutRender.value
-    if (multiTabRender === false)
-      return null
-    const layoutProps = {
-      ...defaultProps.value,
-      isMobile: isMobile.value,
-      collapsed: collapsed.value,
-    } as ProLayoutProps
-    if (multiTabRender)
-      return multiTabRender(layoutProps)
-    if (!props.multiTab)
-      return null
-    const multiTabProps = props.multiTab === true
-      ? { items: [] }
-      : props.multiTab
-    return (
-      <MultiTab
-        prefixCls={prefixCls.value}
-        formatMessage={formatMessage}
-        {...multiTabProps}
-      />
-    )
-  })
+  const multiTabDom = computed(() => multiTabRender(defaultProps.value))
 
   useDocumentTitle(
     pageTitleInfo,

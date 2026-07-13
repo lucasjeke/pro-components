@@ -6,6 +6,51 @@ title: 组件更新日志
 
 > 本页面由各子包 `CHANGELOG.md` 自动生成。发布前运行 `pnpm bump` 更新。
 
+## V1.0.34
+
+**发布日期：** 2026-07-13
+
+本版本默认展示 4 条摘要，完整 9 项更新见折叠详情，涉及 `@antdv-next1/pro-components`、`@antdv-next1/pro-layout`、`@antdv-next1/pro-form`、`@antdv-next1/pro-table`、`@antdv-next1/pro-card`、`@antdv-next1/pro-field`、`@antdv-next1/pro-listy`、`@antdv-next1/pro-provider`、`@antdv-next1/pro-utils`。
+
+### 版本摘要 Highlights
+
+- **@antdv-next1/pro-components**: fix layout filed form card bugs
+- **@antdv-next1/pro-card**: fix layout filed form card bugs
+- **@antdv-next1/pro-field**: fix layout filed form card bugs
+- **@antdv-next1/pro-form**: fix layout filed form card bugs
+- 更多更新见下方折叠详情。
+
+<details>
+<summary>展开依赖版本与完整详情</summary>
+
+### 完整详情 Details
+
+### 问题修复 Fixes
+
+- **@antdv-next1/pro-components**: fix layout filed form card bugs
+- **@antdv-next1/pro-card**: fix layout filed form card bugs
+- **@antdv-next1/pro-field**: fix layout filed form card bugs
+- **@antdv-next1/pro-form**: fix layout filed form card bugs
+- **@antdv-next1/pro-layout**: fix layout filed form card bugs
+- **@antdv-next1/pro-listy**: fix layout filed form card bugs
+- **@antdv-next1/pro-provider**: fix layout filed form card bugs
+- **@antdv-next1/pro-table**: fix layout filed form card bugs
+- **@antdv-next1/pro-utils**: fix layout filed form card bugs
+
+### 依赖更新 Dependencies
+
+- **@antdv-next1/pro-components**: Updated dependencies
+  - @antdv-next1/pro-card@2.0.19
+  - @antdv-next1/pro-field@1.0.19
+  - @antdv-next1/pro-form@1.0.26
+  - @antdv-next1/pro-layout@1.0.29
+  - @antdv-next1/pro-listy@1.0.20
+  - @antdv-next1/pro-provider@1.0.13
+  - @antdv-next1/pro-table@1.0.30
+  - @antdv-next1/pro-utils@1.0.21
+
+</details>
+
 ## V1.0.33
 
 **发布日期：** 2026-07-10

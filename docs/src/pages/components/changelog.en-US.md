@@ -6,6 +6,51 @@ title: Component Changelog
 
 > This page is generated from package `CHANGELOG.md` files. Run `pnpm bump` before publishing.
 
+## V1.0.34
+
+**Release date:** 2026-07-13
+
+This release shows 4 highlights from 9 updates across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-form`, `@antdv-next1/pro-table`, `@antdv-next1/pro-card`, `@antdv-next1/pro-field`, `@antdv-next1/pro-listy`, `@antdv-next1/pro-provider`, `@antdv-next1/pro-utils`.
+
+### Highlights
+
+- **@antdv-next1/pro-components**: fix layout filed form card bugs
+- **@antdv-next1/pro-card**: fix layout filed form card bugs
+- **@antdv-next1/pro-field**: fix layout filed form card bugs
+- **@antdv-next1/pro-form**: fix layout filed form card bugs
+- See folded details below for the remaining updates.
+
+<details>
+<summary>Show dependency versions</summary>
+
+### Details
+
+### Fixes
+
+- **@antdv-next1/pro-components**: fix layout filed form card bugs
+- **@antdv-next1/pro-card**: fix layout filed form card bugs
+- **@antdv-next1/pro-field**: fix layout filed form card bugs
+- **@antdv-next1/pro-form**: fix layout filed form card bugs
+- **@antdv-next1/pro-layout**: fix layout filed form card bugs
+- **@antdv-next1/pro-listy**: fix layout filed form card bugs
+- **@antdv-next1/pro-provider**: fix layout filed form card bugs
+- **@antdv-next1/pro-table**: fix layout filed form card bugs
+- **@antdv-next1/pro-utils**: fix layout filed form card bugs
+
+### Dependencies
+
+- **@antdv-next1/pro-components**: Updated dependencies
+  - @antdv-next1/pro-card@2.0.19
+  - @antdv-next1/pro-field@1.0.19
+  - @antdv-next1/pro-form@1.0.26
+  - @antdv-next1/pro-layout@1.0.29
+  - @antdv-next1/pro-listy@1.0.20
+  - @antdv-next1/pro-provider@1.0.13
+  - @antdv-next1/pro-table@1.0.30
+  - @antdv-next1/pro-utils@1.0.21
+
+</details>
+
 ## V1.0.33
 
 **Release date:** 2026-07-10

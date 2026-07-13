@@ -1,17 +1,16 @@
 import type { VueNode } from '@v-c/util'
 import type { FormItemProps as AntdFormItemProps, FormInstance, FormItemSlots } from 'antdv-next'
-
 import type { ItemHolderProps } from 'antdv-next/dist/form/FormItem/ItemHolder'
 import type { FormItemInputProps } from 'antdv-next/dist/form/FormItemInput'
 import type { InternalNamePath, Meta, NamePath, Rule, RuleError, RuleObject, Store, StoreValue, TriggerType, ValidateOptions } from 'antdv-next/dist/form/types'
 import type { SlotsType, VNode } from 'vue'
 import type { ChildProps } from '../FormList/Field'
 import type { FormItemInputMiscProps } from './FormItemInput'
-import { clsx } from '@v-c/util'
+import { clsx, omit } from '@v-c/util'
 import { filterEmpty } from '@v-c/util/dist/props-util/index'
+import { useComponentBaseConfig } from 'antdv-next/config-provider/context'
 import { getSlotPropsFnRun } from 'antdv-next/dist/_util/tools'
 import { checkRenderNode } from 'antdv-next/dist/_util/vueNode'
-import { useComponentBaseConfig } from 'antdv-next/dist/config-provider/context'
 import useCSSVarCls from 'antdv-next/dist/config-provider/hooks/useCSSVarCls'
 import { useFormContext, useFormItemProvider, useNoStyleItemContext } from 'antdv-next/dist/form/context'
 import StatusProvider from 'antdv-next/dist/form/FormItem/StatusProvider'
@@ -118,7 +117,6 @@ const FormItem = defineComponent<FormItemProps, {}, string, SlotsType<FormItemSl
     const subFieldErrors = shallowRef<Record<string, FieldError>>({})
     // 获取初始值的类型，如果是单个的值，直接复制，如果是个对象，就需要进行深拷贝
     const initialValue = shallowRef<any>(initialValueFormat(formContext.value?.getFieldValue?.(namePath.value)))
-
     const mergedRules = computed<RuleObject[]>(() => {
       const collectedRules: (Rule | RuleObject)[] = []
       const formRules = formContext.value?.rules
@@ -567,7 +565,7 @@ const FormItem = defineComponent<FormItemProps, {}, string, SlotsType<FormItemSl
       }
       return (
         <ItemHolder
-          {...props}
+          {...omit(props, ['isRenderProps'])}
           tooltip={mergedTooltip}
           label={getSlotPropsFnRun(slots, props, 'label')}
           extra={getSlotPropsFnRun(slots, props, 'extra')}

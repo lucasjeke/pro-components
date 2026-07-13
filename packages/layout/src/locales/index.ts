@@ -1,6 +1,6 @@
 import { findIntlKeyByAntdLocaleKey } from '@antdv-next1/pro-provider'
 import { isBrowser } from '@antdv-next1/pro-utils'
-import { useConfig } from 'antdv-next/dist/config-provider/index'
+import { useConfig } from 'antdv-next/config-provider/context'
 import { getCurrentInstance } from 'vue'
 import arEgLocal from './ar-EG'
 import caEsLocal from './ca-ES'

@@ -7,7 +7,7 @@ import type {
   ProFormFieldRemoteProps,
 } from '../../../typing'
 import { FieldSelect } from '@antdv-next1/pro-field'
-import ProConfigProvider from '@antdv-next1/pro-provider'
+import { ProConfigProvider } from '@antdv-next1/pro-provider'
 import { omitUndefined, runFunction } from '@antdv-next1/pro-utils'
 import { defineComponent } from 'vue'
 import { useFieldContextInject } from '../../../FieldContext'

@@ -11,36 +11,24 @@ import {
   conversionMomentValue,
   nanoid,
   omitUndefined,
-  runFunction,
   transformKeySubmitValue,
   useEffect,
-  useFetchData,
   useMountMergeState,
   useProFormContextProvider,
-  useState,
 } from '@antdv-next1/pro-utils'
 import { classNames, get, set as namePathSet, set } from '@v-c/util'
-import { Form, Spin } from 'antdv-next'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
+import { Form } from 'antdv-next'
+import { useConfig } from 'antdv-next/config-provider/context'
 import { computed, defineComponent, nextTick, reactive, shallowRef, toRef } from 'vue'
 import { useFormListContextProvider } from '../components'
 import { useFieldContextProvider } from '../FieldContext'
 import { useGridContextProvider, useGridHelpers } from '../helpers'
-import { useProFormInstanceExpose, useUrlSearchParams } from '../utils'
+import { useProFormInstanceExpose } from '../utils'
+import { genParams } from './BaseForm'
 import { useEditOrReadOnlyContextProvider } from './EditOrReadOnlyContext'
 import useStyle from './style'
 import Submitter from './Submitter'
 
-export function genParams<T extends Record<string, any>, U extends Record<string, any>>(
-  syncUrl: BaseFormProps<T, U>['syncToUrl'],
-  params: Record<string, any>,
-  type: 'get' | 'set',
-) {
-  if (syncUrl === true) {
-    return params
-  }
-  return runFunction(syncUrl, params, type)
-}
 /**
  * It takes a name path and converts it to an array.
  * @param {NamePath} name - The name of the form.
@@ -59,7 +47,11 @@ function covertFormName(name?: NamePath<string | number | boolean>) {
 
 const BaseFormComponents = defineComponent(
   <T extends Record<string, any>, U extends Record<string, any>>(
-    props: BaseFormProps<T, U>,
+    props: BaseFormProps<T, U> & {
+      urlSearch?: Record<string, string | number>
+      urlParamsMergeModel?: Record<string, any>
+      setUrlSearch?: (value: Record<string, string | number>) => void
+    },
     {
       expose,
       attrs,
@@ -92,7 +84,6 @@ const BaseFormComponents = defineComponent(
         }
       >
     >({})
-    const [urlSearch, setUrlSearch] = useUrlSearchParams({}, { disabled: !props.syncToUrl })
 
     const getPopupContainer = computed(() => {
       if (typeof window === 'undefined')
@@ -230,47 +221,10 @@ const BaseFormComponents = defineComponent(
       },
     }
 
-    // 如果为 false，不需要触发设置进去
-    const [urlParamsMergeModel, setUrlParamsMergeModel] = useState(() => {
-      if (!props.syncToUrl) {
-        return {}
-      }
-      return genParams(props.syncToUrl, urlSearch.value, 'get')
-    })
-    const getGenParams = () => ({
-      ...urlSearch.value,
-      ...(props.extraUrlParams || {}),
-    })
-
-    useEffect(() => {
-      if (props.syncToModel)
-        return
-      setUrlParamsMergeModel({})
-    }, [() => props.syncToModel])
-
-    useEffect(() => {
-      if (!props.syncToUrl)
-        return
-      setUrlSearch(genParams(props.syncToUrl, getGenParams(), 'set'))
-    }, [() => props.extraUrlParams, () => props.syncToUrl])
-
     const [loading, setLoading] = useMountMergeState<boolean>(false, {
       onChange: props.onLoadingChange,
       value: toRef(() => props.loading!),
     })
-    const [initialData, initialDataLoading] = useFetchData<T, U>({
-      request: props.request,
-      params: computed(() => props.params),
-      proFieldKey: computed(() => props.formKey!),
-    })
-    useEffect(() => {
-      if (initialData?.value) {
-        Object.keys(initialData.value).forEach((key) => {
-          modelValue[key] = initialData.value![key]
-        })
-      }
-    }, [initialData])
-
     const handleFinish: FormProps['onFinish'] = async () => {
       // 没设置 onFinish 就不执行
       if (!props.onFinish)
@@ -311,7 +265,7 @@ const BaseFormComponents = defineComponent(
             }
           }, props.extraUrlParams || {})
           // fix #3547: 当原先在url中存在的字段被删除时，应该将 params 中的该字段设置为 undefined,以便触发url同步删除
-          Object.keys(urlSearch.value).forEach((key) => {
+          Object.keys(props.urlSearch || {}).forEach((key) => {
             if (
               syncToUrlParams[key] !== false
               && syncToUrlParams[key] !== 0
@@ -321,7 +275,7 @@ const BaseFormComponents = defineComponent(
             }
           })
           // /** 在同步到 url 上时对参数进行转化 */
-          setUrlSearch(genParams(props.syncToUrl, syncToUrlParams, 'set'))
+          props.setUrlSearch?.(genParams(props.syncToUrl, syncToUrlParams, 'set'))
         }
       }
       catch (error) {
@@ -367,13 +321,13 @@ const BaseFormComponents = defineComponent(
     // 在 BaseForm 中直接处理 onInit，确保能获取到完整的 fieldsValueType
     // 注意：useEffect 内部已经有一个 nextTick()，且子组件的 useEffect 会先执行
     useEffect(() => {
-      const { omitNil = true, onInit } = props
+      const { omitNil = true, onInit, urlParamsMergeModel } = props
       if (!onInit)
         return
 
       const executeOnInit = async () => {
         await nextTick() // 等待第一次 tick
-        const finalValues = transformKey({ ...formRef.value?.getFieldsValue?.(true), ...urlParamsMergeModel.value } as T, omitNil)
+        const finalValues = transformKey({ ...formRef.value?.getFieldsValue?.(true), ...urlParamsMergeModel } as T, omitNil)
         onInit?.(finalValues, proFormInstance)
       }
       executeOnInit()
@@ -426,28 +380,12 @@ const BaseFormComponents = defineComponent(
         onValuesChange,
         omitNil = true,
         onFinish,
+        urlSearch,
+        urlParamsMergeModel,
+        setUrlSearch,
         ...propsRest
       } = { ...attrs, ...omitUndefined(props) }
-      if (initialDataLoading.value && request) {
-        return (
-          <div style={{ paddingTop: '50px', paddingBottom: '50px', textAlign: 'center' }}>
-            <Spin />
-          </div>
-        )
-      }
 
-      if (syncToUrlAsImportant) {
-        Object.keys(urlParamsMergeModel.value).forEach((key) => {
-          modelValue[key] = urlParamsMergeModel.value[key]
-        })
-      }
-      else {
-        Object.keys(urlParamsMergeModel.value).forEach((key) => {
-          if (!modelValue[key]) {
-            modelValue[key] = urlParamsMergeModel.value[key]
-          }
-        })
-      }
       const children = slots.default?.()
       const items = autoFocusToFirstChild(
         children! as VNode[],
@@ -593,6 +531,9 @@ const BaseFormComponents = defineComponent(
       'omitNil',
       'onLoadingChange',
       'loading',
+      'urlSearch',
+      'urlParamsMergeModel',
+      'setUrlSearch',
     ],
   },
 )

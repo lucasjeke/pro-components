@@ -13,8 +13,9 @@ export type ProStepFormProps<T extends Record<string, any>, U extends Record<str
   step?: number
   stepProps?: NonNullable<StepsProps['items']>[number]
   index?: number
+  onReset?: (values?: T) => void
   title?: string
-} & Omit<FormProps, 'onFinish' | 'form'>
+} & Omit<FormProps, 'onFinish' | 'form' | 'onReset'>
 & Omit<CommonFormProps<T, U>, 'submitter' | 'form'>
 
 export const stepFormContextKey = Symbol('stepformContext')

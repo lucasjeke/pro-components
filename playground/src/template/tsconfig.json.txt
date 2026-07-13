@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "jsx": "preserve",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "types": ["antdv-next/global.d.ts"],
+    "allowImportingTsExtensions": true,
+    "allowJs": true,
+    "checkJs": true,
+    "noEmit": true
+  },
+  "vueCompilerOptions": {
+    "target": 3.4
+  }
+}

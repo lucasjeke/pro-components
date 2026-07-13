@@ -9,8 +9,7 @@
     "directory": "packages/utils"
   },
   "sideEffects": [
-    "./dist/pro-utils.esm.js",
-    "./dist/pro-utils.js"
+    "./dist/pro-utils.esm.js"
   ],
   "exports": {
     ".": {
@@ -23,13 +22,10 @@
       "import": "./dist/*.js",
       "default": "./dist/*.js"
     },
-    "./dist/pro-utils.esm.js": "./dist/pro-utils.esm.js",
-    "./dist/pro-utils.js": "./dist/pro-utils.js"
+    "./dist/pro-utils.esm.js": "./dist/pro-utils.esm.js"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
-  "unpkg": "dist/pro-utils.js",
-  "jsdelivr": "dist/pro-utils.js",
   "types": "./dist/index.d.ts",
   "files": [
     "LICENSE",
@@ -38,11 +34,9 @@
     "package.json"
   ],
   "scripts": {
-    "build": "run-s build:esm build:vite:parallel",
+    "build": "run-s build:esm build:full-esm",
     "build:esm": "tsdown --config-loader unrun",
-    "build:vite:parallel": "run-p build:umd build:full-esm",
-    "build:full-esm": "vite build --config ./vite.esm.config.ts",
-    "build:umd": "vite build",
+    "build:full-esm": "vite build",
     "prepublish": "pnpm build"
   },
   "browserslist": [
@@ -52,14 +46,22 @@
     "ie >= 11"
   ],
   "peerDependencies": {
-    "antdv-next": ">=1.3.4",
+    "antdv-next": ">=1.4.0",
     "vue": ">=3.5.30"
   },
   "dependencies": {
+    "@antdv-next/cssinjs": "^1.0.6",
+    "@antdv-next/icons": "^1.1.1",
     "@antdv-next1/pro-provider": "workspace:*",
+    "@v-c/util": "^1.0.21",
+    "dayjs": "^1.11.20",
     "es-toolkit": "^1.45.1",
     "safe-stable-stringify": "^2.5.0",
     "swrv": "^1.2.0"
+  },
+  "devDependencies": {
+    "csstype": "^3.2.3",
+    "typescript": "~5.9.3"
   },
   "publishConfig": {
     "access": "public"

@@ -1,7 +1,7 @@
 import type { ProLocale } from '../zh-CN/multiTab'
 
 const arEG: ProLocale = {
-  'app.multiTab.close': 'إغلاق',
+  'app.multiTab.close': 'إغلاق الصفحة الحالية',
   'app.multiTab.closeOther': 'إغلاق الأخرى',
   'app.multiTab.refresh': 'تحديث الصفحة الحالية',
   'app.multiTab.closeRight': 'إغلاق ما على اليمين',

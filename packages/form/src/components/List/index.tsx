@@ -22,7 +22,7 @@ import {
 import { ArrowDownOutlined, ArrowUpOutlined, CopyOutlined, DeleteOutlined } from '@antdv-next/icons'
 import { classNames } from '@v-c/util'
 import { noteOnce } from '@v-c/util/dist/warning'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
+import { useConfig } from 'antdv-next/config-provider/context'
 import ErrorList from 'antdv-next/dist/form/ErrorList'
 import { getNamePath } from 'antdv-next/dist/form/utils/valueUtil'
 import { computed, defineComponent, ref } from 'vue'

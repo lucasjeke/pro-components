@@ -1,6 +1,6 @@
 import type { CustomSlotsType, VueNode } from '@v-c/util/dist/type'
 import { classNames } from '@v-c/util'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
+import { useConfig } from 'antdv-next/config-provider/context'
 import { computed, defineComponent } from 'vue'
 import useStyle from './style'
 

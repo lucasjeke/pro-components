@@ -1,0 +1,15 @@
+<script setup lang="ts">
+import { version as antdvVersion } from 'antdv-next'
+import { ref, version as vueVersion } from 'vue'
+import { ProCard } from '@antdv-next1/pro-components'
+const msg = ref('Hello World!')
+</script>
+
+<template>
+  <h1>{{ msg }}1</h1>
+  <a-input v-model:value="msg" />
+  <ProCard>
+     asdasd
+  </ProCard>
+  <p>Antdv Next {{ antdvVersion }} + Vue {{ vueVersion }}</p>
+</template>

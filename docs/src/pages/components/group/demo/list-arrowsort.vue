@@ -12,7 +12,7 @@ import {
   ProFormGroup,
   ProFormList,
   ProFormText,
-} from '@antdv-next1/pro-form'
+} from '@antdv-next1/pro-components'
 
 function waitTime(time: number = 100) {
   return new Promise((resolve) => {

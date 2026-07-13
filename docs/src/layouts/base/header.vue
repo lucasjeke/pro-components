@@ -365,7 +365,7 @@ function getSiderMenuUrl(key: string) {
         </SwitchBtn>
         <ThemeBtn />
         <a
-          href="https://github.com/antdv-next/antdv-next"
+          href="https://github.com/lucasjeke/pro-components"
           target="_blank"
           rel="noreferrer"
         >

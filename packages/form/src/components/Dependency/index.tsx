@@ -46,6 +46,7 @@ const ProFormDependency = defineComponent<ProFormDependencyProps, {}, string, Cu
       <FormItem
         {...rest}
         isRenderProps
+        noStyle
         v-slots={{
           default: (form: FormInstance) => {
             let values: Record<string, any> = {}

@@ -7,7 +7,7 @@ query filter
 </docs>
 
 <script lang="ts" setup>
-import { ProFormDateTimePicker, ProFormText, ProQueryFilter } from '@antdv-next1/pro-form'
+import { ProFormDateTimePicker, ProFormText, ProQueryFilter } from '@antdv-next1/pro-components'
 </script>
 
 <template>

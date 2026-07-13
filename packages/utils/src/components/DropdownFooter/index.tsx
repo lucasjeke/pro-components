@@ -4,7 +4,7 @@ import type { VueNode } from '../../typing'
 import { useIntl } from '@antdv-next1/pro-provider'
 import { classNames } from '@v-c/util'
 import { Button } from 'antdv-next'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
+import { useConfig } from 'antdv-next/config-provider/context'
 import { computed, defineComponent } from 'vue'
 import useStyle from './style'
 

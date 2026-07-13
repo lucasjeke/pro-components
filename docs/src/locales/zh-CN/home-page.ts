@@ -18,14 +18,6 @@ export default {
     toUse: '去使用',
   },
 
-  themePicker: {
-    default: '默认',
-    dark: '暗黑',
-    lark: '知识协作',
-    comic: '桃花缘',
-    v4: 'V4 主题',
-  },
-
   componentsList: {
     yesterday: '昨天',
     lastWeek: '上周',
@@ -77,17 +69,5 @@ export default {
     segmentedDaily: '每日',
     segmentedWeekly: '每周',
     segmentedMonthly: '每月',
-  },
-
-  previewThemes: {
-    default: '默认风格',
-    dark: '暗黑风格',
-    geek: '极客风格',
-    glass: '玻璃风格',
-    mui: '类 MUI 风格',
-    shadcn: '类 shadcn 风格',
-    bootstrap: '类 Bootstrap 拟物化风格',
-    cartoon: '卡通风格',
-    illustration: '插画风格',
   },
 } as const

@@ -126,8 +126,9 @@ export type SchemaFormProps<T extends Record<string, any>, U extends Record<stri
   description?: VueNode
   steps?: ProStepFormProps<T, U>[]
   type?: ProSchemaComponentTypes
+  onReset?: (values?: T) => void
   action?: ProCoreActionType<Record<string, any>, T>
-} & Omit<FormProps, 'onFinish'>
+} & Omit<FormProps, 'onFinish' | 'onReset'>
 & ProFormPropsType<T, U, ValueType>
 & CommonFormProps<T, U> & {
   open?: boolean

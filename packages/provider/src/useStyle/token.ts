@@ -412,3 +412,11 @@ export const token = {
 }
 
 export const useToken = () => token
+
+export default {
+  useToken,
+  token,
+  emptyTheme,
+  hashCode,
+  defaultToken,
+}

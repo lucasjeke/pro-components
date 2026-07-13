@@ -7,8 +7,8 @@ Basic use
 </docs>
 
 <script setup lang="ts">
-import type { ProColumns } from '@antdv-next1/pro-table'
-import { ProListy } from '@antdv-next1/pro-listy'
+import type { ProColumns } from '@antdv-next1/pro-components'
+import { ProListy } from '@antdv-next1/pro-components'
 import { Avatar, Divider, Space, Tag } from 'antdv-next'
 import { h } from 'vue'
 

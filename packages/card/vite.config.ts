@@ -1,7 +1,6 @@
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { defineConfig } from 'vite'
 import { tsxResolveTypes } from 'vite-plugin-tsx-resolve-types'
-import { createGlobals, workspaceExternal } from '../../scripts/build/workspaceExternal'
 
 export default defineConfig({
   plugins: [
@@ -16,19 +15,20 @@ export default defineConfig({
     rolldownOptions: {
       external: [
         'vue',
-        workspaceExternal,
+        /^@antdv-next\/icons/,
+        '@antdv-next1/pro-provider',
+        '@antdv-next1/pro-utils',
+        /^@v-c\/util/,
+        /^antdv-next/,
+        /^@antdv-next\/cssinjs/,
       ],
-      output: {
-        exports: 'named',
-        globals: createGlobals({ vue: 'Vue' }),
-      },
     },
     emptyOutDir: false,
     lib: {
       entry: 'src/index.ts',
       name: 'ProCard',
-      fileName: () => 'pro-card.js',
-      formats: ['umd'],
+      fileName: () => 'pro-card.esm.js',
+      formats: ['es'],
     },
   },
 })

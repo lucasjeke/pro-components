@@ -14,7 +14,7 @@ import {
   ProFormList,
   ProFormSelect,
   ProFormText,
-} from '@antdv-next1/pro-form'
+} from '@antdv-next1/pro-components'
 </script>
 
 <template>

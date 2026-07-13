@@ -7,7 +7,7 @@ bordered model
 </docs>
 
 <script lang="ts" setup>
-import { ProFormCascader, ProFormCheckboxGroup, ProFormDatePicker, ProFormRadioGroup, ProFormSelect, ProFormTreeSelect, ProLightFilter } from '@antdv-next1/pro-form'
+import { ProFormCascader, ProFormCheckboxGroup, ProFormDatePicker, ProFormRadioGroup, ProFormSelect, ProFormTreeSelect, ProLightFilter } from '@antdv-next1/pro-components'
 import { FilterOutlined } from '@antdv-next/icons'
 import { TreeSelect } from 'antdv-next'
 import { h } from 'vue'

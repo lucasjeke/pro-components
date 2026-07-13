@@ -4,7 +4,7 @@ import type { DropdownProps, MenuItemProps } from 'antdv-next'
 import { EllipsisOutlined } from '@antdv-next/icons'
 import { classNames } from '@v-c/util'
 import { Dropdown } from 'antdv-next'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
+import { useConfig } from 'antdv-next/config-provider/context'
 import { computed, defineComponent } from 'vue'
 import DropdownButton from './Button'
 

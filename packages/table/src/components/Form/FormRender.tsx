@@ -8,7 +8,7 @@ import { SchemaForm, useProFormInstanceExpose } from '@antdv-next1/pro-form'
 import { useProConfig } from '@antdv-next1/pro-provider'
 import { classNames, omit } from '@v-c/util'
 import { Table } from 'antdv-next'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
+import { useConfig } from 'antdv-next/config-provider/context'
 import { computed, defineComponent, shallowRef } from 'vue'
 
 function toLowerLine(str: string) {
@@ -179,7 +179,7 @@ const FormRender = defineComponent(
             [`${baseClassName.value}-${toLowerLine(competentName.value)}`]: true,
             [`${prefixCls.value}-table-form`]: isForm.value,
             [(searchConfig as { class: string })?.class]:
-              searchConfig !== false && searchConfig?.class,
+              searchConfig !== false && (searchConfig as { class: string })?.class,
           })}
           variant={!bordered ? 'borderless' : 'outlined'}
           styles={{

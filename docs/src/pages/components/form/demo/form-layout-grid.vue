@@ -8,7 +8,7 @@ Supported in `ProForm`, `SchemaForm`, `ModalForm`, `DrawerForm`, `StepsForm`
 
 <script setup lang="ts">
 import type { FormLayout } from 'antdv-next/dist/form/Form'
-import { ProForm, ProFormDatePicker, ProFormDateRangePicker, ProFormDigit, ProFormRadioGroup, ProFormSelect, ProFormSwitch, ProFormText, ProFormTextArea } from '@antdv-next1/pro-form'
+import { ProForm, ProFormDatePicker, ProFormDateRangePicker, ProFormDigit, ProFormRadioGroup, ProFormSelect, ProFormSwitch, ProFormText, ProFormTextArea } from '@antdv-next1/pro-components'
 import { Col, message, Row, Space } from 'antdv-next'
 import { h, shallowRef } from 'vue'
 

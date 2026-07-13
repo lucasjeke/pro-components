@@ -12,7 +12,6 @@ function flattenDocsLocales(nestedLocales: Menu) {
     '/docs/vue/use': vue.use,
     '/docs/vue/getting-started': vue.gettingStarted,
     '/docs/vue/other': vue.other,
-    '/docs/vue/release-process': vue.releaseProcess,
     '/docs/vue/faq': vue.faq,
   }
 }
@@ -56,10 +55,6 @@ export const docsMenus: Record<string, AntdvMenuItem[]> = {
       label: '/docs/vue/other',
       type: 'group',
       children: [
-        {
-          key: '/docs/vue/release-process',
-          label: '/docs/vue/release-process',
-        },
         {
           key: '/docs/vue/faq',
           label: '/docs/vue/faq',

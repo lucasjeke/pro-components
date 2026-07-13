@@ -1,7 +1,6 @@
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { defineConfig } from 'vite'
 import { tsxResolveTypes } from 'vite-plugin-tsx-resolve-types'
-import { workspaceExternal } from '../../scripts/build/workspaceExternal'
 
 export default defineConfig({
   plugins: [
@@ -16,13 +15,23 @@ export default defineConfig({
     rolldownOptions: {
       external: [
         'vue',
-        workspaceExternal,
+        /^antdv-next/,
+        /^@v-c\/util/,
+        /^dayjs/,
+        'swrv',
+        'es-toolkit',
+        /^@antdv-next\/cssinjs/,
+        '@antdv-next/icons',
+        '@v-c/resize-observer',
+        '@antdv-next1/route-utils',
+        '@v-c/virtual-list',
+        '@dnd-kit/dom',
+        '@dnd-kit/helpers',
+        '@dnd-kit/collision',
+        /^@dnd-kit\/vue/,
+        /^@dnd-kit\/abstract/,
+        '@ant-design/colors',
       ],
-      output: {
-        globals: {
-          'vue': 'vue',
-        },
-      },
     },
     emptyOutDir: false,
     lib: {

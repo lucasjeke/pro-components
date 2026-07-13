@@ -7,7 +7,7 @@ modal form
 </docs>
 
 <script lang="ts" setup>
-import { ProFormDateRangePicker, ProFormGroup, ProFormSelect, ProFormText, ProModalForm } from '@antdv-next1/pro-form'
+import { ProFormDateRangePicker, ProFormGroup, ProFormSelect, ProFormText, ProModalForm } from '@antdv-next1/pro-components'
 import { PlusOutlined } from '@antdv-next/icons'
 import { Button, message } from 'antdv-next'
 import { h } from 'vue'

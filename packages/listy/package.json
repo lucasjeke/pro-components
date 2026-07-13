@@ -9,8 +9,7 @@
     "directory": "packages/listy"
   },
   "sideEffects": [
-    "./dist/pro-listy.esm.js",
-    "./dist/pro-listy.js"
+    "./dist/pro-listy.esm.js"
   ],
   "exports": {
     ".": {
@@ -24,13 +23,10 @@
       "default": "./dist/*.js"
     },
     "./dist/listy.css": "./dist/listy.css",
-    "./dist/pro-listy.esm.js": "./dist/pro-listy.esm.js",
-    "./dist/pro-listy.js": "./dist/pro-listy.js"
+    "./dist/pro-listy.esm.js": "./dist/pro-listy.esm.js"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
-  "unpkg": "dist/pro-listy.js",
-  "jsdelivr": "dist/pro-listy.js",
   "types": "./dist/index.d.ts",
   "files": [
     "LICENSE",
@@ -39,12 +35,10 @@
     "package.json"
   ],
   "scripts": {
-    "build": "run-s build:esm build:vite:parallel build:p",
+    "build": "run-s build:esm build:full-esm build:p",
     "build:p": "run-p build:style",
+    "build:full-esm": "vite build",
     "build:esm": "tsdown --config-loader unrun",
-    "build:vite:parallel": "run-p build:umd build:full-esm",
-    "build:full-esm": "vite build --config ./vite.esm.config.ts",
-    "build:umd": "vite build",
     "prepublish": "pnpm build",
     "build:style": "cross-env NODE_ENV=production  tsx ./scripts/style/build-style.ts"
   },

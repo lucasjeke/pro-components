@@ -164,7 +164,7 @@ const DEMO_DEPARTMENT_TREE = [
         messageApi.success('提交成功');
       }"
     >
-      <ProFormGroup :space-props="{ size: 'small' }">
+      <ProFormGroup>
         <ProFormText
           width="md"
           name="name"

@@ -53,7 +53,6 @@ const Submitter = defineComponent(
     const form = (
       Form as unknown as { useFormInstance: () => FormInstance }
     ).useFormInstance()
-
     const intl = useIntl()
     const submit = () => {
       form?.submit()

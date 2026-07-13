@@ -1,7 +1,7 @@
 import type { ProLocale } from '../zh-CN/multiTab'
 
 const csCZ: ProLocale = {
-  'app.multiTab.close': 'Zavřít',
+  'app.multiTab.close': 'Zavřít aktuální kartu',
   'app.multiTab.closeOther': 'Zavřít ostatní',
   'app.multiTab.refresh': 'Obnovit aktuální stránku',
   'app.multiTab.closeRight': 'Zavřít vpravo',

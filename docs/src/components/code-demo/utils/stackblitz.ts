@@ -1,8 +1,10 @@
+import { version } from '@antdv-next1/pro-components'
 import iconsPkg from '@antdv-next/icons/package.json'
 import sdk from '@stackblitz/sdk'
+import rizeObserverPkg from '@v-c/resize-observer/package.json'
 import vitePluginVuePkg from '@vitejs/plugin-vue/package.json'
 import vueTsconfigPkg from '@vue/tsconfig/package.json'
-import { version } from 'antdv-next'
+import { version as AntdVersion } from 'antdv-next'
 import dayjsPkg from 'dayjs/package.json'
 import typescriptPkg from 'typescript/package.json'
 import vueTscPkg from 'vue-tsc/package.json'
@@ -11,12 +13,13 @@ import vuePkg from 'vue/package.json'
 function genFilesMap(title: string, code: string) {
   return {
     'package.json': JSON.stringify({
-      name: 'antdv-next-demo',
-      version,
+      name: 'pro-components-vue-demo',
+      version: version['@antdv-next1/pro-components'],
       private: true,
       dependencies: {
         '@antdv-next/icons': iconsPkg.version,
-        'antdv-next': version,
+        'antdv-next': AntdVersion,
+        '@antdv-next1/pro-components': version['@antdv-next1/pro-components'],
         'dayjs': `^${dayjsPkg.version}`,
         'vue': `^${vuePkg.version}`,
       },
@@ -25,6 +28,7 @@ function genFilesMap(title: string, code: string) {
         '@vue/tsconfig': `^${vueTsconfigPkg.version}`,
         'typescript': `^${typescriptPkg.version}`,
         'vite': `^7.3.1`,
+        '@v-c/resize-observer': `^${rizeObserverPkg.version}`,
         'vue-tsc': `^${vueTscPkg.version}`,
       },
       scripts: {
@@ -103,7 +107,7 @@ export function openStackBlitz(
 
   sdk.openProject({
     title,
-    description: 'Ant Design Vue Next Demo',
+    description: 'Pro Components Vue Demo',
     template: 'node',
     files,
   }, {
@@ -119,7 +123,7 @@ export function iframeStackBlitz(
   const files = genFilesMap(title, code)
   return sdk.embedProject(elementId, {
     title,
-    description: 'Ant Design Vue Next Demo',
+    description: 'Pro Components Vue Demo',
     template: 'javascript',
     files,
   }, {

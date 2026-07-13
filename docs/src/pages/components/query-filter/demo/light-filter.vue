@@ -8,7 +8,7 @@ light filter
 
 <script lang="ts" setup>
 import type { SizeType } from 'antdv-next'
-import { ProFormCascader, ProFormCheckboxGroup, ProFormDatePicker, ProFormDateRangePicker, ProFormDateTimePicker, ProFormDateTimeRangePicker, ProFormDigit, ProFormFieldSet, ProFormSelect, ProFormSlider, ProFormSwitch, ProFormText, ProFormTimePicker, ProFormTreeSelect, ProLightFilter } from '@antdv-next1/pro-form'
+import { ProFormCascader, ProFormCheckboxGroup, ProFormDatePicker, ProFormDateRangePicker, ProFormDateTimePicker, ProFormDateTimeRangePicker, ProFormDigit, ProFormFieldSet, ProFormSelect, ProFormSlider, ProFormSwitch, ProFormText, ProFormTimePicker, ProFormTreeSelect, ProLightFilter } from '@antdv-next1/pro-components'
 import { RadioButton, RadioGroup, Space, TreeSelect } from 'antdv-next'
 import dayjs from 'dayjs'
 import { reactive, shallowRef } from 'vue'

@@ -1,19 +1,14 @@
 import type { MenuInfo } from '@v-c/menu'
 import type { CustomSlotsType, VueNode } from '@v-c/util/dist/type'
 import type { VNode } from 'vue'
-import type { MultiTabRender } from '../../RenderTypings'
 import type { MessageDescriptor } from '../../typing'
-import type { MultiTabAction, NormalizedMultiTabAction } from './action'
 import { CloseOutlined, EllipsisOutlined, ReloadOutlined } from '@antdv-next/icons'
 import { classNames } from '@v-c/util'
 import { Dropdown, Tabs } from 'antdv-next'
 import { useConfig } from 'antdv-next/dist/config-provider/index'
 import { computed, defineComponent } from 'vue'
 import { gLocaleObject } from '../../locales'
-import { normalizeMultiTabAction } from './action'
 import useStyle from './style'
-
-export type { LegacyMultiTabAction, MultiTabAction, NormalizedMultiTabAction } from './action'
 
 export interface MultiTabItem {
   key: string
@@ -30,28 +25,14 @@ export interface MultiTabProps {
   prefixCls?: string
   items?: MultiTabItem[]
   activeKey?: string
-  hideWhenOnlyOne?: boolean
-  showRefresh?: boolean
-  showMore?: boolean
-  formatMessage?: (message: MessageDescriptor) => string | undefined
+  onChange?: (key: string, item: MultiTabItem) => void
+  onClose?: (key: string, item: MultiTabItem) => void
+  onCloseOther?: (key: string, item: MultiTabItem) => void
+  onCloseLeft?: (key: string, item: MultiTabItem) => void
+  onCloseRight?: (key: string, item: MultiTabItem) => void
+  onRefresh?: (key: string, item: MultiTabItem) => void
   itemRender?: (options: { item: MultiTabItem, active: boolean, dom: VueNode }) => VueNode
   menuRender?: (options: { item?: MultiTabItem, actions: MultiTabAction[] }) => VueNode
-  multiTabRender?: MultiTabRender | false
-}
-
-export interface MultiTabEmits extends Record<string, (...args: any[]) => any> {
-  change: (key: string, item: MultiTabItem) => void
-  close: (key: string, item: MultiTabItem) => void
-  closeOther: (key: string, item: MultiTabItem) => void
-  closeLeft: (key: string, item: MultiTabItem) => void
-  closeRight: (key: string, item: MultiTabItem) => void
-  refresh: (key: string, item: MultiTabItem) => void
-}
-
-export interface MultiTabSlots {
-  itemRender?: (options: { item: MultiTabItem, active: boolean }) => VueNode
-  menuRender?: (options: { item?: MultiTabItem, actions: MultiTabAction[] }) => VueNode
-  multiTabRender: MultiTabRender
 }
 
 export function getFormatMessage(): (data: MessageDescriptor) => string | undefined {
@@ -61,8 +42,47 @@ export function getFormatMessage(): (data: MessageDescriptor) => string | undefi
   }
 }
 
+export type MultiTabAction = 'change' | 'close' | 'closeOther' | 'closeLeft' | 'closeRight' | 'refresh'
+
+export interface MultiTabActionItem {
+  key: string
+  title: VueNode
+  closable?: boolean
+}
+
+export interface MultiTabActionDisabledOptions {
+  items?: MultiTabActionItem[]
+  item?: MultiTabActionItem
+  activeKey?: string
+}
+
+export function multiTabActionDisabled(
+  action: Exclude<MultiTabAction, 'change'>,
+  options: MultiTabActionDisabledOptions,
+) {
+  const { items = [], activeKey } = options
+  const item = options.item || items.find(tab => tab.key === activeKey)
+
+  if (!item)
+    return true
+
+  const itemIndex = items.findIndex(tab => tab.key === item.key)
+  if (itemIndex < 0)
+    return true
+  if (action === 'closeLeft')
+    return itemIndex <= 0
+  if (action === 'closeRight')
+    return itemIndex >= items.length - 1
+  if (action === 'closeOther')
+    return items.length <= 1
+  if (action === 'refresh')
+    return item.key !== activeKey
+
+  return false
+}
+
 const actionLocaleMap: Record<
-  Exclude<NormalizedMultiTabAction, 'change'>,
+  Exclude<MultiTabAction, 'change'>,
   {
     id: string
     defaultMessage: string
@@ -70,17 +90,17 @@ const actionLocaleMap: Record<
 > = {
   close: {
     id: 'app.multiTab.close',
-    defaultMessage: '关闭',
+    defaultMessage: '关闭当前',
   },
-  'closeOther': {
+  closeOther: {
     id: 'app.multiTab.closeOther',
     defaultMessage: '关闭其他',
   },
-  'closeLeft': {
+  closeLeft: {
     id: 'app.multiTab.closeLeft',
     defaultMessage: '关闭到左侧',
   },
-  'closeRight': {
+  closeRight: {
     id: 'app.multiTab.closeRight',
     defaultMessage: '关闭到右侧',
   },
@@ -89,64 +109,46 @@ const actionLocaleMap: Record<
     defaultMessage: '刷新当前页',
   },
 }
+function capitalize(str: string) {
+  if (!str)
+    return ''
 
+  return str[0]?.toUpperCase() + str.slice(1)
+}
+function getMoreActions(item?: MultiTabItem): Exclude<MultiTabAction, 'change'>[] {
+  if (!item)
+    return []
+  return ['closeOther', 'close', 'refresh']
+}
+function getTabActions(item?: MultiTabItem): Exclude<MultiTabAction, 'change'>[] {
+  if (!item)
+    return []
+  return ['closeOther', 'closeLeft', 'closeRight', 'refresh']
+}
 const MultiTab = defineComponent<
   MultiTabProps,
-  MultiTabEmits,
+  {},
   string,
-  CustomSlotsType<MultiTabSlots>
+  CustomSlotsType<{
+    itemRender?: (options: { item: MultiTabItem, active: boolean }) => VueNode
+    menuRender?: (options: { item?: MultiTabItem, actions: MultiTabAction[] }) => VueNode
+  }>
 >(
-  (props, { expose, slots, emit }) => {
+  (props, { expose, slots }) => {
     const config = useConfig()
     const prefixCls = computed(() => props.prefixCls || config.value.getPrefixCls('pro'))
     const baseClassName = computed(() => `${prefixCls.value}-multi-tab`)
     const [hashId, cssVarCls] = useStyle(baseClassName)
-    const defaultFormatMessage = getFormatMessage()
-    const formatMessage = computed(() => props.formatMessage || defaultFormatMessage)
-    const mergedShowMore = computed(() => props.showMore !== false)
-    const mergedShowRefresh = computed(() => props.showRefresh !== false)
+    const formatMessage = getFormatMessage()
     const activeItem = computed(() => {
       const items = props.items || []
       return items.find(item => item.key === props.activeKey) || items[0]
     })
-    const isActionDisabled = (action: Exclude<MultiTabAction, 'change'>, item?: MultiTabItem) => {
-      if (!item)
-        return true
-      const normalizedAction = normalizeMultiTabAction(action)
-      const items = props.items || []
-      const itemIndex = items.findIndex(tab => tab.key === item.key)
-      const isClosable = (tab: MultiTabItem) => tab.closable !== false
-      if (normalizedAction === 'close')
-        return item.closable === false
-      if (normalizedAction === 'closeLeft')
-        return !items.slice(0, itemIndex).some(isClosable)
-      if (normalizedAction === 'closeRight')
-        return !items.slice(itemIndex + 1).some(isClosable)
-      if (normalizedAction === 'closeOther')
-        return !items.some(tab => tab.key !== item.key && isClosable(tab))
-      if (normalizedAction === 'refresh')
-        return !mergedShowRefresh.value || item.key !== props.activeKey
 
-      return false
-    }
-    const getMoreActions = (item?: MultiTabItem): Exclude<MultiTabAction, 'change'>[] => {
-      if (!item)
-        return []
-      const actions: Exclude<MultiTabAction, 'change'>[] = []
-      actions.push('close-other')
-      if (mergedShowRefresh.value)
-        actions.push('refresh')
-      return actions
-    }
-    const getTabActions = (item?: MultiTabItem): Exclude<MultiTabAction, 'change'>[] => {
-      if (!item)
-        return []
-      return ['close', 'close-left', 'close-right', 'close-other', 'refresh']
-    }
-    const emitAction = (action: MultiTabAction, item?: MultiTabItem) => {
+    const handleAction = (action: MultiTabAction, item?: MultiTabItem) => {
       if (!item)
         return
-      emit(normalizeMultiTabAction(action), item.key, item)
+      props[`on${capitalize(action)}` as 'onChange']!(item.key, item)
     }
 
     const renderMenu = (item?: MultiTabItem, type: 'tab' | 'more' = 'tab') => {
@@ -159,16 +161,19 @@ const MultiTab = defineComponent<
       return {
         items: actions.map(action => ({
           key: action,
-          label: formatMessage.value?.(actionLocaleMap[normalizeMultiTabAction(action) as Exclude<NormalizedMultiTabAction, 'change'>]),
-          disabled: isActionDisabled(action, item),
+          label: formatMessage(actionLocaleMap[action as Exclude<MultiTabAction, 'change' | 'close'>]),
+          disabled: multiTabActionDisabled(action, {
+            items: props.items,
+            item,
+            activeKey: props.activeKey,
+          }),
         })),
-        onClick: ({ key }: MenuInfo) => emitAction(key as Exclude<MultiTabAction, 'change'>, item),
+        onClick: ({ key }: MenuInfo) => handleAction(key as Exclude<MultiTabAction, 'change' | 'close'>, item),
       }
     }
     const renderItemLabel = (item: MultiTabItem) => {
-      const { itemRender = slots.itemRender } = props
+      const { itemRender = slots.itemRender, items = [] } = props
       const active = item.key === props.activeKey
-      const showRefreshAction = mergedShowRefresh.value && active
       const showCloseAction = item.closable !== false
       const actionIconFirstClassName = `${baseClassName.value}-action-icon-first`
       const defaultDom = (
@@ -185,7 +190,7 @@ const MultiTab = defineComponent<
           >
             {item.title}
           </span>
-          {showRefreshAction && (
+          {active && (
             <ReloadOutlined
               class={classNames(
                 `${baseClassName.value}-reload-btn`,
@@ -196,25 +201,30 @@ const MultiTab = defineComponent<
               spin={item.loading}
               onClick={(event: MouseEvent) => {
                 event.stopPropagation()
-                emitAction('refresh', item)
+                handleAction('refresh', item)
               }}
             />
           )}
           {showCloseAction && (
-            <CloseOutlined
-              data-action="close"
-              data-key={item.key}
-              class={classNames(
-                `${baseClassName.value}-close-btn`,
-                !showRefreshAction && actionIconFirstClassName,
-                hashId?.value,
-                cssVarCls?.value,
-              )}
-              onClick={(event: MouseEvent) => {
-                event.stopPropagation()
-                emitAction('close', item)
-              }}
-            />
+            <>
+              {items.length > 1 ? (
+                <CloseOutlined
+                  data-action="close"
+                  data-key={item.key}
+                  class={classNames(
+                    `${baseClassName.value}-close-btn`,
+                    !active && actionIconFirstClassName,
+                    hashId?.value,
+                    cssVarCls?.value,
+                  )}
+                  onClick={(event: MouseEvent) => {
+                    event.stopPropagation()
+                    handleAction('close', item)
+                  }}
+                />
+              ) : undefined}
+            </>
+
           )}
         </span>
       )
@@ -238,7 +248,7 @@ const MultiTab = defineComponent<
     expose({})
     return () => {
       const { items = [] } = props
-      if (!items.length || (props.hideWhenOnlyOne && items.length <= 1))
+      if (!items.length || (items.length < 1))
         return null
 
       const activeActions = getMoreActions(activeItem.value)
@@ -251,7 +261,7 @@ const MultiTab = defineComponent<
           onChange={(key: string) => {
             const item = items.find(tab => tab.key === key)
             if (item) {
-              emit('change', key, item)
+              props.onChange?.(key, item)
             }
           }}
           tabBarExtraContent={{
@@ -264,7 +274,7 @@ const MultiTab = defineComponent<
                 )}
               />
             ),
-            right: mergedShowMore.value && activeActions.length
+            right: activeActions.length
               ? (
                   <Dropdown
                     menu={moreMenu && typeof moreMenu === 'object' && 'items' in moreMenu ? moreMenu : undefined}

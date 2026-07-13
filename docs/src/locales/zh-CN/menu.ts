@@ -29,7 +29,6 @@ const menuLocales = {
       other: '其他',
       awesome: '社区生态',
       contributing: '贡献指南',
-      releaseProcess: '提交与发布流程',
       faq: '常见问题',
     },
   },

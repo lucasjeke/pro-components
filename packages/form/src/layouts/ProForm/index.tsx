@@ -10,7 +10,9 @@ import { BaseForm } from '../../BaseForm'
 import { ProFormGroup, ProFormItem } from '../../components'
 import { useProFormInstanceExpose } from '../../utils'
 
-export type ProFormProps<T, U> = Omit<FormProps, 'onFinish'> & CommonFormProps<T, U>
+export type ProFormProps<T, U> = Omit<FormProps, 'onFinish' | 'onReset'> & CommonFormProps<T, U> & {
+  onReset?: (vaules?: T) => void
+}
 
 const _ProForm = defineComponent(
   <T extends Record<string, any>, U extends Record<string, any>>(props: ProFormProps<T, U>, { slots, attrs, expose }: SetupContext<
@@ -114,7 +116,8 @@ const ProForm = _ProForm as typeof _ProForm & Plugin & {
 
 ProForm.useForm = useForm
 ProForm.useFormInstance = useFormInstance
-
+ProForm.Group = ProFormGroup
+ProForm.Item = ProFormItem
 ProForm.install = (app: App) => {
   app.component(ProForm.name as string, ProForm)
   app.component(ProForm.Group.name as string, ProFormGroup)

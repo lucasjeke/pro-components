@@ -7,8 +7,8 @@ Demonstrates a typical ProLayout admin shell with left layout, route-driven menu
 </docs>
 
 <script setup lang="ts">
-import type { MenuDataItem, MenuItemRender, ProLayoutProps, ProSettings } from '@antdv-next1/pro-layout'
-import { GridContent, PageContainer, ProLayout, SettingDrawer } from '@antdv-next1/pro-layout'
+import type { MenuDataItem, MenuItemRender, ProLayoutProps, ProSettings } from '@antdv-next1/pro-components'
+import { GridContent, PageContainer, ProLayout, SettingDrawer } from '@antdv-next1/pro-components'
 import { DashboardOutlined, EllipsisOutlined, FormOutlined, HomeOutlined, LayoutOutlined, LogoutOutlined, SettingOutlined, SolutionOutlined, TableOutlined, TeamOutlined, UserOutlined } from '@antdv-next/icons'
 import { Button, Dropdown, Tag } from 'antdv-next'
 import { computed, h, reactive, ref } from 'vue'
@@ -281,7 +281,7 @@ const isDashboard = computed(() => location.path === '/dashboard')
           location.path = '/system/user'
         }
         else {
-          location.path = item.path!
+          location.path = item.path || ''
         }
       },
     }"

@@ -7,7 +7,7 @@ drawer form
 </docs>
 
 <script lang="ts" setup>
-import { ProDrawerForm, ProFormDateRangePicker, ProFormGroup, ProFormSelect, ProFormText } from '@antdv-next1/pro-form'
+import { ProDrawerForm, ProFormDateRangePicker, ProFormGroup, ProFormSelect, ProFormText } from '@antdv-next1/pro-components'
 import { PlusOutlined } from '@antdv-next/icons'
 import { Button, message } from 'antdv-next'
 import { computed, h } from 'vue'

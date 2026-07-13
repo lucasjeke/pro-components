@@ -11,21 +11,46 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint --cache --max-warnings 0 .",
+    "lint:fix": "pnpm run lint --fix",
+    "typecheck": "vue-tsc --noEmit",
+    "format": "prettier --write --cache . --experimental-cli"
   },
   "dependencies": {
     "@antdv-next/icons": "^1.0.8",
+    "@unocss/reset": "^66.5.9",
+    "@vue/repl": "^4.6.2",
     "antdv-next": "^1.3.7",
     "dayjs": "1.11.21",
+    "luna-console": "^1.3.6",
+    "luna-data-grid": "^1.6.5",
+    "luna-dom-viewer": "^1.8.4",
+    "luna-object-viewer": "^0.3.2",
+    "semver": "^7.7.2",
     "vue": "^3.5.30"
   },
   "devDependencies": {
+    "@iconify-json/ri": "^1.2.5",
+    "@sxzz/eslint-config": "^7.8.3",
+    "@sxzz/prettier-config": "^2.3.1",
     "@types/node": "^25.5.0",
+    "@types/semver": "^7.7.0",
+    "@unocss/eslint-plugin": "^66.6.5",
+    "@unocss/transformer-directives": "^66.5.9",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vitejs/plugin-vue-jsx": "^5.1.1",
     "@vue/tsconfig": "^0.8.1",
+    "eslint": "^10.0.2",
     "less": "^4.6.4",
+    "prettier": "^3.8.1",
     "typescript": "~5.9.3",
+    "unocss": "^66.5.9",
+    "unplugin-auto-import": "^19.3.0",
+    "unplugin-vue-components": "^28.8.0",
+    "vite": "^8.0.8",
+    "vite-plugin-inspect": "^10.3.0",
+    "vite-plugin-mkcert": "^1.17.8",
     "vue-tsc": "^3.2.6"
   }
 }

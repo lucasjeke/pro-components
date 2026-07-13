@@ -4,13 +4,13 @@ import type { StatisticProps as AntdStatisticProps, BadgeProps, TooltipProps } f
 import type { VueNode as AntVueNode } from 'antdv-next/dist/_util/type'
 import type { VNode } from 'vue'
 import { QuestionCircleOutlined } from '@antdv-next/icons'
-import { classNames } from '@v-c/util'
+import { classNames, omit } from '@v-c/util'
 import { Statistic as AntdStatistic, Badge, Tooltip } from 'antdv-next'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
+import { useConfig } from 'antdv-next/config-provider/context'
 import { computed, defineComponent } from 'vue'
 import useStyle from './style'
 
-export type StatisticProps = AntdStatisticProps & {
+export type ProStatisticProps = AntdStatisticProps & {
   /** 描述性标签 */
   description?: VueNode
   /** 标题提示 */
@@ -26,14 +26,14 @@ export type StatisticProps = AntdStatisticProps & {
   /** 趋势 */
   trend?: 'up' | 'down'
 }
-
-const Statistic = defineComponent<StatisticProps, {}, string, CustomSlotsType<{
+const ProStatistic = defineComponent<ProStatisticProps, {}, string, CustomSlotsType<{
   default?: () => VNode[]
-}>>((props, { attrs }) => {
+}>>((props, { attrs, expose }) => {
   const config = useConfig()
   const prefixCls = computed(() => props.prefixCls || config.value.getPrefixCls('pro'))
   const baseClassName = computed(() => `${prefixCls.value}-card-statistic`)
   const [hashId, cssVarCls] = useStyle(baseClassName)
+  expose({})
   return () => {
     const {
       layout = 'inline',
@@ -69,6 +69,7 @@ const Statistic = defineComponent<StatisticProps, {}, string, CustomSlotsType<{
           )}
           <div class={classNames(`${baseClassName.value}-content`, hashId.value, cssVarCls.value)}>
             <AntdStatistic
+              {...omit(attrs, ['class', 'style'])}
               title={
                 ((title || tooltipDom) && (
                   <>
@@ -106,4 +107,4 @@ const Statistic = defineComponent<StatisticProps, {}, string, CustomSlotsType<{
   inheritAttrs: false,
 })
 
-export default Statistic
+export default ProStatistic

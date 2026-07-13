@@ -2,7 +2,7 @@ import type { CustomSlotsType, VueNode } from '@v-c/util/dist/type'
 import type { InputNumberProps } from 'antdv-next'
 import type { ProFormFieldItemProps } from '../../typing'
 import { FieldDigit } from '@antdv-next1/pro-field'
-import ProConfigProvider from '@antdv-next1/pro-provider'
+import { ProConfigProvider } from '@antdv-next1/pro-provider'
 import { defineComponent } from 'vue'
 import ProFormField from '../Field'
 

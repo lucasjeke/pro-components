@@ -1,12 +1,9 @@
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { defineConfig } from 'vite'
-// import { tsxAutoProps } from 'vite-plugin-tsx-auto-props'
 import { tsxResolveTypes } from 'vite-plugin-tsx-resolve-types'
-import { createGlobals, workspaceExternal } from '../../scripts/build/workspaceExternal'
 
 export default defineConfig({
   plugins: [
-    // tsxAutoProps(),
     tsxResolveTypes({
       defaultPropsToUndefined: ['Boolean'],
     }),
@@ -18,20 +15,30 @@ export default defineConfig({
     rolldownOptions: {
       external: [
         'vue',
-        workspaceExternal,
-        'dayjs',
+        /^dayjs/,
+        /^antdv-next/,
+        /^@v-c\/util/,
+        '@antdv-next/icons',
+        '@v-c/resize-observer',
+        /^@antdv-next\/cssinjs/,
+        '@ant-design/fast-color',
+        '@dnd-kit/dom',
+        '@dnd-kit/helpers',
+        /^@dnd-kit\/vue/,
+        /^@dnd-kit\/abstract/,
+        '@antdv-next1/pro-card',
+        '@antdv-next1/pro-field',
+        '@antdv-next1/pro-form',
+        '@antdv-next1/pro-provider',
+        '@antdv-next1/pro-utils',
       ],
-      output: {
-        exports: 'named',
-        globals: createGlobals({ vue: 'Vue' }),
-      },
     },
     emptyOutDir: false,
     lib: {
       entry: 'src/index.ts',
       name: 'ProTable',
-      fileName: () => 'pro-table.js',
-      formats: ['umd'],
+      fileName: () => 'pro-table.esm.js',
+      formats: ['es'],
     },
   },
 })

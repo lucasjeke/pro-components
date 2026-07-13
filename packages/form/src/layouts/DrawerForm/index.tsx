@@ -5,9 +5,8 @@ import type { CommonFormProps, ProFormRef, SubmitterProps } from '../../BaseForm
 import { useIntl } from '@antdv-next1/pro-provider'
 import { isBrowser, omitUndefined, transformBooleanProps, useEffect, useState } from '@antdv-next1/pro-utils'
 import { classNames, merge } from '@v-c/util'
-// import { noteOnce } from '@v-c/util/dist/warning'
 import { Drawer } from 'antdv-next'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
+import { useConfig } from 'antdv-next/config-provider/context'
 import { cloneVNode, computed, defineComponent, shallowRef, Teleport } from 'vue'
 import { BaseForm } from '../../BaseForm'
 import { useProFormInstanceExpose } from '../../utils'
@@ -22,8 +21,9 @@ export interface CustomizeResizeType {
 export type ProDrawerFormProps<
   T = Record<string, any>,
   U = Record<string, any>,
-> = Omit<FormProps, 'onFinish' | 'title'>
+> = Omit<FormProps, 'onFinish' | 'title' | 'onReset'>
   & CommonFormProps<T, U> & {
+    onReset?: (values?: T) => void
     /**
      * 接收任意值，返回 真值 会关掉这个抽屉
      *

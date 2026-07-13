@@ -9,8 +9,7 @@
     "directory": "packages/table"
   },
   "sideEffects": [
-    "./dist/pro-table.esm.js",
-    "./dist/pro-table.js"
+    "./dist/pro-table.esm.js"
   ],
   "exports": {
     ".": {
@@ -23,13 +22,10 @@
       "import": "./dist/*.js",
       "default": "./dist/*.js"
     },
-    "./dist/pro-table.esm.js": "./dist/pro-table.esm.js",
-    "./dist/pro-table.js": "./dist/pro-table.js"
+    "./dist/pro-table.esm.js": "./dist/pro-table.esm.js"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
-  "unpkg": "dist/pro-table.js",
-  "jsdelivr": "dist/pro-table.js",
   "types": "./dist/index.d.ts",
   "files": [
     "LICENSE",
@@ -38,11 +34,9 @@
     "package.json"
   ],
   "scripts": {
-    "build": "run-s build:esm build:vite:parallel",
+    "build": "run-s build:esm build:full-esm",
     "build:esm": "tsdown --config-loader unrun",
-    "build:vite:parallel": "run-p build:umd build:full-esm",
-    "build:full-esm": "vite build --config ./vite.esm.config.ts",
-    "build:umd": "vite build",
+    "build:full-esm": "vite build",
     "prepublish": "pnpm build"
   },
   "browserslist": [

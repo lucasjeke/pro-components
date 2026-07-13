@@ -109,7 +109,6 @@ export type DeepPartial<T> = T extends object
 export const proLayoutUnitless = {
   ...unitless,
   themeId: true,
-  // proLayoutHeaderHeightLayoutHeader: true,
 }
 
 export type LayoutDesignToken = BaseLayoutDesignToken

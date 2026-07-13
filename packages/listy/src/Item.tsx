@@ -14,7 +14,7 @@ import { transformVueNodeType, useMountMergeState } from '@antdv-next1/pro-utils
 import { RightOutlined } from '@antdv-next/icons'
 import { classNames } from '@v-c/util'
 import { Skeleton, Space } from 'antdv-next'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
+import { useConfig } from 'antdv-next/config-provider/context'
 import { computed, defineComponent, h, shallowRef } from 'vue'
 import { ListyItem, ListyItemMeta } from './components/Listy'
 

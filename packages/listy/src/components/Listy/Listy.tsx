@@ -1,18 +1,18 @@
 import type { CustomSlotsType, Key, VueNode } from '@v-c/util/dist/type'
 import type { PaginationConfig, SpinProps } from 'antdv-next'
-import type { Breakpoint } from 'antdv-next/dist/_util/responsiveObserver'
+// import type { Breakpoint } from 'antdv-next/dist/_util/responsiveObserver'
 import type { SetupContext } from 'vue'
 import type { ListyScrollToConfig } from './components/VcListy/interface'
 import type { ListyProps, ListyRef } from './typing'
 import { clsx } from '@v-c/util'
 import { Pagination, Row, Spin } from 'antdv-next'
-import { responsiveArray } from 'antdv-next/dist/_util/responsiveObserver'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
+import { useConfig } from 'antdv-next/config-provider/context'
+// import { responsiveArray } from 'antdv-next/dist/_util/responsiveObserver'
 import { DefaultRenderEmpty } from 'antdv-next/dist/config-provider/defaultRenderEmpty'
 import useCSSVarCls from 'antdv-next/dist/config-provider/hooks/useCSSVarCls'
 import { useSize } from 'antdv-next/dist/config-provider/hooks/useSize'
 import useVariant from 'antdv-next/dist/form/hooks/useVariant'
-import useBreakpoint from 'antdv-next/dist/grid/hooks/useBreakpoint'
+// import useBreakpoint from 'antdv-next/dist/grid/hooks/useBreakpoint'
 import { computed, defineComponent, shallowRef, toRef, unref } from 'vue'
 import VcListy from './components/VcListy'
 import { useListyContextProvider } from './context'
@@ -85,20 +85,20 @@ const _Listy = defineComponent(<T, K extends Key = Key>(props: ListyProps<T, K>,
   const onPaginationShowSizeChange = () => {
 
   }
-  const needResponsive = computed(() => Object.keys(props.grid || {}).some(key =>
-    responsiveArray.includes(key as Breakpoint),
-  ))
+  // const needResponsive = computed(() => Object.keys(props.grid || {}).some(key =>
+  //   responsiveArray.includes(key as Breakpoint),
+  // ))
   const [variant] = useVariant('listy' as any, toRef(() => props.variant), toRef(() => props.bordered))
-  const screens = useBreakpoint(needResponsive)
-  const currentBreakpoint = computed(() => {
-    for (let i = 0; i < responsiveArray.length; i += 1) {
-      const breakpoint = responsiveArray[i]
-      if (screens.value![breakpoint!]) {
-        return breakpoint
-      }
-    }
-    return undefined
-  })
+  // const screens = useBreakpoint(needResponsive)
+  // const currentBreakpoint = computed(() => {
+  //   for (let i = 0; i < responsiveArray.length; i += 1) {
+  //     const breakpoint = responsiveArray[i]
+  //     if (screens.value![breakpoint!]) {
+  //       return breakpoint
+  //     }
+  //   }
+  //   return undefined
+  // })
   // const colStyle = computed(() => {
   //   if (!props.grid) {
   //     return undefined

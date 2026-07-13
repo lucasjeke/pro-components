@@ -13,8 +13,8 @@ import {
   isSpecialNode,
   useMountMergeState,
 } from '@antdv-next1/pro-utils'
-import { classNames } from '@v-c/util'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
+import { classNames, omit } from '@v-c/util'
+import { useConfig } from 'antdv-next/config-provider/context'
 import { computed, defineComponent, inject, provide, shallowRef, toRef } from 'vue'
 import ProCard from '../../ProCard'
 import ProCheckCard from './CheckCard'
@@ -259,6 +259,7 @@ const InternalCheckCardGroup = defineComponent<ProCheckCardGroupProps, {}, strin
           }
           return (
             <ProCheckCard
+              {...omit(attrs, ['class', 'style'])}
               key={(option as CheckCardItemType).value.toString()}
               disabled={(option as CheckCardItemType).disabled}
               size={(option as CheckCardItemType).size ?? props.size}
@@ -334,7 +335,7 @@ const InternalCheckCardGroup = defineComponent<ProCheckCardGroupProps, {}, strin
   )
   return () =>
     (
-      <div class={classNames(baseClassName.value, hashId.value, cssVarCls.value)} style={attrs.style}>
+      <div class={classNames(baseClassName.value, attrs.class, hashId.value, cssVarCls.value)} style={attrs.style}>
         {children.value}
       </div>
     )

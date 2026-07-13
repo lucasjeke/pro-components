@@ -1,208 +1,123 @@
-import type { Plugin } from 'vite'
-import { execSync } from 'node:child_process'
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-import { defineConfig, loadEnv } from 'vite'
+import replPkg from '@vue/repl/package.json'
+import Unocss from 'unocss/vite'
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { defineConfig } from 'vite'
+import Inspect from 'vite-plugin-inspect'
+import Mkcert from 'vite-plugin-mkcert'
 import { tsxResolveTypes } from 'vite-plugin-tsx-resolve-types'
+import pkg from './package.json'
 
 const baseUrl = fileURLToPath(new URL('.', import.meta.url))
 
-// ─── VC_LOCAL mode ──────────────────────────────────────────────────
-// Debug @v-c/* packages locally with auto-rebuild on source change.
-//
-// Usage (pick one):
-//   1. VC_LOCAL=1 pnpm dev:play              (CLI, watch input+textarea)
-//   2. VC_LOCAL=input,textarea pnpm dev:play  (CLI, specific packages)
-//   3. VC_LOCAL=* pnpm dev:play              (CLI, watch ALL packages)
-//   4. Add VC_LOCAL=input,textarea to playground/.env.local (persistent)
-//
-// VC_PATH: path to vue-components repo root (default: ../../antdv-vc)
-//   VC_PATH=/path/to/antdv-vc VC_LOCAL=1 pnpm dev:play
-//
-// Edit @v-c/input src → auto rebuild → Vite full-reload → done.
-//
-// Limitation: only root imports (@v-c/pkg) are aliased. Subpath imports
-// like @v-c/picker/generate/* are NOT covered — add subpath aliases if needed.
-// ─────────────────────────────────────────────────────────────────────
-
-const VC_PATH_DEFAULT = '../../antdv-vc'
-const PKG_NAME_RE = /^[a-z][\w-]*$/
-
-function resolveVcRoot(vcPath: string | undefined): string {
-  const rel = vcPath || VC_PATH_DEFAULT
-  return path.resolve(baseUrl, rel, 'packages')
-}
-
-function parseVcPackages(vcLocalEnv: string | undefined, pkgDir: string): string[] {
-  if (!vcLocalEnv)
-    return []
-  if (vcLocalEnv === '1')
-    return ['input', 'textarea']
-  if (vcLocalEnv === '*') {
-    try {
-      return fs.readdirSync(pkgDir, { withFileTypes: true })
-        .filter(d => d.isDirectory() && PKG_NAME_RE.test(d.name))
-        .map(d => d.name)
-    }
-    catch {
-      return []
-    }
-  }
-  return vcLocalEnv.split(',').map(s => s.trim()).filter(s => PKG_NAME_RE.test(s))
-}
-
-function buildVcAliases(packages: string[], pkgDir: string) {
-  return packages.map(pkg => ({
-    find: new RegExp(`^@v-c/${pkg}$`),
-    replacement: path.resolve(pkgDir, `${pkg}/dist`),
-  }))
-}
-
-/**
- * Vite plugin: watch @v-c/* source, auto-rebuild on change, full-reload.
- */
-function vcAutoRebuild(packages: string[], pkgDir: string): Plugin {
-  if (!packages.length)
-    return { name: 'vc-auto-rebuild' }
-
-  const vcRoot = path.resolve(pkgDir, '..')
-  const watchDirs = packages.map(pkg => path.resolve(pkgDir, `${pkg}/src`))
-  const building = new Set<string>()
-
-  return {
-    name: 'vc-auto-rebuild',
-    configureServer(server) {
-      // Startup check: verify dist exists for each package
-      for (const pkg of packages) {
-        const distDir = path.resolve(pkgDir, `${pkg}/dist`)
-        if (!fs.existsSync(distDir)) {
-          server.config.logger.warn(
-            `[vc-local] @v-c/${pkg}/dist not found. Run: cd ${vcRoot} && pnpm -F @v-c/${pkg} build`,
-          )
-        }
-      }
-
-      const chokidar = server.watcher
-      for (const dir of watchDirs) {
-        chokidar.add(dir)
-      }
-
-      const rebuild = (filePath: string) => {
-        const matched = packages.find(pkg =>
-          filePath.startsWith(path.resolve(pkgDir, `${pkg}/src`)),
-        )
-        if (!matched || building.has(matched))
-          return
-
-        building.add(matched)
-        const label = `@v-c/${matched}`
-        server.config.logger.info(`\n[vc-local] ${label} source changed, rebuilding...`, { timestamp: true })
-
-        try {
-          execSync(`pnpm -F ${label} build`, {
-            cwd: vcRoot,
-            stdio: 'pipe',
-            timeout: 30_000,
-          })
-          server.config.logger.info(`[vc-local] ${label} rebuilt, reloading.`, { timestamp: true })
-          server.ws.send({ type: 'full-reload' })
-        }
-        catch (err: any) {
-          server.config.logger.error(`[vc-local] ${label} build failed:\n${err.stderr?.toString() || err.message}`)
-        }
-        finally {
-          building.delete(matched)
-        }
-      }
-
-      chokidar.on('change', rebuild)
-      chokidar.on('add', rebuild)
-      chokidar.on('unlink', rebuild)
-
-      server.config.logger.info(
-        `[vc-local] Watching: ${packages.map(p => `@v-c/${p}`).join(', ')}`,
-        { timestamp: true },
-      )
-    },
-  }
-}
-
-export default defineConfig(({ mode }) => {
-  // loadEnv reads .env / .env.local with the VC_ prefix
-  const env = loadEnv(mode, baseUrl, 'VC_')
-  const vcLocalEnv = process.env.VC_LOCAL || env.VC_LOCAL
-  const vcLocalDir = resolveVcRoot(process.env.VC_PATH || env.VC_PATH)
-  const vcPackages = parseVcPackages(vcLocalEnv, vcLocalDir)
-  const vcAliases = buildVcAliases(vcPackages, vcLocalDir)
-
+export default defineConfig(() => {
   return {
     server: {
       port: 3050,
-      // Allow serving files from sibling vue-components repo when VC_LOCAL is active
-      // fs: {
-      //   allow: vcPackages.length
-      //     ? [path.resolve(baseUrl, '..'), path.resolve(vcLocalDir, '..')]
-      //     : undefined,
-      // },
+    },
+    define: {
+      'import.meta.env.APP_VERSION': JSON.stringify(pkg.version),
+      'import.meta.env.REPL_VERSION': JSON.stringify(replPkg.version),
     },
     resolve: {
       alias: [
-        {
-          find: /^@antdv-next1\/pro-layout/,
-          replacement: path.resolve(baseUrl, '../packages/layout/src'),
-        },
-        {
-          find: /^@antdv-next1\/pro-provider/,
-          replacement: path.resolve(baseUrl, '../packages/provider/src'),
-        },
-        {
-          find: /^@antdv-next1\/pro-field/,
-          replacement: path.resolve(baseUrl, '../packages/field/src'),
-        },
-        {
-          find: /^@antdv-next1\/pro-listy/,
-          replacement: path.resolve(baseUrl, '../packages/listy/src'),
-        },
-        {
-          find: /^@antdv-next1\/pro-card/,
-          replacement: path.resolve(baseUrl, '../packages/card/src'),
-        },
-        {
-          find: /^@antdv-next1\/pro-form/,
-          replacement: path.resolve(baseUrl, '../packages/form/src'),
-        },
-        {
-          find: /^@antdv-next1\/pro-table/,
-          replacement: path.resolve(baseUrl, '../packages/table/src'),
-        },
-        {
-          find: /^@antdv-next1\/pro-components/,
-          replacement: path.resolve(baseUrl, '../packages/components/src'),
-        },
-        {
-          find: /^@antdv-next1\/pro-utils/,
-          replacement: path.resolve(baseUrl, '../packages/utils/src'),
-        },
-        {
-          find: /^@antdv-next1\/route-utils/,
-          replacement: path.resolve(baseUrl, '../packages/route-utils/src'),
-        },
         {
           find: '@',
           replacement: '/src',
         },
       ],
     },
+    build: {
+      rollupOptions: {
+        external: ['typescript'],
+      },
+    },
     plugins: [
-      // vcAutoRebuild(vcPackages, vcLocalDir),
+      {
+        name: 'vue.worker',
+        transform(code, id) {
+          if (id.includes('vue.worker')) {
+            return {
+              code: patchVueWorker(code),
+              map: null,
+            }
+          }
+        },
+        generateBundle(_, bundle) {
+          for (const [fileName, file] of Object.entries(bundle)) {
+            if (fileName.includes('vue.worker')) {
+              if ('source' in file) {
+                console.info(file, 'file')
+                file.source = patchVueWorker(file.source.toString())
+              }
+              break
+            }
+          }
+        },
+      },
       tsxResolveTypes({
         defaultPropsToUndefined: ['Boolean'],
       }),
       vueJsx(),
-      vue(),
+      vue({
+        script: {
+          defineModel: true,
+          propsDestructure: true,
+          fs: {
+            fileExists: fs.existsSync,
+            readFile: file => fs.readFileSync(file, 'utf8'),
+          },
+        },
+      }),
+      AutoImport({
+        dirs: [path.resolve(baseUrl, 'composables')],
+        imports: ['vue', '@vueuse/core'],
+        dts: path.resolve(baseUrl, 'auto-imports.d.ts'),
+      }),
+      Components({
+        dirs: [path.resolve(baseUrl, 'components')],
+        dts: path.resolve(baseUrl, 'components.d.ts'),
+      }),
+      Unocss(),
+      Mkcert(),
+      Inspect(),
     ],
+    optimizeDeps: {
+      exclude: ['@vue/repl'],
+    },
   }
 })
+
+function patchVueWorker(code: string) {
+  return String.raw`${code}
+    ;(function() {
+      var _bc = new BroadcastChannel('vue-repl-dts')
+      var _fetch = self.fetch
+      var _pending = 0
+      var pr = new URL(location.href).searchParams.get('pr')
+
+      self.fetch = function() {
+        var args = [].slice.call(arguments)
+        var url = typeof args[0] === 'string' ? args[0] : ''
+
+        if (pr && /https:\/\/cdn\.jsdelivr\.net\/npm\/@antdv-next1\/pro-components(@[^/]+)?\//.test(url)) {
+          args[0] = url.replace(/https:\/\/cdn\.jsdelivr\.net\/npm\/@antdv-next1\/pro-components(@[^/]+)?/, 'https://raw.esm.sh/pr/@antdv-next1/pro-components@' + pr)
+        }
+
+        if (url.endsWith('.d.ts') || url.includes('data.jsdelivr.com')) {
+          _pending++
+          _bc.postMessage({ pending: _pending })
+          return _fetch.apply(self, args).finally(function() {
+            _pending--
+            _bc.postMessage({ pending: _pending })
+          })
+        }
+        return _fetch.apply(self, args)
+      }
+    })()`
+}

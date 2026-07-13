@@ -6,7 +6,7 @@ import { getSlot, useDebounceFn, useState } from '@antdv-next1/pro-utils'
 import ResizeObserver from '@v-c/resize-observer'
 import { classNames } from '@v-c/util'
 import { Avatar } from 'antdv-next'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
+import { useConfig } from 'antdv-next/config-provider/context'
 import { computed, defineComponent, isVNode } from 'vue'
 import useStyle from './style/rightContentStyle'
 

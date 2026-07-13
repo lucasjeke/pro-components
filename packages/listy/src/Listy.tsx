@@ -1,7 +1,7 @@
 import type { CustomSlotsType, VueNode } from '@v-c/util/dist/type'
 import type { App, ComponentOptionsMixin, CreateComponentPublicInstanceWithMixins, Plugin, SetupContext } from 'vue'
 import type { ProListyInstance, ProListyProps } from './typing'
-import ProConfigProvider from '@antdv-next1/pro-provider'
+import { ProConfigProvider } from '@antdv-next1/pro-provider'
 import { transformBooleanProps } from '@antdv-next1/pro-utils'
 import { defineComponent, shallowRef } from 'vue'
 import InternalProListy from './InternalProListy'

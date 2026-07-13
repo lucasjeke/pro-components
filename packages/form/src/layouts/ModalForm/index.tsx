@@ -6,14 +6,14 @@ import { useIntl } from '@antdv-next1/pro-provider'
 import { transformBooleanProps, useEffect, useState } from '@antdv-next1/pro-utils'
 import { merge, useMergedState } from '@v-c/util'
 import { Modal } from 'antdv-next'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
+import { useConfig } from 'antdv-next/config-provider/context'
 import { cloneVNode, computed, defineComponent, shallowRef, Teleport } from 'vue'
 import { BaseForm } from '../../BaseForm'
 import { useProFormInstanceExpose } from '../../utils'
 
 export type ProModalFormProps<T = Record<string, any>, U = Record<string, any>> = Omit<
   FormProps,
-  'onFinish' | 'title'
+  'onFinish' | 'title' | 'onReset'
 >
 & CommonFormProps<T, U> & {
   /**
@@ -28,6 +28,7 @@ export type ProModalFormProps<T = Record<string, any>, U = Record<string, any>> 
    * onFinish: async ()=> {await save(); return false}
    */
   onFinish?: (formData: T) => Promise<any>
+  onReset?: (values?: T) => void
 
   /** @name submitTimeout 提交数据时，禁用取消按钮的超时时间（毫秒）。 */
   submitTimeout?: number

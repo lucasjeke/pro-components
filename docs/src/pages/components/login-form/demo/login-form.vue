@@ -8,8 +8,7 @@ login form
 
 <script lang="ts" setup>
 import type { CSSProperties } from 'vue'
-import { ProFormCaptcha, ProFormCheckbox, ProFormPassword, ProFormText, ProLoginForm } from '@antdv-next1/pro-form'
-import { ProConfigProvider, setAlpha } from '@antdv-next1/pro-provider'
+import { ProConfigProvider, ProFormCaptcha, ProFormCheckbox, ProFormPassword, ProFormText, ProLoginForm, setAlpha } from '@antdv-next1/pro-components'
 import { AlipayCircleOutlined, LockOutlined, MobileOutlined, TaobaoCircleOutlined, UserOutlined, WeiboCircleOutlined } from '@antdv-next/icons'
 import { message, Space, Tabs, theme } from 'antdv-next'
 import { computed, h, shallowRef } from 'vue'

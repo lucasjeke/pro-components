@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import type { CSSProperties } from 'vue'
+// import antdvPkg from 'antdv-next/package.json'
+import { version } from '@antdv-next1/pro-components'
 import { CheckOutlined, CodeOutlined, CopyOutlined, EditOutlined, ThunderboltOutlined } from '@antdv-next/icons'
 import { aquaBlue, atomDark } from '@codesandbox/sandpack-themes'
 import { useClipboard, useDebounceFn } from '@vueuse/core'
-import antdvPkg from 'antdv-next/package.json'
+
 import { SandpackProvider } from 'sandpack-vue3'
 import demos from 'virtual:demos'
 import { computed, defineAsyncComponent, markRaw, shallowRef, watch } from 'vue'
@@ -157,7 +159,7 @@ const titleRef = shallowRef<HTMLElement>()
 
 function handleStackBlitz() {
   if (activeSourceCode.value) {
-    const title = `${titleRef.value?.textContent || 'Antdv Next Demo'} - antdv-next@${antdvPkg.version}`
+    const title = `${titleRef.value?.textContent || 'Pro Components Vue Demo'} - @antdv-next1/pro-components@${version['@antdv-next1/pro-components']}`
     openStackBlitz(title, activeSourceCode.value)
   }
 }

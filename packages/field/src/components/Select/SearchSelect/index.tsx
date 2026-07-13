@@ -15,7 +15,7 @@ import {
 } from '@antdv-next1/pro-utils'
 import { classNames } from '@v-c/util'
 import { Select } from 'antdv-next'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
+import { useConfig } from 'antdv-next/config-provider/context'
 import { computed, defineComponent, isVNode, ref } from 'vue'
 
 // 支持 key, value, label，兼容 UserSearch 中只填写了 key 的情况。

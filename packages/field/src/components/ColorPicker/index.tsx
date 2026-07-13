@@ -2,7 +2,7 @@ import type { CustomSlotsType, VueNode } from '@v-c/util/dist/type'
 import type { ColorPickerProps } from 'antdv-next'
 import type { ProFieldFC } from '../../typing'
 import { ColorPicker } from 'antdv-next'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
+import { useConfig } from 'antdv-next/config-provider/context'
 import { computed, defineComponent } from 'vue'
 
 export type FieldColorPickerProps = ProFieldFC<{

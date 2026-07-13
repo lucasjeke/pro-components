@@ -7,7 +7,7 @@
 </docs>
 
 <script setup lang="ts">
-import { ProListy } from '@antdv-next1/pro-listy'
+import { ProListy } from '@antdv-next1/pro-components'
 import { Button, Divider, Progress, Segmented, Space, Tag } from 'antdv-next'
 import { h, ref, shallowRef } from 'vue'
 

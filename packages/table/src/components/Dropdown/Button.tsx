@@ -3,7 +3,7 @@ import type { DropdownProps, MenuItemProps } from 'antdv-next'
 import { DownOutlined } from '@antdv-next/icons'
 import { classNames } from '@v-c/util'
 import { Button, Dropdown } from 'antdv-next'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
+import { useConfig } from 'antdv-next/config-provider/context'
 import { computed, defineComponent } from 'vue'
 
 type MenuItems = MenuItemProps & {

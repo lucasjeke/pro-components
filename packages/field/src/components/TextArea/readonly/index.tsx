@@ -2,7 +2,7 @@ import type { VueNode } from '@v-c/util'
 import type { TextAreaProps } from 'antdv-next'
 import type { ProFieldFC } from '../../../typing'
 import { classNames } from '@v-c/util'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
+import { useConfig } from 'antdv-next/config-provider/context'
 import { computed, defineComponent } from 'vue'
 import useStyle from './style'
 

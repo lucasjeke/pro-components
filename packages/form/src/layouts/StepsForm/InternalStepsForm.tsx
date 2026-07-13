@@ -9,7 +9,7 @@ import { childrenToArray, useMountMergeState, useState } from '@antdv-next1/pro-
 import { unit } from '@antdv-next/cssinjs'
 import { classNames, merge } from '@v-c/util'
 import { Button, Col, Row, Space, Steps } from 'antdv-next'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
+import { useConfig } from 'antdv-next/config-provider/context'
 import { cloneVNode, computed, defineComponent, shallowRef } from 'vue'
 import { useProFormInstanceExpose } from '../../utils'
 import { useProStepsFormContextProvider } from './context'

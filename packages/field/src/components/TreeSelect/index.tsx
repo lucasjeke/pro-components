@@ -15,7 +15,7 @@ import {
 import { unit } from '@antdv-next/cssinjs'
 import { classNames, omit, useMergedState } from '@v-c/util'
 import { Spin, TreeSelect } from 'antdv-next'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
+import { useConfig } from 'antdv-next/config-provider/context'
 import { computed, defineComponent, shallowRef } from 'vue'
 import { useFieldFetchData } from '../Select'
 

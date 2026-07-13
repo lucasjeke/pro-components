@@ -1,12 +1,9 @@
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { defineConfig } from 'vite'
-// import { tsxAutoProps } from 'vite-plugin-tsx-auto-props'
 import { tsxResolveTypes } from 'vite-plugin-tsx-resolve-types'
-import { createGlobals, workspaceExternal } from '../../scripts/build/workspaceExternal'
 
 export default defineConfig({
   plugins: [
-    // tsxAutoProps(),
     tsxResolveTypes({
       defaultPropsToUndefined: ['Boolean'],
     }),
@@ -18,20 +15,22 @@ export default defineConfig({
     rolldownOptions: {
       external: [
         'vue',
-        workspaceExternal,
-        /^dayjs/,
+        /^@antdv-next\/icons/,
+        '@antdv-next1/pro-provider',
+        '@antdv-next1/pro-utils',
+        '@antdv-next1/pro-field',
+        /^@v-c\/util/,
+        /^antdv-next/,
+        /^@antdv-next\/cssinjs/,
+        '@v-c/resize-observer',
       ],
-      output: {
-        exports: 'named',
-        globals: createGlobals({ vue: 'Vue' }),
-      },
     },
     emptyOutDir: false,
     lib: {
       entry: 'src/index.ts',
       name: 'ProForm',
-      fileName: () => 'pro-form.js',
-      formats: ['umd'],
+      fileName: () => 'pro-form.esm.js',
+      formats: ['es'],
     },
   },
 })

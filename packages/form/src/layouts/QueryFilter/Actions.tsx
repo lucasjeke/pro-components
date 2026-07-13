@@ -7,7 +7,7 @@ import { useIntl, useProConfig } from '@antdv-next1/pro-provider'
 import { omitBoolean } from '@antdv-next1/pro-utils'
 import { DownOutlined } from '@antdv-next/icons'
 import { Space } from 'antdv-next'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
+import { useConfig } from 'antdv-next/config-provider/context'
 import { defineComponent } from 'vue'
 
 export interface ActionsProps {

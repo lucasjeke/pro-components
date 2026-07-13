@@ -7,7 +7,7 @@
 </docs>
 
 <script setup lang="ts">
-import { Statistic, StatisticCard } from '@antdv-next1/pro-card'
+import { ProStatistic, ProStatisticCard } from '@antdv-next1/pro-components'
 import { EllipsisOutlined, RightOutlined } from '@antdv-next/icons'
 import { Space, theme } from 'antdv-next'
 import { h } from 'vue'
@@ -17,7 +17,7 @@ const { token } = theme.useToken()
 
 <template>
   <div class="p-6">
-    <StatisticCard
+    <ProStatisticCard
       :title="h(Space, null, () => [
         h('span', null, 'Department One'),
         h(RightOutlined, {
@@ -31,7 +31,7 @@ const { token } = theme.useToken()
       :statistic="{
         value: 1102893,
         prefix: '¥',
-        description: h(Space, null, () => [h(Statistic, { title: 'Actual Completion', value: '82.3%' }), h(Statistic, { title: 'Current Target', value: '¥6000' }),
+        description: h(Space, null, () => [h(ProStatistic, { title: 'Actual Completion', value: '82.3%' }), h(ProStatistic, { title: 'Current Target', value: '¥6000' }),
         ]),
       }"
       :chart="h('img', { src: 'https://gw.alipayobjects.com/zos/alicdn/BA_R9SIAV/charts.svg', alt: 'chart', width: '100%' })"

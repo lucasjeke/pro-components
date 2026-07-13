@@ -7,15 +7,11 @@ import type { ProFormGroupProps } from '../components'
 import type { ContentRender } from '../RenderTypings'
 import type { FieldProps, ProFormGridConfig, WithFalse } from '../typing'
 import type { SubmitterProps } from './Submitter'
-import ProConfigProvider from '@antdv-next1/pro-provider'
-import {
-
-  useEffect,
-} from '@antdv-next1/pro-utils'
-import { ConfigProvider, useConfig } from 'antdv-next'
-
-import { defineComponent, shallowRef } from 'vue'
-import { useProFormInstanceExpose } from '../utils'
+import { ProConfigProvider } from '@antdv-next1/pro-provider'
+import { runFunction, useEffect, useFetchData, useState } from '@antdv-next1/pro-utils'
+import { ConfigProvider, Spin, useConfig } from 'antdv-next'
+import { computed, defineComponent, shallowRef } from 'vue'
+import { useProFormInstanceExpose, useUrlSearchParams } from '../utils'
 import BaseFormComponents from './BaseFormComponents'
 
 export type ProFormInstance<T = any> = FormInstance & ProFormInstanceType<T>
@@ -167,13 +163,26 @@ export type BaseFormProps<T extends Record<string, any>, U extends Record<string
   /** 是否回车提交 */
   isKeyPressSubmit?: boolean
   form?: FormInstance
-  onReset: (values?: Record<string, any>) => void
+  onReset?: (values?: T) => void
   /** Form 组件的类型，内部使用 */
   formComponentType?: 'DrawerForm' | 'ModalForm' | 'QueryFilter'
 } & Omit<FormProps, 'onFinish' | 'onReset'>
 & CommonFormProps<T, U>
+
 /** 自动的formKey 防止重复 */
 let requestFormCacheId = 0
+
+export function genParams<T extends Record<string, any>, U extends Record<string, any>>(
+  syncUrl: BaseFormProps<T, U>['syncToUrl'],
+  params: Record<string, any>,
+  type: 'get' | 'set',
+) {
+  if (syncUrl === true) {
+    return params
+  }
+  return runFunction(syncUrl, params, type)
+}
+
 const BaseForm = defineComponent(
   <T extends Record<string, any>, U extends Record<string, any>>(
     props: BaseFormProps<T, U>,
@@ -189,19 +198,59 @@ const BaseForm = defineComponent(
     >,
   ) => {
     const { componentSize } = useConfig()
+    const [urlSearch, setUrlSearch] = useUrlSearchParams({}, { disabled: !props.syncToUrl })
     const formRef = shallowRef<ProFormRef<T> | null>(null)
+
+    const getGenParams = () => ({
+      ...urlSearch.value,
+      ...(props.extraUrlParams || {}),
+    })
     useEffect(() => {
       requestFormCacheId += 0
     }, [])
+    const [initialData, initialDataLoading] = useFetchData<T, U>({
+      request: props.request,
+      params: computed(() => props.params),
+      proFieldKey: computed(() => props.formKey!),
+    })
+    // 如果为 false，不需要触发设置进去
+    const [urlParamsMergeModel, setUrlParamsMergeModel] = useState(() => {
+      if (!props.syncToUrl) {
+        return {}
+      }
+      return genParams(props.syncToUrl, urlSearch.value, 'get')
+    })
+
+    useEffect(() => {
+      if (props.syncToModel)
+        return
+      setUrlParamsMergeModel({})
+    }, [() => props.syncToModel])
+
+    useEffect(() => {
+      if (!props.syncToUrl)
+        return
+      setUrlSearch(genParams(props.syncToUrl, getGenParams(), 'set'))
+    }, [() => props.extraUrlParams, () => props.syncToUrl])
+
     expose(useProFormInstanceExpose(formRef))
+
     return () => {
       const {
         syncToModel = true,
         dateFormatter = 'string',
         syncToUrlAsImportant = false,
         formKey = requestFormCacheId,
+        request,
         ...rest
       } = props
+      if (initialDataLoading.value && request) {
+        return (
+          <div style={{ paddingTop: '50px', paddingBottom: '50px', textAlign: 'center' }}>
+            <Spin />
+          </div>
+        )
+      }
       return (
         <ConfigProvider componentSize={props.size || componentSize.value || 'middle'}>
           <ProConfigProvider needDeps>
@@ -209,8 +258,20 @@ const BaseForm = defineComponent(
             <BaseFormComponents
               {...attrs}
               {...rest}
+              model={syncToUrlAsImportant ? {
+                ...props.model,
+                ...initialData?.value,
+                ...urlParamsMergeModel.value,
+              } : {
+                ...urlParamsMergeModel.value,
+                ...props.model,
+                ...initialData?.value,
+              }}
               formKey={formKey}
+              urlSearch={urlSearch.value}
+              setUrlSearch={setUrlSearch}
               syncToModel={syncToModel}
+              urlParamsMergeModel={urlParamsMergeModel.value}
               dateFormatter={dateFormatter}
               syncToUrlAsImportant={syncToUrlAsImportant}
               ref={formRef}

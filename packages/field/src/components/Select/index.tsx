@@ -27,7 +27,7 @@ import {
   useState,
 } from '@antdv-next1/pro-utils'
 import { unit } from '@antdv-next/cssinjs'
-import { Spin, useConfig as useAntdvConfig } from 'antdv-next'
+import { Spin, useConfig } from 'antdv-next'
 import useSWRV from 'swrv'
 import { computed, defineComponent, ref, shallowRef } from 'vue'
 import Highlight from './Highlight'
@@ -286,7 +286,7 @@ const FieldSelect = defineComponent<FieldSelectProps & ProFieldFC<Pick<SelectPro
   default?: () => VueNode
 }>>(
   (props, { attrs, expose }) => {
-    const { componentSize } = useAntdvConfig()
+    const { componentSize } = useConfig()
     const selectRef = shallowRef<{
       focus: () => void
       blur: () => void

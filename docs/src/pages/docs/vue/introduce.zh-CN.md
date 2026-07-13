@@ -1,11 +1,11 @@
 ---
-title: Pro Components of Vue
+title: Pro Components Vue
 ---
 
 `Pro Components Vue` 是基于 Pro Components(React) 的 Vue 实现，提供了许多的高阶组件，帮助开发者快速构建现代化的 Web 应用。
 
 <div class="pic-plus">
-  <img width="150" draggable="false" src="../../../assets/antdv-next.svg"/>
+  <img width="150" draggable="false" src="../../../assets/pro-components.svg"/>
   <span>+</span>
   <img width="150" draggable="false" src="../../../assets/vue.svg"/>
   <span>=</span>

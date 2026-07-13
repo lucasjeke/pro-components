@@ -7,8 +7,8 @@ The most basic usage of SchemaForm, generating standard form pages through JSON 
 </docs>
 
 <script lang="ts" setup>
-import type { ProFormColumnsType, ProFormLayoutType } from '@antdv-next1/pro-form'
-import { ProFormSelect, SchemaForm } from '@antdv-next1/pro-form'
+import type { ProFormColumnsType, ProFormLayoutType } from '@antdv-next1/pro-components'
+import { ProFormSelect, SchemaForm } from '@antdv-next1/pro-components'
 import { DateRangePicker } from 'antdv-next'
 import dayjs from 'dayjs'
 import { computed, h, shallowRef } from 'vue'

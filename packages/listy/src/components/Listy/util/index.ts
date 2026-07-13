@@ -1,7 +1,7 @@
-import type { ConfigComponentProps as AntdConfigComponentProps, DirectionType, PopupOverflow } from 'antdv-next/dist/config-provider/context'
+import type { ConfigComponentProps as AntdConfigComponentProps, DirectionType, PopupOverflow } from 'antdv-next/config-provider/context'
 import type { RenderEmptyHandler } from 'antdv-next/dist/config-provider/defaultRenderEmpty'
 import type { ComputedRef, CSSProperties, Ref } from 'vue'
-import { useComponentBaseConfig as AntdUseComponentBaseConfig } from 'antdv-next/dist/config-provider/context'
+import { useComponentBaseConfig as AntdUseComponentBaseConfig } from 'antdv-next/config-provider/context'
 
 interface ComponentBaseProps {
   rootClass?: string

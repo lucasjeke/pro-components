@@ -5,13 +5,14 @@ import type { SetupContext, VNode } from 'vue'
 import type { CommonFormProps, ProFormRef } from '../../BaseForm'
 import type { LightFilterFooterRender } from '../../RenderTypings'
 import { transformBooleanProps, useState } from '@antdv-next1/pro-utils'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
+import { useConfig } from 'antdv-next/config-provider/context'
 import { computed, defineComponent, shallowRef } from 'vue'
 import { BaseForm } from '../../BaseForm'
 import { useProFormInstanceExpose } from '../../utils'
 import ProLightFilterContainer from './LightFilterContainer'
 
 export type ProLightFilterProps<T, U = Record<string, any>> = {
+  onReset?: (values?: T) => void
   collapse?: boolean
   /**
    * @name collapseLabel 收起的label dom
@@ -55,7 +56,7 @@ export type ProLightFilterProps<T, U = Record<string, any>> = {
     PopoverProps,
     'children' | 'content' | 'trigger' | 'open' | 'onOpenChange' | 'placement'
   >
-} & Omit<FormProps, 'onFinish'>
+} & Omit<FormProps, 'onFinish' | 'onReset'>
 & CommonFormProps<T, U>
 
 const ProLightFilter = defineComponent(<T extends Record<string, any>, U extends Record<string, any>>(props: ProLightFilterProps<T, U>, { slots, attrs, expose }: SetupContext<{}, CustomSlotsType<{

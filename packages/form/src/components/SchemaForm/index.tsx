@@ -9,7 +9,7 @@ import type {
   SchemaFormProps,
 } from './typing'
 import { ValueTypeToComponent } from '@antdv-next1/pro-field'
-import ProConfigProvider, { useProConfig } from '@antdv-next1/pro-provider'
+import { ProConfigProvider, useProConfig } from '@antdv-next1/pro-provider'
 import { LabelIconTip, omitUndefined, runFunction } from '@antdv-next1/pro-utils'
 import { computed, defineComponent, shallowRef } from 'vue'
 import DrawerForm from '../../layouts/DrawerForm'

@@ -7,9 +7,9 @@
 </docs>
 
 <script setup lang="ts">
-import type { ListyRef } from '@antdv-next1/pro-listy'
+import type { ListyRef } from '@antdv-next1/pro-components'
 import type { CSSProperties } from 'vue'
-import { Listy } from '@antdv-next1/pro-listy'
+import { Listy } from '@antdv-next1/pro-components'
 import { h, useTemplateRef } from 'vue'
 
 const listy = useTemplateRef<ListyRef>('listyRef')

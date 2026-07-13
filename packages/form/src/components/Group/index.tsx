@@ -6,7 +6,7 @@ import { autoFocusToFirstChild, childrenToArray, isSpecialNode, LabelIconTip, us
 import { RightOutlined } from '@antdv-next/icons'
 import { classNames } from '@v-c/util'
 import { Space } from 'antdv-next'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
+import { useConfig } from 'antdv-next/config-provider/context'
 import { computed, defineComponent, isVNode, toRef } from 'vue'
 import { useFieldContextInject } from '../../FieldContext'
 import { useGridHelpers } from '../../helpers'

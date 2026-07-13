@@ -7,8 +7,8 @@
 </docs>
 
 <script lang="ts" setup>
-import type { ProFormInstance } from '@antdv-next1/pro-form'
-import { ProForm, ProFormMoney, ProFormSwitch } from '@antdv-next1/pro-form'
+import type { ProFormInstance } from '@antdv-next1/pro-components'
+import { ProForm, ProFormMoney, ProFormSwitch } from '@antdv-next1/pro-components'
 import { message } from 'antdv-next'
 import { shallowRef, useTemplateRef } from 'vue'
 

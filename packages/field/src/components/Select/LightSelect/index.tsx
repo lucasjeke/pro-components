@@ -12,7 +12,7 @@ import { SearchOutlined } from '@antdv-next/icons'
 import { classNames } from '@v-c/util'
 import { toArray } from '@v-c/util/dist/Children/toArray'
 import { Input, Select } from 'antdv-next'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
+import { useConfig } from 'antdv-next/config-provider/context'
 import { computed, defineComponent } from 'vue'
 import useStyle from './style'
 

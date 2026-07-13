@@ -8,7 +8,7 @@
 
 <script lang="ts" setup>
 import type { TooltipPlacement } from 'antdv-next'
-import { ProFormDatePicker, ProFormDateRangePicker, ProFormDateTimePicker, ProFormDateTimeRangePicker, ProFormDigit, ProFormFieldSet, ProFormSelect, ProFormSlider, ProFormSwitch, ProFormText, ProFormTimePicker, ProFormTimeRangePicker, ProLightFilter } from '@antdv-next1/pro-form'
+import { ProFormDatePicker, ProFormDateRangePicker, ProFormDateTimePicker, ProFormDateTimeRangePicker, ProFormDigit, ProFormFieldSet, ProFormSelect, ProFormSlider, ProFormSwitch, ProFormText, ProFormTimePicker, ProFormTimeRangePicker, ProLightFilter } from '@antdv-next1/pro-components'
 import { RadioButton, RadioGroup } from 'antdv-next'
 import { shallowRef } from 'vue'
 

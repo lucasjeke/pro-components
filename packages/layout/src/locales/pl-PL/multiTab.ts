@@ -1,7 +1,7 @@
 import type { ProLocale } from '../zh-CN/multiTab'
 
 const plPL: ProLocale = {
-  'app.multiTab.close': 'Zamknij',
+  'app.multiTab.close': 'Zamknij bieżącą kartę',
   'app.multiTab.closeOther': 'Zamknij pozostałe',
   'app.multiTab.refresh': 'Odśwież bieżącą stronę',
   'app.multiTab.closeRight': 'Zamknij po prawej',

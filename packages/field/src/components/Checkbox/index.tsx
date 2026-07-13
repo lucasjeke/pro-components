@@ -11,7 +11,7 @@ import {
 } from '@antdv-next1/pro-utils'
 import { classNames, omit } from '@v-c/util'
 import { CheckboxGroup, Spin } from 'antdv-next'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
+import { useConfig } from 'antdv-next/config-provider/context'
 import { useFormItemInputContext } from 'antdv-next/dist/form/context'
 import { computed, defineComponent, shallowRef } from 'vue'
 import { useFieldFetchData } from '../Select'

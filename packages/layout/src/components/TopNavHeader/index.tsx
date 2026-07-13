@@ -6,7 +6,7 @@ import type { HeaderRenderKey, PrivateSiderMenuProps, SiderMenuProps } from '../
 import { getSlot } from '@antdv-next1/pro-utils'
 import { classNames } from '@v-c/util'
 import { ConfigProvider } from 'antdv-next'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
+import { useConfig } from 'antdv-next/config-provider/context'
 import { computed, defineComponent } from 'vue'
 import AppsLogoComponents from '../AppsLogoComponents'
 import ActionsContent from '../GlobalHeader/ActionsContent'

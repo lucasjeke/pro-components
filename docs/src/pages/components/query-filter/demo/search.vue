@@ -7,7 +7,7 @@ search
 </docs>
 
 <script lang="ts" setup>
-import { ProFormDatePicker, ProFormGroup, ProFormText, ProQueryFilter } from '@antdv-next1/pro-form'
+import { ProFormDatePicker, ProFormGroup, ProFormText, ProQueryFilter } from '@antdv-next1/pro-components'
 import { DownOutlined, UpOutlined } from '@antdv-next/icons'
 import { h, shallowRef } from 'vue'
 

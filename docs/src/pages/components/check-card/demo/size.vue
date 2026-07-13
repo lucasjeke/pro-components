@@ -7,7 +7,7 @@
 </docs>
 
 <script setup lang="ts">
-import { ProCheckCard } from '@antdv-next1/pro-card'
+import { ProCheckCard } from '@antdv-next1/pro-components'
 import { RadioButton, RadioGroup } from 'antdv-next'
 import { ref } from 'vue'
 

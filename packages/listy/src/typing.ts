@@ -38,3 +38,5 @@ export type ProListyProps<RecordType = any, Params = Record<string, any>, ValueT
 }
 
 export type ProListyInstance<RecordType extends Record<string, any>> = ListyRef & ProTableInstance<RecordType>
+
+export type { ListyRef }

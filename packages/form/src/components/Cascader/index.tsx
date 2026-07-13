@@ -6,7 +6,7 @@ import type {
   ProFormFieldRemoteProps,
 } from '../../typing'
 import { FieldCascader } from '@antdv-next1/pro-field'
-import ProConfigProvider from '@antdv-next1/pro-provider'
+import { ProConfigProvider } from '@antdv-next1/pro-provider'
 import { defineComponent } from 'vue'
 import { useFieldContextInject } from '../../FieldContext'
 import ProFormField from '../Field'

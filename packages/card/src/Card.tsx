@@ -12,8 +12,8 @@ import {
 } from '@antdv-next1/pro-utils'
 import { classNames } from '@v-c/util'
 import { BorderBeam, Card, Col, Collapse, Row, useBreakpoint } from 'antdv-next'
+import { useConfig } from 'antdv-next/config-provider/context'
 import { responsiveArray } from 'antdv-next/dist/_util/responsiveObserver'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
 import { cloneVNode, computed, defineComponent, isVNode, shallowRef } from 'vue'
 import useStyle from './style'
 
@@ -44,15 +44,6 @@ const InternalProCard = defineComponent<ProCardProps, {}, string, CustomSlotsTyp
     const [hashId, cssVarCls] = useStyle(baseClassName)
     const screens = useBreakpoint()
     const collapsed = shallowRef<boolean>(props.defaultCollapsed || false)
-    // const [collapsed, setCollapsed] = useMergedState<boolean | undefined>(false, {
-    //   value: toRef(() => props.collapsed),
-    //   defaultValue: props.defaultCollapsed,
-    //   onChange: (_collapsed) => {
-    //     props?.['onUpdate:collapsed']?.(_collapsed!)
-    //     props.onCollapse?.(_collapsed!)
-    //   },
-    // })
-
     /**
      * 根据响应式获取 gutter, 参考 antd 实现
      * @param gut
@@ -104,7 +95,6 @@ const InternalProCard = defineComponent<ProCardProps, {}, string, CustomSlotsTyp
         headerBordered = false,
         collapsible = false,
         collapsibleIconRender,
-        // collapsed: controlCollapsed,
         defaultCollapsed = false,
         onChecked,
         checked,
@@ -130,7 +120,6 @@ const InternalProCard = defineComponent<ProCardProps, {}, string, CustomSlotsTyp
         tooltip,
         layout,
         wrap,
-        // 'onUpdate:collapsed': updateCollapsed,
         ...rest
       } = props
       const hasBorderBeamDom = rest.variant !== 'borderless' && borderBeam && !disabled
@@ -144,13 +133,6 @@ const InternalProCard = defineComponent<ProCardProps, {}, string, CustomSlotsTyp
             const colPropsClass = Object.entries(element.props).reduce(
               (prev, [key, value]) => {
                 const keys = key.split('-')
-
-                // const colSpanStyle: CSSProperties = isPercentOrPxWidth
-                //   ? { width: span as string, flexShrink: 0 }
-                //   : {}
-                // 当 colSpan 为 30% 或 300px 时
-                // const isPercentOrPxWidth
-                //   = typeof value === 'string' && /\d%|\dpx/i.test(value)
                 if (breakpointKeyList.includes(keys[keys.length - 1] as keyof ColProps)) {
                   if (['span', 'flex'].includes(keys[keys.length - 1] as string)) {
                     prev[`${baseClassName.value}-${keys[keys.length - 2]}-${value}`] = true

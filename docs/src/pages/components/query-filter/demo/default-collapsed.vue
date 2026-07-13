@@ -7,7 +7,7 @@ default-collapsed
 </docs>
 
 <script lang="ts" setup>
-import { ProFormDatePicker, ProFormText, ProQueryFilter } from '@antdv-next1/pro-form'
+import { ProFormDatePicker, ProFormText, ProQueryFilter } from '@antdv-next1/pro-components'
 </script>
 
 <template>

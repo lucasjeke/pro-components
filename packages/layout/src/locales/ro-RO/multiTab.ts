@@ -1,7 +1,7 @@
 import type { ProLocale } from '../zh-CN/multiTab'
 
 const roRO: ProLocale = {
-  'app.multiTab.close': 'Închide',
+  'app.multiTab.close': 'Închide fila curentă',
   'app.multiTab.closeOther': 'Închide celelalte',
   'app.multiTab.refresh': 'Reîmprospătează pagina curentă',
   'app.multiTab.closeRight': 'Închide la dreapta',

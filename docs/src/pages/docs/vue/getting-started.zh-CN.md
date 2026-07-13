@@ -2,7 +2,7 @@
 title: 快速上手
 ---
 
-ProComponents of Vue 是一套基于 `antdv-next` 的中后台高级组件。开始使用前，请确保你已经了解 Vue 3、TypeScript 和 Vite 的基础用法，并安装了 Node.js v20 或以上版本。
+ProComponents Vue 是一套基于 `antdv-next` 的中后台高级组件。开始使用前，请确保你已经了解 Vue 3、TypeScript 和 Vite 的基础用法，并安装了 Node.js v20 或以上版本。
 
 ## 安装
 

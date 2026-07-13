@@ -1,7 +1,7 @@
 import type { ProLocale } from '../zh-CN/multiTab'
 
 const heIL: ProLocale = {
-  'app.multiTab.close': 'סגור',
+  'app.multiTab.close': 'סגור את הכרטיסייה הנוכחית',
   'app.multiTab.closeOther': 'סגור אחרים',
   'app.multiTab.refresh': 'רענן את הדף הנוכחי',
   'app.multiTab.closeRight': 'סגור מימין',

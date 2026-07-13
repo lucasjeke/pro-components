@@ -8,7 +8,7 @@ import { CopyToClipboard, useMountMergeState } from '@antdv-next1/pro-utils'
 import { CloseOutlined, CopyOutlined, NotificationOutlined, SettingOutlined } from '@antdv-next/icons'
 import { classNames, omit } from '@v-c/util'
 import { Alert, Button, Divider, Drawer, message as Message, Switch } from 'antdv-next'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
+import { useConfig } from 'antdv-next/config-provider/context'
 import { computed, defineComponent, reactive, ref, shallowRef, Teleport } from 'vue'
 import defaultSettings from '../../defaultSettings'
 import { genStringToTheme } from '../../utils'
@@ -84,11 +84,11 @@ const SettingDrawer = defineComponent<SettingDrawerProps>((props) => {
   const config = useConfig()
   const [message, ContextHolder] = Message.useMessage()
   const hideMessage = ref<MessageType>()
-  const baseClassName = computed(() => `${props.prefixCls || config.value.getPrefixCls('pro')}-setting-drawer`)
+  const prefixCls = computed(() => props.prefixCls || config.value.getPrefixCls('pro'))
+  const baseClassName = computed(() => `${prefixCls.value}-setting-drawer`)
+  const [hashId, cssVarCls] = useStyle(baseClassName)
   const formatMessage = getFormatMessage()
   const drawerRef = shallowRef(null)
-
-  const [hashId, cssVarCls] = useStyle(baseClassName)
   const [open, setOpen] = useMountMergeState(false, {
     value: props.collapsed === undefined ? undefined : ref(props.collapsed),
     onChange: value => props['onUpdate:collapsed']?.(value) && props.onCollapse?.(value),
@@ -126,7 +126,6 @@ const SettingDrawer = defineComponent<SettingDrawerProps>((props) => {
       nextState.fixedHeader = true
     }
     if (key === 'layout' && value === 'left') {
-      // nextState.fixedSiderbar = true
       nextState.fixedHeader = true
       nextState.splitMenus = true
     }

@@ -16,7 +16,7 @@ import {
   useState,
 } from '@antdv-next1/pro-utils'
 import { classNames, omit } from '@v-c/util'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
+import { useConfig } from 'antdv-next/config-provider/context'
 import { cloneVNode, computed, defineComponent, isVNode } from 'vue'
 import useStyle from './style'
 

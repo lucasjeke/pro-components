@@ -9,7 +9,7 @@ import { useIntl, useProConfig } from '@antdv-next1/pro-provider'
 import { FormItem, isSpecialNode } from '@antdv-next1/pro-utils'
 import { classNames, useMergedState } from '@v-c/util'
 import { Col, Row } from 'antdv-next'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
+import { useConfig } from 'antdv-next/config-provider/context'
 import { cloneVNode, computed, defineComponent, isVNode } from 'vue'
 import Actions from './Actions'
 

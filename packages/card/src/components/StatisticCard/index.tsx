@@ -2,38 +2,39 @@ import type { VueNode } from '@v-c/util'
 import type { CustomSlotsType } from '@v-c/util/dist/type'
 import type { VNode } from 'vue'
 import type { ProCardProps } from '../../ProCard'
-import type { StatisticProps } from '../Statistic'
+import type { ProStatisticProps } from '../Statistic'
 import { classNames } from '@v-c/util'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
+import { useConfig } from 'antdv-next/config-provider/context'
 import { computed, defineComponent } from 'vue'
 import ProCard from '../../ProCard'
-import Statistic from '../Statistic'
+import ProStatistic from '../Statistic'
 import useStyle from './style'
 
-export type StatisticCardProps = ProCardProps & {
+export type ProStatisticCardProps = ProCardProps & {
   /** 图表配置 */
   chart?: VueNode
   /** 数值统计配置 */
-  statistic?: StatisticProps
+  statistic?: ProStatisticProps
   /** Chart 相对于 statistic 的位置 */
   chartPlacement?: 'right' | 'bottom' | 'left'
   /** 底部额外展示区域 */
   footer?: VueNode
 }
 
-const _StatisticCard = defineComponent<
-  StatisticCardProps,
+const _ProStatisticCard = defineComponent<
+  ProStatisticCardProps,
   {},
   string,
   CustomSlotsType<{
     default?: () => VNode[]
   }>
 >(
-  (props, { attrs, slots }) => {
+  (props, { attrs, slots, expose }) => {
     const config = useConfig()
     const prefixCls = computed(() => props.prefixCls || config.value.getPrefixCls('pro'))
     const baseClassName = computed(() => `${prefixCls.value}-statistic-card`)
     const [hashId, cssVarCls] = useStyle(baseClassName)
+    expose({})
     return () => {
       const {
         statistic,
@@ -43,7 +44,7 @@ const _StatisticCard = defineComponent<
         ...restProps
       } = props
       // 在 StatisticCard 中时默认为 vertical。
-      const statisticDom = statistic && <Statistic layout="vertical" {...statistic} />
+      const statisticDom = statistic && <ProStatistic layout="vertical" {...statistic} />
       const chartDom = chart && (
         <div
           class={classNames(`${baseClassName.value}-chart`, hashId.value, cssVarCls.value, {
@@ -76,6 +77,7 @@ const _StatisticCard = defineComponent<
       return (
         <>
           <ProCard
+            {...attrs}
             style={attrs.style}
             class={classNames(baseClassName.value, attrs.class, hashId.value, cssVarCls.value)}
             {...restProps}
@@ -91,16 +93,16 @@ const _StatisticCard = defineComponent<
     }
   },
   {
-    name: 'StatisticCard',
+    name: 'ProStatisticCard',
     inheritAttrs: false,
   },
 )
 
-const StatisticCard = _StatisticCard as typeof _StatisticCard & {
+const ProStatisticCard = _ProStatisticCard as typeof _ProStatisticCard & {
   isProCard?: boolean
-  Statistic?: typeof Statistic
+  Statistic?: typeof ProStatistic
 }
 
-StatisticCard.isProCard = true
-StatisticCard.Statistic = Statistic
-export default StatisticCard
+ProStatisticCard.isProCard = true
+ProStatisticCard.Statistic = ProStatistic
+export default ProStatisticCard

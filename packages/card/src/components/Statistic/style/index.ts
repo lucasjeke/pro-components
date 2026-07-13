@@ -94,7 +94,7 @@ const genProStatisticStyle: GenerateStyle<ProStatisticToken> = (token) => {
   }
 }
 
-export default useStyle('Statistic', (token) => {
+export default useStyle('ProStatistic', (token) => {
   const proStatisticToken = mergeToken<ProStatisticToken>(token, {})
 
   return [genProStatisticStyle(proStatisticToken)]

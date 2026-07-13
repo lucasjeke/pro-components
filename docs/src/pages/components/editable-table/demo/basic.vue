@@ -7,9 +7,8 @@ editable table
 </docs>
 
 <script lang="ts" setup>
-import type { ProColumns } from '@antdv-next1/pro-table'
-import { ProFormRadioGroup } from '@antdv-next1/pro-form'
-import { EditableProTable } from '@antdv-next1/pro-table'
+import type { ProColumns } from '@antdv-next1/pro-components'
+import { EditableProTable, ProFormRadioGroup } from '@antdv-next1/pro-components'
 import { h, shallowReactive, shallowRef } from 'vue'
 
 function waitTime(time: number = 100) {

@@ -1,7 +1,6 @@
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { defineConfig } from 'vite'
 import { tsxResolveTypes } from 'vite-plugin-tsx-resolve-types'
-import { createGlobals, workspaceExternal } from '../../scripts/build/workspaceExternal'
 
 export default defineConfig({
   plugins: [
@@ -16,20 +15,23 @@ export default defineConfig({
     rolldownOptions: {
       external: [
         'vue',
-        workspaceExternal,
+        'swrv',
+        'es-toolkit',
+        'safe-stable-stringify',
+        '@antdv-next1/pro-provider',
+        '@antdv-next/icons',
+        /^@v-c\/util/,
+        /^antdv-next/,
         /^dayjs/,
+        /^@antdv-next\/cssinjs/,
       ],
-      output: {
-        exports: 'named',
-        globals: createGlobals({ vue: 'Vue' }),
-      },
     },
     emptyOutDir: false,
     lib: {
       entry: 'src/index.ts',
       name: 'ProUtils',
-      fileName: () => 'pro-utils.js',
-      formats: ['umd'],
+      fileName: () => 'pro-utils.esm.js',
+      formats: ['es'],
     },
   },
 })

@@ -413,10 +413,10 @@ export type ProTableProps<DataSource, U, ValueType = 'text'> = {
   type?: ProSchemaComponentTypes
 
   /** @name onSubmit 提交表单时触发 */
-  onSubmit?: (params: U) => void
+  onSubmit?: (params?: U) => void
 
   /** @name onReset 重置表单时触发 */
-  onReset?: () => void
+  onReset?: (params?: U) => void
 
   /** @name columnEmptyText 空值时显示 */
   columnEmptyText?: ProFieldEmptyText

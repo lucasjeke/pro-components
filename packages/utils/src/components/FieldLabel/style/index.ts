@@ -77,15 +77,55 @@ const genProStyle: GenerateStyle<ProFieldLabelToken> = (token) => {
         paddingInline: 8,
         border: `${unit(token.lineWidth)} ${token.lineType} ${token.colorBorder}`,
         borderRadius: token.borderRadius,
+        '&:hover': {
+          backgroundColor: 'transparent',
+          borderColor: token.colorPrimary,
+        },
         '&-active': {
-          backgroundColor: 'none',
+          backgroundColor: 'transparent',
+          '&:focus-visible,&:has(input:focus-visible)': {
+            outline: `${unit(token.lineWidth)} ${token.lineType} ${token.colorPrimary}`,
+            outlineOffset: token.calc(token.lineWidth).mul(-1).equal({ unit: false }),
+            transition: 'outline-offset 0s, outline 0s',
+          },
+        },
+        [`${token.antCls}-picker`]: {
+          [`&${token.antCls}-picker-borderless:focus-visible,&${token.antCls}-picker-borderless:has(input:focus-visible),&${token.antCls}-picker-borderless:has(textarea:focus-visible)`]: {
+            outline: 'none',
+          },
+        },
+        [`${token.antCls}-select`]: {
+          [`&${token.antCls}-select-borderless:not(&${token.antCls}-select-disabled):has(input:focus-visible)`]: {
+            outline: 'none',
+          },
         },
       },
       '&-borderless': {
         height: 30,
         lineHeight: '34px',
+        boxSizing: 'border-box',
+        border: `${unit(token.lineWidth)} ${token.lineType} transparent`,
+        '&:hover': {
+          backgroundColor: 'transparent',
+          borderColor: token.colorPrimary,
+        },
         '&-active': {
-          backgroundColor: token.colorBgTextHover,
+          // backgroundColor: token.colorBgTextHover,
+          '&:focus-visible,&:has(input:focus-visible)': {
+            outline: `${unit(token.lineWidth)} ${token.lineType} ${token.colorPrimary}`,
+            outlineOffset: token.calc(token.lineWidth).mul(-1).equal({ unit: false }),
+            transition: 'outline-offset 0s, outline 0s',
+          },
+        },
+        [`${token.antCls}-select`]: {
+          [`&${token.antCls}-select-borderless:not(&${token.antCls}-select-disabled):has(input:focus-visible)`]: {
+            outline: 'none',
+          },
+        },
+        [`${token.antCls}-picker`]: {
+          [`&${token.antCls}-picker-borderless:focus-visible,&${token.antCls}-picker-borderless:has(input:focus-visible)`]: {
+            outline: 'none',
+          },
         },
       },
       '&-filled': {
@@ -97,6 +137,16 @@ const genProStyle: GenerateStyle<ProFieldLabelToken> = (token) => {
           border: `${unit(token.lineWidth)} ${token.lineType} ${token.colorPrimary}`,
           backgroundColor: token.colorBgTextHover,
         },
+        [`${token.antCls}-picker`]: {
+          [`&${token.antCls}-picker-borderless:focus-visible,&${token.antCls}-picker-borderless:has(input:focus-visible),&${token.antCls}-picker-borderless:has(textarea:focus-visible)`]: {
+            outline: 'none',
+          },
+        },
+        [`${token.antCls}-select`]: {
+          [`&${token.antCls}-select-borderless:not(&${token.antCls}-select-disabled):has(input:focus-visible)`]: {
+            outline: 'none',
+          },
+        },
       },
       '&-underlined': {
         height: 34,
@@ -106,6 +156,16 @@ const genProStyle: GenerateStyle<ProFieldLabelToken> = (token) => {
         '&:hover': {
           borderBottom: `${unit(token.lineWidth)} ${token.lineType} ${token.colorPrimary}`,
           backgroundColor: token.colorBgTextHover,
+        },
+        [`${token.antCls}-picker`]: {
+          [`&${token.antCls}-picker-borderless:focus-visible,&${token.antCls}-picker-borderless:has(input:focus-visible),&${token.antCls}-picker-borderless:has(textarea:focus-visible)`]: {
+            outline: 'none',
+          },
+        },
+        [`${token.antCls}-select`]: {
+          [`&${token.antCls}-select-borderless:not(&${token.antCls}-select-disabled):has(input:focus-visible)`]: {
+            outline: 'none',
+          },
         },
       },
       '&-bordered&-small': {

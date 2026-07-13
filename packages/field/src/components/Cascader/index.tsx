@@ -15,7 +15,7 @@ import {
 import { LoadingOutlined } from '@antdv-next/icons'
 import { classNames } from '@v-c/util'
 import { Cascader } from 'antdv-next'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
+import { useConfig } from 'antdv-next/config-provider/context'
 import { computed, defineComponent, ref } from 'vue'
 import { useFieldFetchData } from '../Select'
 

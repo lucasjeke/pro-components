@@ -7,8 +7,8 @@
 </docs>
 
 <script lang="ts" setup>
-import type { ProFormInstance } from '@antdv-next1/pro-form'
-import { ProForm, ProFormDatePicker, ProFormText } from '@antdv-next1/pro-form'
+import type { ProFormInstance } from '@antdv-next1/pro-components'
+import { ProForm, ProFormDatePicker, ProFormText } from '@antdv-next1/pro-components'
 import { Button, message, SpaceCompact } from 'antdv-next'
 import dayjs from 'dayjs'
 import { h, useTemplateRef } from 'vue'

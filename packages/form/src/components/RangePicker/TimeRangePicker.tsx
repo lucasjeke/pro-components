@@ -1,7 +1,7 @@
 import type { TimeRangePickerProps } from 'antdv-next'
 import type { ProFormFieldItemProps } from '../../typing'
 import { FieldTimeRangePicker } from '@antdv-next1/pro-field'
-import ProConfigProvider from '@antdv-next1/pro-provider'
+import { ProConfigProvider } from '@antdv-next1/pro-provider'
 import { dateArrayFormatter } from '@antdv-next1/pro-utils'
 import { defineComponent } from 'vue'
 import { useFieldContextInject } from '../../FieldContext'

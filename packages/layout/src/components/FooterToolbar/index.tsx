@@ -6,7 +6,7 @@ import type { FooterToolbarContentRender, SlotsRenderType } from '../../RenderTy
 import type { stylishToken } from './style/stylish'
 import { getSlot, isBrowser, useEffect } from '@antdv-next1/pro-utils'
 import { classNames } from '@v-c/util'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
+import { useConfig } from 'antdv-next/config-provider/context'
 import { computed, defineComponent, Fragment, Teleport } from 'vue'
 import { useRouteContext } from '../../context/RouteContext'
 import useStyle from './style'

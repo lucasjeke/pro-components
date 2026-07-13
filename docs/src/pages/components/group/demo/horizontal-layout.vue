@@ -7,8 +7,8 @@
 </docs>
 
 <script lang="ts" setup>
-import type { ProFormListProps } from '@antdv-next1/pro-form'
-import { ProCard } from '@antdv-next1/pro-card'
+import type { ProFormListProps } from '@antdv-next1/pro-components'
+import { ProCard } from '@antdv-next1/pro-components'
 import {
   ProForm,
   ProFormItem,

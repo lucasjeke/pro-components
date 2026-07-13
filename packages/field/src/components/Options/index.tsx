@@ -2,7 +2,7 @@ import type { CustomSlotsType, VueNode } from '@v-c/util/dist/type'
 import type { ProFieldFC } from '../../typing'
 import { proTheme } from '@antdv-next1/pro-provider'
 import { isSpecialNode } from '@antdv-next1/pro-utils'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
+import { useConfig } from 'antdv-next/config-provider/context'
 import { cloneVNode, computed, defineComponent, Fragment, isVNode } from 'vue'
 
 export type FieldOptionsProps = ProFieldFC<{

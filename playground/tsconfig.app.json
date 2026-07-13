@@ -2,19 +2,8 @@
   "extends": "@vue/tsconfig/tsconfig.dom.json",
   "compilerOptions": {
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@antdv-next1/pro-layout": ["../packages/layout/src"],
-      "@antdv-next1/pro-provider": ["../packages/provider/src"],
-      "@antdv-next1/pro-field": ["../packages/field/src"],
-      "@antdv-next1/pro-utils": ["../packages/utils/src"],
-      "@antdv-next1/route-utils": ["../packages/route-utils/src"],
-      "@antdv-next1/pro-listy": ["../packages/listy/src"],
-      "@antdv-next1/pro-card": ["../packages/card/src"],
-      "@antdv-next1/pro-form": ["../packages/form/src"],
-      "@antdv-next1/pro-table": ["../packages/table/src"],
-      "@antdv-next1/pro-components": ["../packages/components/src"]
+      "@/*": ["./src/*"]
     },
     "types": ["vite/client"],
     "strict": true,
@@ -24,5 +13,5 @@
     "erasableSyntaxOnly": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "!template/**/*"]
 }

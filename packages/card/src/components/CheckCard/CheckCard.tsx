@@ -12,9 +12,9 @@ import {
   useEffect,
   useMountMergeState,
 } from '@antdv-next1/pro-utils'
-import { classNames } from '@v-c/util'
+import { classNames, omit } from '@v-c/util'
 import { Avatar, CardMeta } from 'antdv-next'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
+import { useConfig } from 'antdv-next/config-provider/context'
 import { computed, defineComponent, reactive, ref, toRef } from 'vue'
 import ProCard from '../../ProCard'
 import ProCheckCardGroup, { useCheckCardGroupContextInject } from './Group'
@@ -186,6 +186,7 @@ const _ProCheckCard = defineComponent<ProCheckCardProps, {}, string, CustomSlots
     )
     return (
       <ProCard
+        {...omit(attrs, ['style', 'class'])}
         style={attrs.style}
         class={classNames(baseClassName.value, attrs.class, hashId.value, cssVarCls.value, {
           [`${baseClassName.value}-checked`]: propsChecked,

@@ -13,7 +13,7 @@ import {
 } from '@antdv-next1/pro-utils'
 import { FilterOutlined } from '@antdv-next/icons'
 import { classNames } from '@v-c/util'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
+import { useConfig } from 'antdv-next/config-provider/context'
 import { cloneVNode, computed, defineComponent } from 'vue'
 import useStyle from './style'
 

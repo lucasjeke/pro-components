@@ -13,7 +13,7 @@ import {
 import ResizeObserver from '@v-c/resize-observer'
 import { classNames } from '@v-c/util'
 import { theme } from 'antdv-next'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
+import { useConfig } from 'antdv-next/config-provider/context'
 import { computed, defineComponent, shallowRef } from 'vue'
 import { BaseForm } from '../../BaseForm'
 import { useProFormInstanceExpose } from '../../utils'
@@ -123,10 +123,10 @@ export type BaseProQueryFilterProps = Omit<ActionsProps, 'submitter' | 'setColla
 export type ProQueryFilterProps<
   T = Record<string, any>,
   U = Record<string, any>,
-> = Omit<FormProps, 'onFinish'>
+> = Omit<FormProps, 'onFinish' | 'onReset'>
   & CommonFormProps<T, U>
   & BaseProQueryFilterProps & {
-    onReset?: (values: T) => void
+    onReset?: (values?: T) => void
   }
 
 const defaultWidth = isBrowser() ? document?.body?.clientWidth : 1024

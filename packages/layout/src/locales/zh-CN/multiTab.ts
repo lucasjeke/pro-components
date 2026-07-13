@@ -6,11 +6,11 @@
  * 新增文案的流程：先在此处加 key，再在各语言文件里补翻译，TS 会全程提示哪些文件还没补。
  */
 const zhCN = {
-  'app.multiTab.close': '关闭',
+  'app.multiTab.close': '关闭当前页',
   'app.multiTab.closeOther': '关闭其他',
   'app.multiTab.refresh': '刷新当前页',
-  'app.multiTab.closeRight': '关闭到右侧',
-  'app.multiTab.closeLeft': '关闭到左侧',
+  'app.multiTab.closeRight': '关闭右侧',
+  'app.multiTab.closeLeft': '关闭左侧',
 }
 
 /** 所有 locale 共享的基准类型，由 zh-CN 推断得出。 */

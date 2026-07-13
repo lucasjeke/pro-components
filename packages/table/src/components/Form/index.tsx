@@ -15,8 +15,8 @@ export interface FormSearchProps<T, U, ValueType> {
   pagination?: TablePaginationConfig | false
   beforeSearchSubmit?: (params: Partial<U>) => any
   action?: ActionType<Record<string, any>, T>
-  onSubmit?: (params: U) => void
-  onReset?: () => void
+  onSubmit?: (params?: U) => void
+  onReset?: (values?: U) => void
   loading?: boolean
   onFormSearchSubmit?: (params: U) => void
   columns?: ProTableProps<T, U, ValueType>['columns']

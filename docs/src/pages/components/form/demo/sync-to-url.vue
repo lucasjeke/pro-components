@@ -7,7 +7,7 @@
 </docs>
 
 <script lang="ts" setup>
-import { ProForm, ProFormDatePicker, ProFormDateRangePicker, ProFormSelect } from '@antdv-next1/pro-form'
+import { ProForm, ProFormDatePicker, ProFormDateRangePicker, ProFormSelect } from '@antdv-next1/pro-components'
 import { message } from 'antdv-next'
 
 function waitTime(time: number = 100) {

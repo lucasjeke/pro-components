@@ -10,7 +10,7 @@ import {
 } from '@antdv-next1/pro-utils'
 import { classNames } from '@v-c/util'
 import { RadioGroup, Spin } from 'antdv-next'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
+import { useConfig } from 'antdv-next/config-provider/context'
 import { useFormItemInputContext } from 'antdv-next/dist/form/context'
 import { computed, defineComponent, ref } from 'vue'
 import { useFieldFetchData } from '../Select'

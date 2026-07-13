@@ -1,7 +1,7 @@
 import type { ProLocale } from '../zh-CN/multiTab'
 
 const ukUA: ProLocale = {
-  'app.multiTab.close': 'Закрити',
+  'app.multiTab.close': 'Закрити поточну вкладку',
   'app.multiTab.closeOther': 'Закрити інші',
   'app.multiTab.refresh': 'Оновити поточну сторінку',
   'app.multiTab.closeRight': 'Закрити праворуч',

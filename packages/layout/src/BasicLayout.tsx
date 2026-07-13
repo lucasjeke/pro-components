@@ -10,8 +10,8 @@ import { useBreakpoint, useDocumentTitle, useMountMergeState, useState } from '@
 import { getMatchMenu } from '@antdv-next1/route-utils'
 import { classNames, omit } from '@v-c/util'
 import { ConfigProvider, Layout } from 'antdv-next'
+import { useConfig } from 'antdv-next/config-provider/context'
 import warning from 'antdv-next/dist/_util/warning'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
 import { computed, defineComponent, shallowRef, toRef } from 'vue'
 import Footer from './components/Footer'
 import Header from './components/Header'
@@ -25,7 +25,6 @@ import useStyle from './style'
 import { clearMenuItem } from './utils'
 import { getBreadcrumbProps } from './utils/getBreadcrumbProps'
 import { getMenuData } from './utils/getMenuData'
-import { resolveMultiTabProps } from './utils/multiTab'
 import useCurrentMenuLayoutProps from './utils/useCurrentMenuLayoutProps'
 import { useProLayoutLocation } from './utils/useProLayoutLocation'
 import { useProLayoutRender } from './utils/useProLayoutRender'
@@ -86,24 +85,17 @@ function footerRender(props: ProLayoutProps) {
 }
 
 function multiTabRender(props: ProLayoutProps) {
-  const { multiTabRender, pure, prefixCls } = props
+  const { multiTabRender, multiTabProps, pure, prefixCls } = props
   if (multiTabRender === false || pure)
     return null
-  const multiTabProps = resolveMultiTabProps(props)
-  const mergedMultiTabProps = multiTabProps || {}
   const defaultDom = (
-    multiTabProps === false
-      ? null
-      : (
-          <MultiTab
-            {...mergedMultiTabProps}
-            formatMessage={props.formatMessage}
-            prefixCls={prefixCls}
-          />
-        )
+    <MultiTab
+      {...multiTabProps}
+      prefixCls={prefixCls}
+    />
   )
   if (multiTabRender) {
-    return multiTabRender({ props: mergedMultiTabProps, dom: defaultDom })
+    return multiTabRender({ props: multiTabProps!, dom: defaultDom })
   }
 
   return defaultDom
@@ -374,11 +366,7 @@ const BasicLayout = defineComponent<ProLayoutProps, {}, string, CustomSlotsType<
     }),
   )
 
-  const multiTabDom = computed(() => multiTabRender({
-    ...defaultProps.value,
-    multiTab: props.multiTab,
-    multiTabProps: props.multiTabProps,
-  }))
+  const multiTabDom = computed(() => multiTabRender(defaultProps.value))
 
   useDocumentTitle(
     pageTitleInfo,

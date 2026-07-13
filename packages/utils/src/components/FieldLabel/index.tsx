@@ -6,7 +6,7 @@ import { useIntl } from '@antdv-next1/pro-provider'
 import { CloseCircleFilled, DownOutlined } from '@antdv-next/icons'
 import { classNames } from '@v-c/util'
 import { useConfig } from 'antdv-next'
-import { useConfig as useAntdConfig } from 'antdv-next/dist/config-provider/context'
+import { useConfig as useAntdConfig } from 'antdv-next/config-provider/context'
 import { computed, defineComponent, shallowRef } from 'vue'
 import useStyle from './style'
 
@@ -145,7 +145,7 @@ const FieldLabel = defineComponent<FieldLabelProps, {}, string, CustomSlotsType<
         onClear,
         value,
         disabled,
-        variant,
+        variant = 'borderless',
         size: propsSize,
         downIcon,
         allowClear = true,
@@ -159,7 +159,7 @@ const FieldLabel = defineComponent<FieldLabelProps, {}, string, CustomSlotsType<
             cssVarCls.value,
             `${baseClassName.value}-${propsSize ?? size ?? 'middle'}`,
             {
-              [`${baseClassName.value}-${variant || 'borderless'}-active`]:
+              [`${baseClassName.value}-${variant}-active`]:
             (Array.isArray(value) ? value.length > 0 : !!value) || value === 0,
               [`${baseClassName.value}-active`]:
                 (Array.isArray(value) ? value.length > 0 : !!value) || value === 0,

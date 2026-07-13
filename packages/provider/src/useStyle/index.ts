@@ -27,12 +27,11 @@ import getDefaultComponentToken from '@antdv-next/cssinjs/dist/cssinjs-utils/uti
 import genMaxMin from '@antdv-next/cssinjs/dist/cssinjs-utils/util/maxmin'
 import useStyleRegister from '@antdv-next/cssinjs/dist/hooks/useStyleRegister'
 import { theme as antdTheme } from 'antdv-next'
-import { useConfig } from 'antdv-next/dist/config-provider/context'
-
+import { useConfig } from 'antdv-next/config-provider/context'
 import useLocalToken, { unitless } from 'antdv-next/dist/theme/useToken'
 import { computed } from 'vue'
 import { useProCacheToken, useProConfig } from '../context'
-import * as batToken from './token'
+import batToken from './token'
 /**
  * 把一个颜色设置一下透明度
  * @example (#fff, 0.5) => rgba(255, 255, 255, 0.5)
@@ -59,7 +58,6 @@ export type GenerateStyle<
   ComponentToken extends object = GlobalToken,
   ReturnType = CSSInterpolation,
 > = (token: ComponentToken, ...rest: any[]) => ReturnType
-
 function genTheme() {
   if (typeof antdTheme === 'undefined' || !antdTheme)
     return batToken

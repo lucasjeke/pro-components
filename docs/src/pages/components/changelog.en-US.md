@@ -6,6 +6,34 @@ title: Component Changelog
 
 > This page is generated from package `CHANGELOG.md` files. Run `pnpm bump` before publishing.
 
+## V1.0.35
+
+**Release date:** 2026-07-13
+
+This release includes 2 highlights across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`.
+
+### Highlights
+
+- **@antdv-next1/pro-components**: fix MultiTab action bugs and add MultiTab Icon style
+- **@antdv-next1/pro-layout**: fix MultiTab action bugs and add MultiTab Icon style
+
+<details>
+<summary>Show dependency versions</summary>
+
+### Details
+
+### Fixes
+
+- **@antdv-next1/pro-components**: fix MultiTab action bugs and add MultiTab Icon style
+- **@antdv-next1/pro-layout**: fix MultiTab action bugs and add MultiTab Icon style
+
+### Dependencies
+
+- **@antdv-next1/pro-components**: Updated dependencies
+  - @antdv-next1/pro-layout@1.0.30
+
+</details>
+
 ## V1.0.34
 
 **Release date:** 2026-07-13

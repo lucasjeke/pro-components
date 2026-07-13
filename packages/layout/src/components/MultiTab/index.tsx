@@ -1,6 +1,6 @@
 import type { MenuInfo } from '@v-c/menu'
 import type { CustomSlotsType, VueNode } from '@v-c/util/dist/type'
-import type { VNode } from 'vue'
+import type { DefineSetupFnComponent, VNode } from 'vue'
 import type { MessageDescriptor } from '../../typing'
 import { CloseOutlined, EllipsisOutlined, ReloadOutlined } from '@antdv-next/icons'
 import { classNames } from '@v-c/util'
@@ -17,7 +17,7 @@ export interface MultiTabItem {
   closable?: boolean
   loading?: boolean
   disabled?: boolean
-  icon?: VueNode
+  icon?: VueNode | DefineSetupFnComponent<any>
   meta?: Record<string, any>
 }
 
@@ -69,6 +69,8 @@ export function multiTabActionDisabled(
   const itemIndex = items.findIndex(tab => tab.key === item.key)
   if (itemIndex < 0)
     return true
+  if (action === 'close')
+    return options.item?.closable === false
   if (action === 'closeLeft')
     return itemIndex <= 0
   if (action === 'closeRight')
@@ -188,7 +190,7 @@ const MultiTab = defineComponent<
           <span
             class={classNames(`${baseClassName.value}-title-text`, hashId?.value, cssVarCls?.value)}
           >
-            {item.title}
+            { item.title}
           </span>
           {active && (
             <ReloadOutlined

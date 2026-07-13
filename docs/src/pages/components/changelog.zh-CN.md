@@ -6,6 +6,34 @@ title: 组件更新日志
 
 > 本页面由各子包 `CHANGELOG.md` 自动生成。发布前运行 `pnpm bump` 更新。
 
+## V1.0.35
+
+**发布日期：** 2026-07-13
+
+本版本包含 2 项摘要更新，涉及 `@antdv-next1/pro-components`、`@antdv-next1/pro-layout`。
+
+### 版本摘要 Highlights
+
+- **@antdv-next1/pro-components**: fix MultiTab action bugs and add MultiTab Icon style
+- **@antdv-next1/pro-layout**: fix MultiTab action bugs and add MultiTab Icon style
+
+<details>
+<summary>展开依赖版本与完整详情</summary>
+
+### 完整详情 Details
+
+### 问题修复 Fixes
+
+- **@antdv-next1/pro-components**: fix MultiTab action bugs and add MultiTab Icon style
+- **@antdv-next1/pro-layout**: fix MultiTab action bugs and add MultiTab Icon style
+
+### 依赖更新 Dependencies
+
+- **@antdv-next1/pro-components**: Updated dependencies
+  - @antdv-next1/pro-layout@1.0.30
+
+</details>
+
 ## V1.0.34
 
 **发布日期：** 2026-07-13

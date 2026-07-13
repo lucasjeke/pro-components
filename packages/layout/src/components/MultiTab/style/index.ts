@@ -27,6 +27,9 @@ const genProMultiTabStyle: GenerateStyle<ProMultiTabToken> = (token) => {
           display: 'inline-flex',
           alignItems: 'center',
           maxWidth: '100%',
+          [`${componentCls}-icon`]: {
+            paddingInlineEnd: token.paddingXXS,
+          },
           [`${componentCls}-title-text`]: {
             minWidth: 0,
             overflow: 'hidden',

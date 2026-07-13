@@ -32,7 +32,7 @@ const enUS: ProLocale = {
   'app.setting.topmenu': 'Top Menu Layout',
   'app.setting.mixmenu': 'Mixed Menu Layout',
   'app.setting.leftmenu': 'Left Mixed Layout',
-  'app.setting.splitMenus': 'Split Menus Automatically',
+  'app.setting.splitMenus': 'Split Menus Auto',
   'app.setting.fixedheader': 'Fixed Header',
   'app.setting.fixedsidebar': 'Fixed Side Menu',
   'app.setting.fixedsidebar.hint': 'Available in side menu layout',

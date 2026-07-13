@@ -73,6 +73,12 @@ const genProMultiTabStyle: GenerateStyle<ProMultiTabToken> = (token) => {
         marginInlineEnd: token.marginXS,
         padding: token.paddingSM,
       },
+      '&-fixed': {
+        position: 'fixed',
+        insetBlockStart: token.proLayoutHeaderHeightLayoutHeader || 56,
+        insetInlineEnd: 0,
+        // zIndex: 9,
+      },
     },
   }
 }

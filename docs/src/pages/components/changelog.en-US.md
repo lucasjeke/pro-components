@@ -6,6 +6,32 @@ title: Component Changelog
 
 > This page is generated from package `CHANGELOG.md` files. Run `pnpm bump` before publishing.
 
+## V1.0.36
+
+**Release date:** 2026-07-13
+
+This release includes 1 highlight across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`.
+
+### Highlights
+
+- **@antdv-next1/pro-layout**: fix multitab bugs
+
+<details>
+<summary>Show dependency versions</summary>
+
+### Details
+
+### Fixes
+
+- **@antdv-next1/pro-layout**: fix multitab bugs
+
+### Dependencies
+
+- **@antdv-next1/pro-components**: Updated dependencies
+  - @antdv-next1/pro-layout@1.0.31
+
+</details>
+
 ## V1.0.35
 
 **Release date:** 2026-07-13

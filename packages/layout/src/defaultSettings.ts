@@ -103,6 +103,14 @@ export interface PureSettings {
    * 侧边菜单模式
    */
   siderMenuType?: 'sub' | 'group'
+  /**
+   * @name fixedMultiTab 固定多页签
+   */
+  fixedMultiTab?: boolean
+  /**
+   * @name multiTab 多页签
+   */
+  multiTab?: boolean
 }
 
 export type ProSettings = PureSettings & RenderSetting
@@ -117,6 +125,8 @@ const defaultSettings: ProSettings = {
   colorPrimary: '#1677FF',
   splitMenus: false,
   siderMenuType: 'sub',
+  multiTab: false,
+  fixedMultiTab: false,
 }
 
 export default defaultSettings

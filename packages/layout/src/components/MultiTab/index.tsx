@@ -1,5 +1,6 @@
 import type { MenuInfo } from '@v-c/menu'
 import type { CustomSlotsType, VueNode } from '@v-c/util/dist/type'
+import type { TabsProps } from 'antdv-next'
 import type { DefineSetupFnComponent, VNode } from 'vue'
 import type { MessageDescriptor } from '../../typing'
 import { CloseOutlined, EllipsisOutlined, ReloadOutlined } from '@antdv-next/icons'
@@ -22,9 +23,18 @@ export interface MultiTabItem {
 }
 
 export interface MultiTabProps {
+  layout?: 'side' | 'top' | 'mix' | 'left'
+  collapsed?: boolean
+  siderWidth?: number
+  collapsedWidth?: number
+  isMobile?: boolean
+  firstMenuWidth?: number
+  fixedMultiTab?: boolean
+  hasSiderMenu?: boolean
   prefixCls?: string
   items?: MultiTabItem[]
   activeKey?: string
+  tabsProps?: TabsProps
   onChange?: (key: string, item: MultiTabItem) => void
   onClose?: (key: string, item: MultiTabItem) => void
   onCloseOther?: (key: string, item: MultiTabItem) => void
@@ -249,57 +259,80 @@ const MultiTab = defineComponent<
     }
     expose({})
     return () => {
-      const { items = [] } = props
+      const { items = [], fixedMultiTab, tabsProps, collapsed = false, layout, firstMenuWidth = 80, hasSiderMenu, isMobile, siderWidth = 256, collapsedWidth = 64 } = props
       if (!items.length || (items.length < 1))
         return null
 
       const activeActions = getMoreActions(activeItem.value)
       const moreMenu = renderMenu(activeItem.value, 'more')
+      console.log(fixedMultiTab, 'fixedMultiTab')
       return (
-        <Tabs
-          type="card"
-          activeKey={props.activeKey}
-          class={classNames(baseClassName.value, hashId?.value, cssVarCls?.value)}
-          onChange={(key: string) => {
-            const item = items.find(tab => tab.key === key)
-            if (item) {
-              props.onChange?.(key, item)
-            }
-          }}
-          tabBarExtraContent={{
-            left: (
-              <div
-                class={classNames(
-                  `${baseClassName.value}-extra-left`,
-                  hashId?.value,
-                  cssVarCls?.value,
-                )}
-              />
-            ),
-            right: activeActions.length
-              ? (
-                  <Dropdown
-                    menu={moreMenu && typeof moreMenu === 'object' && 'items' in moreMenu ? moreMenu : undefined}
-                    popupRender={moreMenu && !(typeof moreMenu === 'object' && 'items' in moreMenu) ? () => moreMenu : undefined}
-                  >
-                    <EllipsisOutlined rotate={90} class={classNames(`${baseClassName.value}-dropdown-menu-btn`, hashId?.value, cssVarCls?.value)} />
-                  </Dropdown>
-                )
-              : undefined,
-          }}
-          items={items.map(item => ({
-            key: item.key,
-            disabled: item.disabled,
-            label: renderItemLabel(item),
-          }))}
-        />
+        <>
+          { fixedMultiTab && (
+            <div
+              class={classNames(`${baseClassName.value}-fixed-wapper`, hashId?.value, cssVarCls?.value)}
+              style={{
+                width: '100%',
+                height: '64px',
+                background: 'transparent',
+              }}
+            />
+          ) }
+          <Tabs
+            {...tabsProps}
+            type="card"
+            activeKey={props.activeKey}
+            class={classNames(baseClassName.value, {
+              [`${baseClassName.value}-fixed`]: fixedMultiTab,
+            }, hashId?.value, cssVarCls?.value)}
+            styles={{
+              ...tabsProps?.styles,
+              root: {
+                width: !fixedMultiTab || !['side', 'left', 'mix'].includes(layout!) || isMobile || !hasSiderMenu ? '100%' : `calc(100% - ${collapsed ? (layout === 'left' ? siderWidth < (collapsedWidth + firstMenuWidth) ? siderWidth : (collapsedWidth + firstMenuWidth) : collapsedWidth) : siderWidth}px)`,
+              },
+            }}
+            onChange={(key: string) => {
+              const item = items.find(tab => tab.key === key)
+              if (item) {
+                props.onChange?.(key, item)
+              }
+            }}
+            tabBarExtraContent={{
+              left: (
+                <div
+                  class={classNames(
+                    `${baseClassName.value}-extra-left`,
+                    hashId?.value,
+                    cssVarCls?.value,
+                  )}
+                />
+              ),
+              right: activeActions.length
+                ? (
+                    <Dropdown
+                      menu={moreMenu && typeof moreMenu === 'object' && 'items' in moreMenu ? moreMenu : undefined}
+                      popupRender={moreMenu && !(typeof moreMenu === 'object' && 'items' in moreMenu) ? () => moreMenu : undefined}
+                    >
+                      <EllipsisOutlined rotate={90} class={classNames(`${baseClassName.value}-dropdown-menu-btn`, hashId?.value, cssVarCls?.value)} />
+                    </Dropdown>
+                  )
+                : undefined,
+            }}
+            items={items.map(item => ({
+              key: item.key,
+              disabled: item.disabled,
+              label: renderItemLabel(item),
+            }))}
+          />
+        </>
       )
     }
   },
   {
     name: 'MultiTab',
     inheritAttrs: false,
-    emits: ['change', 'close', 'closeOther', 'closeLeft', 'closeRight', 'refresh'],
+    emits: ['change', 'close', 'collapsed', 'hasSiderMenu', 'isMobile', 'tabsProps', 'closeOther', 'closeLeft', 'closeRight', 'refresh', 'fixedMultiTab', 'siderWidth', 'layout', 'collapsedWidth', 'firstMenuWidth'],
   },
 )
+
 export default MultiTab

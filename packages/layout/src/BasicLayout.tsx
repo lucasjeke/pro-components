@@ -84,18 +84,38 @@ function footerRender(props: ProLayoutProps) {
   return null
 }
 
-function multiTabRender(props: ProLayoutProps) {
-  const { multiTabRender, multiTabProps, pure, prefixCls } = props
-  if (multiTabRender === false || pure)
+function multiTabRender(props: ProLayoutProps & { hasSiderMenu: boolean }) {
+  const { multiTabRender: propsMultiTabRender, multiTab, pure, prefixCls, siderWidth, isMobile, hasSiderMenu, collapsedWidth, firstMenuWidth, layout, collapsed, fixedMultiTab } = props
+  if (propsMultiTabRender === false || multiTab === false || pure)
     return null
   const defaultDom = (
     <MultiTab
-      {...multiTabProps}
+      {...(typeof multiTab === 'boolean' ? {} : multiTab)}
       prefixCls={prefixCls}
+      siderWidth={siderWidth}
+      collapsedWidth={collapsedWidth}
+      firstMenuWidth={firstMenuWidth}
+      layout={layout}
+      hasSiderMenu={hasSiderMenu}
+      fixedMultiTab={fixedMultiTab}
+      collapsed={collapsed}
+      isMobile={isMobile}
     />
   )
-  if (multiTabRender) {
-    return multiTabRender({ props: multiTabProps!, dom: defaultDom })
+  console.log(fixedMultiTab)
+  if (propsMultiTabRender) {
+    return propsMultiTabRender({ props: {
+      ...(typeof multiTab === 'boolean' ? {} : multiTab),
+      prefixCls,
+      siderWidth,
+      collapsedWidth,
+      firstMenuWidth,
+      fixedMultiTab,
+      layout,
+      hasSiderMenu,
+      collapsed,
+      isMobile,
+    }, dom: defaultDom })
   }
 
   return defaultDom
@@ -137,8 +157,6 @@ export type BasicLayoutContext = { [K in 'location']: ProLayoutProps[K] } & {
 function getPaddingInlineStart(hasLeftPadding: boolean, collapsed: boolean | undefined, siderWidth: number, collapsedWidth: number, firstMenuWidth: number, layout: ProSettings['layout']): number | undefined {
   if (hasLeftPadding) {
     return collapsed ? (layout === 'left' ? siderWidth < (collapsedWidth + firstMenuWidth) ? siderWidth : (collapsedWidth + firstMenuWidth) : collapsedWidth) : siderWidth
-    // (siderWidth < (collapsedWidth + firstMenuWidth) ? siderWidth : collapsedWidth) : siderWidth
-    // return collapsed ? collapsedWidth : siderWidth
   }
   return 0
 }
@@ -365,8 +383,13 @@ const BasicLayout = defineComponent<ProLayoutProps, {}, string, CustomSlotsType<
       collapsed: collapsed.value,
     }),
   )
-
-  const multiTabDom = computed(() => multiTabRender(defaultProps.value))
+  const multiTabDom = computed(() => multiTabRender({
+    ...defaultProps.value,
+    isMobile: isMobile.value,
+    collapsed: collapsed.value,
+    hasSiderMenu: !!siderMenuDom.value,
+    collapsedWidth: collapsedWidth.value,
+  }))
 
   useDocumentTitle(
     pageTitleInfo,

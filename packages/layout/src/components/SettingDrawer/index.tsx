@@ -1,8 +1,8 @@
-import type { VueNode } from '@v-c/util'
 import type { MessageType } from 'antdv-next/dist/message/interface'
 import type { FunctionalComponent } from 'vue'
 import type { ProSettings } from '../../defaultSettings'
 import type { themeConfig } from '../../utils'
+import type { SettingItemProps } from './LayoutChange'
 import { Listy } from '@antdv-next1/pro-listy'
 import { CopyToClipboard, useMountMergeState } from '@antdv-next1/pro-utils'
 import { CloseOutlined, CopyOutlined, NotificationOutlined, SettingOutlined } from '@antdv-next/icons'
@@ -36,15 +36,11 @@ export interface SettingDrawerProps {
   onCollapse?: (collapsed: boolean) => void
   'onUpdate:collapsed'?: (collapsed: boolean) => void
   otherSettingsRender?: (({ items, settings, changeSetting }: {
-    settings: Partial<ProSettings>
+    settings: MergerSettingsType<ProSettings>
     changeSetting: (key: string, value: any) => void
-    items: SettingDrawerOption[]
-  }) => SettingDrawerOption[]) | false
+    items: SettingItemProps[]
+  }) => SettingItemProps[]) | false
 
-}
-interface SettingDrawerOption {
-  title?: VueNode
-  action: VueNode
 }
 
 interface BodyProps {
@@ -155,7 +151,7 @@ const SettingDrawer = defineComponent<SettingDrawerProps>((props) => {
     const { otherSettingsRender } = props
     if (otherSettingsRender === false)
       return []
-    let doms: SettingDrawerOption[] = [
+    let doms: SettingItemProps[] = [
       {
         title: formatMessage({
           id: 'app.setting.weakmode',

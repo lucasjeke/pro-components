@@ -85,12 +85,12 @@ function footerRender(props: ProLayoutProps) {
 }
 
 function multiTabRender(props: ProLayoutProps & { hasSiderMenu: boolean }) {
-  const { multiTabRender: propsMultiTabRender, multiTab, pure, prefixCls, siderWidth, isMobile, hasSiderMenu, collapsedWidth, firstMenuWidth, layout, collapsed, fixedMultiTab } = props
+  const { multiTabRender: propsMultiTabRender, multiTab, multiTabProps, pure, prefixCls, siderWidth, isMobile, hasSiderMenu, collapsedWidth, firstMenuWidth, layout, collapsed, fixedMultiTab } = props
   if (propsMultiTabRender === false || multiTab === false || pure)
     return null
   const defaultDom = (
     <MultiTab
-      {...(typeof multiTab === 'boolean' ? {} : multiTab)}
+      {...multiTabProps}
       prefixCls={prefixCls}
       siderWidth={siderWidth}
       collapsedWidth={collapsedWidth}
@@ -102,10 +102,9 @@ function multiTabRender(props: ProLayoutProps & { hasSiderMenu: boolean }) {
       isMobile={isMobile}
     />
   )
-  console.log(fixedMultiTab)
   if (propsMultiTabRender) {
     return propsMultiTabRender({ props: {
-      ...(typeof multiTab === 'boolean' ? {} : multiTab),
+      ...multiTabProps,
       prefixCls,
       siderWidth,
       collapsedWidth,

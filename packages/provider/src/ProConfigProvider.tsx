@@ -1,4 +1,5 @@
 import type { CustomSlotsType, VueNode } from '@v-c/util/dist/type'
+import type { MappingAlgorithm } from 'antdv-next/config-provider/context'
 import type { App, Plugin } from 'vue'
 import type { ProConfigProviderProps } from './typing'
 import { ConfigProvider as AntdConfigProvider, theme as antdTheme } from 'antdv-next'
@@ -23,7 +24,9 @@ function omitUndefined<T extends Record<string, any> | undefined>(obj: T): OmitU
   }
   return newObj as OmitUndefined<T>
 }
-
+function uniqueAlgorithm(algorithms: MappingAlgorithm[]) {
+  return Array.from(new Set(algorithms))
+}
 const _ProConfigProvider = defineComponent<ProConfigProviderProps, {}, string, CustomSlotsType<{
   default?: () => VueNode
 }>>((props, { slots, attrs }) => {
@@ -37,24 +40,24 @@ const _ProConfigProvider = defineComponent<ProConfigProviderProps, {}, string, C
     if (algorithm) {
       if (!Array.isArray(algorithm)) {
         if (isDark && !isCompact) {
-          return [algorithm, antdTheme.darkAlgorithm].filter(Boolean)
+          return uniqueAlgorithm([algorithm, antdTheme.darkAlgorithm]).filter(Boolean)
         }
         else if (!isDark && isCompact) {
-          return [algorithm, antdTheme.compactAlgorithm].filter(Boolean)
+          return uniqueAlgorithm([algorithm, antdTheme.compactAlgorithm]).filter(Boolean)
         }
         else if (isDark && isCompact) {
-          return [algorithm, antdTheme.darkAlgorithm, antdTheme.compactAlgorithm].filter(Boolean)
+          return uniqueAlgorithm([algorithm, antdTheme.darkAlgorithm, antdTheme.compactAlgorithm]).filter(Boolean)
         }
       }
       else {
         if (isDark && !isCompact) {
-          return [...(algorithm || []), antdTheme.darkAlgorithm].filter(Boolean)
+          return uniqueAlgorithm([...(algorithm || []), antdTheme.darkAlgorithm]).filter(Boolean)
         }
         else if (!isDark && isCompact) {
-          return [...(algorithm || []), antdTheme.compactAlgorithm].filter(Boolean)
+          return uniqueAlgorithm([...(algorithm || []), antdTheme.compactAlgorithm]).filter(Boolean)
         }
         else if (isDark && isCompact) {
-          return [...(algorithm || []), antdTheme.darkAlgorithm, antdTheme.compactAlgorithm].filter(Boolean)
+          return uniqueAlgorithm([...(algorithm || []), antdTheme.darkAlgorithm, antdTheme.compactAlgorithm]).filter(Boolean)
         }
       }
     }

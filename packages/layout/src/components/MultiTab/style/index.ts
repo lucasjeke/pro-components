@@ -16,7 +16,7 @@ const genProMultiTabStyle: GenerateStyle<ProMultiTabToken> = (token) => {
         [`&${token.antCls}-tabs-card${token.antCls}-tabs-top`]: {
           [`${token.antCls}-tabs-nav`]: {
             [`${token.antCls}-tabs-tab+${token.antCls}-tabs-tab`]: {
-              marginInlineStart: token.calc(token.marginXS).sub(3).equal(),
+              marginInlineStart: token.marginXS,
             },
           },
         },

@@ -6,6 +6,34 @@ title: Component Changelog
 
 > This page is generated from package `CHANGELOG.md` files. Run `pnpm bump` before publishing.
 
+## V1.0.39
+
+**Release date:** 2026-07-15
+
+This release includes 2 highlights across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`.
+
+### Highlights
+
+- **@antdv-next1/pro-components**: fix multitab height bugs
+- **@antdv-next1/pro-layout**: fix multitab height bugs
+
+<details>
+<summary>Show dependency versions</summary>
+
+### Details
+
+### Fixes
+
+- **@antdv-next1/pro-components**: fix multitab height bugs
+- **@antdv-next1/pro-layout**: fix multitab height bugs
+
+### Dependencies
+
+- **@antdv-next1/pro-components**: Updated dependencies
+  - @antdv-next1/pro-layout@1.0.34
+
+</details>
+
 ## V1.0.38
 
 **Release date:** 2026-07-14

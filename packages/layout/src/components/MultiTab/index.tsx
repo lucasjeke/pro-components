@@ -3,6 +3,7 @@ import type { CustomSlotsType, VueNode } from '@v-c/util/dist/type'
 import type { TabsProps } from 'antdv-next'
 import type { DefineSetupFnComponent, VNode } from 'vue'
 import type { MessageDescriptor } from '../../typing'
+import { useProConfig } from '@antdv-next1/pro-provider'
 import { CloseOutlined, EllipsisOutlined, ReloadOutlined } from '@antdv-next/icons'
 import { classNames } from '@v-c/util'
 import { Dropdown, Tabs } from 'antdv-next'
@@ -148,6 +149,7 @@ const MultiTab = defineComponent<
 >(
   (props, { expose, slots }) => {
     const config = useConfig()
+    const proConfig = useProConfig()
     const prefixCls = computed(() => props.prefixCls || config.value.getPrefixCls('pro'))
     const baseClassName = computed(() => `${prefixCls.value}-multi-tab`)
     const [hashId, cssVarCls] = useStyle(baseClassName)
@@ -260,6 +262,7 @@ const MultiTab = defineComponent<
     expose({})
     return () => {
       const { items = [], fixedMultiTab, tabsProps, collapsed = false, layout, firstMenuWidth = 80, hasSiderMenu, isMobile, siderWidth = 256, collapsedWidth = 64 } = props
+      const { token } = proConfig.value
       if (!items.length || (items.length < 1))
         return null
 
@@ -272,7 +275,7 @@ const MultiTab = defineComponent<
               class={classNames(`${baseClassName.value}-fixed-wapper`, hashId?.value, cssVarCls?.value)}
               style={{
                 width: '100%',
-                height: '64px',
+                height: `${token.controlHeightLG + token.margin + token.paddingXS}px`,
                 background: 'transparent',
               }}
             />

@@ -6,6 +6,37 @@ title: Component Changelog
 
 > This page is generated from package `CHANGELOG.md` files. Run `pnpm bump` before publishing.
 
+## V1.0.40
+
+**Release date:** 2026-07-17
+
+This release includes 2 highlights across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-form`, `@antdv-next1/pro-table`, `@antdv-next1/pro-listy`.
+
+### Highlights
+
+- **@antdv-next1/pro-components**: Fix ModalForm and DrawerForm layout prop forwarding.
+- **@antdv-next1/pro-form**: Fix ModalForm and DrawerForm layout prop forwarding.
+
+<details>
+<summary>Show dependency versions</summary>
+
+### Details
+
+### Fixes
+
+- **@antdv-next1/pro-components**: Fix ModalForm and DrawerForm layout prop forwarding.
+- **@antdv-next1/pro-form**: Fix ModalForm and DrawerForm layout prop forwarding.
+
+### Dependencies
+
+- **@antdv-next1/pro-components**: Updated dependencies
+  - @antdv-next1/pro-form@1.0.28
+  - @antdv-next1/pro-table@1.0.32
+  - @antdv-next1/pro-listy@1.0.22
+  - @antdv-next1/pro-layout@1.0.35
+
+</details>
+
 ## V1.0.39
 
 **Release date:** 2026-07-15

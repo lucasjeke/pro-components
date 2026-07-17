@@ -346,8 +346,7 @@ const InternalProStepsForm = defineComponent(<T extends Record<string, any>, U e
         formArray.value.forEach(form => form?.resetFields())
       }
     }
-    catch (error) {
-      console.log(error)
+    catch {
     }
     finally {
       setLoading(false)

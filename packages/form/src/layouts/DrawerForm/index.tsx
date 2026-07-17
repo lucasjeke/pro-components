@@ -268,7 +268,7 @@ ProDrawerFormProps<T, U>, { expose, attrs, slots }: SetupContext<{}, CustomSlots
             {...attrs}
             {...rest}
             formComponentType="DrawerForm"
-            layout="vertical"
+            layout={rest.layout ?? 'vertical'}
             name={rest.name || 'drawer-form'}
             onInit={(_, form) => {
               onInit?.(_, form)

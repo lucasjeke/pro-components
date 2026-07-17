@@ -223,7 +223,7 @@ const ProModalForm = defineComponent(
               {...attrs}
               {...rest}
               formComponentType="ModalForm"
-              layout="vertical"
+              layout={rest.layout ?? 'vertical'}
               name={rest.name || 'modal-form'}
               onInit={(_, form) => {
                 onInit?.(_, form)

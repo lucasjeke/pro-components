@@ -6,6 +6,37 @@ title: 组件更新日志
 
 > 本页面由各子包 `CHANGELOG.md` 自动生成。发布前运行 `pnpm bump` 更新。
 
+## V1.0.40
+
+**发布日期：** 2026-07-17
+
+本版本包含 2 项摘要更新，涉及 `@antdv-next1/pro-components`、`@antdv-next1/pro-layout`、`@antdv-next1/pro-form`、`@antdv-next1/pro-table`、`@antdv-next1/pro-listy`。
+
+### 版本摘要 Highlights
+
+- **@antdv-next1/pro-components**: Fix ModalForm and DrawerForm layout prop forwarding.
+- **@antdv-next1/pro-form**: Fix ModalForm and DrawerForm layout prop forwarding.
+
+<details>
+<summary>展开依赖版本与完整详情</summary>
+
+### 完整详情 Details
+
+### 问题修复 Fixes
+
+- **@antdv-next1/pro-components**: Fix ModalForm and DrawerForm layout prop forwarding.
+- **@antdv-next1/pro-form**: Fix ModalForm and DrawerForm layout prop forwarding.
+
+### 依赖更新 Dependencies
+
+- **@antdv-next1/pro-components**: Updated dependencies
+  - @antdv-next1/pro-form@1.0.28
+  - @antdv-next1/pro-table@1.0.32
+  - @antdv-next1/pro-listy@1.0.22
+  - @antdv-next1/pro-layout@1.0.35
+
+</details>
+
 ## V1.0.39
 
 **发布日期：** 2026-07-15

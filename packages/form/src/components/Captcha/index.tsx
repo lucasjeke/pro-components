@@ -61,10 +61,9 @@ export const BaseProFormCaptcha = defineComponent<ProFormCaptchaProps, {}, strin
         setLoading(false)
         setTiming(true)
       }
-      catch (error) {
+      catch {
         setTiming(false)
         setLoading(false)
-        console.log(error)
       }
     }
 
@@ -152,8 +151,7 @@ export const BaseProFormCaptcha = defineComponent<ProFormCaptchaProps, {}, strin
                   await onGetCaptcha()
                 }
               }
-              catch (error) {
-                console.log('error', error)
+              catch {
               }
             }}
           >

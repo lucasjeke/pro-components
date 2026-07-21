@@ -25,7 +25,7 @@
     "@v-c/util": "^1.0.21",
     "@vue/compiler-sfc": "3.5.39",
     "@vueuse/core": "^14.2.1",
-    "antdv-next": "^1.4.1",
+    "antdv-next": "^1.4.4",
     "antdv-style": "^0.1.0-alpha.1",
     "dayjs": "^1.11.20",
     "es-toolkit": "^1.45.1",

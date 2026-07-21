@@ -4,9 +4,10 @@ import type { Key } from '../interface'
 import { computed } from 'vue'
 
 export interface Group<T, K extends Key = Key> {
-  key: (item: T) => K
+  key: ((item: T) => K) | K
   title: (options: { name: K, items: T[] }) => VueNode
 }
+
 export interface GroupSegmentItem<T> {
   item: T
   index: number
@@ -30,7 +31,7 @@ export function useGroupSegments<T, K extends Key = Key>(data: T[], group?: Grou
 
     // ============================= Collect ==============================
     data.forEach((item, index) => {
-      const groupKey = group.key(item)
+      const groupKey = typeof group.key === 'function' ? group.key(item) : group.key
       const groupItems = map.get(groupKey)
       const groupSegmentItem = { item, index }
 

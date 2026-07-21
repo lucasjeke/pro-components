@@ -1,7 +1,8 @@
+import type { ProCardProps } from '@antdv-next1/pro-card'
 import type { BaseProQueryFilterProps, ProFormProps, ProFormRef } from '@antdv-next1/pro-form'
 import type { FormItemProps, ProFieldValueObjectType, ProFieldValueType, ProSchemaComponentTypes } from '@antdv-next1/pro-utils'
 import type { CustomSlotsType, VueNode } from '@v-c/util/dist/type'
-import type { SetupContext } from 'vue'
+import type { CSSProperties, SetupContext } from 'vue'
 import type { ActionType, ProColumns, ProTableProps } from '../../typing'
 import ProCard from '@antdv-next1/pro-card'
 import { SchemaForm, useProFormInstanceExpose } from '@antdv-next1/pro-form'
@@ -25,6 +26,9 @@ function toLowerLine(str: string) {
 
 export type SearchConfig = BaseProQueryFilterProps & {
   filterType?: 'query' | 'light'
+  cardProps?: ProCardProps
+  class?: string
+  style?: CSSProperties
 }
 
 /**
@@ -51,14 +55,14 @@ function getFormCompetent(isForm: boolean, searchConfig?: SearchConfig | false):
  * @param searchConfig
  * @param name
  */
-function getFromProps(isForm: boolean, searchConfig: any, name: string) {
+function getFromProps(isForm: boolean, searchConfig: SearchConfig | undefined, name: string) {
   if (!isForm && name === 'LightFilter') {
     // 传给 lightFilter 的问题
     return omit(
       {
         ...searchConfig,
       },
-      ['labelWidth', 'defaultCollapsed', 'filterType'],
+      ['labelWidth', 'defaultCollapsed', 'cardProps', 'filterType'],
     )
   }
 
@@ -70,7 +74,7 @@ function getFromProps(isForm: boolean, searchConfig: any, name: string) {
         defaultCollapsed: true,
         ...searchConfig,
       },
-      ['filterType'],
+      ['filterType', 'cardProps'],
     )
   }
   return {}
@@ -172,8 +176,10 @@ const FormRender = defineComponent(
         form: formConfig,
         bordered,
       } = props
+      const cardProps = typeof searchConfig !== 'boolean' ? searchConfig?.cardProps : {}
       return (
         <ProCard
+          {...cardProps}
           ghost={ghost}
           class={classNames(baseClassName.value, proProvide.value.hashId, {
             [`${baseClassName.value}-${toLowerLine(competentName.value)}`]: true,
@@ -181,9 +187,12 @@ const FormRender = defineComponent(
             [(searchConfig as { class: string })?.class]:
               searchConfig !== false && (searchConfig as { class: string })?.class,
           })}
+          style={searchConfig !== false && (searchConfig as { style: CSSProperties })?.style}
           variant={!bordered ? 'borderless' : 'outlined'}
           styles={{
+            ...cardProps?.styles,
             body: {
+              ...('body' in cardProps?.styles! ? cardProps?.styles.body : {}),
               padding: 0,
               borderRadius: 0,
             },
@@ -200,7 +209,7 @@ const FormRender = defineComponent(
                 loading: submitButtonLoading,
               },
             }}
-            {...getFromProps(isForm.value, searchConfig, competentName.value)}
+            {...getFromProps(isForm.value, typeof searchConfig === 'boolean' ? {} : searchConfig, competentName.value)}
             {...getFormConfigs(isForm.value, formConfig || {})}
             action={action}
             dateFormatter={dateFormatter}

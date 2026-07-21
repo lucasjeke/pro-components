@@ -22,7 +22,7 @@ const genProStepsFormStyle: GenerateStyle<ProStepsFormToken> = (token) => {
       },
       '&-step': {
         display: 'none',
-        marginBlockStart: 32,
+        marginBlockStart: token.marginXL,
         '&-active': {
           display: 'block',
         },

@@ -9,7 +9,7 @@ const genProQueryFilterStyle: GenerateStyle<ProQueryFilterToken> = (token) => {
   return {
     [token.componentCls]: {
       '&&': {
-        padding: 24,
+        padding: token.paddingLG,
       },
       [`${token.antCls}-form-item`]: {
         marginBlock: 0,
@@ -18,7 +18,7 @@ const genProQueryFilterStyle: GenerateStyle<ProQueryFilterToken> = (token) => {
         marginBlock: 0,
       },
       '&-row': {
-        rowGap: 24,
+        rowGap: token.paddingLG,
         '&-split': {
           [`${token.proComponentsCls}-form-group`]: {
             display: 'flex',
@@ -26,7 +26,7 @@ const genProQueryFilterStyle: GenerateStyle<ProQueryFilterToken> = (token) => {
             gap: token.marginXS,
           },
           '&:last-child': {
-            marginBlockEnd: 12,
+            marginBlockEnd: token.marginSM,
           },
         },
         '&-split-line': {
@@ -35,7 +35,7 @@ const genProQueryFilterStyle: GenerateStyle<ProQueryFilterToken> = (token) => {
             width: '100%',
             content: '""',
             height: 1,
-            insetBlockEnd: -12,
+            insetBlockEnd: `-${token.marginSM}`,
             borderBlockEnd: `${unit(token.lineWidth)} dashed ${token.colorSplit}`,
           },
         },

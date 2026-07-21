@@ -27,7 +27,7 @@ export const genProTableStyle: GenerateStyle<ProTableToken> = (token) => {
         background: token.colorBgContainer,
       },
       '&-extra': {
-        marginBlockEnd: 16,
+        marginBlockEnd: token.margin,
       },
       '&-polling': {
         [`${token.componentCls}-list-toolbar-setting-item`]: {
@@ -58,7 +58,7 @@ export const genProTableStyle: GenerateStyle<ProTableToken> = (token) => {
         },
       },
       '& &-search': {
-        marginBlockEnd: 16,
+        marginBlockEnd: token.margin,
         background: token.colorBgContainer,
         '&-ghost': {
           background: 'transparent',
@@ -83,7 +83,7 @@ export const genProTableStyle: GenerateStyle<ProTableToken> = (token) => {
         '@media (max-width: 575px)': {
           [token.componentCls]: {
             height: 'auto !important',
-            paddingBlockEnd: 24,
+            paddingBlockEnd: token.paddingLG,
             [`${token.antCls}-form-item-label`]: { minWidth: 80, textAlign: 'start' },
           },
         },
@@ -93,7 +93,7 @@ export const genProTableStyle: GenerateStyle<ProTableToken> = (token) => {
         alignItems: 'center',
         justifyContent: 'space-between',
         height: 64,
-        paddingInline: 24,
+        paddingInline: token.paddingLG,
         paddingBlock: 0,
         '&-option': { display: 'flex', alignItems: 'center', justifyContent: 'flex-end' },
         '&-title': {

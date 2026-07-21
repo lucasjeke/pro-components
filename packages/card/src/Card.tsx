@@ -156,7 +156,7 @@ const InternalProCard = defineComponent<ProCardProps, {}, string, CustomSlotsTyp
                     paddingBlockStart: `${verticalGutter / 2}px`,
                     paddingBlockEnd: `${verticalGutter / 2}px`,
                   }),
-                  ...colStyle,
+                  ...(element.props?.['col-style'] || {}),
                 }}
                 key={index}
                 class={classNames([`${baseClassName.value}-col`], colPropsClass, hashId.value, cssVarCls.value, {
@@ -183,7 +183,7 @@ const InternalProCard = defineComponent<ProCardProps, {}, string, CustomSlotsTyp
             <Col
               {...(Object.keys(colProps).length ? colProps : wrap ? {} : { flex: 1 })}
               style={{
-                ...colStyle,
+                ...(element.props?.['col-style'] || {}),
               }}
               class={classNames({
                 [`${baseClassName.value}-split-vertical`]: split === 'vertical' && index !== childrenArray.length - 1,

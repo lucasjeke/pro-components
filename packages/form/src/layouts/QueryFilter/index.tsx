@@ -330,7 +330,7 @@ const ProQueryFilter = defineComponent(
               {...rest}
               {...transformedProps}
               ref={formRef}
-              class={classNames(baseClassName.value, hashId.value, cssVarCls.value, attrs.class)}
+              class={classNames(baseClassName.value, hashId.value, attrs.class)}
               preserve={typeof preserve === 'string' ? true : preserve}
               name={props.name || 'query-filter-form'}
               isKeyPressSubmit={(typeof rest.isKeyPressSubmit === 'string' ? true : rest.isKeyPressSubmit) || true}

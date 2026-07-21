@@ -6,6 +6,36 @@ title: Component Changelog
 
 > This page is generated from package `CHANGELOG.md` files. Run `pnpm bump` before publishing.
 
+## V1.0.42
+
+**Release date:** 2026-07-21
+
+This release includes 2 highlights across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-table`, `@antdv-next1/pro-listy`.
+
+### Highlights
+
+- **@antdv-next1/pro-components**: fix table bugs
+- **@antdv-next1/pro-table**: fix table bugs
+
+<details>
+<summary>Show dependency versions</summary>
+
+### Details
+
+### Fixes
+
+- **@antdv-next1/pro-components**: fix table bugs
+- **@antdv-next1/pro-table**: fix table bugs
+
+### Dependencies
+
+- **@antdv-next1/pro-components**: Updated dependencies
+  - @antdv-next1/pro-table@1.0.34
+  - @antdv-next1/pro-listy@1.0.24
+  - @antdv-next1/pro-layout@1.0.37
+
+</details>
+
 ## V1.0.41
 
 **Release date:** 2026-07-21

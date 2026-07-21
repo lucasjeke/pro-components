@@ -176,7 +176,7 @@ const FormRender = defineComponent(
         form: formConfig,
         bordered,
       } = props
-      const cardProps = typeof searchConfig !== 'boolean' ? searchConfig?.cardProps : {}
+      const cardProps = typeof searchConfig !== 'boolean' ? (searchConfig?.cardProps || {}) : {}
       return (
         <ProCard
           {...cardProps}
@@ -192,7 +192,7 @@ const FormRender = defineComponent(
           styles={{
             ...cardProps?.styles,
             body: {
-              ...('body' in cardProps?.styles! ? cardProps?.styles.body : {}),
+              ...(cardProps.styles ? 'body' in cardProps?.styles ? cardProps?.styles?.body : {} : {}),
               padding: 0,
               borderRadius: 0,
             },

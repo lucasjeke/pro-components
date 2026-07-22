@@ -319,7 +319,7 @@ const InternalProCard = defineComponent<ProCardProps, {}, string, CustomSlotsTyp
         >
           {containProCard ? direction !== 'column' && split !== 'horizontal' ? (
             <Row gutter={gutter}>
-              {childrenDom}
+              {childrenDom.filter(Boolean)}
             </Row>
           ) : (
             <div
@@ -327,7 +327,7 @@ const InternalProCard = defineComponent<ProCardProps, {}, string, CustomSlotsTyp
             >
               {childrenDom}
             </div>
-          ) : childrenDom }
+          ) : childrenDom.filter(Boolean) }
         </Card>
       )
       return (

@@ -128,7 +128,11 @@ const columns: ProColumns<DataItem>[] = [
     dataIndex: 'status',
     listSlot: 'subTitle',
     render: (_, record) => h(Tag, { color: statusConfig[record.status].color }, () => statusConfig[record.status].text),
-
+  },
+  {
+    title: '描述',
+    dataIndex: 'category',
+    listSlot: 'description',
   },
   {
     title: '图标',

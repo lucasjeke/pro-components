@@ -220,6 +220,7 @@ const ProListyItem = defineComponent(<RecordType = Record<string, any>>(props: P
             }}
             title={cardTitleDom}
             extra={actionsDom as AntVueNode}
+            description={description as AntVueNode}
             onClick={(e) => {
               cardProps?.onClick?.(e)
               itemProps?.onClick?.(e as PointerEvent)

@@ -1,29 +1,79 @@
 import type { VNode } from 'vue'
 import { cloneVNode, Fragment, isVNode, Text } from 'vue'
-// import { normalizeProps } from '../normalizeProps'
+
+function supportsAutoFocus(node: VNode): boolean {
+  if (typeof node.type !== 'object' || node.type === null) {
+    return false
+  }
+
+  const props = 'props' in node.type ? node.type.props : undefined
+
+  if (!props) {
+    return false
+  }
+
+  if (Array.isArray(props)) {
+    return props.includes('autoFocus')
+  }
+
+  // props: { autoFocus: Boolean }
+  return 'autoFocus' in props
+}
+
+function walk(
+  nodes: VNode[],
+  autoFocus: boolean,
+  found: { value: boolean },
+): VNode[] {
+  return nodes.map((node) => {
+    if (!isVNode(node)) {
+      return node
+    }
+
+    // Fragment、Comment、Text 继续递归
+    if (
+      node.type === Fragment
+      || node.type === Comment
+      || node.type === Text
+    ) {
+      if (Array.isArray(node.children)) {
+        return cloneVNode(node, {
+          children: walk(node.children as VNode[], autoFocus, found),
+        })
+      }
+
+      return node
+    }
+
+    // 已经找到过了，后面的直接返回
+    if (found.value) {
+      return node
+    }
+
+    // 找到第一个支持 autoFocus 的组件
+    if (supportsAutoFocus(node)) {
+      found.value = true
+
+      return cloneVNode(node, {
+        ...node.props,
+        autoFocus,
+      })
+    }
+
+    return node
+  })
+}
+
 /**
- * 将 autoFocus 应用到第一个子节点；若首个子节点是 Fragment，则递归应用到其第一个子节点，
- * 避免向 Fragment 传入非法 props。
+ * 将 autoFocus 应用到第一个子节点
  */
+
 export function autoFocusToFirstChild(
   nodes?: VNode[],
   autoFocus?: boolean,
 ): VNode[] {
-  return (nodes || [])?.map((node, i) => {
-    if (!autoFocus || !isVNode(node))
-      return node
-    if (node.type === Fragment || node.type === Comment || node.type === Text) {
-      if (Array.isArray(node.children)) {
-        return autoFocusToFirstChild(node.children as VNode<any, any, { autoFocus?: boolean }>[], autoFocus)
-      }
-      else {
-        return node
-      }
-    }
-    // node.props = normalizeProps(node.props || {})
-    return i === 0 ? cloneVNode(node, {
-      ...node.props,
-      autoFocus,
-    }) : node
-  }) as VNode[]
+  if (!autoFocus || !nodes?.length) {
+    return nodes ?? []
+  }
+  return walk(nodes, autoFocus, { value: false })
 }

@@ -206,7 +206,7 @@ const _ProCheckCard = defineComponent<ProCheckCardProps, {}, string, CustomSlots
         cover={typeof cover === 'string' ? <img src={cover} alt="checkcard" />
           : coverDom as AntVueNode}
         v-slots={{
-          ...slots,
+          ...omit(slots, ['default', 'cover', 'title', 'description', 'avatar', 'extra']),
           default: () => (
             <>
               {(headerDom || avatarDom || descriptionDom || cardLoading) && (

@@ -45,7 +45,6 @@ const [messageApi, ContextHolder] = message.useMessage()
           tooltip="Up to 24 characters"
           placeholder="Please enter a name"
         />
-
         <ProFormText
           width="md"
           name="company"

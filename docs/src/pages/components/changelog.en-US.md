@@ -6,6 +6,44 @@ title: Component Changelog
 
 > This page is generated from package `CHANGELOG.md` files. Run `pnpm bump` before publishing.
 
+## V1.0.43
+
+**Release date:** 2026-07-22
+
+This release includes 4 highlights across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-form`, `@antdv-next1/pro-table`, `@antdv-next1/pro-card`, `@antdv-next1/pro-field`, `@antdv-next1/pro-listy`, `@antdv-next1/pro-utils`.
+
+### Highlights
+
+- **@antdv-next1/pro-components**: fix card, form bugs
+- **@antdv-next1/pro-listy**: fix card, form bugs
+- **@antdv-next1/pro-utils**: fix card, form bugs
+- **@antdv-next1/pro-card**: fix card, form bugs
+
+<details>
+<summary>Show dependency versions</summary>
+
+### Details
+
+### Fixes
+
+- **@antdv-next1/pro-components**: fix card, form bugs
+- **@antdv-next1/pro-listy**: fix card, form bugs
+- **@antdv-next1/pro-utils**: fix card, form bugs
+- **@antdv-next1/pro-card**: fix card, form bugs
+
+### Dependencies
+
+- **@antdv-next1/pro-components**: Updated dependencies
+  - @antdv-next1/pro-listy@1.0.25
+  - @antdv-next1/pro-utils@1.0.23
+  - @antdv-next1/pro-card@2.0.22
+  - @antdv-next1/pro-layout@1.0.38
+  - @antdv-next1/pro-field@1.0.21
+  - @antdv-next1/pro-form@1.0.30
+  - @antdv-next1/pro-table@1.0.35
+
+</details>
+
 ## V1.0.42
 
 **Release date:** 2026-07-21

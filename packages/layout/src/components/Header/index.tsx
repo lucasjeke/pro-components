@@ -11,6 +11,7 @@ import { classNames } from '@v-c/util'
 import { LayoutHeader } from 'antdv-next'
 import { computed, defineComponent } from 'vue'
 import { clearMenuItem } from '../../utils'
+import { getSiderMenuWidth } from '../../utils/siderWidth'
 import GlobalHeader from '../GlobalHeader'
 import TopNavHeader from '../TopNavHeader'
 import useStyle from './style/header'
@@ -128,7 +129,13 @@ const HeaderView = defineComponent<HeaderViewProps & PrivateSiderMenuProps & {
             width:
                   !needFixedHeader.value || !['side', 'left'].includes(layout!) || isMobile || !hasSiderMenu
                     ? '100%'
-                    : `calc(100% - ${collapsed ? (layout === 'left' ? siderWidth < (collapsedWidth.value + firstMenuWidth) ? siderWidth : (collapsedWidth.value + firstMenuWidth) : collapsedWidth.value) : siderWidth}px)`,
+                    : `calc(100% - ${getSiderMenuWidth({
+                      layout,
+                      collapsed,
+                      siderWidth,
+                      collapsedWidth: collapsedWidth.value,
+                      firstMenuWidth,
+                    })}px)`,
           }}
         >
           {renderContent()}

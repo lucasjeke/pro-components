@@ -6,6 +6,39 @@ title: Component Changelog
 
 > This page is generated from package `CHANGELOG.md` files. Run `pnpm bump` before publishing.
 
+## V1.0.44
+
+**Release date:** 2026-07-26
+
+This release includes 3 highlights across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-table`, `@antdv-next1/pro-card`, `@antdv-next1/pro-listy`.
+
+### Highlights
+
+- **@antdv-next1/pro-components**: Sync CheckCard.Group option style passthrough and fixed left sider width fixes.
+- **@antdv-next1/pro-card**: Support item-level `class`, `style`, `classes`, and `styles` passthrough in CheckCard.Group options.
+- **@antdv-next1/pro-layout**: Unify left collapsed sider width calculation and restore the MultiTab action state export.
+
+<details>
+<summary>Show dependency versions</summary>
+
+### Details
+
+### Fixes
+
+- **@antdv-next1/pro-components**: Sync CheckCard.Group option style passthrough and fixed left sider width fixes.
+- **@antdv-next1/pro-card**: Support item-level `class`, `style`, `classes`, and `styles` passthrough in CheckCard.Group options.
+- **@antdv-next1/pro-layout**: Unify left collapsed sider width calculation and restore the MultiTab action state export.
+
+### Dependencies
+
+- **@antdv-next1/pro-components**: Updated dependencies
+  - @antdv-next1/pro-card@2.0.23
+  - @antdv-next1/pro-layout@1.0.39
+  - @antdv-next1/pro-listy@1.0.26
+  - @antdv-next1/pro-table@1.0.36
+
+</details>
+
 ## V1.0.43
 
 **Release date:** 2026-07-22

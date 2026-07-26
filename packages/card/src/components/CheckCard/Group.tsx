@@ -3,10 +3,12 @@ import type { CustomSlotsType } from '@v-c/util/dist/type'
 import type { VueNode as AntVueNode } from 'antdv-next/dist/_util/type'
 import type {
   ComputedRef,
+  CSSProperties,
   FunctionalComponent,
   InjectionKey,
   VNode,
 } from 'vue'
+import type { ProCheckCardProps } from './CheckCard'
 import { ProConfigProvider } from '@antdv-next1/pro-provider'
 import {
   childrenToArray,
@@ -32,6 +34,10 @@ export type CheckGroupValueType = CheckCardValueType[] | CheckCardValueType | un
  * Represents an option for a CheckCard component.
  */
 export interface CheckCardItemType {
+  class?: string
+  style?: CSSProperties
+  classes?: ProCheckCardProps['classes']
+  styles?: ProCheckCardProps['styles']
   key?: Key
   /**
    * The title to be displayed.
@@ -260,6 +266,10 @@ const InternalCheckCardGroup = defineComponent<ProCheckCardGroupProps, {}, strin
           return (
             <ProCheckCard
               {...omit(attrs, ['class', 'style'])}
+              class={(option as CheckCardItemType).class}
+              style={(option as CheckCardItemType).style}
+              styles={(option as CheckCardItemType).styles}
+              classes={(option as CheckCardItemType).classes}
               key={(option as CheckCardItemType).value.toString()}
               disabled={(option as CheckCardItemType).disabled}
               size={(option as CheckCardItemType).size ?? props.size}

@@ -25,6 +25,7 @@ import useStyle from './style'
 import { clearMenuItem } from './utils'
 import { getBreadcrumbProps } from './utils/getBreadcrumbProps'
 import { getMenuData } from './utils/getMenuData'
+import { getSiderMenuWidth } from './utils/siderWidth'
 import useCurrentMenuLayoutProps from './utils/useCurrentMenuLayoutProps'
 import { useProLayoutLocation } from './utils/useProLayoutLocation'
 import { useProLayoutRender } from './utils/useProLayoutRender'
@@ -155,7 +156,13 @@ export type BasicLayoutContext = { [K in 'location']: ProLayoutProps[K] } & {
 }
 function getPaddingInlineStart(hasLeftPadding: boolean, collapsed: boolean | undefined, siderWidth: number, collapsedWidth: number, firstMenuWidth: number, layout: ProSettings['layout']): number | undefined {
   if (hasLeftPadding) {
-    return collapsed ? (layout === 'left' ? siderWidth < (collapsedWidth + firstMenuWidth) ? siderWidth : (collapsedWidth + firstMenuWidth) : collapsedWidth) : siderWidth
+    return getSiderMenuWidth({
+      layout,
+      collapsed,
+      siderWidth,
+      collapsedWidth,
+      firstMenuWidth,
+    })
   }
   return 0
 }

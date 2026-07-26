@@ -15,6 +15,7 @@ import { classNames } from '@v-c/util'
 import { Avatar, LayoutSider, Menu, Space } from 'antdv-next'
 import { computed, defineComponent, isVNode } from 'vue'
 import { clearMenuItem } from '../../utils'
+import { getLeftSecondarySiderCollapsedWidth, getSiderMenuWidth } from '../../utils/siderWidth'
 import AppsLogoComponents, { defaultRenderLogo } from '../AppsLogoComponents'
 import CollapsedIcon from '../CollapsedIcon'
 import BaseMenu from './BaseMenu'
@@ -498,16 +499,29 @@ const SiderMenu = defineComponent<SiderMenuProps & PrivateSiderMenuProps>((props
       [`${baseClassName.value}-mix`]: layout === 'mix' && !isMobile,
       [`${baseClassName.value}-stylish`]: !!stylish,
     })
+    const leftSecondaryCollapsedWidth = getLeftSecondarySiderCollapsedWidth({
+      siderWidth,
+      collapsedWidth: collapsedWidth.value,
+      firstMenuWidth: firstMenuWidth.value,
+    })
+    const siderMenuWidth = getSiderMenuWidth({
+      layout,
+      collapsed,
+      hasMenu: !!menuDomItems.value,
+      siderWidth,
+      collapsedWidth: collapsedWidth.value,
+      firstMenuWidth: firstMenuWidth.value,
+    })
     return (
       <>
         {fixedSiderbar && !isMobile && !hideMenuWhenCollapsedClassName.value && (
           <div
             style={{
-              width: `${collapsed ? collapsedWidth.value : siderWidth}px`,
+              width: `${siderMenuWidth}px`,
               overflow: 'hidden',
-              flex: `0 0 ${collapsed ? collapsedWidth.value : siderWidth}px`,
-              maxWidth: `${collapsed ? collapsedWidth.value : siderWidth}px`,
-              minWidth: `${collapsed ? collapsedWidth.value : siderWidth}px`,
+              flex: `0 0 ${siderMenuWidth}px`,
+              maxWidth: `${siderMenuWidth}px`,
+              minWidth: `${siderMenuWidth}px`,
               transition: 'all 0.2s ease 0s',
             }}
           />
@@ -519,7 +533,7 @@ const SiderMenu = defineComponent<SiderMenuProps & PrivateSiderMenuProps>((props
             collapsed={false}
             collapsible={false}
             defaultCollapsed={false}
-            width={menuDomItems.value ? (collapsed ? (firstMenuWidth.value + collapsedWidth.value) : siderWidth) : firstMenuWidth.value}
+            width={siderMenuWidth}
           >
             <div class={`${baseClassName.value}-left-container`}>
               <div class={classNames(`${baseClassName.value}-left-rail`, cssVarCls?.value, hashId?.value)}>
@@ -540,7 +554,6 @@ const SiderMenu = defineComponent<SiderMenuProps & PrivateSiderMenuProps>((props
                   <LayoutSider
                     theme="light"
                     collapsed={collapsed}
-                    collapsedWidth={menuDomItems.value ? collapsedWidth.value : 0}
                     collapsible
                     breakpoint={breakpoint === false ? undefined : breakpoint}
                     onCollapse={(collapse: boolean) => {
@@ -549,6 +562,7 @@ const SiderMenu = defineComponent<SiderMenuProps & PrivateSiderMenuProps>((props
                       onCollapse?.(collapse)
                     }}
                     width={menuDomItems.value ? (siderWidth - firstMenuWidth.value) : 0}
+                    collapsedWidth={menuDomItems.value ? leftSecondaryCollapsedWidth : 0}
                   >
                     {menuDomItems.value}
                   </LayoutSider>

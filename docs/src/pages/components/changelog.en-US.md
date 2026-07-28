@@ -6,17 +6,44 @@ title: Component Changelog
 
 > This page is generated from package `CHANGELOG.md` files. Run `pnpm bump` before publishing.
 
+## V1.0.45
+
+**Release date:** 2026-07-28
+
+This release includes 2 highlights across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`.
+
+### Highlights
+
+- **@antdv-next1/pro-components**: Restore MultiTab implementation while keeping layout sider width fixes.
+- **@antdv-next1/pro-layout**: Restore MultiTab implementation while keeping layout sider width fixes.
+
+<details>
+<summary>Show dependency versions</summary>
+
+### Details
+
+### Dependencies
+
+- **@antdv-next1/pro-components**: Updated dependencies
+  - @antdv-next1/pro-layout@1.0.40
+
+### Changes
+
+- **@antdv-next1/pro-components**: Restore MultiTab implementation while keeping layout sider width fixes.
+- **@antdv-next1/pro-layout**: Restore MultiTab implementation while keeping layout sider width fixes.
+
+</details>
+
 ## V1.0.44
 
 **Release date:** 2026-07-26
 
-This release includes 3 highlights across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-table`, `@antdv-next1/pro-card`, `@antdv-next1/pro-listy`.
+This release includes 2 highlights across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-table`, `@antdv-next1/pro-card`, `@antdv-next1/pro-listy`.
 
 ### Highlights
 
-- **@antdv-next1/pro-components**: Sync CheckCard.Group option style passthrough and fixed left sider width fixes.
-- **@antdv-next1/pro-card**: Support item-level `class`, `style`, `classes`, and `styles` passthrough in CheckCard.Group options.
-- **@antdv-next1/pro-layout**: Unify left collapsed sider width calculation and restore the MultiTab action state export.
+- **@antdv-next1/pro-components**: Fix CheckCard group option style passthrough and fixed left sider placeholder width.
+- **@antdv-next1/pro-card**: Fix CheckCard group option style passthrough and fixed left sider placeholder width.
 
 <details>
 <summary>Show dependency versions</summary>
@@ -25,9 +52,8 @@ This release includes 3 highlights across `@antdv-next1/pro-components`, `@antdv
 
 ### Fixes
 
-- **@antdv-next1/pro-components**: Sync CheckCard.Group option style passthrough and fixed left sider width fixes.
-- **@antdv-next1/pro-card**: Support item-level `class`, `style`, `classes`, and `styles` passthrough in CheckCard.Group options.
-- **@antdv-next1/pro-layout**: Unify left collapsed sider width calculation and restore the MultiTab action state export.
+- **@antdv-next1/pro-components**: Fix CheckCard group option style passthrough and fixed left sider placeholder width.
+- **@antdv-next1/pro-card**: Fix CheckCard group option style passthrough and fixed left sider placeholder width.
 
 ### Dependencies
 

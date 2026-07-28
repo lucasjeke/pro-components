@@ -6,17 +6,44 @@ title: 组件更新日志
 
 > 本页面由各子包 `CHANGELOG.md` 自动生成。发布前运行 `pnpm bump` 更新。
 
+## V1.0.45
+
+**发布日期：** 2026-07-28
+
+本版本包含 2 项摘要更新，涉及 `@antdv-next1/pro-components`、`@antdv-next1/pro-layout`。
+
+### 版本摘要 Highlights
+
+- **@antdv-next1/pro-components**: 恢复 MultiTab 原实现，并保留布局侧边栏宽度修复。
+- **@antdv-next1/pro-layout**: 恢复 MultiTab 原实现，并保留布局侧边栏宽度修复。
+
+<details>
+<summary>展开依赖版本与完整详情</summary>
+
+### 完整详情 Details
+
+### 依赖更新 Dependencies
+
+- **@antdv-next1/pro-components**: Updated dependencies
+  - @antdv-next1/pro-layout@1.0.40
+
+### 其他更新 Changes
+
+- **@antdv-next1/pro-components**: 恢复 MultiTab 原实现，并保留布局侧边栏宽度修复。
+- **@antdv-next1/pro-layout**: 恢复 MultiTab 原实现，并保留布局侧边栏宽度修复。
+
+</details>
+
 ## V1.0.44
 
 **发布日期：** 2026-07-26
 
-本版本包含 3 项摘要更新，涉及 `@antdv-next1/pro-components`、`@antdv-next1/pro-layout`、`@antdv-next1/pro-table`、`@antdv-next1/pro-card`、`@antdv-next1/pro-listy`。
+本版本包含 2 项摘要更新，涉及 `@antdv-next1/pro-components`、`@antdv-next1/pro-layout`、`@antdv-next1/pro-table`、`@antdv-next1/pro-card`、`@antdv-next1/pro-listy`。
 
 ### 版本摘要 Highlights
 
-- **@antdv-next1/pro-components**: 同步 CheckCard.Group 选项样式透传与左侧固定菜单宽度修复。
-- **@antdv-next1/pro-card**: CheckCard.Group options 支持 item 级 `class`、`style`、`classes`、`styles` 透传。
-- **@antdv-next1/pro-layout**: 统一 left collapsed sider 宽度计算，并恢复 MultiTab action state 导出。
+- **@antdv-next1/pro-components**: Fix CheckCard group option style passthrough and fixed left sider placeholder width.
+- **@antdv-next1/pro-card**: Fix CheckCard group option style passthrough and fixed left sider placeholder width.
 
 <details>
 <summary>展开依赖版本与完整详情</summary>
@@ -25,9 +52,8 @@ title: 组件更新日志
 
 ### 问题修复 Fixes
 
-- **@antdv-next1/pro-components**: 同步 CheckCard.Group 选项样式透传与左侧固定菜单宽度修复。
-- **@antdv-next1/pro-card**: CheckCard.Group options 支持 item 级 `class`、`style`、`classes`、`styles` 透传。
-- **@antdv-next1/pro-layout**: 统一 left collapsed sider 宽度计算，并恢复 MultiTab action state 导出。
+- **@antdv-next1/pro-components**: Fix CheckCard group option style passthrough and fixed left sider placeholder width.
+- **@antdv-next1/pro-card**: Fix CheckCard group option style passthrough and fixed left sider placeholder width.
 
 ### 依赖更新 Dependencies
 

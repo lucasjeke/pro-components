@@ -3,16 +3,12 @@ import type { CustomSlotsType, VueNode } from '@v-c/util/dist/type'
 import type { TabsProps } from 'antdv-next'
 import type { DefineSetupFnComponent, VNode } from 'vue'
 import type { MessageDescriptor } from '../../typing'
-import type { MultiTabAction, MultiTabActionDisabledOptions, MultiTabActionItem } from './actionState'
-import { useProConfig } from '@antdv-next1/pro-provider'
 import { CloseOutlined, EllipsisOutlined, ReloadOutlined } from '@antdv-next/icons'
 import { classNames } from '@v-c/util'
 import { Dropdown, Tabs } from 'antdv-next'
 import { useConfig } from 'antdv-next/dist/config-provider/index'
 import { computed, defineComponent } from 'vue'
 import { gLocaleObject } from '../../locales'
-import { getSiderMenuWidth } from '../../utils/siderWidth'
-import { getMultiTabMoreMenuActions, getMultiTabTabMenuActions, multiTabActionDisabled } from './actionState'
 import useStyle from './style'
 
 export interface MultiTabItem {
@@ -56,8 +52,46 @@ export function getFormatMessage(): (data: MessageDescriptor) => string | undefi
   }
 }
 
-export type { MultiTabAction, MultiTabActionDisabledOptions, MultiTabActionItem }
-export { getMultiTabMoreMenuActions, getMultiTabTabMenuActions, multiTabActionDisabled }
+export type MultiTabAction = 'change' | 'close' | 'closeOther' | 'closeLeft' | 'closeRight' | 'refresh'
+
+export interface MultiTabActionItem {
+  key: string
+  title: VueNode
+  closable?: boolean
+}
+
+export interface MultiTabActionDisabledOptions {
+  items?: MultiTabActionItem[]
+  item?: MultiTabActionItem
+  activeKey?: string
+}
+
+export function multiTabActionDisabled(
+  action: Exclude<MultiTabAction, 'change'>,
+  options: MultiTabActionDisabledOptions,
+) {
+  const { items = [], activeKey } = options
+  const item = options.item || items.find(tab => tab.key === activeKey)
+
+  if (!item)
+    return true
+
+  const itemIndex = items.findIndex(tab => tab.key === item.key)
+  if (itemIndex < 0)
+    return true
+  if (action === 'close')
+    return options.item?.closable === false
+  if (action === 'closeLeft')
+    return itemIndex <= 0
+  if (action === 'closeRight')
+    return itemIndex >= items.length - 1
+  if (action === 'closeOther')
+    return items.length <= 1
+  if (action === 'refresh')
+    return item.key !== activeKey
+
+  return false
+}
 
 const actionLocaleMap: Record<
   Exclude<MultiTabAction, 'change'>,
@@ -93,6 +127,16 @@ function capitalize(str: string) {
 
   return str[0]?.toUpperCase() + str.slice(1)
 }
+function getMoreActions(item?: MultiTabItem): Exclude<MultiTabAction, 'change'>[] {
+  if (!item)
+    return []
+  return ['closeOther', 'close', 'refresh']
+}
+function getTabActions(item?: MultiTabItem): Exclude<MultiTabAction, 'change'>[] {
+  if (!item)
+    return []
+  return ['closeOther', 'closeLeft', 'closeRight', 'refresh']
+}
 const MultiTab = defineComponent<
   MultiTabProps,
   {},
@@ -104,7 +148,6 @@ const MultiTab = defineComponent<
 >(
   (props, { expose, slots }) => {
     const config = useConfig()
-    const proConfig = useProConfig()
     const prefixCls = computed(() => props.prefixCls || config.value.getPrefixCls('pro'))
     const baseClassName = computed(() => `${prefixCls.value}-multi-tab`)
     const [hashId, cssVarCls] = useStyle(baseClassName)
@@ -122,7 +165,7 @@ const MultiTab = defineComponent<
 
     const renderMenu = (item?: MultiTabItem, type: 'tab' | 'more' = 'tab') => {
       const { menuRender = slots.menuRender } = props
-      const actions = type === 'more' ? getMultiTabMoreMenuActions(item) : getMultiTabTabMenuActions(item)
+      const actions = type === 'more' ? getMoreActions(item) : getTabActions(item)
 
       const customMenu = menuRender?.({ item, actions }) as VNode
       if (customMenu)
@@ -217,12 +260,12 @@ const MultiTab = defineComponent<
     expose({})
     return () => {
       const { items = [], fixedMultiTab, tabsProps, collapsed = false, layout, firstMenuWidth = 80, hasSiderMenu, isMobile, siderWidth = 256, collapsedWidth = 64 } = props
-      const { token } = proConfig.value
       if (!items.length || (items.length < 1))
         return null
 
       const activeActions = getMoreActions(activeItem.value)
       const moreMenu = renderMenu(activeItem.value, 'more')
+      console.log(fixedMultiTab, 'fixedMultiTab')
       return (
         <>
           { fixedMultiTab && (
@@ -230,7 +273,7 @@ const MultiTab = defineComponent<
               class={classNames(`${baseClassName.value}-fixed-wapper`, hashId?.value, cssVarCls?.value)}
               style={{
                 width: '100%',
-                height: `${token.controlHeightLG + token.margin + token.paddingXS}px`,
+                height: '64px',
                 background: 'transparent',
               }}
             />
@@ -245,13 +288,7 @@ const MultiTab = defineComponent<
             styles={{
               ...tabsProps?.styles,
               root: {
-                width: !fixedMultiTab || !['side', 'left', 'mix'].includes(layout!) || isMobile || !hasSiderMenu ? '100%' : `calc(100% - ${getSiderMenuWidth({
-                  layout,
-                  collapsed,
-                  siderWidth,
-                  collapsedWidth,
-                  firstMenuWidth,
-                })}px)`,
+                width: !fixedMultiTab || !['side', 'left', 'mix'].includes(layout!) || isMobile || !hasSiderMenu ? '100%' : `calc(100% - ${collapsed ? (layout === 'left' ? siderWidth < (collapsedWidth + firstMenuWidth) ? siderWidth : (collapsedWidth + firstMenuWidth) : collapsedWidth) : siderWidth}px)`,
               },
             }}
             onChange={(key: string) => {

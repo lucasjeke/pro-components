@@ -16,7 +16,7 @@ export default {
     fieldSet: 'ProFormFields',
     group: 'ProFormList',
     dependency: 'ProFormDependency',
-    schemaForm: 'SchemaForm',
+    schemaForm: 'Schema Form',
     queryFilter: 'Query/LightFilter',
     stepsForm: 'StepsForm',
     modalForm: 'Modal/Drawer',

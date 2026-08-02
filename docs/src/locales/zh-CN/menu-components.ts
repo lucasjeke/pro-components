@@ -16,7 +16,7 @@ export default {
     fieldSet: 'ProFormFields 表单项',
     group: 'ProFormList 数据结构化',
     dependency: 'ProFormDependency 数据联动',
-    schemaForm: 'SchemaForm JSON 表单',
+    schemaForm: 'Schema Form JSON 表单',
     queryFilter: 'Query/LightFilter 筛选表单',
     stepsForm: 'StepsForm 分步表单',
     modalForm: 'Modal/Drawer 浮层表单',

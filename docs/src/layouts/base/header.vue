@@ -65,7 +65,6 @@ watch(
     const exclude = ['', '/', route.path, normalizedPath]
     const matched = route.matched?.map(v => v.path).filter(path => !exclude.includes(path))
     appStore.setSiderOpenKeys(matched)
-    // check path has -cn
     if (route.path.endsWith('-cn')) {
       const path = route.path.slice(0, route.path.length - 3)
       appStore.setSiderKey([path])
@@ -237,7 +236,7 @@ function getSiderMenuUrl(key: string) {
             <ThemeBtn />
             <a
               key="github"
-              href="https://github.com/archiesong/pro-components"
+              href="https://github.com/lucasjeke/pro-components"
               target="_blank"
               rel="noreferrer"
             >
@@ -293,6 +292,7 @@ function getSiderMenuUrl(key: string) {
       </a-menu>
       <template v-if="siderMenus.length">
         <a-divider class="my-8px" />
+        {{ siderMenus }}
         <a-menu
           :items="siderMenus"
           mode="inline"

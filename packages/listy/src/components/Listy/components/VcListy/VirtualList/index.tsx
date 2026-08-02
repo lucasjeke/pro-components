@@ -153,7 +153,6 @@ const VirtualList = defineComponent(<T, K extends Key = Key>(props: VirtualListP
         extraRender={extraRender}
         v-slots={{
           default: (row: { index: number, offsetX: number, style: CSSProperties, item: Row<T, K> }) => {
-            console.log(row, 'row')
             return row.item.type === 'header' ? renderHeaderRow(row.item.groupKey) : itemRender?.(row.item.item, row.index)
           },
         }}

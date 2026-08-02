@@ -4,6 +4,7 @@ import { EditOutlined } from '@antdv-next/icons'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { usePageInfo } from '@/composables/doc-page.ts'
+import ComponentMeta from './component-meta.vue'
 
 defineOptions({
   name: 'DocHeading',
@@ -23,7 +24,7 @@ const githubUrl = computed(() => {
   const pathBase = path.slice(0, -3)
   const mdFile = path.endsWith('-cn') ? 'zh-CN.md' : 'en-US.md'
   const docPath = isComponent ? `${pathBase}/index.${mdFile}` : `${pathBase}.${mdFile}`
-  return `https://github.com/archiesong/pro-components/edit/main/docs/src/pages${docPath}`
+  return `https://github.com/lucasjeke/pro-components/edit/main/docs/src/pages${docPath}`
 })
 </script>
 
@@ -43,4 +44,5 @@ const githubUrl = computed(() => {
     </a-space>
   </a-typography-title>
   {{ frontmatter?.description }}
+  <ComponentMeta :frontmatter="frontmatter" />
 </template>

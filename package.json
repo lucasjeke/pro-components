@@ -50,6 +50,7 @@
     "@types/node": "^25.5.0",
     "@v-c/cascader": "^1.1.2",
     "@v-c/input": "^1.1.1",
+    "@v-c/listy": "^1.0.1",
     "@v-c/menu": "^1.2.2",
     "@v-c/picker": "^1.2.2",
     "@v-c/portal": "^1.0.8",

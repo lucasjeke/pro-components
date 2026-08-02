@@ -4,7 +4,6 @@ import { computed } from 'vue'
 import { useLocale } from '@/composables/use-locale'
 // // import tokenMetaRes from '../../assets/token-meta.json'
 // // import tokenDataRes from '../../assets/token.json'
-// import ColorChunk from '../color-chunk/index.vue'
 
 defineOptions({
   name: 'ComponentTokenTable',
@@ -18,8 +17,8 @@ const { t, messages } = useLocale()
 
 const { token: tokenState } = theme.useToken()
 
-// // const tokenMeta = tokenMetaRes as AnyObject
-// // const tokenData = tokenDataRes as AnyObject
+// const tokenMeta = tokenMetaRes as AnyObject
+// const tokenData = tokenDataRes as AnyObject
 
 interface TokenData {
   name: string

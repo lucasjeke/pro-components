@@ -66,6 +66,7 @@ const genSiderMenuStyle: GenerateStyle<SiderMenuToken> = (token) => {
           [`${token.componentCls}-actions`]: {
             color: 'rgba(255,255,255,0.85)',
           },
+
         },
       },
       [`& ${token.antCls}-layout-sider-children`]: {
@@ -270,7 +271,9 @@ const genSiderMenuStyle: GenerateStyle<SiderMenuToken> = (token) => {
           flex: 1,
           display: 'flex',
           boxShadow: '2px 0 8px rgba(29, 35, 41, .05)',
-          // rgba(13,13,13, 0.65)
+          '&-realDark': {
+            boxShadow: '2px 0 8px  rgba(13,13,13, 0.65)',
+          },
           [`${token.componentCls}-logo-title`]: {
             position: 'relative',
             display: 'flex',

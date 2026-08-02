@@ -98,7 +98,7 @@ import { ProLayout } from '@antdv-next1/pro-components'
 
 ```bash
 # 克隆仓库
-git clone https://github.com/archiesong/pro-components.git
+git clone https://github.com/lucasjeke/pro-components.git
 cd pro-components
 
 # 安装依赖

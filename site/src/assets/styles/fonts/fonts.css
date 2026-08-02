@@ -1,0 +1,52 @@
+@font-face {
+  font-family: 'AlibabaSans';
+  src:
+    url('./AlibabaSans-Regular.woff2') format('woff2'),
+    url('./AlibabaSans-Regular.woff') format('woff'),
+    url('./AlibabaSans-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; /* 优化字体加载 */
+}
+
+@font-face {
+  font-family: 'AlibabaSans';
+  src:
+    url('./AlibabaSans-Light.woff2') format('woff2'),
+    url('./AlibabaSans-Light.woff') format('woff'),
+    url('./AlibabaSans-Light.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap; /* 优化字体加载 */
+}
+@font-face {
+  font-family: 'AlibabaSans';
+  src:
+    url('./AlibabaSans-Bold.woff2') format('woff2'),
+    url('./AlibabaSans-Bold.woff') format('woff'),
+    url('./AlibabaSans-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap; /* 优化字体加载 */
+}
+@font-face {
+  font-family: 'AlibabaSans';
+  src:
+    url('./AlibabaSans-Heavy.woff2') format('woff2'),
+    url('./AlibabaSans-Heavy.woff') format('woff'),
+    url('./AlibabaSans-Heavy.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap; /* 优化字体加载 */
+}
+
+@font-face {
+  font-family: 'AlibabaSans';
+  src:
+    url('./AlibabaSans-Medium.woff2') format('woff2'),
+    url('./AlibabaSans-Medium.woff') format('woff'),
+    url('./AlibabaSans-Medium.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap; /* 优化字体加载 */
+}

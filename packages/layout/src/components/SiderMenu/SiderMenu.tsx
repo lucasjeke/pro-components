@@ -550,7 +550,10 @@ const SiderMenu = defineComponent<SiderMenuProps & PrivateSiderMenuProps>((props
                 {railMenuItem.value}
               </div>
               {menuDomItems.value && (
-                <div class={classNames(`${baseClassName.value}-left-menu`, cssVarCls?.value, hashId?.value)}>
+                <div class={classNames(`${baseClassName.value}-left-menu`, {
+                  [`${baseClassName.value}-left-menu-realDark`]: navTheme === 'realDark',
+                }, cssVarCls?.value, hashId?.value)}
+                >
                   <LayoutSider
                     theme="light"
                     collapsed={collapsed}

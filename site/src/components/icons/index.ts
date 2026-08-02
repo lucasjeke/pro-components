@@ -1,0 +1,6 @@
+export { default as DirectionIcon } from './Direction/index.vue'
+export { default as LogoIcon } from './Logo/index.vue'
+export { default as ThemeIcon } from './Theme/index.vue'
+export { default as ExpandIcon } from './Expand/index.vue'
+export { default as SearchIcon } from './Search/index.vue'
+export { default as ExternalLinkIcon } from './ExternalLink/index.vue'

@@ -6,5 +6,4 @@ export * from '@antdv-next1/pro-listy'
 export * from '@antdv-next1/pro-provider'
 export * from '@antdv-next1/pro-table'
 export * from '@antdv-next1/pro-utils'
-
 export * from './version'

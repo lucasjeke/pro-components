@@ -11,7 +11,8 @@
       "@v-c/table": ["../../node_modules/@v-c/table"],
       "@v-c/tabs": ["../../node_modules/@v-c/tabs"],
       "@v-c/trigger": ["../../node_modules/@v-c/trigger"],
-      "@v-c/upload": ["../../node_modules/@v-c/upload"]
+      "@v-c/upload": ["../../node_modules/@v-c/upload"],
+      "@v-c/listy": ["../../node_modules/@v-c/listy"]
     },
     "types": ["vite/client", "node"],
     /* Linting */

@@ -20,8 +20,8 @@ const details = {
     { name: 'Antdv Next X', url: 'https://x.antdv-next.com/' },
   ],
   Community: [
-    { name: 'Change Log', url: 'https://github.com/archiesong/pro-components/releases' },
-    { name: 'Bug Report', url: 'https://github.com/archiesong/pro-components/issues' },
+    { name: 'Change Log', url: 'https://github.com/lucasjeke/pro-components/releases' },
+    { name: 'Bug Report', url: 'https://github.com/lucasjeke/pro-components/issues' },
   ],
   Links: [
     { name: 'Vue', url: 'https://vuejs.org/' },

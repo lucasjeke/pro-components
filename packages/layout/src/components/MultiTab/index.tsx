@@ -265,7 +265,6 @@ const MultiTab = defineComponent<
 
       const activeActions = getMoreActions(activeItem.value)
       const moreMenu = renderMenu(activeItem.value, 'more')
-      console.log(fixedMultiTab, 'fixedMultiTab')
       return (
         <>
           { fixedMultiTab && (

@@ -2,6 +2,7 @@ packages:
   - packages/*
   - playground
   - docs
+  - site
 allowBuilds:
   esbuild: true
   simple-git-hooks: true

@@ -179,7 +179,6 @@ function generateGroupedDocRoutes() {
 }
 
 const docGroups = generateGroupedDocRoutes()
-
 export default [
   {
     path: '/docs',

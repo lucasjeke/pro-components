@@ -621,6 +621,7 @@ const FormItem = defineComponent<FormItemProps, {}, string, SlotsType<FormItemSl
           v-slots={{
             default: (control: ChildProps, _: Meta, form?: FormInstance | null) => {
               const children = checkRenderNode(filterEmpty(slots.default?.(form) ?? []))
+              console.log(children, props, 'children')
               return renderLayout(
                 cloneVNode(children, {
                   ...children.props,

@@ -1,5 +1,8 @@
 {
   "buildCommand": "pnpm build",
+  "git": {
+    "deploymentEnabled": false
+  },
   "outputDirectory": "dist",
   "rewrites": [
     {

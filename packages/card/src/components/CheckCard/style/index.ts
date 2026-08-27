@@ -69,6 +69,8 @@ const genProCheckCardStyle: GenerateStyle<ProCheckCardToken> = (token) => {
           [`${token.antCls}-card-cover`]: {
             '&:after': {
               opacity: 1,
+              zIndex: 2,
+              pointerEvents: 'none',
               border: `${token.calc(token.borderRadius).add(4).equal()} ${token.lineType} ${token.colorPrimary}`,
               borderBlockEnd: `${token.calc(token.borderRadius).add(4).equal()} ${token.lineType} transparent`,
               borderInlineStart: `${token.calc(token.borderRadius).add(4).equal()} ${token.lineType} transparent`,
@@ -78,6 +80,8 @@ const genProCheckCardStyle: GenerateStyle<ProCheckCardToken> = (token) => {
           [`${token.antCls}-card-body`]: {
             '&:after': {
               opacity: 1,
+              zIndex: 2,
+              pointerEvents: 'none',
               border: `${token.calc(token.borderRadius).add(4).equal()} ${token.lineType} ${token.colorPrimary}`,
               borderBlockEnd: `${token.calc(token.borderRadius).add(4).equal()} ${token.lineType} transparent`,
               borderInlineStart: `${token.calc(token.borderRadius).add(4).equal()} ${token.lineType} transparent`,
@@ -106,6 +110,8 @@ const genProCheckCardStyle: GenerateStyle<ProCheckCardToken> = (token) => {
             width: 0,
             height: 0,
             opacity: 0,
+            zIndex: 2,
+            pointerEvents: 'none',
             transition: `all 0.3s ${token.motionEaseInOut}`,
             borderBlockEnd: `${token.calc(token.borderRadius).add(4).equal()} ${token.lineType} transparent`,
             borderInlineStart: `${token.calc(token.borderRadius).add(4).equal()} ${token.lineType} transparent`,
@@ -192,6 +198,8 @@ const genProCheckCardStyle: GenerateStyle<ProCheckCardToken> = (token) => {
             width: 0,
             height: 0,
             opacity: 0,
+            zIndex: 2,
+            pointerEvents: 'none',
             transition: `all 0.3s ${token.motionEaseInOut}`,
             borderBlockEnd: `${token.calc(token.borderRadius).add(4).equal()} ${token.lineType} transparent`,
             borderInlineStart: `${token.calc(token.borderRadius).add(4).equal()} ${token.lineType} transparent`,

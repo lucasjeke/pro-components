@@ -12,11 +12,13 @@ export interface CancelEditableActionProps<T> {
   editableKeys?: ActionRenderConfig<T>['editableKeys']
   editorType?: ActionRenderConfig<T>['editorType']
   recordKey?: ActionRenderConfig<T>['recordKey']
+  formRecordKey?: ActionRenderConfig<T>['formRecordKey']
   preEditRow?: ActionRenderConfig<T>['preEditRow']
   preEditRows?: ActionRenderConfig<T>['preEditRows']
   'onUpdate:preEditRow'?: ActionRenderConfig<T>['onUpdate:preEditRow']
   index?: ActionRenderConfig<T>['index']
   cancelEditable?: ActionRenderConfig<T>['cancelEditable']
+  finishEditable?: ActionRenderConfig<T>['finishEditable']
   onSave?: ActionRenderConfig<T>['onSave']
   onCancel?: ActionRenderConfig<T>['onCancel']
   onDelete?: ActionRenderConfig<T>['onDelete']
@@ -59,7 +61,10 @@ const CancelEditableAction = defineComponent(
     const cancel = async () => {
       const isMapEditor = props.editorType === 'Map'
       const recordKeyStr = recordKeyToString(props.recordKey)?.toString()
-      const namePath = normalizeNamePath(props.tableName, props.recordKey) as string[]
+      const namePath = normalizeNamePath(
+        props.tableName,
+        props.formRecordKey ?? props.recordKey,
+      ) as string[]
       const formattedObject = context?.getFieldFormatValueObject?.(namePath) as T
       const fields: T
         = formattedObject != null ? get(formattedObject, namePath)
@@ -84,7 +89,6 @@ const CancelEditableAction = defineComponent(
       }
 
       const res = await props.onCancel?.(props.recordKey!, record, props.row, props.newLineConfig)
-      await props.cancelEditable?.(props.recordKey!)
       /** 重置为默认值，不然编辑的行会丢掉 */
       const restoreRow = cachedPreEditRow ?? props.preEditRow ?? props.row
       const shouldDeleteNewRow
@@ -98,8 +102,9 @@ const CancelEditableAction = defineComponent(
         await props.onDelete?.(props.recordKey!, props.row)
       }
       else if (restoreRow != null) {
-        form.setFieldsValue(set({}, namePath, restoreRow))
+        form.setFieldValue(namePath, restoreRow)
       }
+      await (props.finishEditable ?? props.cancelEditable)?.(props.recordKey!)
       if (recordKeyStr) {
         props.preEditRows?.delete(recordKeyStr)
       }
@@ -123,7 +128,7 @@ const CancelEditableAction = defineComponent(
   {
     name: 'CancelEditableAction',
     inheritAttrs: false,
-    props: ['cancelEditable', 'deletePopconfirmMessage', 'editableKeys', 'editorType', 'index', 'newLineConfig', 'onCancel', 'onDelete', 'onSave', 'onUpdate:preEditRow', 'preEditRow', 'recordKey', 'row', 'setEditableRowKeys', 'tableName', 'preEditRows'],
+    props: ['cancelEditable', 'deletePopconfirmMessage', 'editableKeys', 'editorType', 'finishEditable', 'formRecordKey', 'index', 'newLineConfig', 'onCancel', 'onDelete', 'onSave', 'onUpdate:preEditRow', 'preEditRow', 'recordKey', 'row', 'setEditableRowKeys', 'tableName', 'preEditRows'],
 
   },
 )

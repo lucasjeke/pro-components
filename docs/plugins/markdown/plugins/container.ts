@@ -1,13 +1,13 @@
 import type MarkdownIt from 'markdown-it'
 import type { RenderRule } from 'markdown-it/lib/renderer.d.mts'
 import type Token from 'markdown-it/lib/token.d.mts'
-import type { Options } from './pre-wrapper'
+import type { Options } from './pre-wrapper.ts'
 import container from 'markdown-it-container'
 import { nanoid } from 'nanoid'
 import {
   extractTitle,
   getAdaptiveThemeMarker,
-} from './pre-wrapper'
+} from './pre-wrapper.ts'
 
 export function containerPlugin(md: MarkdownIt, options: Options, containerOptions?: ContainerOptions) {
   md.use(...createContainer('tip', containerOptions?.tipLabel || 'TIP', md))

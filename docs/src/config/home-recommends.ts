@@ -5,9 +5,7 @@ export type HomeRecommendLocale = 'cn' | 'en'
 export interface HomeRecommendItem {
   title: string
   description: string
-  date: string
   source: string
-  href: string
 }
 
 export interface HomeRecommendIcon {

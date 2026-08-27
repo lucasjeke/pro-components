@@ -23,7 +23,9 @@ ProFormFields 是 ProForm 内置的一组表单项组件。它们本质上是 `F
 
 ## API
 
-### 通用属性 {#common-props}
+### ProFormFields
+
+常用组件包括 `ProFormText`、`ProFormTextArea`、`ProFormPassword`、`ProFormDigit`、`ProFormMoney`、`ProFormSelect`、`ProFormTreeSelect`、`ProFormCascader`、`ProFormCheckbox`、`ProFormRadio`、`ProFormSwitch`、`ProFormSlider`、`ProFormRate`、`ProFormDatePicker`、`ProFormDateRangePicker`、`ProFormTimePicker`、`ProFormUploadButton`、`ProFormUploadDragger`、`ProFormCaptcha` 等。
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
@@ -40,7 +42,3 @@ ProFormFields 是 ProForm 内置的一组表单项组件。它们本质上是 `F
 | initialValue | 初始值 | `any` | - | - |
 | transform | 提交时转换值 | `(value, namePath, allValues) => any` | - | - |
 | convertValue | 读取时转换值 | `(value, namePath) => any` | - | - |
-
-### 导出组件 {#exports}
-
-常用组件包括 `ProFormText`、`ProFormTextArea`、`ProFormPassword`、`ProFormDigit`、`ProFormMoney`、`ProFormSelect`、`ProFormTreeSelect`、`ProFormCascader`、`ProFormCheckbox`、`ProFormRadio`、`ProFormSwitch`、`ProFormSlider`、`ProFormRate`、`ProFormDatePicker`、`ProFormDateRangePicker`、`ProFormTimePicker`、`ProFormUploadButton`、`ProFormUploadDragger`、`ProFormCaptcha` 等。

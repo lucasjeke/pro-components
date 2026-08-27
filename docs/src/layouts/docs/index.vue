@@ -5,7 +5,7 @@ import type { Frontmatter } from '@/composables/doc-page.ts'
 import throttleByAnimationFrameFn from 'antdv-next/dist/_util/throttleByAnimationFrame'
 import { shallowRef, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import DocHeading from '@/components/doc-heading/index.vue'
+import DocHeading from '@/components/DocHeading/index.vue'
 import { applyRouteSeo } from '@/composables/seo.ts'
 import Main from '../base/main.vue'
 
@@ -30,15 +30,6 @@ window.addEventListener(
   }),
 )
 
-// const tooltip: TooltipProps = {
-//   title: h(QRCode, {
-//     bordered: false,
-//     value: 'http://weixin.qq.com/r/mp/1iYQCM-ESZI2rYtr93PE',
-//   }),
-//   color: 'white',
-//   placement: 'left',
-// }
-
 function setDocRef(el: any) {
   docRef.value = el
 }
@@ -55,6 +46,9 @@ watch(
 watch(
   () => docRef.value?.frontmatter,
   (frontmatter) => {
+    if (!frontmatter)
+      return
+
     applyRouteSeo(route, { frontmatter })
   },
   { immediate: true },
@@ -73,12 +67,5 @@ watch(
       </Suspense>
     </router-view>
   </Main>
-  <a-float-button-group :shape="scroll ? 'square' : 'circle'">
-    <!-- <a-float-button :tooltip="tooltip">
-      <template #icon>
-        <WechatOutlined />
-      </template>
-    </a-float-button> -->
-    <a-float-back-top />
-  </a-float-button-group>
+  <a-float-back-top show-progress shape="circle" />
 </template>

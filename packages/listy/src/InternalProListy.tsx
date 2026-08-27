@@ -1,5 +1,4 @@
 import type { ProColumns, ProColumnType, ProTableInstance } from '@antdv-next1/pro-table'
-import type { DensitySize } from '@antdv-next1/pro-table/dist/components/ToolBar/DensityIcon'
 import type { ProFieldValueType } from '@antdv-next1/pro-utils'
 import type { CustomSlotsType, VueNode } from '@v-c/util/dist/type'
 import type { PaginationProps } from 'antdv-next'
@@ -82,13 +81,15 @@ const InternalProListy = defineComponent(
         locale,
         group,
         height,
-        itemHeight,
         virtual,
         onScroll,
         onChange,
+        classes,
+        styles,
         sticky,
         onItem,
         size: propsSize,
+        loadMore,
         ...rest
       } = props
       return (
@@ -98,7 +99,7 @@ const InternalProListy = defineComponent(
           tooltip={tooltip}
           pagination={propsPagination}
           type="listy"
-          size={propsSize as DensitySize}
+          size={propsSize === 'default' ? 'medium' : propsSize}
           rowSelection={propRowSelection}
           search={search}
           options={options}
@@ -111,14 +112,14 @@ const InternalProListy = defineComponent(
           tableViewRender={({ columns, size, pagination, rowSelection, dataSource, loading }) => (
             <ListView
               columns={columns}
-              size={size}
+              size={size === 'medium' || size === 'middle' ? 'default' : size}
               grid={grid}
               itemRender={itemRender!}
               prefixCls={baseClassName.value}
               class={classNames(`${baseClassName.value}-container`, hashId.value, cssVarCls.value)}
               itemLayout={itemLayout}
-              itemHeight={itemHeight}
               sticky={sticky}
+              ghost={rest.ghost}
               action={{
                 isEditable: (row: RecordType & {
                   index: number
@@ -129,6 +130,7 @@ const InternalProListy = defineComponent(
               onScroll={onScroll}
               group={group}
               expandable={expandable}
+              loadMore={loadMore}
               rowHoverable={rest.rowHoverable}
               pagination={pagination! as PaginationProps}
               rowSelection={propRowSelection === false ? undefined : rowSelection}
@@ -142,6 +144,8 @@ const InternalProListy = defineComponent(
               rowKey={rowKey}
               onItem={onItem}
               loading={loading}
+              hashId={hashId.value}
+              cssVarCls={cssVarCls.value}
             />
           )}
           v-slots={slots}
@@ -200,7 +204,6 @@ const InternalProListy = defineComponent(
       'id',
       'indentSize',
       'itemCardProps',
-      'itemHeight',
       'itemRender',
       'loading',
       'locale',
@@ -259,6 +262,10 @@ const InternalProListy = defineComponent(
       'type',
       'virtual',
       'onItem',
+      'size',
+      'classes',
+      'styles',
+      'loadMore',
     ],
   },
 )

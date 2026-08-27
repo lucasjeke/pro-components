@@ -9,6 +9,8 @@ import InlineErrorFormItemPopover from './InlineErrorFormItemPopover'
 type InlineErrorFormItemProps = FormItemProps & {
   errorType?: 'popover' | 'default'
   popoverProps?: PopoverProps
+  style?: CSSProperties
+  class?: string
 }
 
 type InternalProps = InlineErrorFormItemProps & {
@@ -24,8 +26,8 @@ const FIX_INLINE_STYLE = {
 }
 
 const InternalFormItemFunction: FunctionalComponent<InternalProps & FormItemProps> = (
-  { rules, name, popoverProps, ...rest },
-  { slots, attrs },
+  { rules, name, popoverProps, style, ...rest },
+  { slots },
 ) => (
   <FormItem
     {...rest}
@@ -38,15 +40,15 @@ const InternalFormItemFunction: FunctionalComponent<InternalProps & FormItemProp
     hasFeedback={false}
     style={{
       ...FIX_INLINE_STYLE,
-      ...(attrs?.style as CSSProperties || {}),
+      ...style,
     }}
     v-slots={slots}
   />
 )
 
 const InlineErrorFormItem: FunctionalComponent<InlineErrorFormItemProps> = (
-  { errorType, rules = [], name, popoverProps, ...rest },
-  { slots, attrs },
+  { errorType, rules = [], name, popoverProps, style, ...rest },
+  { slots },
 ) => {
   if (name && Array.isArray(rules) && rules?.length && errorType === 'popover') {
     return (
@@ -64,7 +66,7 @@ const InlineErrorFormItem: FunctionalComponent<InlineErrorFormItemProps> = (
       {...rest}
       rules={rules}
       name={name}
-      style={{ ...FIX_INLINE_STYLE, ...(attrs.style as CSSProperties || {}) }}
+      style={{ ...FIX_INLINE_STYLE, ...style }}
       v-slots={slots}
     />
   )

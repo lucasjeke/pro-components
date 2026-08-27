@@ -17,6 +17,8 @@ DragSortTable adds row drag sorting on top of ProTable. Use `dragSortKey` to spe
 
 <demo-group>
   <demo src="./demo/drag-sort.vue">Basic</demo>
+   <demo src="./demo/custom-handle.vue">darge sort(custom handle)</demo>
+  <demo src="./demo/request.vue">use request to retrieve data</demo>
 </demo-group>
 
 ## API

@@ -73,17 +73,17 @@ const data: DataItem[] = [
     rating: 4.6,
     status: 'stable',
   },
-  // {
-  //   id: '5',
-  //   title: 'ProDescriptions',
-  //   category: '描述列表',
-  //   description: '高级描述列表组件，支持编辑和请求',
-  //   avatar:
-  //     'https://gw.alipayobjects.com/zos/antfincdn/upvrAjAPQX/Logo_Tech%252520UI.svg',
-  //   downloads: 45000,
-  //   rating: 4.5,
-  //   status: 'stable',
-  // },
+  {
+    id: '5',
+    title: 'ProDescriptions',
+    category: '描述列表',
+    description: '高级描述列表组件，支持编辑和请求',
+    avatar:
+      'https://gw.alipayobjects.com/zos/antfincdn/upvrAjAPQX/Logo_Tech%252520UI.svg',
+    downloads: 45000,
+    rating: 4.5,
+    status: 'stable',
+  },
   {
     id: '6',
     title: 'ProList',
@@ -95,17 +95,17 @@ const data: DataItem[] = [
     rating: 4.7,
     status: 'stable',
   },
-  // {
-  //   id: '7',
-  //   title: 'ProSkeleton',
-  //   category: '骨架屏',
-  //   description: '高级骨架屏组件，更好的加载体验',
-  //   avatar:
-  //     'https://gw.alipayobjects.com/zos/antfincdn/aPkFc8Sj7n/method-draw-image.svg',
-  //   downloads: 34000,
-  //   rating: 4.4,
-  //   status: 'beta',
-  // },
+  {
+    id: '7',
+    title: 'ProSkeleton',
+    category: '骨架屏',
+    description: '高级骨架屏组件，更好的加载体验',
+    avatar:
+      'https://gw.alipayobjects.com/zos/antfincdn/aPkFc8Sj7n/method-draw-image.svg',
+    downloads: 34000,
+    rating: 4.4,
+    status: 'beta',
+  },
   {
     id: '8',
     title: 'ProField',
@@ -157,7 +157,7 @@ const columns: ProColumns<DataItem>[] = [
 </script>
 
 <template>
-  <div class="bg-#eee">
+  <div class="bg-[--ant-color-bg-layout] p-6">
     <a-alert
       title="推荐使用 columns + listSlot API"
       description="新的 columns API 与 ProTable 保持一致，通过 listSlot 指定数据在列表项中的位置。。"
@@ -166,13 +166,14 @@ const columns: ProColumns<DataItem>[] = [
       :style="{ marginBottom: '16px' }"
     />
     <ProListy
-      :pagination="{ defaultPageSize: 8, showSizeChanger: false }"
+      :pagination="{ defaultPageSize: 60, showSizeChanger: false }"
       :row-selection="{ }"
+      :row-key="(item) => item.id"
       :grid="{ gutter: [16, 16], column: 2 }"
       :card-props="{
         styles: {
           body: {
-            paddingBlockEnd: 0,
+            paddingBlockEnd: '16px',
           },
         },
       }"

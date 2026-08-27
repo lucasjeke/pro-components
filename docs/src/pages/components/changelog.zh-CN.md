@@ -6,6 +6,72 @@ title: 组件更新日志
 
 > 本页面由各子包 `CHANGELOG.md` 自动生成。发布前运行 `pnpm bump` 更新。
 
+## V2.0.0
+
+**发布日期：** 2026-08-27
+
+本版本默认展示 4 条摘要，完整 24 项更新见折叠详情，涉及 `@antdv-next1/pro-components`、`@antdv-next1/pro-layout`、`@antdv-next1/pro-form`、`@antdv-next1/pro-table`、`@antdv-next1/pro-card`、`@antdv-next1/pro-descriptions`、`@antdv-next1/pro-field`、`@antdv-next1/pro-listy`、`@antdv-next1/pro-provider`、`@antdv-next1/pro-skeleton`、`@antdv-next1/pro-utils`、`@antdv-next1/route-utils`。
+
+### 版本摘要 Highlights
+
+- **@antdv-next1/pro-components**: feat!: remove the UMD bundle target from aggregate package builds.
+- **@antdv-next1/pro-components**: feat: publish ProDescriptions and ProSkeleton from the aggregate package.
+- **@antdv-next1/pro-card**: feat!: remove the UMD bundle target from package builds.
+- **@antdv-next1/pro-descriptions**: feat: publish ProDescriptions with an ESM bundle.
+- 更多更新见下方折叠详情。
+
+<details>
+<summary>展开依赖版本与完整详情</summary>
+
+### 完整详情 Details
+
+### 新特性 Features
+
+- **@antdv-next1/pro-components**: feat!: remove the UMD bundle target from aggregate package builds.
+- **@antdv-next1/pro-components**: feat: publish ProDescriptions and ProSkeleton from the aggregate package.
+- **@antdv-next1/pro-card**: feat!: remove the UMD bundle target from package builds.
+- **@antdv-next1/pro-descriptions**: feat: publish ProDescriptions with an ESM bundle.
+- **@antdv-next1/pro-field**: feat!: remove the UMD bundle target from package builds.
+- **@antdv-next1/pro-form**: feat!: remove the UMD bundle target from package builds.
+- **@antdv-next1/pro-layout**: feat!: remove the UMD bundle target from package builds.
+- **@antdv-next1/pro-listy**: feat!: remove the UMD bundle target from package builds.
+- **@antdv-next1/pro-provider**: feat!: remove the UMD bundle target from package builds.
+- **@antdv-next1/pro-skeleton**: feat: publish ProSkeleton with an ESM bundle.
+- **@antdv-next1/pro-table**: feat!: remove the UMD bundle target from package builds.
+- **@antdv-next1/pro-utils**: feat!: remove the UMD bundle target from package builds.
+
+### 文档 Docs
+
+- **@antdv-next1/pro-components**: docs: sync structured changelog pages for every package.
+- **@antdv-next1/pro-card**: docs: sync structured changelog pages for every package.
+- **@antdv-next1/pro-descriptions**: docs: sync structured changelog pages for every package.
+- **@antdv-next1/pro-field**: docs: sync structured changelog pages for every package.
+- **@antdv-next1/pro-form**: docs: sync structured changelog pages for every package.
+- **@antdv-next1/pro-layout**: docs: sync structured changelog pages for every package.
+- **@antdv-next1/pro-listy**: docs: sync structured changelog pages for every package.
+- **@antdv-next1/pro-provider**: docs: sync structured changelog pages for every package.
+- **@antdv-next1/pro-skeleton**: docs: sync structured changelog pages for every package.
+- **@antdv-next1/pro-table**: docs: sync structured changelog pages for every package.
+- **@antdv-next1/pro-utils**: docs: sync structured changelog pages for every package.
+- **@antdv-next1/route-utils**: docs: sync structured changelog pages for every package.
+
+### 依赖更新 Dependencies
+
+- **@antdv-next1/pro-components**: Updated dependencies
+  - @antdv-next1/pro-card@3.0.0
+  - @antdv-next1/pro-descriptions@1.0.1
+  - @antdv-next1/pro-field@2.0.0
+  - @antdv-next1/pro-form@2.0.0
+  - @antdv-next1/pro-layout@2.0.0
+  - @antdv-next1/pro-listy@2.0.0
+  - @antdv-next1/pro-provider@2.0.0
+  - @antdv-next1/pro-skeleton@1.0.1
+  - @antdv-next1/pro-table@2.0.0
+  - @antdv-next1/pro-utils@2.0.0
+  - @antdv-next1/route-utils@1.0.7
+
+</details>
+
 ## V1.0.45
 
 **发布日期：** 2026-07-28
@@ -14,8 +80,8 @@ title: 组件更新日志
 
 ### 版本摘要 Highlights
 
-- **@antdv-next1/pro-components**: 恢复 MultiTab 原实现，并保留布局侧边栏宽度修复。
-- **@antdv-next1/pro-layout**: 恢复 MultiTab 原实现，并保留布局侧边栏宽度修复。
+- **@antdv-next1/pro-components**: Restore MultiTab implementation while keeping layout sider width fixes.
+- **@antdv-next1/pro-layout**: Restore MultiTab implementation while keeping layout sider width fixes.
 
 <details>
 <summary>展开依赖版本与完整详情</summary>
@@ -29,8 +95,8 @@ title: 组件更新日志
 
 ### 其他更新 Changes
 
-- **@antdv-next1/pro-components**: 恢复 MultiTab 原实现，并保留布局侧边栏宽度修复。
-- **@antdv-next1/pro-layout**: 恢复 MultiTab 原实现，并保留布局侧边栏宽度修复。
+- **@antdv-next1/pro-components**: Restore MultiTab implementation while keeping layout sider width fixes.
+- **@antdv-next1/pro-layout**: Restore MultiTab implementation while keeping layout sider width fixes.
 
 </details>
 
@@ -38,12 +104,14 @@ title: 组件更新日志
 
 **发布日期：** 2026-07-26
 
-本版本包含 2 项摘要更新，涉及 `@antdv-next1/pro-components`、`@antdv-next1/pro-layout`、`@antdv-next1/pro-table`、`@antdv-next1/pro-card`、`@antdv-next1/pro-listy`。
+本版本包含 3 项摘要更新，涉及 `@antdv-next1/pro-components`、`@antdv-next1/pro-layout`、`@antdv-next1/pro-table`、`@antdv-next1/pro-card`、`@antdv-next1/pro-listy`。
 
 ### 版本摘要 Highlights
 
 - **@antdv-next1/pro-components**: Fix CheckCard group option style passthrough and fixed left sider placeholder width.
 - **@antdv-next1/pro-card**: Fix CheckCard group option style passthrough and fixed left sider placeholder width.
+- **@antdv-next1/pro-layout**: Fix CheckCard group option style passthrough and fixed left sider placeholder width.
+  - @antdv-next1/pro-listy@1.0.26
 
 <details>
 <summary>展开依赖版本与完整详情</summary>
@@ -54,6 +122,8 @@ title: 组件更新日志
 
 - **@antdv-next1/pro-components**: Fix CheckCard group option style passthrough and fixed left sider placeholder width.
 - **@antdv-next1/pro-card**: Fix CheckCard group option style passthrough and fixed left sider placeholder width.
+- **@antdv-next1/pro-layout**: Fix CheckCard group option style passthrough and fixed left sider placeholder width.
+  - @antdv-next1/pro-listy@1.0.26
 
 ### 依赖更新 Dependencies
 

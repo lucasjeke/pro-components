@@ -19,11 +19,23 @@ ProField 是 ProComponents 的原子字段渲染器。它根据 `valueType` 在�
   <demo src="./demo/basic.vue">基础用法</demo>
 </demo-group>
 
+## 常用 valueType {#value-type}
+
+| 类型 | 说明 |
+| --- | --- |
+| `text` / `textarea` / `password` / `code` | 文本类字段 |
+| `money` / `percent` / `digit` / `digitRange` / `second` | 数值类字段 |
+| `date` / `dateTime` / `dateRange` / `dateTimeRange` / `time` / `timeRange` / `fromNow` | 日期时间类字段 |
+| `select` / `checkbox` / `radio` / `segmented` / `switch` / `treeSelect` / `cascader` | 选择类字段 |
+| `progress` / `rate` / `slider` / `color` / `image` / `avatar` | 展示增强类字段 |
+
+## 导出的字段组件 {#exports}
+
+`FieldText`、`FieldMoney`、`FieldPercent`、`FieldDatePicker`、`FieldDateRangePicker`、`FieldTimePicker`、`FieldTimeRangePicker`、`FieldSelect`、`FieldCheckbox`、`FieldRadio`、`FieldSwitch`、`FieldSlider`、`FieldRate`、`FieldProgress`、`FieldImage`、`FieldColorPicker` 等组件也可以按需直接使用。
+
 ## API
 
 ### ProField
-
-#### 属性 {#props}
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
@@ -42,17 +54,3 @@ ProField 是 ProComponents 的原子字段渲染器。它根据 `valueType` 在�
 | renderFormItem | 自定义编辑态表单项渲染 | `(text, props, dom) => VueNode` | - | - |
 | light | 是否轻量筛选模式 | `boolean` | `false` | - |
 | readonly | 是否只读 | `boolean` | `false` | - |
-
-### 常用 valueType {#value-type}
-
-| 类型 | 说明 |
-| --- | --- |
-| `text` / `textarea` / `password` / `code` | 文本类字段 |
-| `money` / `percent` / `digit` / `digitRange` / `second` | 数值类字段 |
-| `date` / `dateTime` / `dateRange` / `dateTimeRange` / `time` / `timeRange` / `fromNow` | 日期时间类字段 |
-| `select` / `checkbox` / `radio` / `segmented` / `switch` / `treeSelect` / `cascader` | 选择类字段 |
-| `progress` / `rate` / `slider` / `color` / `image` / `avatar` | 展示增强类字段 |
-
-### 导出的字段组件 {#exports}
-
-`FieldText`、`FieldMoney`、`FieldPercent`、`FieldDatePicker`、`FieldDateRangePicker`、`FieldTimePicker`、`FieldTimeRangePicker`、`FieldSelect`、`FieldCheckbox`、`FieldRadio`、`FieldSwitch`、`FieldSlider`、`FieldRate`、`FieldProgress`、`FieldImage`、`FieldColorPicker` 等组件也可以按需直接使用。

@@ -12,13 +12,15 @@ import { Divider } from 'antdv-next'
 </script>
 
 <template>
-  <div style="padding: 24px">
-    <ProCheckCardGroup size="small" :options="['🍎 Apple', '🍐 Pear', '🍊 Orange']" />
-    <br>
-    <div>
-      <ProCheckCardGroup loading size="small" :options="['🍎 Apple', '🍐 Pear', '🍊 Orange']" />
-    </div>
-    <br>
+  <div class="p-6">
+    <a-flex vertical gap="medium">
+      <div>
+        <ProCheckCardGroup size="small" :options="['🍎 Apple', '🍐 Pear', '🍊 Orange']" />
+      </div>
+      <div>
+        <ProCheckCardGroup loading size="small" :options="['🍎 Apple', '🍐 Pear', '🍊 Orange']" />
+      </div>
+    </a-flex>
     <Divider />
     <ProCheckCardGroup
       size="small"
@@ -44,12 +46,6 @@ import { Divider } from 'antdv-next'
       ]"
     />
     <Divider />
-    <br>
-    <ProCheckCardGroup default-value="A">
-      <ProCheckCard title="🍊 Orange" value="🍊 Orange" />
-      <ProCheckCard title="🍐 Pear" value="🍐 Pear" />
-      <ProCheckCard title="🍎 Apple" value="🍎 Apple" />
-    </ProCheckCardGroup>
     <br>
     <Divider />
     <ProCheckCardGroup default-value="A" loading>

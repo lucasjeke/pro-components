@@ -1,23 +1,35 @@
-export function toCnPathname(pathname: string): string {
-  if (pathname === '/' || pathname === '') {
-    return '/index-cn'
-  }
+import type { InnerLocale } from '#/config'
 
-  if (pathname.startsWith('/~demos') || pathname.endsWith('-cn')) {
+const EN_PREFIX = '/en-US'
+
+export function toCnPathname(pathname: string): string {
+  if (pathname.startsWith('/~demos')) {
     return pathname
   }
 
-  return `${pathname}-cn`
-}
-
-export function toEnPathname(pathname: string): string {
-  if (pathname === '/index-cn') {
+  if (pathname === EN_PREFIX) {
     return '/'
   }
 
-  if (pathname.startsWith('/~demos') || !pathname.endsWith('-cn')) {
+  if (pathname.startsWith(`${EN_PREFIX}/`)) {
+    return pathname.slice(EN_PREFIX.length)
+  }
+
+  return pathname || '/'
+}
+
+export function toEnPathname(pathname: string): string {
+  if (pathname.startsWith('/~demos') || pathname === EN_PREFIX || pathname.startsWith(`${EN_PREFIX}/`)) {
     return pathname
   }
 
-  return pathname.slice(0, pathname.length - 3)
+  if (pathname === '/' || pathname === '') {
+    return EN_PREFIX
+  }
+
+  return `${EN_PREFIX}${pathname.startsWith('/') ? pathname : `/${pathname}`}`
+}
+
+export function toLocalePathname(pathname: string, locale: InnerLocale): string {
+  return locale === 'en-US' ? toEnPathname(pathname) : toCnPathname(pathname)
 }

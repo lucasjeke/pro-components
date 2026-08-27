@@ -1,15 +1,18 @@
 import type { LocaleMessages } from '@/locales'
 import { computed } from 'vue'
-import { localeStore } from '@/composables/local-store'
 import locales from '@/locales'
+import { useAppStore } from '@/store/modules/app'
 
 /**
  * Generic locale composable that provides reactive access to all translations
  * @returns Reactive locale messages object for the current language and a t function
  */
 export function useLocale() {
+  const appStore = useAppStore()
+  const { locale } = storeToRefs(appStore)
+  // setLocale
   const messages = computed<LocaleMessages>(() => {
-    const currentLocale = localeStore.value
+    const currentLocale = locale.value
     return locales[currentLocale] || locales['zh-CN']
   })
 
@@ -38,16 +41,20 @@ export function useLocale() {
 }
 
 export function useSemanticLocale(locales: Record<'cn' | 'en', Record<string, any>>) {
+  const appStore = useAppStore()
+  const { locale } = storeToRefs(appStore)
   return computed(() => {
-    const currentLocale = localeStore.value
+    const currentLocale = locale.value
     const lang = currentLocale.startsWith('zh') ? 'cn' : 'en'
     return locales[lang]
   })
 }
 
 export function useComponentLocale<T extends Record<string, string>>(locales: Record<'cn' | 'en', T>) {
+  const appStore = useAppStore()
+  const { locale } = storeToRefs(appStore)
   const messages = computed(() => {
-    const lang = localeStore.value.startsWith('zh') ? 'cn' : 'en'
+    const lang = locale.value.startsWith('zh') ? 'cn' : 'en'
     return locales[lang]
   })
 

@@ -56,7 +56,7 @@ ProCard is a content container for admin pages. It combines Card, Row, Col, Tabs
 | extra | Top-right extra area | `VueNode` | - | - |
 | layout | Content layout | `'default' \| 'center'` | `'default'` | - |
 | loading | Loading state or custom loading content | `boolean \| VueNode` | `false` | - |
-| colSpan | Grid span for nested cards | `number \| string` | `24` | - |
+| colSpan | Nested card width as a 24-grid span, `px`/percentage string, or responsive object such as `{ xs: 24, md: 8 }` | `number \| string \| Partial<Record<Breakpoint, number \| string>>` | - | - |
 | gutter | Horizontal and vertical gutter | `number \| [number, number]` | `0` | - |
 | direction | Flex direction for nested cards | `'column' \| 'row'` | `'row'` | - |
 | split | Split direction | `'vertical' \| 'horizontal'` | - | - |
@@ -67,13 +67,17 @@ ProCard is a content container for admin pages. It combines Card, Row, Col, Tabs
 | variant | Border style | `'borderless' \| 'outlined'` | `'outlined'` | - |
 | ghost | Remove card background and content padding | `boolean` | `false` | - |
 | headerBordered | Show divider under header | `boolean` | `false` | - |
-| collapsed | Controlled collapsed state | `boolean` | `false` | - |
-| collapsible | Enable collapse in uncontrolled mode | `boolean` | `false` | - |
+| checked | Display the selected card style | `boolean` | `false` | - |
+| collapsed | Controlled collapsed state; supports `v-model:collapsed` | `boolean` | - | - |
+| collapsible | Enable collapse; `header` uses the whole header and `icon` only uses the icon as the trigger | `boolean \| 'header' \| 'icon'` | `false` | - |
 | defaultCollapsed | Default collapsed state | `boolean` | `false` | - |
-| tabs | Tabs config | `ProCardTabs` | - | - |
-
-### Events
-
-| Event | Description | Type | Version |
-| --- | --- | --- | --- |
-| collapse | Triggered when card collapses in uncontrolled mode | `(collapsed: boolean) => void` | - |
+| tabList | Tab list | `CardTabListType[]` | - | - |
+| tabProps | Props forwarded to Tabs | `TabsProps` | - | - |
+| activeTabKey | Active tab key; supports `v-model:active-tab-key` | `string` | - | - |
+| defaultActiveTabKey | Initial active tab key | `string` | - | - |
+| onCollapse | Triggered before the collapsed state changes in controlled and uncontrolled modes | `(collapsed: boolean) => void` | - | - |
+| onUpdate:collapsed | Collapsed state update used by `v-model:collapsed` | `(collapsed: boolean) => void` | - | - |
+| onChecked | Triggered when an enabled card is clicked | `(event: MouseEvent) => void` | - | - |
+| onClick | Triggered when an enabled card is clicked | `(event: MouseEvent) => void` | - | - |
+| onTabChange | Triggered when the active tab changes | `(key: string) => void` | - | - |
+| onUpdate:activeTabKey | Active tab update used by `v-model:active-tab-key` | `(key: string) => void` | - | - |

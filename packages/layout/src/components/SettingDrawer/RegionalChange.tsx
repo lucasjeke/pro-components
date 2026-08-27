@@ -1,9 +1,9 @@
+import type { ListyProps } from 'antdv-next'
 import type { FunctionalComponent } from 'vue'
 import type { RenderSetting } from '../../defaultSettings'
 import type { MessageDescriptor } from '../../typing'
-import { Listy } from '@antdv-next1/pro-listy'
 import { classNames } from '@v-c/util'
-import { Switch } from 'antdv-next'
+import { Listy, Switch } from 'antdv-next'
 import { renderLayoutSettingItem } from './LayoutChange'
 
 const RegionalSetting: FunctionalComponent<{
@@ -17,11 +17,16 @@ const RegionalSetting: FunctionalComponent<{
   const regionalSetting = ['header', 'footer', 'siderMenu', 'menuHeader']
   return (
     <Listy
-      split={false}
       class={classNames(`${prefixCls}-list`, hashId, cssVarCls)}
       itemRender={item => renderLayoutSettingItem(item)}
-      rowKey="title"
-      variant="borderless"
+      rowKey={item => item.title}
+      styles={{
+        item: {
+          borderBottom: 0,
+          paddingInlineStart: 0,
+          paddingInlineEnd: 0,
+        },
+      } as unknown as ListyProps['styles']}
       items={regionalSetting.map((key) => {
         return {
           title: formatMessage({ id: `app.setting.regionalsettings.${key}` }),

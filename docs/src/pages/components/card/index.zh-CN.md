@@ -33,6 +33,7 @@ group: 布局
     <demo src="./demo/divider.vue">分组展示</demo>
     <demo src="./demo/headerBordered.vue">标题带分割线</demo>
     <demo src="./demo/collapsible.vue">可折叠</demo>
+    <demo src="./demo/collapsible-mode.vue">折叠触发模式</demo>
     <demo src="./demo/group.vue">卡片组展开</demo>
     <demo src="./demo/layout.vue">内容居中</demo>
     <demo src="./demo/loading.vue">加载中</demo>
@@ -48,7 +49,7 @@ group: 布局
 
 ## API
 
-### 属性 {#props}
+### ProCard
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
@@ -58,9 +59,8 @@ group: 布局
 | extra | 右上角自定义区域 | `VueNode` | - | - |
 | layout | 内容布局，支持垂直居中 | `default` \| `center` | default | - |
 | loading | 加载中，支持自定义 loading 样式 | `boolean` \| `VueNode` | `false` | - |
-| colSpan | 栅格布局宽度，24 栅格，支持指定宽度 px 或百分比，支持响应式的对象写法 `{ xs: 8, sm: 16, md: 24}`, 仅在嵌套的子卡片上设置有效。 | `number` \| `string` | `24` | - |
+| colSpan | 嵌套子卡片的栅格宽度；支持 24 栅格数值、`px`/百分比字符串和响应式对象，如 `{ xs: 24, md: 8 }` | `number` \| `string` \| `Partial<Record<Breakpoint, number \| string>>` | - | - |
 | gutter | 数字或使用数组形式同时设置 \[水平间距，垂直间距], 支持响应式的对象写法 `{ xs: 8, sm: 16, md: 24}` | `number` \| `array` | `0` | - |
-| direction | 指定 Flex 方向，仅在嵌套子卡片时有效，默认方向为 row 横向 | `column` | - | - |
 | split | 拆分卡片的方向 | `vertical` \| `horizontal` | - | - |
 | type | 卡片类型 | `inner` \| `default` | - | - |
 | size | 卡片尺寸 | `default` \| `small` | - | - |
@@ -70,18 +70,17 @@ group: 布局
 | variant | 是否有边框 | `borderless` \| `outlined` | `outlined` | - |
 | ghost | 幽灵模式，即是否取消卡片内容区域的 padding 和 卡片的背景颜色。 | `boolean` | `false` | - |
 | headerBordered | 页头是否有分割线 | `boolean` | `false` | - |
-| collapsed | 受控属性，是否折叠 | `boolean` | `false` | - |
-| collapsible | 配置是否可折叠，受控时无效 | `boolean` | `false` | - |
+| checked | 是否展示选中样式 | `boolean` | `false` | - |
+| collapsed | 受控折叠状态，可使用 `v-model:collapsed` | `boolean` | - | - |
+| collapsible | 是否可折叠；`header` 点击整个头部触发，`icon` 仅点击图标触发 | `boolean` \| `header` \| `icon` | `false` | - |
 | defaultCollapsed | 默认折叠，受控时无效 | `boolean` | `false` | - |
-| tabs | 标签页配置 | 见下面 ProCardTabs | - | - |
-
-### 事件 {#events}
-
-| 事件名 | 说明 | 类型 | 版本 |
-| ----- | --- | --- | --- |
-| collapse | 收起卡片时触发，受控时无效 | `(collapsed: boolean) => void` | - |
-
-### 方法 {#methods}
-
-| 方法 | 说明 | 类型 | 版本 |
-| --- | --- | --- | --- |
+| tabList | 标签页列表 | `CardTabListType[]` | - | - |
+| tabProps | 传递给 Tabs 的属性 | `TabsProps` | - | - |
+| activeTabKey | 当前激活页签，可使用 `v-model:active-tab-key` | `string` | - | - |
+| defaultActiveTabKey | 默认激活页签 | `string` | - | - |
+| onCollapse | 折叠状态即将变化时触发，受控和非受控模式都会触发 | `(collapsed: boolean) => void` | - | - |
+| onUpdate:collapsed | 折叠状态更新事件，用于 `v-model:collapsed` | `(collapsed: boolean) => void` | - | - |
+| onChecked | 点击可用卡片时触发 | `(event: MouseEvent) => void` | - | - |
+| onClick | 点击可用卡片时触发 | `(event: MouseEvent) => void` | - | - |
+| onTabChange | 激活页签变化时触发 | `(key: string) => void` | - | - |
+| onUpdate:activeTabKey | 激活页签更新事件，用于 `v-model:active-tab-key` | `(key: string) => void` | - | - |

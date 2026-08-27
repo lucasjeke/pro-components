@@ -41,7 +41,6 @@ const ResizableTableTitle = defineComponent<
   let latestResize: { event: MouseEvent, width: number } | undefined
 
   const resizeable = computed(() => !!props.resizable)
-
   function clearDocumentEvents() {
     document.removeEventListener('mousemove', onMouseMove)
     document.removeEventListener('mouseup', onMouseUp)
@@ -109,6 +108,7 @@ const ResizableTableTitle = defineComponent<
     const widthStyle = props.width == null ? undefined : {
       width: typeof props.width === 'number' ? `${props.width}px` : props.width,
     }
+    console.log(widthStyle, style, 'widthStyle')
 
     return (
       <th

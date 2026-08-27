@@ -23,7 +23,7 @@ StepsForm splits a complex form into multiple steps. It is composed with `ProSte
 
 ### ProStepsForm
 
-#### Props {#props}
+StepForm inherits most ProForm props. Common props include `name`, `title`, `layout`, `grid`, `submitter`, and `finish`.
 
 | Property | Description | Type | Default | Version |
 | --- | --- | --- | --- | --- |
@@ -37,15 +37,6 @@ StepsForm splits a complex form into multiple steps. It is composed with `ProSte
 | stepFormRender | Custom single form area renderer | `(formDom) => VueNode` | - | - |
 | stepsFormRender | Custom form and submitter area renderer | `(formDom, submitter) => VueNode` | - | - |
 | layoutRender | Custom full layout renderer | `(layoutDom: { stepsDom: VNode; formDom: VNode }) => VueNode` | - | - |
-
-#### Events {#events}
-
-| Event | Description | Type | Version |
-| --- | --- | --- | --- |
-| finish | Triggered on final submit. Returning `true` resets step and forms | `(values) => void \| Promise<boolean \| void>` | - |
-| currentChange | Triggered when current step changes | `(current: number) => void` | - |
-| update:formMap | Triggered when form instances change | `(formMap: FormInstance[]) => void` | - |
-
-### ProStepsForm.StepForm
-
-StepForm inherits most ProForm props. Common props include `name`, `title`, `layout`, `grid`, `submitter`, and `finish`.
+| onFinish | Triggered on final submit. Returning `true` resets step and forms | `(values) => void \| Promise<boolean \| void>` | - | - |
+| onCurrentChange | Triggered when current step changes | `(current: number) => void` | - | - |
+| onUpdate:formMap | Triggered when form instances change | `(formMap: FormInstance[]) => void` | - | - |

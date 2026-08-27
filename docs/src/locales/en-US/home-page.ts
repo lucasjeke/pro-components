@@ -1,7 +1,7 @@
 export default {
   theme: {
     themeTitle: 'Flexible theme customization',
-    themeDesc: 'ProComponents of Vue enable extendable algorithm, make custom theme easier',
+    themeDesc: 'ProComponents Vue enables extendable algorithms and makes custom themes easier',
     copyTheme: 'Copy theme code',
     copySuccess: 'Copied',
     customizeTheme: 'Customize Theme',
@@ -33,7 +33,7 @@ export default {
     lastYear: 'Last Year',
     new: 'New',
     update: 'Update',
-    sampleContent: 'ProComponents of Vuents of Vue use CSS-in-JS technology to provide dynamic & mix theme ability. And which use component level CSS-in-JS solution get your application a better performance.',
+    sampleContent: 'ProComponents Vue uses CSS-in-JS technology to provide dynamic and mixed theme capabilities. It uses component-level CSS-in-JS to improve application performance.',
     inProgress: 'In Progress',
     success: 'Success',
     taskFailed: 'Task Failed',
@@ -51,12 +51,12 @@ export default {
     guide: 'Design guide',
     guideDesc: 'Global style and design pattern',
     lib: 'Components Libraries',
-    libDesc: 'ProComponents of Vuents of Vue of Vue 3',
+    libDesc: 'ProComponents Vue for Vue 3',
   },
 
   componentsBlock: {
     range: 'Set Range',
-    text: 'ProComponents of Vuents of Vue use CSS-in-JS technology to provide dynamic & mix theme ability. And which use component level CSS-in-JS solution get your application a better performance.',
+    text: 'ProComponents Vue uses CSS-in-JS technology to provide dynamic and mixed theme capabilities. It uses component-level CSS-in-JS to improve application performance.',
     infoText: 'Info Text',
     dropdown: 'Dropdown',
     finished: 'Finished',
@@ -72,8 +72,8 @@ export default {
     default: 'Default',
     dashed: 'Dashed',
     icon: 'Icon',
-    hello: 'Hello, ProComponents of Vuents of Vue!',
-    release: 'ProComponents of Vuents of Vue 1.0 is released!',
+    hello: 'Hello, ProComponents Vue!',
+    release: 'ProComponents Vue 1.0 is released!',
     segmentedDaily: 'Daily',
     segmentedWeekly: 'Weekly',
     segmentedMonthly: 'Monthly',

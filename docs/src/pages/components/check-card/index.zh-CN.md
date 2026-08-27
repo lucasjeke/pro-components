@@ -44,43 +44,23 @@ group: 布局
 
 ### CheckCard
 
-#### 属性 {#checkcard-props}
-
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
-| checked | 指定当前是否选中 | `boolean` | - | - |    
+| checked | 指定当前是否选中 | `boolean` | - | - |
 | variant | 形态变体 | `'borderless'\| 'outlined'` | `outlined` | - |
 | value | 选项值 | `string` | - | - |
 | defaultChecked | 初始是否选中 | `boolean` | `false` | - |
 | disabled | 失效状态 | `boolean` | `false` | - |
 | size | 选择框大小，可选 `large` `small`  | `string` | `default` | - |
 | loading | 当卡片内容还在加载中时，可以用 loading 展示一个占位 | `boolean`  | `false` | - |
-| title | 标题 | `VueNode`  | - | - |
-| description | 描述 | `VueNode` | - | - |
-| avatar | 选项元素的图片地址 | `link \| VueNode` | - | - |
-| extra | 卡片右上角的操作区域 | `VueNode` | - | - |
-| cover | 卡片背景图片，注意使用该选项后`title`，`description`和`avatar`失效 | `VueNode` | - | - |   
+| title | 标题 | `VueNode \| slot`  | - | - |
+| description | 描述 | `VueNode \| slot` | - | - |
+| avatar | 选项元素的图片地址 | `link \| VueNode \| slot` | - | - |
+| extra | 卡片右上角的操作区域 | `VueNode \| slot` | - | - |
+| cover | 卡片背景图片，注意使用该选项后`title`，`description`和`avatar`失效 | `VueNode \| slot` | - | - |
+| onChange | 变化时回调函数 | `(checked) => void` | - | - |
 
-#### 事件 {#checkcard-events}
-
-| 事件名 | 说明 | 类型 | 版本 |
-| ----- | --- | --- | --- |
-| change | 变化时回调函数 | `(checked) => void` | - |
-
-
-#### 插槽 {#checkcard-slots}
-
-| 插槽 | 说明 | 类型 | 版本 |
-| --- | --- | --- | --- |
-| title | 标题 | `() => VueNode`  | - |
-| description | 描述 | `() => VueNode` | - |
-| avatar | 选项元素的图片地址 | `() => VueNode` | - | 
-| extra | 卡片右上角的操作区域 | `() => VueNode ` | - | 
-| cover | 卡片背景图片，注意使用该选项后`title`，`description`和`avatar`失效 | `() => VueNode ` | - | 
-
-### CheckCard.Group 
-
-#### 属性 {#checkcard-group-props}
+### CheckCardGroup
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
@@ -91,9 +71,4 @@ group: 布局
 | options | 指定可选项 | `string[] \| Array<{ title: VueNode, value: string, description?: VueNode, avatar?: link or VueNode, cover?:VueNode, disabled?: boolean }>` | `[]` | - |
 | value | 指定选中的选项 | `string \| string[]` | - | - |
 | size | 选择框大小 | `large` \| `small` | - | - |
-
-#### 事件 {#checkcard-group-events}
-
-| 事件名 | 说明 | 类型 | 版本 |
-| ----- | --- | --- | --- |
-| change | 变化时回调函数 | `(checkedValue) => void` | - |
+| onChange | 变化时回调函数 | `(checkedValue) => void` | - | - |

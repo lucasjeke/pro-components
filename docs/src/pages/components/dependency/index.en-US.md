@@ -27,14 +27,10 @@ ProFormDependency watches specific fields inside ProForm and renders children wi
 
 ### ProFormDependency
 
-#### Props {#props}
+The default slot receives `{ values, form }`, where `values` contains dependency values extracted by `name`, and `form` is the enhanced ProForm instance.
 
 | Property | Description | Type | Default | Version |
 | --- | --- | --- | --- | --- |
 | name | Dependency field paths | `NamePath[]` | - | - |
 | originDependencies | Original dependency paths for shaping returned values | `NamePath[]` | `name` | - |
 | ignoreFormListField | Ignore current FormList prefix and read from global form values | `boolean` | `false` | - |
-
-### Notes {#notes}
-
-The default slot receives `{ values, form }`, where `values` contains dependency values extracted by `name`, and `form` is the enhanced ProForm instance.

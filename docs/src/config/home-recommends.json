@@ -4,88 +4,64 @@
       {
         "title": "简单易用",
         "description": "在 Antdv Next 上进行了自己的封装，更加易用",
-        "date": "Getting Started",
-        "source": "simple",
-        "href": "components/overview"
+        "source": "simple"
       },
       {
         "title": "Antdv Next",
         "description": "与 Antdv Next 设计体系一脉相承，无缝对接 Antdv Next 项目",
-        "date": "Components",
-        "source": "components",
-        "href": "components/overview"
+        "source": "components"
       },
       {
         "title": "国际化",
         "description": "提供完备的国际化，与 Antdv Next 体系打通，无需多余配置",
-        "date": "I18n",
-        "source": "i18n",
-        "href": "components/overview"
+        "source": "i18n"
       },
       {
         "title": "预设样式",
         "description": "样式风格与 Ant Design 一脉相承，无需魔改，浑然天成。默认好用的主题系统",
-        "date": "Style",
-        "source": "style",
-        "href": "components/overview"
+        "source": "style"
       },
       {
         "title": "预设行为",
         "description": "更少的代码，更少的 Bug，更多的功能",
-        "date": "Behavior",
-        "source": "behavior",
-        "href": "components/overview"
+        "source": "behavior"
       },
       {
         "title": "TypeScript",
         "description": "使用 TypeScript 开发，提供完整的类型定义文件，无需频繁打开官网",
-        "date": "TypeScript",
-        "source": "typescript",
-        "href": "components/overview"
+        "source": "typescript"
       }
     ],
     "en": [
       {
-        "title": "简单易用",
-        "description": "在 Antdv Next 上进行了自己的封装，更加易用",
-        "date": "Getting Started",
-        "source": "simple",
-        "href": "components/overview"
+        "title": "Easy to use",
+        "description": "Built on top of Antdv Next with extra encapsulations for better usability",
+        "source": "simple"
       },
       {
         "title": "Antdv Next",
-        "description": "与 Antdv Next 设计体系一脉相承，无缝对接 Antdv Next 项目",
-        "date": "Components",
-        "source": "components",
-        "href": "components/overview"
+        "description": "Aligned with Antdv Next design system for seamless integration",
+        "source": "components"
       },
       {
-        "title": "国际化",
-        "description": "提供完备的国际化，与 Antdv Next 体系打通，无需多余配置",
-        "date": "I18n",
-        "source": "i18n",
-        "href": "components/overview"
+        "title": "Internationalization",
+        "description": "Provides full i18n support integrated with Antdv Next—no extra config needed",
+        "source": "i18n"
       },
       {
-        "title": "预设样式",
-        "description": "样式风格与 Ant Design 一脉相承，无需魔改，浑然天成。默认好用的主题系统",
-        "date": "Style",
-        "source": "style",
-        "href": "components/overview"
+        "title": "Preset Styles",
+        "description": "Styling aligned with Antdv Next—ready-to-use themes without heavy customization",
+        "source": "style"
       },
       {
-        "title": "预设行为",
-        "description": "更少的代码，更少的 Bug，更多的功能",
-        "date": "Behavior",
-        "source": "behavior",
-        "href": "components/overview"
+        "title": "Preset Behaviors",
+        "description": "Less code, fewer bugs, more built-in functionality",
+        "source": "behavior"
       },
       {
         "title": "TypeScript",
-        "description": "使用 TypeScript 开发，提供完整的类型定义文件，无需频繁打开官网",
-        "date": "TypeScript",
-        "source": "typescript",
-        "href": "components/overview"
+        "description": "Developed with TypeScript and ships full type definitions for a better DX",
+        "source": "typescript"
       }
     ]
   },

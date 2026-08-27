@@ -15,6 +15,7 @@ import weekday from 'dayjs/plugin/weekday'
 import weekOfYear from 'dayjs/plugin/weekOfYear'
 import { cloneVNode, defineComponent, isVNode, shallowRef } from 'vue'
 import FieldText from './components/Text'
+import ValueTypeToComponentMap from './ValueTypeToComponent'
 
 dayjs.extend(localeData)
 dayjs.extend(advancedFormat)
@@ -195,7 +196,10 @@ const ProPureField = defineComponent<ProFieldProps, {}, string, CustomSlotsType<
           }),
         ),
       }),
-      proProvide.value.valueTypeMap || {},
+      {
+        ...ValueTypeToComponentMap,
+        ...proProvide.value.valueTypeMap,
+      },
     )
   }
 }, {

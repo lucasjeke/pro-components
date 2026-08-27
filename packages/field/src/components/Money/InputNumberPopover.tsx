@@ -67,7 +67,7 @@ const InputNumberPopover = defineComponent<InputNumberProps & {
   numberPopoverRender?: | ((props: InputNumberProps, defaultText: string) => VueNode)
     | boolean
 }>((props, { attrs }) => {
-  const [value, setValue] = useMergedState<number>(
+  const [value, setValue] = useMergedState<InputNumberProps['value']>(
     () => props.value || props.defaultValue,
     {
       value: computed(() => props.value),

@@ -1,4 +1,4 @@
-import type { InnerLocale } from '@/utils/locale'
+import type { InnerLocale } from '#/config'
 import enUS from './en-US'
 import zhCN from './zh-CN'
 

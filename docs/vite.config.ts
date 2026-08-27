@@ -10,8 +10,7 @@ import { defineConfig } from 'vite'
 import dayjsPlugin from 'vite-plugin-dayjs'
 import inspect from 'vite-plugin-inspect'
 import { tsxResolveTypes } from 'vite-plugin-tsx-resolve-types'
-import virtualAntdCss from './plugins/css-plugin'
-import { mdPlugin } from './plugins/markdown'
+import { mdPlugin } from './plugins/markdown/index.ts'
 
 import { postcssIsolateStyles } from './plugins/markdown/isolateStyles.ts'
 
@@ -22,9 +21,6 @@ const docsBuildTarget = ['chrome111', 'edge111', 'firefox114', 'safari16.4', 'io
 export default defineConfig(() => {
   return {
     plugins: [
-      virtualAntdCss({
-        development: false,
-      }),
       dayjsPlugin(),
       mdPlugin(),
       tsxResolveTypes({
@@ -48,10 +44,6 @@ export default defineConfig(() => {
       Unocss(),
     // prefetch(),
     ],
-    // server: {
-    //   host: '0.0.0.0',
-    //   port: 3322,
-    // },
     optimizeDeps: {
       exclude: [
         '@v-c/segmented',
@@ -61,6 +53,7 @@ export default defineConfig(() => {
         '@v-c/menu',
         '@v-c/tour',
         '@v-c/input',
+        '@v-c/listy',
         '@v-c/input-number',
         '@v-c/textarea',
         '@v-c/select',
@@ -71,52 +64,23 @@ export default defineConfig(() => {
       include: ['@antdv-next/icons', '@antdv-next/icons/all', '@ant-design/icons-svg/es/asn/*'],
     },
     resolve: {
-      alias: [
-        {
-          find: /^@antdv-next1\/pro-layout/,
-          replacement: path.resolve(baseUrl, '../packages/layout/src'),
-        },
-        {
-          find: /^@antdv-next1\/pro-provider/,
-          replacement: path.resolve(baseUrl, '../packages/provider/src'),
-        },
-        {
-          find: /^@antdv-next1\/pro-field/,
-          replacement: path.resolve(baseUrl, '../packages/field/src'),
-        },
-        {
-          find: /^@antdv-next1\/pro-listy/,
-          replacement: path.resolve(baseUrl, '../packages/listy/src'),
-        },
-        {
-          find: /^@antdv-next1\/pro-card/,
-          replacement: path.resolve(baseUrl, '../packages/card/src'),
-        },
-        {
-          find: /^@antdv-next1\/pro-form/,
-          replacement: path.resolve(baseUrl, '../packages/form/src'),
-        },
-        {
-          find: /^@antdv-next1\/pro-table/,
-          replacement: path.resolve(baseUrl, '../packages/table/src'),
-        },
-        {
-          find: /^@antdv-next1\/pro-components/,
-          replacement: path.resolve(baseUrl, '../packages/components/src'),
-        },
-        {
-          find: /^@antdv-next1\/pro-utils/,
-          replacement: path.resolve(baseUrl, '../packages/utils/src'),
-        },
-        {
-          find: /^@antdv-next1\/route-utils/,
-          replacement: path.resolve(baseUrl, '../packages/route-utils/src'),
-        },
-        {
-          find: '@',
-          replacement: '/src',
-        },
-      ],
+      alias: {
+        '@': fileURLToPath(new URL('./src', import.meta.url)),
+        '#': fileURLToPath(new URL('./types', import.meta.url)),
+        '@antdv-next1/pro-layout': path.resolve(baseUrl, '../packages/layout/src'),
+        '@antdv-next1/pro-card': path.resolve(baseUrl, '../packages/card/src'),
+        '@antdv-next1/pro-field': path.resolve(baseUrl, '../packages/field/src'),
+        '@antdv-next1/pro-form': path.resolve(baseUrl, '../packages/form/src'),
+        '@antdv-next1/pro-list': path.resolve(baseUrl, '../packages/list/src'),
+        '@antdv-next1/pro-table': path.resolve(baseUrl, '../packages/table/src'),
+        '@antdv-next1/pro-listy': path.resolve(baseUrl, '../packages/listy/src'),
+        '@antdv-next1/pro-provider': path.resolve(baseUrl, '../packages/provider/src'),
+        '@antdv-next1/pro-components': path.resolve(baseUrl, '../packages/components/src'),
+        '@antdv-next1/pro-utils': path.resolve(baseUrl, '../packages/utils/src'),
+        '@antdv-next1/route-utils': path.resolve(baseUrl, '../packages/route-utils/src'),
+        '@antdv-next1/pro-skeleton': path.resolve(baseUrl, '../packages/skeleton/src'),
+        '@antdv-next1/pro-descriptions': path.resolve(baseUrl, '../packages/descriptions/src'),
+      },
     },
     css: {
       postcss: {

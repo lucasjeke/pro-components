@@ -33,8 +33,6 @@ PageContainer 是一个页面容器组件，提供了统一的页面布局结构
 
 ### PageContainer
 
-#### 属性 {#page-container-props}
-
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
 | title | 页面标题 | `VueNode` | - | - |
@@ -47,15 +45,7 @@ PageContainer 是一个页面容器组件，提供了统一的页面布局结构
 | breadcrumbRender | 自定义面包屑渲染 | `(props: PageContainerProps) => VueNode` | - | - |
 | waterMarkProps | 水印配置 | `WatermarkProps` | - | - |
 
-#### 插槽 {#page-container-slots}
-
-| 插槽 | 说明 | 类型 | 版本 |
-| --- | --- | --- | --- 
-| breadcrumbRender | 自定义面包屑渲染 | `(props: PageContainerProps) => VueNode` | - |
-
 ### PageHeader 
-
-#### 属性 {#pageheader-props}
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
@@ -66,9 +56,4 @@ PageContainer 是一个页面容器组件，提供了统一的页面布局结构
 | tags | 标签 | `TagProps[]` | - | - |
 | avatar | 头像 | `AvatarProps` | - | - |
 | backIcon | 返回图标 | `VueNode` | - | - |
-
-#### 事件 {#pageheader-event}
-
-| 事件 | 说明 | 类型 | 版本 |
-| ----- | --- | --- | --- |
-| back | 返回事件 | `() => void` | - |
+| onBack | 返回事件 | `() => void` | - | - |

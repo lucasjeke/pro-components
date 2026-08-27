@@ -29,8 +29,6 @@ ModalForm 和 DrawerForm 是基于 ProForm 的浮层表单，分别使用 Modal 
 
 ModalForm 继承 ProForm 的大部分属性。
 
-#### 属性 {#modal-form-props}
-
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
 | trigger | 触发打开的节点 | `VNode` | - | - |
@@ -39,20 +37,13 @@ ModalForm 继承 ProForm 的大部分属性。
 | title | 弹窗标题 | `VueNode` | - | - |
 | width | 弹窗宽度 | `ModalProps['width']` | `800` | - |
 | submitTimeout | 提交时禁用取消按钮的超时时间 | `number` | - | - |
-
-#### 事件 {#modal-form-events}
-
-| 事件名 | 说明 | 类型 | 版本 |
-| --- | --- | --- | --- |
-| update:open | 打开状态变化时触发 | `(open: boolean) => void` | - |
-| openChange | 打开状态变化时触发 | `(open: boolean) => void` | - |
-| finish | 提交成功时触发，返回真值会关闭弹窗 | `(formData) => Promise<any>` | - |
+| onUpdate:open | 打开状态变化时触发 | `(open: boolean) => void` | - | - |
+| onOpenChange | 打开状态变化时触发 | `(open: boolean) => void` | - | - |
+| onFinish | 提交成功时触发，返回真值会关闭弹窗 | `(formData) => Promise<any>` | - | - |
 
 ### DrawerForm
 
 DrawerForm 继承 ProForm 的大部分属性。
-
-#### 属性 {#drawer-form-props}
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
@@ -63,10 +54,5 @@ DrawerForm 继承 ProForm 的大部分属性。
 | width | 抽屉宽度 | `DrawerProps['size']` | `800` | - |
 | resize | 是否允许拖拽调整宽度或调整配置 | `boolean \| { minWidth?: DrawerProps['size']; maxWidth?: DrawerProps['size']; resize?: () => void }` | `false` | - |
 | submitTimeout | 提交时禁用取消按钮的超时时间 | `number` | - | - |
-
-#### 事件 {#drawer-form-events}
-
-| 事件名 | 说明 | 类型 | 版本 |
-| --- | --- | --- | --- |
-| openChange | 打开状态变化时触发 | `(open: boolean) => void` | - |
-| finish | 提交成功时触发，返回真值会关闭抽屉 | `(formData) => Promise<any>` | - |
+| onOpenChange | 打开状态变化时触发 | `(open: boolean) => void` | - | - |
+| onFinish | 提交成功时触发，返回真值会关闭抽屉 | `(formData) => Promise<any>` | - | - |

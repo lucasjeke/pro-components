@@ -23,7 +23,9 @@ ProFormFields are built-in field components for ProForm. They combine `Form.Item
 
 ## API
 
-### Common Props {#common-props}
+### ProFormFields
+
+Common exports include `ProFormText`, `ProFormTextArea`, `ProFormPassword`, `ProFormDigit`, `ProFormMoney`, `ProFormSelect`, `ProFormTreeSelect`, `ProFormCascader`, `ProFormCheckbox`, `ProFormRadio`, `ProFormSwitch`, `ProFormSlider`, `ProFormRate`, `ProFormDatePicker`, `ProFormDateRangePicker`, `ProFormTimePicker`, `ProFormUploadButton`, `ProFormUploadDragger`, and `ProFormCaptcha`.
 
 | Property | Description | Type | Default | Version |
 | --- | --- | --- | --- | --- |
@@ -40,7 +42,3 @@ ProFormFields are built-in field components for ProForm. They combine `Form.Item
 | initialValue | Initial value | `any` | - | - |
 | transform | Transform value before submit | `(value, namePath, allValues) => any` | - | - |
 | convertValue | Transform value when reading | `(value, namePath) => any` | - | - |
-
-### Exports {#exports}
-
-Common exports include `ProFormText`, `ProFormTextArea`, `ProFormPassword`, `ProFormDigit`, `ProFormMoney`, `ProFormSelect`, `ProFormTreeSelect`, `ProFormCascader`, `ProFormCheckbox`, `ProFormRadio`, `ProFormSwitch`, `ProFormSlider`, `ProFormRate`, `ProFormDatePicker`, `ProFormDateRangePicker`, `ProFormTimePicker`, `ProFormUploadButton`, `ProFormUploadDragger`, and `ProFormCaptcha`.

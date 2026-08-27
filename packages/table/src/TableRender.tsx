@@ -250,6 +250,7 @@ const TableRender = defineComponent(<
       columns: propsColumns,
       ...rest
     } = props
+    const EditableMessageContextHolder = editableUtils?.messageContextHolder
     const tableProps = {
       ...rest,
       size: counter.tableSize?.value,
@@ -381,6 +382,7 @@ const TableRender = defineComponent(<
           </div>
         )}
         {type !== 'form' && renderTable()}
+        {EditableMessageContextHolder ? <EditableMessageContextHolder /> : null}
       </div>
     )
     if (!options || !options?.fullScreen) {

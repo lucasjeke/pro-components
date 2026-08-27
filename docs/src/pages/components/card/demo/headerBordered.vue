@@ -12,8 +12,14 @@ import { ProCard } from '@antdv-next1/pro-components'
 
 <template>
   <div class="p-6">
-    <ProCard>
-      asdas
+    <ProCard
+      title="Title"
+      extra="extra"
+      tooltip="This is a tooltip"
+      :style="{ maxWidth: '300px' }"
+      header-bordered
+    >
+      Content
     </ProCard>
   </div>
 </template>

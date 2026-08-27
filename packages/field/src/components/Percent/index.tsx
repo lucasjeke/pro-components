@@ -106,7 +106,7 @@ const FieldPercent = defineComponent<FieldPercentProps, {}, string, CustomSlotsT
             if (value && prefix) {
               return `${prefix} ${value}`.replace(/\B(?=(\d{3})+$)/g, ',')
             }
-            return value
+            return `${value}`
           }}
           parser={value => (value ? value.replace(/.*\s|,/g, '') : '')}
           placeholder={placeholder}

@@ -1,7 +1,7 @@
 export default {
   theme: {
     themeTitle: '定制主题,随心所欲',
-    themeDesc: 'ProComponents of Vue 开放更多样式算法,让你定制主题更简单',
+    themeDesc: 'ProComponents Vue 开放更多样式算法,让你定制主题更简单',
     copyTheme: '复制主题代码',
     copySuccess: '已复制',
     customizeTheme: '定制主题',
@@ -25,7 +25,7 @@ export default {
     lastYear: '去年',
     new: '新增',
     update: '更新',
-    sampleContent: 'ProComponents of Vuents of Vue 使用 CSS-in-JS 技术以提供动态与混合主题的能力。与此同时,我们使用组件级别的 CSS-in-JS 解决方案,让你的应用获得更好的性能。',
+    sampleContent: 'ProComponents Vue 使用 CSS-in-JS 技术以提供动态与混合主题的能力。与此同时,我们使用组件级别的 CSS-in-JS 解决方案,让你的应用获得更好的性能。',
     inProgress: '进行中',
     success: '成功',
     taskFailed: '任务失败',
@@ -43,12 +43,12 @@ export default {
     guide: '设计指引',
     guideDesc: '全局样式、设计模式',
     lib: '组件库',
-    libDesc: 'ProComponents of Vuents of Vue of Vue 3',
+    libDesc: 'ProComponents Vue of Vue 3',
   },
 
   componentsBlock: {
     range: '设置范围',
-    text: 'ProComponents of Vuents of Vue 使用 CSS-in-JS 技术以提供动态与混合主题的能力。与此同时,我们使用组件级别的 CSS-in-JS 解决方案,让你的应用获得更好的性能。',
+    text: 'ProComponents Vue 使用 CSS-in-JS 技术以提供动态与混合主题的能力。与此同时,我们使用组件级别的 CSS-in-JS 解决方案,让你的应用获得更好的性能。',
     infoText: '信息内容展示',
     dropdown: '下拉菜单',
     finished: '已完成',
@@ -64,8 +64,8 @@ export default {
     default: '默认按钮',
     dashed: '虚线按钮',
     icon: '图标按钮',
-    hello: '你好,ProComponents of Vuents of Vue!',
-    release: 'ProComponents of Vuents of Vue 1.0 正式发布!',
+    hello: '你好,ProComponents Vue!',
+    release: 'ProComponents Vue 1.0 正式发布!',
     segmentedDaily: '每日',
     segmentedWeekly: '每周',
     segmentedMonthly: '每月',

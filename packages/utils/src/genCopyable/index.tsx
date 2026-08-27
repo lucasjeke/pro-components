@@ -123,7 +123,6 @@ export function genCopyable(dom: VueNode, item: { copyable?: boolean, ellipsis?:
         }}
       >
         <TypographyText
-          title=""
           ellipsis={ellipsis}
           style={{
             flex: 1,
@@ -131,18 +130,10 @@ export function genCopyable(dom: VueNode, item: { copyable?: boolean, ellipsis?:
             margin: 0,
             padding: 0,
           }}
+          copyable={resolvedCopyText ? { text: resolvedCopyText, tooltips: ['', ''] } : false}
         >
           {dom}
         </TypographyText>
-        {resolvedCopyText ? (
-          <span style={{ flex: 'none', userSelect: 'none' }}>
-            <TypographyText
-              style={{ margin: 0, padding: 0 }}
-              // Render icon only; no extra selectable separator text nodes.
-              copyable={{ text: resolvedCopyText, tooltips: ['', ''] }}
-            />
-          </span>
-        ) : null}
       </span>
     )
   }
@@ -153,7 +144,6 @@ export function genCopyable(dom: VueNode, item: { copyable?: boolean, ellipsis?:
         margin: 0,
         padding: 0,
       }}
-      title=""
       ellipsis={ellipsis}
     >
       {dom}

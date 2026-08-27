@@ -1,13 +1,13 @@
 import type { DefaultOptionType } from '@v-c/select'
 import type { VueNode } from '@v-c/util'
+import type { ListyProps } from 'antdv-next'
 import type { VueNode as AntVueNode } from 'antdv-next/dist/_util/type'
 import type { SelectValue } from 'antdv-next/dist/select/index'
 import type { FunctionalComponent } from 'vue'
 import type { PureSettings } from '../../defaultSettings'
 import type { MessageDescriptor } from '../../typing'
-import { Listy, ListyItem } from '@antdv-next1/pro-listy'
 import { classNames } from '@v-c/util'
-import { Select, Switch, Tooltip } from 'antdv-next'
+import { Flex, Listy, Select, Switch, Tooltip } from 'antdv-next'
 import { cloneVNode, isVNode } from 'vue'
 import defaultSettings from '../../defaultSettings'
 import { gLocaleObject } from '../../locales'
@@ -34,9 +34,10 @@ export function renderLayoutSettingItem(item: SettingItemProps) {
   }
   return (
     <Tooltip title={item.disabled ? item.disabledReason as AntVueNode : undefined} placement="left">
-      <ListyItem actions={[action]}>
+      <Flex gap="middle" align="center" justify="space-between">
         <span style={{ opacity: item.disabled ? 0.5 : 1 }}>{item.title}</span>
-      </ListyItem>
+        {action}
+      </Flex>
     </Tooltip>
   )
 }
@@ -53,9 +54,14 @@ export const LayoutSetting: FunctionalComponent<{
   return (
     <Listy
       class={classNames(`${prefixCls}-list`, hashId, cssVarCls)}
-      split={false}
-      rowKey="title"
-      variant="borderless"
+      rowKey={item => item.title}
+      styles={{
+        item: {
+          borderBottom: 0,
+          paddingInlineStart: 0,
+          paddingInlineEnd: 0,
+        },
+      } as unknown as ListyProps['styles']}
       itemRender={item => renderLayoutSettingItem(item)}
       items={[
         {
@@ -67,9 +73,10 @@ export const LayoutSetting: FunctionalComponent<{
             <Select
               value={contentWidth || 'Fixed'}
               size="small"
+              variant="filled"
               class={classNames(`content-width`, hashId, cssVarCls)}
               onSelect={(value: SelectValue) => changeSetting('contentWidth', value)}
-              style={{ width: 80 }}
+              style={{ width: '80px' }}
               options={
                 [
                   layout !== 'top'

@@ -46,13 +46,7 @@ group: Layout
 | breadcrumbRender | Custom breadcrumb rendering | `(props: PageContainerProps) => VueNode` | - | - |
 | waterMarkProps | Watermark configuration | `WatermarkProps` | - | - |
 
-#### Slots {#page-container-slots}
-
-| Slot | Description | Type | Version |
-| --- | --- | --- | --- |
-| breadcrumbRender | Custom breadcrumb rendering | `(props: PageContainerProps) => VueNode` | - |
-
-### PageHeader 
+### PageHeader
 
 #### Props {#pageheader-props}
 
@@ -65,9 +59,4 @@ group: Layout
 | tags | Tags | `TagProps[]` | - | - |
 | avatar | Avatar | `AvatarProps` | - | - |
 | backIcon | Back icon | `VueNode` | - | - |
-
-#### Events {#pageheader-event}
-
-| Event | Description | Type | Version |
-| ----- | --- | --- | --- |
-| back | Back event | `() => void` | - |
+| onBack | Back event | `() => void` | - | - |

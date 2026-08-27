@@ -1,4 +1,4 @@
-export type InnerLocale = 'zh-CN' | 'en-US'
+import type { InnerLocale } from '#/config'
 
 export function detectInnerLocale(fallback: InnerLocale = 'zh-CN'): InnerLocale {
   if (typeof navigator === 'undefined') {

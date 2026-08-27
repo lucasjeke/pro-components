@@ -244,7 +244,6 @@ const InternalCheckCardGroup = defineComponent<ProCheckCardGroupProps, {}, strin
         .map((_, index) => <ProCheckCard key={index} loading />)
     }
     if (getOptions(props.options) && getOptions(props.options).length > 0) {
-      const optionValue = stateValue.value as CheckCardValueType[] | CheckCardValueType
       const renderOptions = (list: CheckCardOptionType[]) => {
         return list.map((option, index) => {
           if (
@@ -254,11 +253,16 @@ const InternalCheckCardGroup = defineComponent<ProCheckCardGroupProps, {}, strin
             return (
               <ProCard
                 collapsible
+                class={classNames(`${baseClassName.value}-option-group`, hashId.value, cssVarCls.value)}
                 key={(option as CheckCardItemGroupType).title?.toString() || index.toString()}
                 title={(option as CheckCardItemGroupType).title}
-                style={{ flex: '0 0 100%' }}
+                style={{ flex: '0 0 100%', width: '100%' }}
                 v-slots={{
-                  default: () => renderOptions((option as CheckCardItemGroupType)?.children),
+                  default: () => (
+                    <div class={classNames(`${baseClassName.value}-options`, hashId.value, cssVarCls.value)}>
+                      {renderOptions((option as CheckCardItemGroupType)?.children)}
+                    </div>
+                  ),
                 }}
               />
             )
@@ -274,13 +278,6 @@ const InternalCheckCardGroup = defineComponent<ProCheckCardGroupProps, {}, strin
               disabled={(option as CheckCardItemType).disabled}
               size={(option as CheckCardItemType).size ?? props.size}
               value={(option as CheckCardItemType).value}
-              checked={
-                props.multiple
-                  ? (optionValue as CheckCardValueType[])?.includes(
-                      (option as CheckCardItemType).value,
-                    )
-                  : (optionValue as CheckCardValueType) === (option as CheckCardItemType).value
-              }
               onChange={(option as CheckCardItemType).onChange}
               title={(option as CheckCardItemType).title}
               avatar={(option as CheckCardItemType).avatar}

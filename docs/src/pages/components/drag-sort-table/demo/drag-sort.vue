@@ -8,7 +8,7 @@ darg sort (default handler)
 
 <script lang="ts" setup>
 import type { ProColumns } from '@antdv-next1/pro-components'
-import { DragSortTable } from '@antdv-next1/pro-components'
+import { DragSortProTable } from '@antdv-next1/pro-components'
 import { message } from 'antdv-next'
 import { ref } from 'vue'
 
@@ -64,7 +64,7 @@ function handleDragSortEnd(beforeIndex?: number | string, afterIndex?: number | 
 <template>
   <div class="p-6">
     <ContextHolder />
-    <DragSortTable
+    <DragSortProTable
       header-title="拖拽排序(默认把手)"
       :columns="columns"
       row-key="key"

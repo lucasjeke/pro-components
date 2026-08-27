@@ -80,6 +80,22 @@ import { ProCard } from '@antdv-next1/pro-components'
         colFlex - 30%
       </ProCard>
     </ProCard>
+    <ProCard
+      :style="{ marginBlockStart: '8px' }"
+      :gutter="8"
+      title="Fixed and responsive colSpan"
+      wrap
+    >
+      <ProCard col-span="30%" layout="center" variant="outlined">
+        colSpan - 30%
+      </ProCard>
+      <ProCard :col-span="{ xs: 24, md: 8 }" layout="center" variant="outlined">
+        colSpan - responsive
+      </ProCard>
+      <ProCard layout="center" variant="outlined">
+        Auto
+      </ProCard>
+    </ProCard>
   </div>
 </template>
 

@@ -533,6 +533,7 @@ const SiderMenu = defineComponent<SiderMenuProps & PrivateSiderMenuProps>((props
             collapsed={false}
             collapsible={false}
             defaultCollapsed={false}
+            trigger={null}
             width={siderMenuWidth}
           >
             <div class={`${baseClassName.value}-left-container`}>
@@ -558,6 +559,7 @@ const SiderMenu = defineComponent<SiderMenuProps & PrivateSiderMenuProps>((props
                     theme="light"
                     collapsed={collapsed}
                     collapsible
+                    trigger={null}
                     breakpoint={breakpoint === false ? undefined : breakpoint}
                     onCollapse={(collapse: boolean) => {
                       if (isMobile)
@@ -581,6 +583,7 @@ const SiderMenu = defineComponent<SiderMenuProps & PrivateSiderMenuProps>((props
             collapsed={collapsed}
             collapsedWidth={collapsedWidth.value}
             collapsible
+            trigger={null}
             breakpoint={breakpoint === false ? undefined : breakpoint}
             theme={theme.value}
             onCollapse={(collapse: boolean) => {

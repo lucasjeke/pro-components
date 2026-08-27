@@ -30,8 +30,6 @@ CheckCard is a selectable card component. It supports single cards, group select
 
 ### ProCheckCard
 
-#### Props {#check-card-props}
-
 | Property | Description | Type | Default | Version |
 | --- | --- | --- | --- | --- |
 | title | Card title | `VueNode` | - | - |
@@ -47,18 +45,11 @@ CheckCard is a selectable card component. It supports single cards, group select
 | size | Card size | `'large' \| 'default' \| 'small'` | `'default'` | - |
 | borderBeam | Border beam config | `BorderBeamProps \| boolean` | - | - |
 | collapsible | Collapse config inherited from ProCard | `ProCardProps['collapsible']` | - | - |
-
-#### Events {#check-card-events}
-
-| Event | Description | Type | Version |
-| --- | --- | --- | --- |
-| update:checked | Triggered when controlled checked state changes | `(checked: boolean) => void` | - |
-| change | Triggered when checked state changes | `(checked: boolean) => void` | - |
-| click | Triggered when card is clicked | `(event: MouseEvent) => void` | - |
+| onUpdate:checked | Triggered when controlled checked state changes | `(checked: boolean) => void` | - | - |
+| onChange | Triggered when checked state changes | `(checked: boolean) => void` | - | - |
+| onClick | Triggered when card is clicked | `(event: MouseEvent) => void` | - | - |
 
 ### ProCheckCardGroup
-
-#### Props {#check-card-group-props}
 
 | Property | Description | Type | Default | Version |
 | --- | --- | --- | --- | --- |
@@ -69,10 +60,5 @@ CheckCard is a selectable card component. It supports single cards, group select
 | disabled | Disabled all cards | `boolean` | `false` | - |
 | loading | Loading all cards | `boolean` | `false` | - |
 | size | Card size | `'large' \| 'default' \| 'small'` | `'default'` | - |
-
-#### Events {#check-card-group-events}
-
-| Event | Description | Type | Version |
-| --- | --- | --- | --- |
-| update:value | Triggered when selected value changes | `(value: CheckGroupValueType) => void` | - |
-| change | Triggered when selected value changes | `(value: CheckGroupValueType) => void` | - |
+| onUpdate:value | Triggered when selected value changes | `(value: CheckGroupValueType) => void` | - | - |
+| onChange | Triggered when selected value changes | `(value: CheckGroupValueType) => void` | - | - |

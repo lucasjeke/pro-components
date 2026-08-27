@@ -12,7 +12,7 @@ import { stringify, useEditableArray, useEffect, useMountMergeState } from '@ant
 import { classNames } from '@v-c/util'
 import isEqual from '@v-c/util/dist/isEqual'
 import { useConfig } from 'antdv-next/config-provider/context'
-import { computed, defineComponent, h, shallowRef, toRef, watchEffect } from 'vue'
+import { cloneVNode, computed, defineComponent, shallowRef, toRef, watchEffect } from 'vue'
 import Alert from './components/Alert'
 import FormSearch from './components/Form'
 import Toolbar from './components/ToolBar'
@@ -259,6 +259,7 @@ const InternalProTable = defineComponent(<
   const editableUtils = useEditableArray<T>(
     {
       ...props.editable,
+      type: computed(() => props.editable?.type),
       editableKeys: computed(() => props.editable?.editableKeys),
       tableName: computed(() => props.name),
       getRowKey,
@@ -393,6 +394,12 @@ const InternalProTable = defineComponent(<
   )
   expose({
     ...actionRef.value,
+    get nativeElement() {
+      return actionRef.value?.nativeElement
+    },
+    get pageInfo() {
+      return actionRef.value?.pageInfo
+    },
     formRef: useProFormInstanceExpose(formRef),
   })
   return () => {
@@ -471,7 +478,7 @@ const InternalProTable = defineComponent(<
               ...formSearch.value,
               ...newValues,
             })}
-          searchNode={isLightFilter.value && searchNode !== null ? <searchNode ref={formRef} /> : null}
+          searchNode={isLightFilter.value && searchNode !== null ? cloneVNode(searchNode, { ref: formRef }) : null}
           options={options}
           optionsRender={optionsRender}
           action={actionRef.value}
@@ -498,7 +505,7 @@ const InternalProTable = defineComponent(<
         size={counter.tableSize?.value}
         onSizeChange={counter.setTableSize}
         pagination={pagination.value}
-        searchNode={searchNode !== null ? h(searchNode, { ref: formRef }) : null}
+        searchNode={searchNode !== null ? cloneVNode(searchNode, { ref: formRef }) : null}
         rowSelection={propsRowSelection ? rowSelection : undefined}
         tableColums={tableColumns.value}
         isLightFilter={isLightFilter.value}

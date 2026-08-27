@@ -1,41 +1,33 @@
 const menuLocales = {
   header: {
-    docs: {
-      vue: 'Development',
-    },
+    home: 'Home',
+    docs: 'Docs',
     components: 'Components',
-    blog: 'Blog',
-    resources: 'Resources',
+    changelog: 'Changelog',
     playground: 'Playground',
   },
 
   docs: {
-    vue: {
-      introduce: 'Ant Design of Vue',
-      use: 'How to Use',
-      gettingStarted: 'Getting Started',
-      ai: 'AI',
-      llms: 'LLMs.txt',
-      skills: 'Skills',
-      nuxt: 'Nuxt',
-      advancedUse: 'Advanced Usage',
-      secondaryDevelopment: 'Secondary Development',
-      unocss: 'UnoCSS',
-      tailwindcss: 'Tailwind CSS',
-      customizeTheme: 'Customize Theme',
-      compatibleStyle: 'Compatible Style',
-      i18n: 'I18n',
-      commonProps: 'Common Props',
-      other: 'Others',
-      awesome: 'Awesome',
-      contributing: 'Contributing',
-      releaseProcess: 'Commit and Release',
-      faq: 'FAQ',
-    },
+    introduce: 'Introduction',
+    use: 'How to Use',
+    gettingStarted: 'Getting Started',
+    other: 'Others',
+    faq: 'FAQ',
   },
 
-  blog: {
-    proComponentsRelease: 'ProComponents of Vue 1.0 Released',
+  changelog: {
+    proComponents: 'ProComponents',
+    proForm: 'ProForm',
+    proTable: 'ProTable',
+    proLayout: 'ProLayout',
+    proCard: 'ProCard',
+    proDescriptions: 'ProDescriptions',
+    proField: 'ProField',
+    proListy: 'ProListy',
+    proProvider: 'ProProvider',
+    proSkeleton: 'ProSkeleton',
+    proUtils: 'ProUtils',
+    routeUtils: 'RouteUtils',
   },
 } as const
 

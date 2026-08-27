@@ -220,10 +220,13 @@ const genSettingDrawerStyle: GenerateStyle<SettingDrawerToken> = (token) => {
           cursor: 'pointer',
         },
       },
-      '&-list': {
-        [`li${token.antCls}-list-item`]: {
-          paddingInline: 0,
-          paddingBlock: 8,
+      [`&-list${token.antCls}-listy`]: {
+        [`${token.antCls}-listy-item`]: {
+          paddingBlockStart: token.paddingXS,
+          paddingBlockEnd: token.paddingXS,
+          '&:hover': {
+            backgroundColor: 'transparent',
+          },
         },
       },
     },

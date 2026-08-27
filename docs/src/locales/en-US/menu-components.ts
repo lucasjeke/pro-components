@@ -3,6 +3,9 @@ export default {
   components: {
     overview: 'Overview',
     changelog: 'Changelog',
+    architectureDesign: 'Architecture Design',
+    design: 'Component Design',
+    schema: 'General Schema',
     // General
     layoutGroup: 'Layout',
     layout: 'ProLayout',

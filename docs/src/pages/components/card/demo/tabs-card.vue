@@ -1,19 +1,37 @@
 <docs lang="zh-CN">
-配置 `tab` 的 `type` 为 `card` 来配置卡片式页签。
+通过 `tabProps.type` 设置为 `card` 来使用卡片式页签。
 </docs>
 
 <docs lang="en-US">
-配置 `tab` 的 `type` 为 `card` 来配置卡片式页签。
+Set `tabProps.type` to `card` to use card-style tabs.
 </docs>
 
 <script setup lang="ts">
 import { ProCard } from '@antdv-next1/pro-components'
+
+const activeTabKey = ref('overview')
+
+const contentMap = {
+  overview: 'Overview content',
+  details: 'Details content',
+  history: 'History content',
+} as const
+
+const content = computed(() => contentMap[activeTabKey.value as keyof typeof contentMap])
 </script>
 
 <template>
   <div class="p-6">
-    <ProCard>
-      asdas
+    <ProCard
+      v-model:active-tab-key="activeTabKey"
+      :tab-list="[
+        { key: 'overview', label: 'Overview' },
+        { key: 'details', label: 'Details' },
+        { key: 'history', label: 'History' },
+      ]"
+      :tab-props="{ type: 'card' }"
+    >
+      {{ content }}
     </ProCard>
   </div>
 </template>

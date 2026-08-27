@@ -15,6 +15,7 @@ dist-ssr
 *.local
 
 CHANGELOG.md
+!packages/*/CHANGELOG.md
 
 # Editor directories and files
 .vscode/*
@@ -46,3 +47,4 @@ superpowers
 .turbo
 .vercel
 .env*
+.worktrees/

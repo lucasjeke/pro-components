@@ -1,4 +1,5 @@
 import type { SegmentedProps } from 'antdv-next'
+import type { DefineComponent } from 'vue'
 import type { ProFormFieldItemProps, ProFormFieldRemoteProps } from '../../typing'
 import { FieldSegmented } from '@antdv-next1/pro-field'
 import { ProConfigProvider } from '@antdv-next1/pro-provider'
@@ -13,7 +14,7 @@ export type ProFormSegmentedProps = ProFormFieldItemProps<SegmentedProps> & {
   options?: SegmentedProps['options']
 }
 
-const ProFormSegmented = defineComponent<ProFormSegmentedProps>((props, { attrs, expose }) => {
+const ProFormSegmented: DefineComponent<ProFormSegmentedProps> = defineComponent<ProFormSegmentedProps>((props, { attrs, expose }) => {
   expose({})
   return () => {
     const { fieldProps, request, params, proFieldProps, ...rest } = props

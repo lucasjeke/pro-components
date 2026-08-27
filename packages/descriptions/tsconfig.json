@@ -1,0 +1,20 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "compilerOptions": {
+    "lib": ["ES2022", "DOM"],
+    "paths": {
+      "csstype": ["../../node_modules/csstype"],
+      "@antdv-next1/pro-field": ["../field/dist/index.d.ts"],
+      "/@tests/*": ["../../tests/*"]
+    },
+    "types": ["vite/client", "node"],
+    /* Linting */
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "erasableSyntaxOnly": true,
+    "noUncheckedSideEffectImports": true
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
+}

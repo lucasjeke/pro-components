@@ -13,12 +13,16 @@ function formSet<T extends Record<string, any>, ValueType extends (ProFieldValue
         initialValue={item.initialValue}
         name={item.dataIndex}
         label={item.label}
+        readonly={item.readonly}
         colProps={item.colProps}
         rowProps={item.rowProps}
         {...item.getFieldProps?.()}
         v-slots={
           {
-            default: () => genItems(item.columns! as ProFormColumnsType<T, ValueType>[]),
+            default: () => genItems(((item.columns || []) as ProFormColumnsType<T, ValueType>[]).map(column => ({
+              ...column,
+              readonly: item.readonly || column.readonly,
+            }))),
           }
         }
       />

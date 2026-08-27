@@ -118,7 +118,7 @@ const FormItemInput = defineComponent<
         </div>
       )
       const errorListDom = (
-        marginBottom !== null || errors.length || warnings.length
+        marginBottom || errors.length || warnings.length
           ? (
               <FormItemPrefixContextProvider
                 prefixCls={prefixCls}

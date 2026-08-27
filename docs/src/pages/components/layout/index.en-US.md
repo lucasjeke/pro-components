@@ -105,6 +105,13 @@ ProLayout supports four layout modes: `side`, `top`, `mix`, and `left`. The `lef
 | footerRender | Custom footer. Set to `false` to hide footer | `FooterRender \| false` | - | - |
 | pageHeaderRender | Custom PageHeader rendering for PageContainer | `PageHeaderRender \| false` | - | - |
 | footerToolbarContentRender | Custom FooterToolbar content rendering | `FooterToolbarContentRender` | - | - |
+| onPageChange | Triggered when page location changes | `(location?: RouterTypes['location']) => void` | - | - |
+| onCollapse | Triggered when the side menu collapses or expands | `(collapsed: boolean) => void` | - | - |
+| onOpenChange | Triggered when menu open keys change | `(openKeys?: Key[] \| false) => void` | - | - |
+| onSelect | Triggered when selected menu keys change | `(selectedKeys: Key[]) => void` | - | - |
+| onMenuHeaderClick | Triggered when the menu header is clicked | `(e: MouseEvent) => void` | - | - |
+| onItemClick | Triggered when an app-list item is clicked | `(item: AppItemProps, popoverRef: ShallowRef) => void` | - | - |
+
 
 In addition to the table above, ProLayout can pass antdv-next Menu props through `menuProps`; `openKeys`, `openChange`, and `title` are managed by ProLayout itself.
 
@@ -134,51 +141,15 @@ SettingDrawer is a visual settings panel for ProLayout. It is useful for demos o
 | colorList | Theme color candidates. Set to `false` to hide color selection | `{ key: string; color: string; title?: string }[] \| false` | Built-in palette | - |
 | hideHintAlert | Hide the hint alert | `boolean` | `false` | - |
 | hideCopyButton | Hide the copy settings button | `boolean` | `false` | - |
+| onSettingChange | Triggered when SettingDrawer settings change | `(settings: Partial<ProSettings>) => void` | - | - |
+| onCollapse | Triggered when SettingDrawer collapses or expands | `(collapsed: boolean) => void` | - | - |
+| onuUpdate:collapsed | `v-model:collapsed` update event | `(collapsed: boolean) => void` | - | - |
 
-### Events {#events}
-
-Events are registered with Vue event syntax, such as `@collapse`, `@menu-header-click`, and `@update:collapsed`.
-
-| Event | Description | Type | Version |
-| --- | --- | --- | --- |
-| pageChange | Triggered when page location changes | `(location?: RouterTypes['location']) => void` | - |
-| collapse | Triggered when the side menu collapses or expands | `(collapsed: boolean) => void` | - |
-| openChange | Triggered when menu open keys change | `(openKeys?: Key[] \| false) => void` | - |
-| select | Triggered when selected menu keys change | `(selectedKeys: Key[]) => void` | - |
-| menuHeaderClick | Triggered when the menu header is clicked | `(e: MouseEvent) => void` | - |
-| itemClick | Triggered when an app-list item is clicked | `(item: AppItemProps, popoverRef: ShallowRef) => void` | - |
-| SettingDrawer: settingChange | Triggered when SettingDrawer settings change | `(settings: Partial<ProSettings>) => void` | - |
-| SettingDrawer: collapse | Triggered when SettingDrawer collapses or expands | `(collapsed: boolean) => void` | - |
-| SettingDrawer: update:collapsed | `v-model:collapsed` update event | `(collapsed: boolean) => void` | - |
-
-### Slots {#slots}
-
-| Slot | Description | Type | Version |
-| --- | --- | --- | --- |
-| headerRender | Custom Header rendering | `HeaderRender` | - |
-| menuRender | Custom menu rendering | `MenuRender` | - |
-| menuHeaderRender | Custom menu header rendering | `MenuHeaderRender` | - |
-| headerTitleRender | Custom Header title rendering | `HeaderTitleRender` | - |
-| headerContentRender | Custom Header content rendering | `HeaderContentRender` | - |
-| actionsRender | Custom action area rendering | `ActionsRender` | - |
-| footerRender | Custom footer rendering | `FooterRender` | - |
-| multiTabRender | Custom MultiTab area rendering | `MultiTabRender` | - |
-| footerToolbarContentRender | Custom FooterToolbar content rendering | `FooterToolbarContentRender` | - |
-| collapsedButtonRender | Custom collapsed button rendering | `CollapsedButtonRender` | - |
-| errorBoundaryRender | Custom error boundary rendering | `ErrorBoundaryRender` | - |
-| appListRender | Custom app-list rendering | `AppListRender` | - |
-| menuItemRender | Custom leaf menu item rendering | `MenuItemRender` | - |
-| subMenuItemRender | Custom parent menu item rendering | `SubMenuItemRender` | - |
-| menuContentRender | Custom menu content rendering | `MenuContentRender` | - |
-| menuFooterRender | Custom menu footer rendering | `MenuFooterRender` | - |
-| menuExtraRender | Custom extra region below menu header | `MenuExtraRender` | - |
-| pageHeaderRender | Custom PageHeader rendering for PageContainer | `PageHeaderRender` | - |
-
-## Design Token {#theme-variables}
+<!-- ## Design Token {#theme-variables}
 
 Design Token is the basic element of the design system. You can customize Header, Sider, content, and menu colors through the `token` prop or ProConfigProvider.
 
-<ComponentTokenTable component="ProLayout"></ComponentTokenTable>
+<ComponentTokenTable component="ProLayout"></ComponentTokenTable> -->
 
 ## FAQ {#faq}
 

@@ -50,20 +50,10 @@ ProFormList is used to edit structured array data. It supports add, remove, copy
 | itemContainerRender | Custom item container renderer | `(doms, listMeta) => VueNode` | - | - |
 | actionRender | Custom item actions | `(field, action, defaultActionDom, count) => VueNode[]` | - | - |
 | fieldExtraRender | Custom field extra renderer | `(fieldAction, meta) => VueNode` | - | - |
-
-#### Events {#events}
-
-| Event | Description | Type | Version |
-| --- | --- | --- | --- |
-| afterAdd | Triggered after an item is added | `(...params) => void` | - |
-| afterRemove | Triggered after an item is removed | `(...params) => void` | - |
-
-#### Methods {#methods}
-
-| Method | Description | Type | Version |
-| --- | --- | --- | --- |
-| add | Add an item | `(defaultValue?: StoreValue, insertIndex?: number) => void` | - |
-| remove | Remove one or more items | `(index: number \| number[]) => void` | - |
-| move | Move item position | `(from: number, to: number) => void` | - |
-| get | Get an item | `(index: number) => StoreValue` | - |
-| getList | Get the whole list | `() => StoreValue[]` | - |
+| onAfterAdd | Triggered after an item is added | `(...params) => void` | - | - |
+| onAfterRemove | Triggered after an item is removed | `(...params) => void` | - | - |
+| onAdd | Add an item | `(defaultValue?: StoreValue, insertIndex?: number) => void` | - | - |
+| onRemove | Remove one or more items | `(index: number \| number[]) => void` | - | - |
+| onMove | Move item position | `(from: number, to: number) => void` | - | - |
+| onGet | Get an item | `(index: number) => StoreValue` | - | - |
+| onGetList | Get the whole list | `() => StoreValue[]` | - | - |

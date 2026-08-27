@@ -84,7 +84,10 @@ vi.mock('../src/BaseForm', () => ({
 
 describe('form layout wrappers', () => {
   it('keeps form production source free of runtime console output', () => {
-    const sourceDir = path.resolve(process.cwd(), 'packages/form/src')
+    const sourceDirs = [
+      path.resolve(process.cwd(), 'packages/form/src'),
+      path.resolve(process.cwd(), 'packages/utils/src/components/FormItem'),
+    ]
     const files: string[] = []
     const collectFiles = (dir: string) => {
       for (const entry of readdirSync(dir)) {
@@ -98,7 +101,7 @@ describe('form layout wrappers', () => {
       }
     }
 
-    collectFiles(sourceDir)
+    sourceDirs.forEach(collectFiles)
 
     const runtimeConsoleLines = files.flatMap((file) => {
       const source = readFileSync(file, 'utf8')

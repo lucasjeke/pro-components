@@ -25,7 +25,7 @@ Schema Form 使用 `columns` 描述表单结构，并根据 `valueType` 自动�
 
 Schema Form 继承对应 `layoutType` 的表单属性，并额外支持以下配置。
 
-#### 属性 {#props}
+Schema Form 事件来自对应的表单布局，例如 `finish`、`submit`、`reset`、`valuesChange`、`fieldsChange`、`loadingChange`、`openChange` 等。
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
@@ -38,7 +38,7 @@ Schema Form 继承对应 `layoutType` 的表单属性，并额外支持以下配
 | steps | StepForm 配置列表 | `ProStepFormProps[]` | - | - |
 | open | ModalForm / DrawerForm 打开状态 | `boolean` | - | - |
 
-#### ProFormColumnsType
+### ProFormColumnsType
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
@@ -64,7 +64,3 @@ Schema Form 继承对应 `layoutType` 的表单属性，并额外支持以下配
 | request | 远程获取选项 | `ProFieldRequestData` | - | - |
 | params | 远程请求参数 | `Record<string, any>` | - | - |
 | debounceTime | 远程请求防抖时间 | `number` | - | - |
-
-#### 事件 {#events}
-
-Schema Form 事件来自对应的表单布局，例如 `finish`、`submit`、`reset`、`valuesChange`、`fieldsChange`、`loadingChange`、`openChange` 等。

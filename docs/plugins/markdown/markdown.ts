@@ -20,13 +20,14 @@ import attrsPlugin from 'markdown-it-attrs'
 // @ts-expect-error this is not has types
 import { full as emoij } from 'markdown-it-emoji'
 import { codeToHtml } from 'shiki'
-import { containerPlugin } from './plugins/container'
-import { demoPlugin } from './plugins/demo'
-import { gitHubAlertsPlugin } from './plugins/github-alerts'
-import { imagePlugin } from './plugins/image'
-import { preWrapperPlugin } from './plugins/pre-wrapper'
-import { stackblitzPlugin } from './plugins/stackblitz'
-import { tablePlugin } from './plugins/table'
+import { containerPlugin } from './plugins/container.ts'
+import { demoPlugin } from './plugins/demo.ts'
+import { gitHubAlertsPlugin } from './plugins/github-alerts.ts'
+import { imagePlugin } from './plugins/image.ts'
+import { inlineDemoPlugin } from './plugins/inline-demo.ts'
+import { preWrapperPlugin } from './plugins/pre-wrapper.ts'
+import { stackblitzPlugin } from './plugins/stackblitz.ts'
+import { tablePlugin } from './plugins/table.ts'
 
 export function loadShiki(md: MarkdownItAsync, cls: string = 'ant-doc-code') {
   md.use(fromAsyncCodeToHtml(codeToHtml, {
@@ -123,6 +124,8 @@ function withPlugins(md: MarkdownItAsync, options: CreateMarkdownOptions) {
   md.use(tablePlugin)
   // 加载 StackBlitz 代码块插件
   md.use(stackblitzPlugin)
+  // 将 SFC 形态的 vue fenced code block 渲染成可运行示例
+  md.use(inlineDemoPlugin)
 
   // 禁用markdown自动识别链接
   md.linkify.set({ fuzzyLink: false })

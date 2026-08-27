@@ -1,5 +1,5 @@
+import type { InnerLocale } from '#/config'
 import type { AntdvMenuItem } from './interface'
-import type { InnerLocale } from '@/utils/locale'
 import locales from '@/locales'
 
 // Helper function to convert nested component locales to flat structure
@@ -8,6 +8,7 @@ function flattenComponentLocales(nestedLocales: { components: Record<string, str
   const flattened: Record<string, string> = {}
   const components = nestedLocales.components
   const groupKeyMap: Record<string, string> = {
+    architectureDesign: 'architectureDesign',
     general: 'general',
     layoutGroup: 'layoutGroup',
     navigation: 'navigation',
@@ -28,7 +29,6 @@ function flattenComponentLocales(nestedLocales: { components: Record<string, str
       flattened[`/components/${kebabKey}`] = value
     }
   }
-
   return flattened
 }
 
@@ -54,11 +54,18 @@ export const componentLocales: Record<string, Record<InnerLocale, string>> = (()
 })()
 
 export const components: AntdvMenuItem[] = [
-  { key: '/components/overview', label: '/components/overview' },
-  { key: '/components/changelog', label: '/components/changelog' },
+  {
+    key: 'architectureDesign',
+    label: 'architectureDesign',
+    type: 'group',
+    children: [
+      { key: '/components', label: '/components/design' },
+      { key: '/components/schema', label: '/components/schema' },
+    ],
+  },
   {
     key: 'layoutGroup',
-    label: 'layout',
+    label: 'layoutGroup',
     type: 'group',
     children: [
       { key: '/components/layout', label: '/components/layout' },
@@ -92,8 +99,8 @@ export const components: AntdvMenuItem[] = [
       { key: '/components/table', label: '/components/table' },
       { key: '/components/editable-table', label: '/components/editable-table' },
       { key: '/components/drag-sort-table', label: '/components/drag-sort-table' },
-      // { key: '/components/descriptions', label: '/components/descriptions' },
       { key: '/components/listy', label: '/components/listy' },
+      { key: '/components/descriptions', label: '/components/descriptions' },
     ],
   },
   {
@@ -101,7 +108,7 @@ export const components: AntdvMenuItem[] = [
     label: 'general',
     type: 'group',
     children: [
-      // { key: '/components/skeleton', label: '/components/skeleton' },
+      { key: '/components/skeleton', label: '/components/skeleton' },
       { key: '/components/field', label: '/components/field' },
     ],
   },

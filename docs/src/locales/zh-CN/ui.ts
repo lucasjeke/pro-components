@@ -50,7 +50,8 @@ export default {
     sections: {
       components: '组件',
       docs: '文档',
-      blog: '博客',
+      changelog: '更新日志',
+      playground: 'Playground',
     },
   },
 } as const

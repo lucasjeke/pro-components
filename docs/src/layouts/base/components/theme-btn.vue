@@ -1,26 +1,22 @@
 <script setup lang="ts">
 import type { MenuProps } from 'antdv-next'
-import { CompressOutlined, MoonOutlined, SmileOutlined, SunOutlined, SyncOutlined } from '@antdv-next/icons'
-import { Modal } from 'antdv-next'
+import { MoonOutlined, SunOutlined, SyncOutlined } from '@antdv-next/icons'
 import { storeToRefs } from 'pinia'
 import { computed, h } from 'vue'
-import ThemeIcon from '@/components/icons/theme.vue'
-import { themeModeStore } from '@/composables/local-store'
+import { ThemeIcon } from '@/components/icons'
 import { useTheme } from '@/composables/theme'
 import { useLocale } from '@/composables/use-locale'
-import { useAppStore } from '@/stores/app'
+import { useAppStore } from '@/store/modules/app'
 
 defineOptions({
   name: 'ThemeBtn',
 })
 
 const { setThemeMode } = useTheme()
-const local = localStorage.getItem('locale')
-const confirm = Modal.confirm
+// const confirm = Modal.confirm
 const appStore = useAppStore()
-const { compactMode, happyMode } = storeToRefs(appStore)
+const { theme } = storeToRefs(appStore)
 
-const themeMode = themeModeStore
 const { t } = useLocale()
 
 const BlueDot = h('span', {
@@ -38,58 +34,26 @@ const themeMenuItems = computed<MenuProps['items']>(() => [
     key: 'system',
     label: t('ui.themeBtn.system'),
     icon: h(SyncOutlined),
-    extra: themeMode.value === 'system' ? BlueDot : undefined,
+    extra: theme.value === 'system' ? BlueDot : undefined,
   },
   {
     key: 'light',
     label: t('ui.themeBtn.light'),
     icon: h(SunOutlined),
-    extra: themeMode.value === 'light' ? BlueDot : undefined,
+    extra: theme.value === 'light' ? BlueDot : undefined,
   },
   {
     key: 'dark',
     label: t('ui.themeBtn.dark'),
     icon: h(MoonOutlined),
-    extra: themeMode.value === 'dark' ? BlueDot : undefined,
+    extra: theme.value === 'dark' ? BlueDot : undefined,
   },
-  {
-    type: 'divider',
-  },
-  {
-    key: 'compact',
-    label: t('ui.themeBtn.compact'),
-    icon: h(CompressOutlined),
-    extra: compactMode.value ? BlueDot : undefined,
-  },
-  {
-    type: 'divider',
-  },
-  {
-    key: 'happy',
-    label: t('ui.themeBtn.happy'),
-    icon: h(SmileOutlined),
-    extra: happyMode.value ? BlueDot : undefined,
-  },
-  // {
-  //   type: 'divider',
-  // },
-  // {
-  //   key: 'ai-theme',
-  //   label: t('ui.themeBtn.aiTheme'),
-  //   icon: h(ShopOutlined),
-  // },
-  // {
-  //   key: 'theme-editor',
-  //   label: t('ui.themeBtn.themeEditor'),
-  //   icon: h(BgColorsOutlined),
-  //   extra: h(LinkOutlined),
-  // },
 ])
 
 function handleMenuClick(info: { key: string, domEvent: MouseEvent }) {
   const { key, domEvent } = info
   if (key === 'system' || key === 'light' || key === 'dark') {
-    themeMode.value = key
+    appStore.setTheme(key)
     setThemeMode(key, domEvent)
   }
   else if (key === 'compact') {

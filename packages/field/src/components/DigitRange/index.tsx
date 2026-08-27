@@ -111,7 +111,7 @@ const FieldDigitRange = defineComponent<FieldDigitRangeProps, {}, string, Custom
               {...(omitUndefined({ id: rest.fieldProps?.id ?? `${rest.fieldProps?.id}-0` }))}
               style={{ width: `calc((100% - ${separatorWidth}px) / 2)` }}
               value={valuePair.value?.[0]}
-              defaultValue={rest.fieldProps?.defaultValue?.[0] || text![0]}
+              defaultValue={rest.fieldProps?.defaultValue?.[0] || text![0] as number}
               onChange={changedValue => handleChange(0, changedValue)}
             />
             <Input
@@ -139,7 +139,7 @@ const FieldDigitRange = defineComponent<FieldDigitRangeProps, {}, string, Custom
                 width: `calc((100% - ${separatorWidth}px) / 2)`,
               }}
               value={valuePair.value?.[1]}
-              defaultValue={rest.fieldProps?.defaultValue?.[1] || text![1]}
+              defaultValue={rest.fieldProps?.defaultValue?.[1] || text![1] as number}
               onChange={changedValue => handleChange(1, changedValue)}
             />
           </SpaceCompact>

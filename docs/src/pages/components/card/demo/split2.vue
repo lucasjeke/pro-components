@@ -39,7 +39,7 @@ const responsive = shallowRef(false)
             Left Content
           </div>
         </ProCard>
-        <ProCard title="Traffic Usage">
+        <ProCard title="Traffic Usage" col-flex="50%">
           <div :style="{ height: '360px' }">
             Right Content
           </div>

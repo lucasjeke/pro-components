@@ -18,14 +18,14 @@ interface ApplyRouteSeoOptions {
 
 type LocaleCode = 'zh-CN' | 'en-US'
 
-const SITE_NAME = 'ProComponents of Vue'
+const SITE_NAME = 'ProComponents Vue'
 
 const DEFAULT_SEO: Record<LocaleCode, Required<SeoMeta>> = {
   'zh-CN': {
-    title: 'ProComponents of Vuents of Vue Vue 3 组件库',
-    description: 'ProComponents of Vuents of Vue 是基于 Vue 3、TypeScript 与 TSX 的企业级 UI 组件库，提供完整组件文档、示例与主题定制能力。',
+    title: 'ProComponents Vue - Vue 3 组件库',
+    description: 'ProComponents Vue 是基于 Vue 3、TypeScript 与 TSX 的企业级 UI 组件库，提供完整组件文档、示例与主题定制能力。',
     keywords: [
-      'ProComponents of Vuents of Vue',
+      'ProComponents Vue',
       'Vue 3 组件库',
       'Ant Design Vue',
       'UI 组件',
@@ -35,10 +35,10 @@ const DEFAULT_SEO: Record<LocaleCode, Required<SeoMeta>> = {
     ],
   },
   'en-US': {
-    title: 'ProComponents of Vuents of Vue Vue 3 Component Library',
-    description: 'ProComponents of Vuents of Vue is an enterprise-class Vue 3 UI component library with TypeScript and TSX support, including comprehensive docs, demos, and theme customization.',
+    title: 'ProComponents Vue - Vue 3 Component Library',
+    description: 'ProComponents Vue is an enterprise-class Vue 3 UI component library with TypeScript and TSX support, including comprehensive docs, demos, and theme customization.',
     keywords: [
-      'ProComponents of Vuents of Vue',
+      'ProComponents Vue',
       'Vue 3 component library',
       'Ant Design Vue',
       'UI components',
@@ -52,28 +52,47 @@ const DEFAULT_SEO: Record<LocaleCode, Required<SeoMeta>> = {
 const PATH_SEO: Record<string, Record<LocaleCode, SeoMeta>> = {
   '/': {
     'zh-CN': {
-      title: 'ProComponents of Vuents of Vue Vue 3 组件库',
-      description: 'ProComponents of Vuents of Vue 组件库主页，提供 Vue 3 组件、主题能力与开发资源。',
-      keywords: ['ProComponents of Vuents of Vue', 'Vue 3', '组件库', '设计系统'],
+      title: 'ProComponents Vue - Vue 3 组件库',
+      description: 'ProComponents Vue 组件库主页，提供 Vue 3 组件、主题能力与开发资源。',
+      keywords: ['ProComponents Vue', 'Vue 3', '组件库', '设计系统'],
     },
     'en-US': {
-      title: 'ProComponents of Vuents of Vue Vue 3 Component Library',
-      description: 'ProComponents of Vuents of Vue homepage for Vue 3 UI components, theme customization, and developer resources.',
-      keywords: ['ProComponents of Vuents of Vue', 'Vue 3', 'Component Library', 'Design System'],
+      title: 'ProComponents Vue - Vue 3 Component Library',
+      description: 'ProComponents Vue homepage for Vue 3 UI components, theme customization, and developer resources.',
+      keywords: ['ProComponents Vue', 'Vue 3', 'Component Library', 'Design System'],
     },
   },
   '/index-cn': {
     'zh-CN': {
-      title: 'ProComponents of Vuents of Vue Vue 3 组件库',
-      description: 'ProComponents of Vuents of Vue 组件库主页，提供 Vue 3 组件、主题能力与开发资源。',
-      keywords: ['ProComponents of Vuents of Vue', 'Vue 3', '组件库', '设计系统'],
+      title: 'ProComponents Vue - Vue 3 组件库',
+      description: 'ProComponents Vue 组件库主页，提供 Vue 3 组件、主题能力与开发资源。',
+      keywords: ['ProComponents Vue', 'Vue 3', '组件库', '设计系统'],
     },
     'en-US': {},
   },
 }
 
+const CHANGELOG_PACKAGE_TITLES: Record<string, string> = {
+  '': 'ProComponents',
+  'pro-form': 'ProForm',
+  'pro-table': 'ProTable',
+  'pro-layout': 'ProLayout',
+  'pro-card': 'ProCard',
+  'pro-field': 'ProField',
+  'pro-listy': 'ProListy',
+  'pro-provider': 'ProProvider',
+  'pro-utils': 'ProUtils',
+  'route-utils': 'RouteUtils',
+}
+
 function detectLocaleFromPath(path: string): LocaleCode {
-  return path.endsWith('-cn') || path === '/index-cn' ? 'zh-CN' : 'en-US'
+  return path === '/en-US' || path.startsWith('/en-US/') ? 'en-US' : 'zh-CN'
+}
+
+function normalizeLocalePath(path: string) {
+  if (path === '/en-US')
+    return '/'
+  return path.replace(/^\/en-US(?=\/)/, '') || '/'
 }
 
 function normalizeTitle(title: string): string {
@@ -120,9 +139,23 @@ function ensureCanonicalLink(href: string) {
 }
 
 function toDocFallbackTitle(path: string) {
-  if (!path.startsWith('/components/'))
+  const normalizedPath = normalizeLocalePath(path)
+
+  if (normalizedPath === '/changelog' || normalizedPath.startsWith('/changelog/')) {
+    const packagePath = normalizedPath.replace(/^\/changelog\/?/, '')
+    const packageTitle = CHANGELOG_PACKAGE_TITLES[packagePath]
+
+    if (!packageTitle)
+      return ''
+
+    return detectLocaleFromPath(path) === 'zh-CN'
+      ? `${packageTitle} 更新日志`
+      : `${packageTitle} Changelog`
+  }
+
+  if (!normalizedPath.startsWith('/components/'))
     return ''
-  const segment = path.split('/').filter(Boolean).at(-1) ?? ''
+  const segment = normalizedPath.split('/').filter(Boolean).at(-1) ?? ''
   if (!segment)
     return ''
   return segment
@@ -138,7 +171,7 @@ export function applyRouteSeo(to: RouteLike, options: ApplyRouteSeoOptions = {})
   const locale = detectLocaleFromPath(to.path)
   const defaultSeo = DEFAULT_SEO[locale]
   const routeMetaSeo = (to.meta?.seo ?? {}) as SeoMeta
-  const pathSeo = PATH_SEO[to.path]?.[locale] ?? {}
+  const pathSeo = PATH_SEO[normalizeLocalePath(to.path)]?.[locale] ?? {}
   const docTitle = options.frontmatter?.title ?? toDocFallbackTitle(to.path)
   const docKeywords = docTitle
     ? locale === 'zh-CN'

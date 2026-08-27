@@ -59,7 +59,7 @@ const ErrorBoundary = defineComponent<{
                             .replace($error.value.toString(), '')
                             ?.split('\n')
                             .map((stack: string, i: number) => (
-                              <div key={stack + i} style={{ textAlign: 'left', fontSize: 10 }}>
+                              <div key={stack + i} style={{ textAlign: 'left', fontSize: '10px' }}>
                                 <TypographyText type="secondary">{stack}</TypographyText>
                               </div>
                             )) ?? null}

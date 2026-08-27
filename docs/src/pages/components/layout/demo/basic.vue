@@ -76,7 +76,7 @@ const state = ref<ProSettings>({
   navTheme: 'dark',
   colorPrimary: '#1677FF',
   layout: 'side',
-  compact: true,
+  compact: false,
   contentWidth: 'Fluid',
   splitMenus: false,
   colorWeak: false,

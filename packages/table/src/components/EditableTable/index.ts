@@ -1,5 +1,5 @@
 export { default as EditableProTable } from './EditableTable'
 export { default as CellEditorTable } from './CellEditorTable'
 export { default as RowEditorTable } from './RowEditorTable'
-
-export type { EditableProTableProps } from './EditableTable'
+export { RecordCreator as EditableProTableRecordCreator } from './InternalEditableTable'
+export type { EditableProTableInstance, EditableProTableProps } from './InternalEditableTable'

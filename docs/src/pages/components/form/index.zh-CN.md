@@ -19,43 +19,46 @@ ProForm 在原来的 Form 的基础上增加了一些语法糖和更多的布局
 - 如果想要监听某个值，建议使用 `valuesChange` 事件。保持单向的数据流无论对开发者还是维护者都大有裨益
 - ProForm 没有黑科技，只是 Antdv Next 的 Form 的封装，如果要使用自定义的组件可以用 FormItem 包裹后使用，支持混用
 
-```vue
+```vue | pure
 <script lang="ts" setup>
 import { Switch } from 'antdv-next'
-import { ProForm, ProFormText, ProFormSelect } from '@antdv-next1/pro-form'
-import { FormItem } form '@antdv-next1/pro-utils;'
+import { ProForm, ProFormItem, ProFormSelect, ProFormText } from '@antdv-next1/pro-form'
+import { reactive } from 'vue'
+
+const formModel = reactive({
+  name: '杭州星辰科技有限公司',
+  useMode: 'chapter',
+  enabled: true,
+})
 </script>
+
 <template>
-  <!-- 设置整体默认值 -->
-  <ProForm :model="obj" />
-  <!-- 设置单个控件的 -->
-   <ProForm @valuesChange="(changeValues) => console.log(changeValues)">
-    <ProFormText initialValue="prop"/>
-  </ProForm>
-  <!-- 相互依赖的组件联动 -->
-   <ProForm>
-     <FormItem noStyle>
-      <template #default={form}>
+  <ProForm :model="formModel">
+    <!-- 使用 model 设置整体默认值 -->
+    <ProFormText name="name" label="签约客户名称" width="md" />
+
+    <!-- 使用 render props 读取其他字段 -->
+    <ProFormItem no-style is-render-props>
+      <template #default="form">
         <ProFormSelect
           :options="[
             {
-              value: "chapter",
-              label: "盖章后生效",
+              value: 'chapter',
+              label: '盖章后生效',
             },
           ]"
           width="md"
           name="useMode"
-          :label="`与${form.getFieldValue("name")}合同约定生效方式`"
+          :label="`与${form?.getFieldValue('name') ?? ''}合同约定生效方式`"
         />
       </template>
-     </FormItem>
-   </ProForm>
-    <!-- 使用自定义组件 -->
-    <ProForm>
-       <FormItem name="switch" label="Switch" valuePropName="checked">
-          <Switch />
-       </FormItem>
-    </ProForm>
+    </ProFormItem>
+
+    <!-- 通过 ProFormItem 接入自定义组件 -->
+    <ProFormItem name="enabled" label="是否启用" value-prop-name="checked">
+      <Switch />
+    </ProFormItem>
+  </ProForm>
 </template>
 ```
 
@@ -94,8 +97,6 @@ ProForm 是对 Antdv Next Form 的再封装，如果你想要自定义表单元�
 
 > Antdv Next 的 Form api 查看[这里](https://www.antdv-next.cn/components/form-cn/) model 相关知识查看[这里](https://procomponents.ant.design/docs/faq)
 
-#### 属性 {#form-props}
-
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
 | submitter | 提交按钮相关配置 | `SubmitterProps<{form?: FormInstance }> \| false` | `true` | - |
@@ -115,18 +116,14 @@ ProForm 是对 Antdv Next Form 的再封装，如果你想要自定义表单元�
 | grid | 开启栅格化模式，宽度默认百分比，请使用 `colProps` 控制宽度 [查看示例](components/form-cn#form-demo-form-layout-grid) | `boolean` | `false` | - |
 | rowProps | 开启 `grid` 模式时传递给 `Row`, 仅在`ProFormGroup`, `ProFormList`, `ProFormFieldSet` 中有效 | [RowProps](https://www.antdv-next.cn/components/grid-cn#row) | `{ gutter: 8 }` | - |
 | colProps | 开启 `grid` 模式时传递给 `Col`, 仅在`ProFormGroup`, `ProFormList`, `ProFormFieldSet` 中有效 | [ColProps](https://www.antdv-next.cn/components/grid-cn/#col) | `{ xs: 24 }` | - |
+| onFinish | 提交表单且数据验证成功后回调事件，支持 Promise，会自动设置按钮的加载效果 | `(formData: T) => Promise<boolean \| void> \| void` | - | - |
+| onRest | 点击重置按钮的回调 | `(e) => void` | - | - |
+| onLoadingChange | loading 状态改变时的回调 | `(loading: boolean) => void` | - | - |
+| onInit | 表单初始化成功，比如布局，label等计算完成 | `(values: T, form: ProFormInstance) => void` | - | - |
 | [(...)](https://www.antdv-next.cn/components/form-cn/) | 注意 `LightFilter` 和 `QueryFilter` 仅支持除 `wrapperCol` \| `labelCol` \| `layout` 外的其他 Antdv Next `Form` 组件参数 | - | - | - |
 
-#### 事件 {#form-events}
 
-| 事件名 | 说明 | 类型 | 版本 |
-| ----- | --- | --- | --- |
-| finish | 提交表单且数据验证成功后回调事件，支持 Promise，会自动设置按钮的加载效果 | `(formData: T) => Promise<boolean \| void> \| void` | - |
-| rest | 点击重置按钮的回调 | `(e) => void` | - |
-| loadingChange | loading 状态改变时的回调 | `(loading: boolean) => void` | - |
-| init | 表单初始化成功，比如布局，label等计算完成 | `(values: T, form: ProFormInstance) => void` | - |
-
-#### 方法 {#form-methods}
+### ProFormInstance {#form-methods}
 
 ```ts
 import type { ProFormInstance } from '@antdv-next1/pro-form'
@@ -144,8 +141,6 @@ const formRef = useTemplateRef<ProFormInstance>('form')
 
 ### ProFormGroup
 
-#### 属性 {#form-group-props}
-
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
 | title | 标题 | `string` | - | - |
@@ -160,21 +155,14 @@ const formRef = useTemplateRef<ProFormInstance>('form')
 | collapsible | 是否可折叠 | `boolean` | - | - |
 | defaultCollapsed | 默认的折叠状态 | `boolean` | - | - |
 | autoFocus | 自定选中一个input，只能有一个生效 | `boolean` | - | - |
+| onCollapse | 折叠修改的事件 | `(collapsed: boolean) => void` | - | - |
 | grid | 开启栅格化模式，宽度默认百分比，请使用 `colProps` 控制宽度 [查看示例](components/form-cn#form-demo-form-layout-grid) | `boolean` | - | - |
 | rowProps | 开启 `grid` 模式时传递给 `Row` | [RowProps](https://www.antdv-next.cn/components/grid-cn#row) | - | - |
 | colProps | 开启 `grid` 模式时传递给 `Col` | [ColProps](https://www.antdv-next.cn/components/grid-cn/#col) | - | - |
 
-#### 事件 {#form-group-event}
-
-| 事件名 | 说明 | 类型 | 版本 |
-| ----- | --- | --- | --- |
-| collapse | 折叠修改的事件 | `(collapsed: boolean) => void` | - |
-
 ### Submitter
 
 虽然我们希望不要对 submitter 进行修改，但在使用中修改是很常见的需求，ProForm 的各个组件都使用了同样的 API 来支持需求。
-
-#### 属性 {#submitter-props}
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
@@ -182,50 +170,50 @@ const formRef = useTemplateRef<ProFormInstance>('form')
 | submitButtonProps | 提交按钮的 props | [ButtonProps](https://www.antdv-next.cn/components/button-cn/) | - | - |
 | resetButtonProps | 重置按钮的 props | [ButtonProps](https://www.antdv-next.cn/components/button-cn/) | - | - |
 | render | 自定义操作的渲染 | `false \| (props: Record<string, any>, dom: VueNode[])=>VueNode[]` | - | - |
+| onSubmit | 提交方法 | `()=>void` | - | - |
+| onReset | 重置方法 | `()=>void` | - | - |
+
 
 > render 的第二个参数是默认的 dom 数组，第一个是提交按钮，第二个是重置按钮。
 
-```vue
+```vue | pure
 <script setup lang="ts">
+import type { SubmitterProps } from '@antdv-next1/pro-form'
 import { ProForm } from '@antdv-next1/pro-form'
+import { Button } from 'antdv-next'
+import { h } from 'vue'
+
+const submitter: SubmitterProps = {
+  searchConfig: {
+    resetText: '重置',
+    submitText: '提交',
+  },
+  resetButtonProps: {
+    style: {
+      display: 'none',
+    },
+  },
+  submitButtonProps: {},
+  render: props => [
+    h(Button, {
+      key: 'reset',
+      onClick: () => props.form?.resetFields(),
+    }, () => '重置'),
+    h(Button, {
+      key: 'submit',
+      type: 'primary',
+      onClick: () => props.form?.submit(),
+    }, () => '提交'),
+  ],
+}
 </script>
 
 <template>
-  <ProForm :submitter="{
-    // 配置按钮文本
-    searchConfig: {
-      resetText: '重置',
-      submitText: '提交',
-    },
-     // 配置按钮的属性
-    resetButtonProps: {
-      style: {
-        // 隐藏重置按钮
-        display: 'none',
-      },
-    },
-    submitButtonProps: {},
-     // 完全自定义整个区域
-    render: (props, doms) => {
-      console.log(props);
-      return [
-        h(Button, { key: 'rest', onClick: ()=> props.form?.resetFields() }, ()=> '重置')
-        h(Button, { type: 'primary', key: 'submit', onClick: ()=>props.form?.submit() }, ()=> '提交')
-      ]
-    }
-  }">
-  </ProForm>
+  <ProForm :submitter="submitter" />
 </template>
 
 <style scoped></style>
 ```
-
-#### 事件 {#submitter-events}
-
-| 事件名 | 说明 | 类型 | 版本 |
-| ----- | --- | --- | --- |
-| submit | 提交方法 | `()=>void` | - |
-| reset | 重置方法 | `()=>void` | - |
 
 ## 数据转化 {#data-conversion}
 
@@ -264,19 +252,25 @@ transform 发生在提交的时候，一般来说都是吐给后端的存在数�
 
 为了方便大家使用，`ProFormDependency` 和 `formRef` 都支持了 `transform`，可以获取到被转化后的值。
 
-```vue
+```vue | pure
 <script setup lang="ts">
-import { ProFormDependency, ProFormText } from '@antdv-next1/pro-form'
+import { ProForm, ProFormDependency, ProFormText } from '@antdv-next1/pro-form'
 </script>
 
 <template>
-  <ProFormDependency>
-    <template #default="{value, form}">
-     <!-- value 被 transform转化之后的值 -->
-     <!-- form 当前的formRef，可以获取未转化的值 -->
-      <ProFormText />
-    </template>
-</ProFormDependency>
+  <ProForm :model="{ name: 'ProForm' }">
+    <ProFormText
+      name="name"
+      label="名称"
+      :transform="value => `${value}:suffix`"
+    />
+    <ProFormDependency :name="['name']">
+      <template #default="{ values }">
+        <!-- values 中是 transform 转化后的值 -->
+        <div>转换后：{{ values.name }}</div>
+      </template>
+    </ProFormDependency>
+  </ProForm>
 </template>
 ```
 
@@ -329,38 +323,54 @@ formRef 内置了几个方法来获取转化之后的值，这也是相比  Antd
 
 - **1）返回普通值（最直观，也最稳定）**：会替换当前字段的提交值。
 
-```vue
+```vue | pure
 <script setup lang="ts">
-import { ProFormText } from '@antdv-next1/pro-form'
+import { ProForm, ProFormText } from '@antdv-next1/pro-form'
 </script>
 
 <template>
-<ProFormText name="name" :transform="(value) => `${value}:suffix`" />
- <!-- 提交时：{ name: 'xxx:suffix' } -->
+  <ProForm :model="{ name: 'ProForm' }">
+    <ProFormText
+      name="name"
+      label="名称"
+      :transform="value => `${value}:suffix`"
+    />
+    <!-- 提交时：{ name: 'ProForm:suffix' } -->
+  </ProForm>
 </template>
 ```
 
 - **2）返回对象（用于“改名/拆分字段/写回嵌套路径”）**：推荐按字段的 `name` / `namePath` 构造对象，避免“看起来对但提交没变”的情况。
 
-```vue
+```vue | pure
 <script setup lang="ts">
 import { set } from '@v-c/util'
-import { ProFormText } from '@antdv-next1/pro-form'
+import { ProForm, ProFormText } from '@antdv-next1/pro-form'
 </script>
 
 <template>
-  <!-- 写回同一路径（推荐：不依赖外层 merge 行为） -->
-   <ProFormText
-    :name="['company', 'name']"
-    :transform="(value) => set({}, ['company', 'name'], `${value}:suffix`)"
-  />
-  <!-- 提交时：{ company: { name: 'xxx:suffix' } } -->
-  <!-- 变更 key（示例：把 name 写成 displayName） -->
-   <ProFormText
-    name="name"
-    :transform="(value) => ({ displayName: value })"
-  />
- <!-- 提交时：{ displayName: 'xxx' }（注意：这会改变最终输出结构） -->
+  <ProForm
+    :model="{
+      company: { name: 'ProForm' },
+      name: '高级表单',
+    }"
+  >
+    <!-- 写回同一路径（推荐：不依赖外层 merge 行为） -->
+    <ProFormText
+      :name="['company', 'name']"
+      label="公司名称"
+      :transform="value => set({}, ['company', 'name'], `${value}:suffix`)"
+    />
+    <!-- 提交时：{ company: { name: 'ProForm:suffix' } } -->
+
+    <!-- 变更 key（示例：把 name 写成 displayName） -->
+    <ProFormText
+      name="name"
+      label="表单名称"
+      :transform="value => ({ displayName: value })"
+    />
+    <!-- 提交时：{ displayName: '高级表单' }（注意：这会改变最终输出结构） -->
+  </ProForm>
 </template>
 ```
 

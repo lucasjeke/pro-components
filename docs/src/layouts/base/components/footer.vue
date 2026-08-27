@@ -33,7 +33,7 @@ const details = {
 </script>
 
 <template>
-  <footer id="footer">
+  <a-layout-footer id="footer">
     <div class="footer-wrap">
       <a-row>
         <a-col v-for="(item, key) of details" :key="key" :md="6" :sm="24" :xs="24">
@@ -58,7 +58,7 @@ const details = {
         </div>
       </div>
     </div>
-  </footer>
+  </a-layout-footer>
 </template>
 
 <style scoped>
@@ -104,7 +104,7 @@ const details = {
 
   .footer-wrap {
     position: relative;
-    padding: 86px 144px 93px 144px;
+    padding: 86px 94px 93px 94px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.25);
 
     @media (max-width: 768px) {
@@ -131,7 +131,7 @@ const details = {
       width: 100%;
       max-width: 1200px;
       margin: 0 auto;
-      padding: 16px 0;
+      padding: 16px 0 0 0;
       font-size: 14px;
       line-height: 32px;
       text-align: center;

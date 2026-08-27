@@ -36,8 +36,6 @@ QueryFilter 和 LightFilter 是用于筛选场景的 ProForm 布局。QueryFilte
 
 QueryFilter 继承 ProForm 的大部分属性。
 
-#### 属性 {#query-filter-props}
-
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
 | defaultCollapsed | 默认是否收起 | `boolean` | `true` | - |
@@ -55,18 +53,11 @@ QueryFilter 继承 ProForm 的大部分属性。
 | showHiddenNum | 是否显示折叠隐藏数量 | `boolean` | `false` | - |
 | submitterColSpanProps | 操作按钮 Col 配置 | `ColProps & { span?: number }` | - | - |
 | containerStyle | 容器样式 | `CSSProperties` | - | - |
-
-#### 事件 {#query-filter-events}
-
-| 事件名 | 说明 | 类型 | 版本 |
-| --- | --- | --- | --- |
-| reset | 重置时触发 | `(values) => void` | - |
-| finish | 提交时触发 | `(values) => void \| Promise<void>` | - |
-| valuesChange | 值变化时触发 | `(changedValues, values) => void` | - |
+| onReset | 重置时触发 | `(values) => void` | - | - |
+| onFinish | 提交时触发 | `(values) => void \| Promise<void>` | - | - |
+| onValuesChange | 值变化时触发 | `(changedValues, values) => void` | - | - |
 
 ### LightFilter
-
-#### 属性 {#light-filter-props}
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |

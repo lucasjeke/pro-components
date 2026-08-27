@@ -1,5 +1,6 @@
 import type { IntlType } from '@antdv-next1/pro-provider'
 import type { AddLineOptions, Key, PageInfo, ProFieldValueObjectType, ProFieldValueType, RecordKey, UseEditableUtilType } from '@antdv-next1/pro-utils'
+import type { GetRowKey } from '@v-c/table'
 import type { TablePaginationConfig } from 'antdv-next'
 import type { FilterValue as AntFilterValue, SorterResult, SortOrder } from 'antdv-next/dist/table/index'
 import type { ComputedRef, ShallowRef, UnwrapRef, VNode } from 'vue'
@@ -106,10 +107,15 @@ export function useActionType<T extends Record<string, any>>(action: UseFetchDat
   resetAll: () => Promise<void>
   editableUtils: UseEditableUtilType<T>
 }) {
+  const { messageContextHolder, ...rest } = props.editableUtils
   return {
-    ...props.editableUtils,
-    pageInfo: action.pageInfo,
-    nativeElement: props.nativeElement,
+    ...rest,
+    get pageInfo() {
+      return action.pageInfo.value
+    },
+    get nativeElement() {
+      return props.nativeElement.value
+    },
     focus: () => props.focus(),
     reload: async (resetPageIndex?: boolean) => {
     // 如果为 true，回到第一页
@@ -267,11 +273,19 @@ export function parseServerDefaultColumnConfig<T, ValueType>(columns: ProColumns
 
 export function useProTableInstanceExpose<T extends Record<string, any>>(tableRef: ShallowRef<ProTableInstance<T> | null>) {
   return ({
-    nativeElement: computed(() => tableRef.value?.nativeElement),
+    get nativeElement() {
+      return tableRef.value?.nativeElement
+    },
+    get pageInfo() {
+      return tableRef.value?.pageInfo
+    },
+    get formRef() {
+      return tableRef.value?.formRef?.nativeElement ? tableRef.value?.formRef : null
+    },
+    preEditableKeys: computed(() => tableRef.value?.preEditableKeys?.value),
     focus: () => tableRef.value?.focus?.(),
     fullScreen: async () => await tableRef.value?.fullScreen(),
     cleanSelected: async () => await tableRef.value?.clearSelected?.(),
-    pageInfo: computed(() => tableRef.value?.pageInfo),
     addEditRecord: async (row: T, options?: AddLineOptions) => await tableRef.value?.addEditRecord?.(row, options),
     cancelEditable: async (recordKey: RecordKey, needReTry?: boolean) => await tableRef.value?.cancelEditable?.(recordKey, needReTry),
     getRealIndex: (record: T) => tableRef.value?.getRealIndex?.(record),
@@ -279,7 +293,6 @@ export function useProTableInstanceExpose<T extends Record<string, any>>(tableRe
       index: number
     }) => tableRef.value?.isEditable?.(row),
     onValuesChange: (value: T, values: T) => tableRef.value?.onValuesChange?.(value, values),
-    preEditableKeys: computed(() => tableRef.value?.preEditableKeys),
     reload: async (resetPageIndex?: boolean) => await tableRef.value?.reload?.(resetPageIndex),
     reloadAndRest: async () => await tableRef.value?.reloadAndRest?.(),
     reset: async () => await tableRef.value?.reset?.(),
@@ -291,6 +304,43 @@ export function useProTableInstanceExpose<T extends Record<string, any>>(tableRe
     }) => tableRef.value?.scrollTo?.(arg),
     setPageInfo: async (page: Partial<PageInfo>) => tableRef.value?.setPageInfo(page),
     startEditable: async (recordKey: Key, record?: T) => await tableRef.value?.startEditable?.(recordKey, record),
-    formRef: computed(() => tableRef.value?.formRef),
   })
+}
+
+/**
+ * 将 editableKeys 解析为 RowEditableConfig.onChange 的第二参数，
+ * 与 useEditableArray 内 setEditableRowKeys 一致：single 为单条（可为空场景下的 undefined），multiple 为数组。
+ */
+export function resolveEditingPayloadForRowEditableOnChange<
+  DataType extends Record<string, any>,
+>(
+  keys: Key[],
+  dataSource: readonly DataType[] | undefined,
+  getRowKey: GetRowKey<DataType>,
+  editableType: 'single' | 'multiple' | undefined,
+  childrenColumnName = 'children',
+): DataType | DataType[] {
+  const cleanKeys = keys.filter(key => key !== undefined)
+  const kvMap = new Map<Key, DataType>()
+  const dig = (records: readonly DataType[]) => {
+    records.forEach((record, index) => {
+      const rowKey = getRowKey(record, index)
+      kvMap.set(rowKey, record)
+      if (
+        record
+        && typeof record === 'object'
+        && childrenColumnName in record
+      ) {
+        dig(((record as any)[childrenColumnName] || []) as DataType[])
+      }
+    })
+  }
+  dig(dataSource ?? [])
+  const editingRecords = cleanKeys
+    .map(key => kvMap.get(key))
+    .filter((k): k is DataType => k !== undefined)
+  const type = editableType || 'single'
+  const editingPayload
+    = type === 'single' ? editingRecords[0] : editingRecords
+  return editingPayload as DataType | DataType[]
 }

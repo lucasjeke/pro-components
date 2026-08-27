@@ -18,15 +18,47 @@ ProTable 在 antdv-next Table 之上封装了查询表单、工具栏、列设�
 
 <demo-group>
   <demo src="./demo/single.vue">查询表格</demo>
+  <demo src="./demo/normal.vue">无查询表单</demo>
+  <demo src="./demo/card-bordered.vue">卡片边框</demo>
+  <demo src="./demo/dataSource.vue">使用 DataSource</demo>
+  <demo src="./demo/no-title.vue">无 ToolBar 的表格</demo>
+  <demo src="./demo/enum-filter-type.vue">搜索栏类型切换</demo>
+  <demo src="./demo/no-option.vue">查询（无按钮）表格</demo>
+  <demo src="./demo/light-filter.vue">轻量筛选替换查询表单</demo>
+  <demo src="./demo/search.vue">使用自带 keyWords 搜索的 table</demo>
+  <demo src="./demo/search-option.vue">搜索选项自定义</demo>
+  <demo src="./demo/open-rules.vue">必填的查询表单</demo>
+  <demo src="./demo/linkage-form">动态联动搜索栏</demo>
+  <demo src="./demo/form.vue">通过 formRef 来操作查询表单</demo>
+  <demo src="./demo/batch-option.vue">表格批量操作</demo>
+  <demo src="./demo/table-nested.vue">嵌套表格</demo>
+  <demo src="./demo/split.vue">左右结构</demo>
+  <demo src="./demo/polling.vue">表格轮询</demo>
+  <demo src="./demo/date-formatter.vue">dateFormatter - 日期格式化</demo>
+  <demo src="./demo/list-toolbar.vue">Toolbar 自定义</demo>
+  <demo src="./demo/render-table.vue">表格主体自定义</demo>
+  <demo src="./demo/card-title.vue">卡片表格</demo>
+  <demo src="./demo/no-search.vue">无搜索表格</demo>
+  <demo src="./demo/value-type-date.vue">valueType - 日期类</demo>
+  <demo src="./demo/value-type-number.vue">valueType - 数字类</demo>
+  <demo src="./demo/value-type.vue">valueType - 样式类</demo>
+  <demo src="./demo/value-type-select.vue">valueType - 选择类</demo>
+  <demo src="./demo/customization-value-type.vue">自定义 valueType</demo>
+  <demo src="./demo/intl.vue">国际化相关的配置</demo>
+  <demo src="./demo/rtl-table.vue">RTL (النسخة العربية)</demo>
+  <demo src="./demo/theme.vue">黑色主题 / 紧凑主题</demo>
+  <demo src="./demo/error-boundaries.vue">自定义错误边界</demo>
+  <demo src="./demo/dynamic-columns-state.vue">列状态 columnsState</demo>
+  <demo src="./demo/columns-setting-custom-icon.vue">自定义列设置图标</demo>
+  <demo src="./demo/content-words-item.vue">内容类查询项</demo>
 </demo-group>
+
 
 ## API
 
 ### ProTable
 
 除下列能力外，ProTable 还透传 antdv-next Table 的大部分属性。
-
-#### 属性 {#props}
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
@@ -65,8 +97,17 @@ ProTable 在 antdv-next Table 之上封装了查询表单、工具栏、列设�
 | size | 表格密度 | `'large' \| 'middle' \| 'small'` | - | - |
 | defaultSize | 默认表格密度 | `'large' \| 'middle' \| 'small'` | - | - |
 | name | 可编辑表格字段名 | `NamePath` | - | - |
+| onChange | 表格分页、筛选、排序变化时触发 | `(pagination, filters, sorter, extra) => void` | - | - |
+| onLoad | 数据加载完成后触发 | `(dataSource: T[]) => void` | - | - |
+| onLoadingChange | loading 状态变化时触发 | `(loading: boolean \| SpinProps \| undefined) => void` | - | - |
+| onRequestError | 请求失败时触发 | `(error: Error) => void` | - | - |
+| oSubmit | 查询表单提交时触发 | `(params) => void` | - | - |
+| onReset | 查询表单重置时触发 | `() => void` | - | - |
+| onDataSourceChange | 数据源变化时触发 | `(dataSource: T[]) => void` | - | - |
+| onSizeChange | 表格密度变化时触发 | `(size: DensitySize) => void` | - | - |
 
-#### ProColumns
+
+### ProColumns
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
@@ -90,20 +131,7 @@ ProTable 在 antdv-next Table 之上封装了查询表单、工具栏、列设�
 | render | 自定义只读渲染 | `(...args) => VueNode` | - | - |
 | renderFormItem | 自定义查询/编辑表单项 | `(...args) => VueNode` | - | - |
 
-#### 事件 {#events}
-
-| 事件名 | 说明 | 类型 | 版本 |
-| --- | --- | --- | --- |
-| change | 表格分页、筛选、排序变化时触发 | `(pagination, filters, sorter, extra) => void` | - |
-| load | 数据加载完成后触发 | `(dataSource: T[]) => void` | - |
-| loadingChange | loading 状态变化时触发 | `(loading: boolean \| SpinProps \| undefined) => void` | - |
-| requestError | 请求失败时触发 | `(error: Error) => void` | - |
-| submit | 查询表单提交时触发 | `(params) => void` | - |
-| reset | 查询表单重置时触发 | `() => void` | - |
-| dataSourceChange | 数据源变化时触发 | `(dataSource: T[]) => void` | - |
-| sizeChange | 表格密度变化时触发 | `(size: DensitySize) => void` | - |
-
-#### 方法 {#methods}
+### ProTableInstance {#tableInstance}
 
 通过组件实例可以访问 ProTable 暴露的方法。
 

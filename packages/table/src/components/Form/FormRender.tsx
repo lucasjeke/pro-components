@@ -217,10 +217,10 @@ const FormRender = defineComponent(
               formRef.value = form
               if (type !== 'form') {
                 const pageInfo = action?.pageInfo
-                const { current = pageInfo?.value.current, pageSize = pageInfo?.value.pageSize }
+                const { current = pageInfo?.current, pageSize = pageInfo?.pageSize }
                   = values
                 await action?.setPageInfo?.({
-                  ...pageInfo?.value,
+                  ...pageInfo,
                   current: Number.parseInt(current, 10),
                   pageSize: Number.parseInt(pageSize, 10),
                 })

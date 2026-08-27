@@ -1,6 +1,6 @@
 import type { VueNode } from '@v-c/util'
 import type { CustomSlotsType } from '@v-c/util/dist/type'
-import type { VNode } from 'vue'
+import type { App, Plugin, VNode } from 'vue'
 import type { ProCardProps } from '../../ProCard'
 import type { ProStatisticProps } from '../Statistic'
 import { classNames } from '@v-c/util'
@@ -8,6 +8,9 @@ import { useConfig } from 'antdv-next/config-provider/context'
 import { computed, defineComponent } from 'vue'
 import ProCard from '../../ProCard'
 import ProStatistic from '../Statistic'
+import ProStatisticCardDivider from './Divider'
+import ProStatisticCardGroup from './Group'
+import ProStatisticCardOperation from './Operation'
 import useStyle from './style'
 
 export type ProStatisticCardProps = ProCardProps & {
@@ -101,8 +104,23 @@ const _ProStatisticCard = defineComponent<
 const ProStatisticCard = _ProStatisticCard as typeof _ProStatisticCard & {
   isProCard?: boolean
   Statistic?: typeof ProStatistic
-}
+  Group?: typeof ProStatisticCardGroup
+  Operation?: typeof ProStatisticCardOperation
+  Divider?: typeof ProStatisticCardDivider
+} & Plugin
 
 ProStatisticCard.isProCard = true
+ProStatisticCardGroup.isProCard = true
 ProStatisticCard.Statistic = ProStatistic
+ProStatisticCard.Operation = ProStatisticCardOperation
+ProStatisticCard.Group = ProStatisticCardGroup
+ProStatisticCard.Divider = ProStatisticCardDivider
+
+ProStatisticCard.install = (app: App) => {
+  app.component(ProStatisticCard.name, ProStatisticCard)
+  app.component(ProStatistic.name, ProStatistic)
+  app.component(ProStatisticCardOperation.name, ProStatisticCardOperation)
+  app.component(ProStatisticCardGroup.name, ProStatisticCardGroup)
+  app.component(ProStatisticCardDivider.name, ProStatisticCardDivider)
+}
 export default ProStatisticCard

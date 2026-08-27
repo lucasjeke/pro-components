@@ -6,20 +6,19 @@ import dayjs from 'dayjs'
 import { isFunction } from 'es-toolkit'
 import { storeToRefs } from 'pinia'
 import { computed, getCurrentInstance, h, onBeforeUnmount, onMounted, shallowRef, watch } from 'vue'
-import { themeModeStore } from '@/composables/local-store'
 import { applyThemeToDOM, useTheme } from '@/composables/theme'
-import { useAppStore } from '@/stores/app'
+import { useAppStore } from '@/store/modules/app'
 import DocsAppShell from './app-shell.vue'
 import 'dayjs/locale/zh-cn'
 import 'dayjs/locale/en'
 
 const appStore = useAppStore()
-const { locale, darkMode, compactMode, happyMode, direction } = storeToRefs(appStore)
+const { locale, darkMode, compactMode, happyMode, direction, theme: themeMode } = storeToRefs(appStore)
 const { setThemeMode } = useTheme()
 let systemDarkMediaQuery: MediaQueryList | null = null
 
 function handleSystemThemeChange() {
-  if (themeModeStore.value === 'system') {
+  if (themeMode.value === 'system') {
     setThemeMode('system')
   }
 }
@@ -35,7 +34,7 @@ watch(
 )
 
 onMounted(() => {
-  setThemeMode(themeModeStore.value)
+  setThemeMode(themeMode.value)
 
   systemDarkMediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
 
@@ -83,9 +82,12 @@ const algorithm = computed(() => {
   }
   return algorithms
 })
-
+const { token } = theme.useToken()
 const themeConfig = computed(() => {
   return {
+    token: {
+      fontFamily: `AlibabaSans,${token.value.fontFamily}`,
+    },
     algorithm: algorithm.value,
     // Keep css-in-js runtime enabled for docs demos. The virtual antd.css file
     // only covers antdv-next base styles; pro component styles still need runtime injection.

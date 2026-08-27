@@ -8,12 +8,28 @@
 
 <script setup lang="ts">
 import { ProCard } from '@antdv-next1/pro-components'
+import { h } from 'vue'
 </script>
 
 <template>
   <div class="p-6">
-    <ProCard>
-      asdas
+    <ProCard loading :style="{ maxWidth: '300px' }">
+      Content
+    </ProCard>
+    <ProCard
+      loading
+      :style="{ maxWidth: '300px', marginBlockStart: '16px' }"
+      layout="center"
+    >
+      Content
+    </ProCard>
+    <ProCard
+      title="Custom Loading"
+      extra="extra"
+      :loading="h('div', null, 'Loading')"
+      :style="{ maxWidth: '300px', marginBlockStart: '16px' }"
+    >
+      Content
     </ProCard>
   </div>
 </template>

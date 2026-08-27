@@ -3,13 +3,13 @@
 </docs>
 
 <docs lang="en-US">
-通过 Segmented 分段选择器切换 `itemLayout`、`variant`、`split` 属性。
+Switch the `itemLayout`, `variant`, and `split` properties using the Segmented selector.
 </docs>
 
 <script setup lang="ts">
 import { ProListy } from '@antdv-next1/pro-components'
 import { Button, Divider, Progress, Segmented, Space, Tag } from 'antdv-next'
-import { h, ref, shallowRef } from 'vue'
+import { h, ref } from 'vue'
 
 interface ProjectItem {
   title: string
@@ -56,69 +56,64 @@ const dataSource: ProjectItem[] = [
 const variant = ref<'outlined' | 'borderless' | 'filled'>('borderless')
 const itemLayout = ref<'horizontal' | 'vertical'>('horizontal')
 const split = ref(true)
-const selectedRowKeys = shallowRef([] as (string | number)[])
 const virtual = ref(false)
 </script>
 
 <template>
   <div class="p-6">
-    <Space :style="{ marginBlockEnd: '16px', width: '100%', padding: '16px', border: '1px solid #f0f0f0', borderRadius: '8px' }" :size="12" orientation="vertical">
-      <Space>
-        <span>itemLayout 列表项方向：</span>
-        <Segmented
-          v-model:value="itemLayout"
-          :options="[
-            { label: '水平 horizontal', value: 'horizontal' },
-            { label: '垂直 vertical', value: 'vertical' },
-          ]"
-        />
-      </Space>
-      <Space>
-        <span>variant 外观变体：</span>
-        <Segmented
-          v-model:value="variant"
-          :options="[
-            { label: '线框 outlined', value: 'outlined' },
-            { label: '填充 filled', value: 'filled' },
-            { label: '无边框 borderless', value: 'borderless' },
-          ]"
-        />
-      </Space>
-      <Space>
-        <span>split 分割线：</span>
-        <Segmented
-          :value="split ? 'true' : 'false'"
-          :options="[
-            { label: '有分割线', value: 'true' },
-            { label: '无分割线', value: 'false' },
-          ]"
-          @change="(v) => split = v === 'true'"
-        />
-      </Space>
-      <Space>
-        <span>virtual 虚拟滚动：</span>
-        <Segmented
-          :value="virtual ? 'true' : 'false'"
-          :options="[
-            { label: '开启', value: 'true' },
-            { label: '关闭', value: 'false' },
-          ]"
-          @change="(v) => virtual = v === 'true'"
-        />
-      </Space>
-    </Space>
+    <a-card>
+      <a-flex vertical gap="medium">
+        <Space>
+          <span>itemLayout 列表项方向：</span>
+          <Segmented
+            v-model:value="itemLayout"
+            :options="[
+              { label: '水平 horizontal', value: 'horizontal' },
+              { label: '垂直 vertical', value: 'vertical' },
+            ]"
+          />
+        </Space>
+        <Space>
+          <span>variant 外观变体：</span>
+          <Segmented
+            v-model:value="variant"
+            :options="[
+              { label: '线框 outlined', value: 'outlined' },
+              { label: '填充 filled', value: 'filled' },
+              { label: '无边框 borderless', value: 'borderless' },
+            ]"
+          />
+        </Space>
+        <Space>
+          <span>split 分割线：</span>
+          <Segmented
+            :value="split ? 'true' : 'false'"
+            :options="[
+              { label: '有分割线', value: 'true' },
+              { label: '无分割线', value: 'false' },
+            ]"
+            @change="(v) => split = v === 'true'"
+          />
+        </Space>
+        <Space>
+          <span>virtual 虚拟滚动：</span>
+          <Segmented
+            :value="virtual ? 'true' : 'false'"
+            :options="[
+              { label: '开启', value: 'true' },
+              { label: '关闭', value: 'false' },
+            ]"
+            @change="(v) => virtual = v === 'true'"
+          />
+        </Space>
+      </a-flex>
+    </a-card>
     <ProListy
       header-title="项目列表枚举切换"
       :item-layout="itemLayout"
       :split="split"
       :virtual="virtual"
       :variant="variant"
-      :row-selection="{
-        selectedRowKeys,
-        onChange: (keys) => {
-          selectedRowKeys = keys
-        },
-      }"
       :columns="[
         { dataIndex: 'title', listSlot: 'title' },
         { dataIndex: 'avatar', listSlot: 'avatar' },
@@ -126,11 +121,8 @@ const virtual = ref(false)
         {
           listSlot: 'content',
           render: (_, record) => h('div', {
-            style: {
-              width: '200px',
-            },
           }, [
-            h('div', null, [
+            h(Space, {}, () => [
               record.status,
               h(Tag, {
                 color: record.progress === 100 ? 'success' : 'processing',
@@ -156,7 +148,7 @@ const virtual = ref(false)
         },
       ]"
       :data-source="dataSource"
-      row-key="title"
+      :row-key="(item) => item.title"
       :tool-bar-render="() => [
         h(Button, { key: 'new', type: 'primary' }, () => '新建项目'),
       ]"

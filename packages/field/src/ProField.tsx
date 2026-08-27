@@ -12,6 +12,7 @@ import advancedFormat from 'dayjs/plugin/advancedFormat'
 import isoWeek from 'dayjs/plugin/isoWeek'
 import localeData from 'dayjs/plugin/localeData'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
+import quarterOfYear from 'dayjs/plugin/quarterOfYear'
 import weekday from 'dayjs/plugin/weekday'
 import weekOfYear from 'dayjs/plugin/weekOfYear'
 import { cloneVNode, defineComponent, isVNode, shallowRef } from 'vue'
@@ -48,6 +49,7 @@ import { useFieldExpose } from './utils/useFieldExpose'
 dayjs.extend(localeData)
 dayjs.extend(advancedFormat)
 dayjs.extend(isoWeek)
+dayjs.extend(quarterOfYear)
 dayjs.extend(weekOfYear)
 dayjs.extend(weekday)
 dayjs.extend(localizedFormat)

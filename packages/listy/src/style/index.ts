@@ -5,156 +5,252 @@ import { mergeToken } from '@antdv-next/cssinjs'
 
 export interface ProListyToken extends ProAliasCssVarToken {
   colorFillAlterSolid: string
-  // /**
-  //  * @desc 内容宽度
-  //  * @descEN Width of content
-  //  */
-  // contentWidth: number | string
-  // /**
-  //  * @desc 大号列表项内间距
-  //  * @descEN Padding of large item
-  //  */
-  // itemPaddingLG: string
-  // /**
-  //  * @desc 小号列表项内间距
-  //  * @descEN Padding of small item
-  //  */
-  // itemPaddingSM: string
-  // /**
-  //  * @desc 列表项内间距
-  //  * @descEN Padding of item
-  //  */
-  // itemPadding: string
-  // /**
-  //  * @desc 头部区域背景色
-  //  * @descEN Background color of header
-  //  */
-  // headerBg: string
-  // /**
-  //  * @desc 底部区域背景色
-  //  * @descEN Background color of footer
-  //  */
-  // footerBg: string
-  // /**
-  //  * @desc 空文本内边距
-  //  * @descEN Padding of empty text
-  //  */
-  // emptyTextPadding: CSSProperties['padding']
-  // /**
-  //  * @desc Meta 下间距
-  //  * @descEN Margin bottom of meta
-  //  */
-  // metaMarginBottom: CSSProperties['marginBottom']
-  // /**
-  //  * @desc 头像右间距
-  //  * @descEN Right margin of avatar
-  //  */
-  // avatarMarginRight: CSSProperties['marginRight']
-  // /**
-  //  * @desc 标题下间距
-  //  * @descEN Margin bottom of title
-  //  */
-  // titleMarginBottom: CSSProperties['marginBottom']
-  // /**
-  //  * @desc 描述文字大小
-  //  * @descEN Font size of description
-  //  */
-  // descriptionFontSize: number
-  // //  /**
-  // //  * @desc 列表项类名
-  // //  * @descEN Class name of list item
-  // //  */
-  // // listBorderedCls: string;
-  // /**
-  //  * @desc 最小高度
-  //  * @descEN Minimum height
-  //  */
-  // minHeight: number | string
 }
 
-const genProListyStyle: GenerateStyle<ProListyToken> = (token) => {
+export const genProListyStyle: GenerateStyle<ProListyToken> = (token) => {
   return {
     [token.componentCls]: {
+      [`${token.antCls}-listy${token.componentCls}-vertical`]: {
+        [`${token.antCls}-listy-item`]: {
+          gap: token.marginXL,
+          [`${token.componentCls}-item-main`]: {
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+            gap: token.marginXS,
+            [`${token.componentCls}-item-header`]: {
+              [`${token.componentCls}-item-meta`]: {
+                marginBlockEnd: token.marginSM,
+                [`${token.componentCls}-item-meta-content`]: {
+                  gap: token.margin,
+                },
+              },
+            },
+            [`${token.componentCls}-item-content`]: {
+              marginBlockEnd: token.marginXS,
+            },
+            [`${token.componentCls}-item-meta-title`]: {
+              fontSize: token.fontSizeLG,
+            },
+          },
+        },
+      },
       [`${token.antCls}-listy ${token.antCls}-listy-item`]: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'flex-start',
         margin: 0,
         cursor: 'pointer',
+        '&:last-child': {
+          borderBlockEnd: 'none',
+        },
+        '&>*:first-child': {
+          flex: 1,
+          minWidth: 0,
+        },
         [`${token.componentCls}-item-checkbox`]: {
           marginInlineEnd: token.marginXS,
         },
-      },
-      '&-container': {
-        [`${token.componentCls}-item`]: {
-          '&-hover': {
-            backgroundColor: token.colorFillAlterSolid,
-            transition: `background-color ${token.motionDurationSlow}`,
-          },
-          '&-header': {
+        [`${token.componentCls}-item-main`]: {
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          width: '100%',
+          gap: token.marginXXL,
+        },
+        [`${token.componentCls}-item-header`]: {
+          display: 'flex',
+          flex: 1,
+          alignItems: 'flex-start',
+          justifyContent: 'flex-start',
+          width: '100%',
+          minWidth: 0,
+          '&-options': {
             display: 'flex',
-            flex: 1,
-            alignItems: 'flex-start',
-            justifyContent: 'flex-start',
-            width: '100%',
-            minWidth: 0,
-            '&-options': {
+            flexShrink: 0,
+            alignItems: 'center',
+            paddingInlineStart: token.paddingXS,
+            [`& ${token.componentCls}-item-icon`]: {
+              marginInlineEnd: token.marginXS,
               display: 'flex',
-              flexShrink: 0,
-              alignItems: 'center',
-              paddingInlineStart: token.paddingXS,
-              [`& ${token.componentCls}-item-icon`]: {
-                marginInlineEnd: token.marginXS,
-                display: 'flex',
-                fontSize: token.fontSizeSM,
-                cursor: 'pointer',
-                height: token.controlHeightSM,
-                color: token.colorTextSecondary,
+              fontSize: token.fontSizeSM,
+              cursor: 'pointer',
+              height: token.controlHeightSM,
+              color: token.colorTextSecondary,
+              '> .anticon > svg': {
+                transition: '0.3s',
+              },
+              '&-expanded': {
                 '> .anticon > svg': {
-                  transition: '0.3s',
-                },
-                '&-expanded': {
-                  '> .anticon > svg': {
-                    transform: 'rotate(90deg)',
-                  },
+                  transform: 'rotate(90deg)',
                 },
               },
             },
-
           },
-          [`${token.antCls}-listy-item-meta-title`]: {
+          [`${token.componentCls}-item-meta`]: {
             display: 'flex',
-          },
-          '&-meta-title-header': {
-            display: 'flex',
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-            gap: token.marginXS,
             flex: 1,
-            minWidth: 0,
-            '&-title': {
-              flexShrink: 0,
-              marginInlineEnd: 0,
-              wordBreak: 'break-word',
-              cursor: 'pointer',
-              '&-editable': {
-                paddingBlock: token.paddingSM,
+            alignItems: 'flex-start',
+            maxWidth: '100%',
+            [`${token.componentCls}-item-meta-content`]: {
+              gap: token.marginXXS,
+              minWidth: 0,
+            },
+            [`${token.componentCls}-item-meta-title-header`]: {
+              display: 'flex',
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              alignItems: 'center',
+              gap: 8,
+              flex: 1,
+              minWidth: 0,
+              '&-title': {
+                flexShrink: 0,
+                marginInlineEnd: 0,
+                wordBreak: 'break-word',
+                cursor: 'pointer',
+                '&:hover': {
+                  color: token.colorPrimary,
+                },
               },
-              '&:hover': {
-                color: token.colorPrimary,
+              '&-subTitle': {
+                display: 'inline-flex',
+                flexWrap: 'wrap',
+                alignItems: 'center',
+                gap: 4,
+                color: token.colorTextSecondary,
+              },
+
+            },
+          },
+        },
+        [`${token.componentCls}-item-content`]: {
+          position: 'relative',
+          display: 'flex',
+          flex: 1,
+          flexDirection: 'column',
+          marginBlock: 0,
+        },
+        [`${token.componentCls}-item-action`]: {
+          display: 'flex',
+          flex: '0 0 auto',
+        },
+      },
+      [`${token.antCls}-listy ${token.antCls}-listy-item:has(${token.componentCls}-item-main-editable)`]: {
+        '&:hover': {
+          backgroundColor: 'transparent',
+        },
+        [`${token.componentCls}-item-main`]: {
+          [`${token.componentCls}-item-header`]: {
+            [`${token.componentCls}-item-meta`]: {
+              [`${token.componentCls}-item-meta-avatar`]: {
+                marginBlockStart: token.marginXS,
+              },
+              [`${token.componentCls}-item-meta-content`]: {
+                [`${token.componentCls}-item-meta-title`]: {
+                  paddingBlock: token.paddingSM,
+                  paddingInline: 0,
+                },
+                [`${token.componentCls}-item-meta-description`]: {
+                  paddingBlock: token.paddingSM,
+                  paddingInline: 0,
+                },
               },
             },
           },
         },
       },
-      '&-item-content': {
-        position: 'relative',
-        display: 'flex',
-        flex: 1,
-        flexDirection: 'column',
-        marginBlock: 0,
-
+      [`${token.antCls}-listy ${token.antCls}-listy-item:has(${token.componentCls}-item-main-selected)`]: {
+        backgroundColor: token.colorPrimaryBg,
       },
-      '&-item-header + &-item-content': {
-        marginInlineStart: token.marginXL,
+      [`${token.antCls}-listy ${token.antCls}-listy-item:has(${token.componentCls}-item-main-type-top)`]: {
+        backgroundImage: 'url(https://gw.alipayobjects.com/zos/antfincdn/DehQfMbOJb/icon.svg)',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: '0 0',
+        backgroundSize: '12px 12px',
+      },
+      '&-no-split': {
+        [`${token.antCls}-listy ${token.antCls}-listy-item`]: {
+          borderBottom: 'none',
+        },
+      },
+      '&-filled': {
+        [`${token.antCls}-listy`]: {
+          backgroundColor: token.colorFillQuaternary,
+        },
+      },
+      [`${token.antCls}-listy${token.componentCls}-grid,${token.componentCls}-container${token.componentCls}-grid`]: {
+        width: '100%',
+        [`${token.componentCls}-grid-row`]: {
+          alignItems: 'stretch',
+        },
+        [`${token.componentCls}-grid-col`]: {
+          display: 'flex',
+          minWidth: 0,
+          [`> ${token.antCls}-pro-checkcard`]: {
+            display: 'flex',
+            flexDirection: 'column',
+            width: '100%',
+            [`> ${token.antCls}-card-body`]: {
+              flex: 1,
+              height: 'auto',
+            },
+          },
+        },
+        [`${token.componentCls}-grid-virtual`]: {
+          overflowX: 'hidden',
+          overscrollBehavior: 'contain',
+        },
+        [`${token.componentCls}-grid-virtual-inner`]: {
+          minWidth: 0,
+        },
+        [`${token.componentCls}-grid-virtual-row`]: {
+          contain: 'layout style',
+          '&:hover': {
+            backgroundColor: 'transparent',
+          },
+        },
+      },
+      '&-card-title': {
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        gap: token.marginXS,
+        minWidth: 0,
+      },
+      '&-card-subtitle': {
+        display: 'inline-flex',
+        alignItems: 'center',
+        color: token.colorTextSecondary,
+        fontSize: token.fontSizeSM,
+      },
+      '&-card-actions': {
+        display: 'inline-flex',
+        flexShrink: 0,
+        alignItems: 'center',
+        gap: token.marginXS,
+        whiteSpace: 'nowrap',
+      },
+      '&-pagination': {
+        marginBlockStart: token.margin,
+      },
+      '&-empty-text': {
+        padding: token.padding,
+        color: token.colorTextDisabled,
+        fontSize: token.fontSize,
+        textAlign: 'center',
+      },
+      [`${token.antCls}-listy${token.componentCls}-large`]: {
+        [`${token.componentCls}-item`]: {
+          paddingBlock: token.padding,
+          paddingInline: token.paddingLG,
+
+        },
+      },
+      [`${token.antCls}-listy${token.componentCls}-small`]: {
+        [`${token.componentCls}-item`]: {
+          paddingBlock: token.paddingXS,
+          paddingInline: token.paddingSM,
+        },
       },
     },
   }
@@ -163,17 +259,6 @@ const genProListyStyle: GenerateStyle<ProListyToken> = (token) => {
 export default useStyle('ProListy', (token) => {
   const proListyToken = mergeToken<ProListyToken>(token, {
     colorFillAlterSolid: token.colorFillAlterSolid,
-    // itemPadding: `${unit(token.paddingContentVertical)} 0`,
-    // itemPaddingSM: `${unit(token.paddingContentVerticalSM)} ${unit(token.paddingContentHorizontal)}`,
-    // itemPaddingLG: `${unit(token.paddingContentVerticalLG)} ${unit(token.paddingContentHorizontalLG)}`,
-    // headerBg: 'transparent',
-    // footerBg: 'transparent',
-    // emptyTextPadding: token.padding,
-    // metaMarginBottom: token.padding,
-    // avatarMarginRight: token.padding,
-    // titleMarginBottom: token.paddingSM,
-    // descriptionFontSize: token.fontSize,
-    // minHeight: token.controlHeightLG,
   })
 
   return [genProListyStyle(proListyToken)]

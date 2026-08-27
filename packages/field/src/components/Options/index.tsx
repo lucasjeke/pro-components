@@ -2,6 +2,7 @@ import type { CustomSlotsType, VueNode } from '@v-c/util/dist/type'
 import type { ProFieldFC } from '../../typing'
 import { proTheme } from '@antdv-next1/pro-provider'
 import { isSpecialNode } from '@antdv-next1/pro-utils'
+import { Flex } from 'antdv-next'
 import { useConfig } from 'antdv-next/config-provider/context'
 import { cloneVNode, computed, defineComponent, Fragment, isVNode } from 'vue'
 
@@ -43,18 +44,11 @@ const FieldOptions = defineComponent<FieldOptionsProps, {}, string, CustomSlotsT
         if (!doms || doms?.length < 1 || !Array.isArray(doms)) {
           return null
         }
-
         return (
-          <div
-            style={{
-              display: 'flex',
-              gap: token.value.margin,
-              alignItems: 'center',
-            }}
-            class={baseClassName.value}
-          >
+          <Flex class={baseClassName.value} justify="center" align="center" gap={token.value.marginXS}>
             {addArrayKeys(doms)}
-          </div>
+          </Flex>
+
         )
       }
       if (!text || !Array.isArray(text)) {
@@ -68,7 +62,7 @@ const FieldOptions = defineComponent<FieldOptionsProps, {}, string, CustomSlotsT
         <div
           style={{
             display: 'flex',
-            gap: token.value.margin,
+            gap: `${token.value.marginXS}px`,
             alignItems: 'center',
           }}
           class={baseClassName.value}

@@ -28,8 +28,6 @@ LoginForm 和 LoginFormPage 是面向登录页的 ProForm 布局。LoginForm 提
 
 LoginForm 继承 ProForm 的大部分属性。
 
-#### 属性 {#login-form-props}
-
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
 | title | 标题 | `VueNode \| false` | - | - |
@@ -42,8 +40,6 @@ LoginForm 继承 ProForm 的大部分属性。
 | otherStyle | actions 区域样式 | `CSSProperties` | - | - |
 
 ### LoginFormPage
-
-#### 属性 {#login-form-page-props}
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |

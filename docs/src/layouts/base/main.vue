@@ -7,7 +7,8 @@ import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useDocPage } from '@/composables/doc-page'
 import { useMobile } from '@/composables/mobile'
-import { useAppStore } from '@/stores/app'
+import { collectRouteMenuKeys, getMenuLocaleLabel, isRouteMenuItem } from '@/config/menu'
+import { useAppStore } from '@/store/modules/app'
 import Contributors from './components/contributors.vue'
 import Footer from './components/footer.vue'
 
@@ -20,14 +21,32 @@ const route = useRoute()
 
 function getMenuUrl(key: string) {
   const currentLocale = appStore.locale
-  if (currentLocale === 'zh-CN') {
-    return `${key}-cn`
+  if (currentLocale === 'en-US') {
+    return `/en-US${key}`
   }
   return key
 }
 
+function getSiderMenuLabel(key: unknown, label: unknown) {
+  return getMenuLocaleLabel({
+    key,
+    label,
+    locale: locale.value,
+    locales: siderLocales.value,
+  })
+}
+
+const siderRouteKeys = computed(() => collectRouteMenuKeys(siderMenus.value))
+
+function isSiderRouteKey(key: unknown): key is string {
+  return typeof key === 'string' && siderRouteKeys.value.has(key)
+}
+
 const handleMenuClick: MenuProps['onClick'] = (info) => {
   const key = info.key
+  if (!isSiderRouteKey(key))
+    return
+
   router.push({ path: getMenuUrl(key) })
 }
 
@@ -44,19 +63,20 @@ const pageTurning = computed(() => {
     [] as AntdvMenuItem[],
   )
   const currentPath = route.path
-  const currentIndex = menus.findIndex((item) => {
+  const routeMenus = menus.filter(isRouteMenuItem)
+  const currentIndex = routeMenus.findIndex((item) => {
     if (appStore.locale === 'zh-CN') {
       const replacePath = currentPath.replace('-cn', '')
       return item.key === replacePath
     }
     return item.key === currentPath
   })
-  const prev = currentIndex >= 0 && menus[currentIndex - 1]
-  const next = currentIndex <= menus.length && menus[currentIndex + 1]
+  const prev = currentIndex >= 0 && routeMenus[currentIndex - 1]
+  const next = currentIndex <= routeMenus.length && routeMenus[currentIndex + 1]
   const prevPath = prev ? getMenuUrl(prev.key as string) : ''
   const nextPath = next ? getMenuUrl(next.key as string) : ''
-  const prevLocale = prev && siderLocales.value?.[prev.key as string]?.[locale.value]
-  const nextLocale = next && siderLocales.value?.[next.key as string]?.[locale.value]
+  const prevLocale = prev && getSiderMenuLabel(prev.key, prev.label)
+  const nextLocale = next && getSiderMenuLabel(next.key, next.label)
   return {
     prev,
     next,
@@ -81,13 +101,16 @@ const pageTurning = computed(() => {
         @click="handleMenuClick"
       >
         <template #labelRender="{ key, label }">
-          <a
+          <router-link
+            v-if="isSiderRouteKey(key)"
             class="ant-doc-main-sider-menu-item-link"
-            :href="getMenuUrl(key as string)"
-            @click.prevent
+            :to="getMenuUrl(key)"
           >
-            {{ siderLocales?.[key]?.[locale] ?? label }}
-          </a>
+            {{ getSiderMenuLabel(key, label) }}
+          </router-link>
+          <span v-else>
+            {{ getSiderMenuLabel(key, label) }}
+          </span>
         </template>
         <template #extraRender="{ tag }">
           <template v-if="tag">
@@ -110,7 +133,6 @@ const pageTurning = computed(() => {
             loading
           </template>
         </Suspense>
-        <!-- prev and next -->
         <div class="ant-doc-main-section-pageTurning">
           <RouterLink v-show="pageTurning.prev" :to="pageTurning.prevPath" class="ant-doc-main-section-pageTurning-prev">
             <LeftOutlined class="ant-doc-main-section-pageTurning-arrow" />

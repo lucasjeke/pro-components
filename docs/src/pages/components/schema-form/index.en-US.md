@@ -25,7 +25,7 @@ Schema Form uses `columns` to describe form structure and generates ProForm fiel
 
 Schema Form inherits props from the selected `layoutType` and adds the following configs.
 
-#### Props {#props}
+Schema Form events come from the selected form layout, such as `finish`, `submit`, `reset`, `valuesChange`, `fieldsChange`, `loadingChange`, and `openChange`.
 
 | Property | Description | Type | Default | Version |
 | --- | --- | --- | --- | --- |
@@ -64,7 +64,3 @@ Schema Form inherits props from the selected `layoutType` and adds the following
 | request | Load options remotely | `ProFieldRequestData` | - | - |
 | params | Remote request params | `Record<string, any>` | - | - |
 | debounceTime | Remote request debounce time | `number` | - | - |
-
-#### Events {#events}
-
-Schema Form events come from the selected form layout, such as `finish`, `submit`, `reset`, `valuesChange`, `fieldsChange`, `loadingChange`, and `openChange`.

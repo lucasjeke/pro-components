@@ -1,7 +1,7 @@
 import type { CustomSlotsType } from '@v-c/util/dist/type'
 import type { SegmentedProps } from 'antdv-next'
 import type { VueNode } from 'antdv-next/dist/_util/type'
-import type { CSSProperties } from 'vue'
+import type { CSSProperties, DefineComponent } from 'vue'
 import type { ProFieldFC } from '../../typing'
 import type { FieldSelectProps } from '../Select'
 import { objectToMap, proFieldParsingText } from '@antdv-next1/pro-utils'
@@ -14,7 +14,7 @@ export type FieldSegmentedProps = ProFieldFC<{
   emptyText?: VueNode
 }, SegmentedProps & { class?: string, style?: CSSProperties, layout?: 'horizontal' | 'vertical' }> & Omit<FieldSelectProps, 'variant' | 'fieldProps' | 'id' | 'label' | 'labelTrigger' | 'lightLabel' | 'light' | 'plain'>
 
-const FieldSegmented = defineComponent<FieldSegmentedProps, {}, string, CustomSlotsType<{
+const FieldSegmented: DefineComponent<FieldSegmentedProps> = defineComponent<FieldSegmentedProps, {}, string, CustomSlotsType<{
   default?: () => VueNode
 }>>(
   (props, { expose }) => {

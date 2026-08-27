@@ -42,9 +42,9 @@ const genProStatisticStyle: GenerateStyle<ProStatisticToken> = (token) => {
       '&-description': {
         width: '100%',
       },
-      [`${token.antCls}-statistic-title`]: {
-        color: token.colorText,
-      },
+      // [`${token.antCls}-statistic-title`]: {
+      //   color: token.colorText,
+      // },
       '&-trend-up': {
         [`${token.antCls}-statistic-content`]: {
           color: '#f5222d',

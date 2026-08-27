@@ -1,6 +1,0 @@
-export { default as Listy } from './Listy'
-export { default } from './Listy'
-export { default as ListyItem } from './Item'
-export { default as ListyItemMeta } from './ItemMeta'
-export type { ListyItemProps } from './Item'
-export * from './typing'

@@ -14,11 +14,41 @@ export const cardLoading = new Keyframes('card-loading', {
 const genProCheckCardGroupStyle: GenerateStyle<ProCheckCardGroupToken> = (token) => {
   return {
     [token.componentCls]: {
-      display: 'inline-flex',
+      display: 'flex',
       flexWrap: 'wrap',
+      gap: token.margin,
       columnGap: token.margin,
       rowGap: token.margin,
       position: 'relative',
+      width: '100%',
+      '&-option-group': {
+        flex: '0 0 100%',
+        minWidth: 0,
+        width: '100%',
+        [`${token.antCls}-collapse-item`]: {
+          width: '100%',
+        },
+        [`${token.antCls}-collapse-panel`]: {
+          width: '100%',
+        },
+        [`${token.antCls}-collapse-content`]: {
+          width: '100%',
+        },
+        [`${token.antCls}-collapse-content-box`]: {
+          boxSizing: 'border-box',
+          width: '100%',
+        },
+      },
+      '&-options': {
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: token.margin,
+        columnGap: token.margin,
+        rowGap: token.margin,
+        position: 'relative',
+        minWidth: 0,
+        width: '100%',
+      },
       [`${token.antCls}-row`]: {
         width: '100%',
       },

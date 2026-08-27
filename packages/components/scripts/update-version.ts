@@ -9,25 +9,31 @@ const packagesDir = resolve(packageDir, '..')
 const packageNames = [
   '@antdv-next1/pro-card',
   '@antdv-next1/pro-components',
+  '@antdv-next1/pro-descriptions',
   '@antdv-next1/pro-field',
   '@antdv-next1/pro-form',
   '@antdv-next1/pro-layout',
   '@antdv-next1/pro-listy',
   '@antdv-next1/pro-provider',
+  '@antdv-next1/pro-skeleton',
   '@antdv-next1/pro-table',
   '@antdv-next1/pro-utils',
+  '@antdv-next1/route-utils',
 ] as const
 
 const packageDirMap: Record<(typeof packageNames)[number], string> = {
   '@antdv-next1/pro-card': 'card',
   '@antdv-next1/pro-components': 'components',
+  '@antdv-next1/pro-descriptions': 'descriptions',
   '@antdv-next1/pro-field': 'field',
   '@antdv-next1/pro-form': 'form',
   '@antdv-next1/pro-layout': 'layout',
   '@antdv-next1/pro-listy': 'listy',
   '@antdv-next1/pro-provider': 'provider',
+  '@antdv-next1/pro-skeleton': 'skeleton',
   '@antdv-next1/pro-table': 'table',
   '@antdv-next1/pro-utils': 'utils',
+  '@antdv-next1/route-utils': 'route-utils',
 }
 
 function readPackageVersion(packageName: (typeof packageNames)[number]) {

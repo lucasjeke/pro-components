@@ -20,7 +20,7 @@ import type { NamePath } from 'antdv-next/dist/form/types'
 import type { ColumnType, SorterResult, SortOrder, TablePaginationConfig } from 'antdv-next/dist/table/index'
 import type { ColumnFilterItem, CompareFn, TableCurrentDataSource } from 'antdv-next/dist/table/interface'
 import type { Dayjs } from 'dayjs'
-import type { ComputedRef, CSSProperties, Ref, ShallowRef, UnwrapRef, VNode } from 'vue'
+import type { ComputedRef, CSSProperties, Ref, UnwrapRef, VNode } from 'vue'
 import type { SearchConfig } from './components/Form/FormRender'
 import type { BaseToolbarProps, OptionConfig, ToolBarProps } from './components/ToolBar'
 import type { DensitySize } from './components/ToolBar/DensityIcon'
@@ -287,7 +287,7 @@ export type ProTableProps<DataSource, U, ValueType = 'text'> = {
   searchFormRender?: (
     props: ProTableProps<DataSource, U, ValueType>,
     defaultDom: VueNode,
-  ) => VNode | VNode[]
+  ) => VNode
 
   /** @name request 一个获得 dataSource 的方法 */
   request?: (
@@ -463,7 +463,7 @@ export type ProTableProps<DataSource, U, ValueType = 'text'> = {
 
 export type ActionType<T extends Record<string, any>, U> = ProCoreActionType<T, U> & {
   /** 原生 DOM 元素引用 */
-  nativeElement?: ComputedRef<HTMLDivElement | null | undefined>
+  nativeElement?: HTMLDivElement | null
   /** 聚焦方法 */
   focus?: () => void
   fullScreen: () => Promise<void>
@@ -484,7 +484,7 @@ export type ActionType<T extends Record<string, any>, U> = ProCoreActionType<T, 
   ) => void
 }
 export type ProTableInstance<T extends Record<string, any>> = {
-  formRef: ShallowRef<ProFormInstance<T>> | ComputedRef<ProFormInstance<T>>
+  formRef: ProFormInstance<T>
 } & ActionType<Record<string, any>, T>
 
 /**

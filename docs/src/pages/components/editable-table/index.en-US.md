@@ -16,7 +16,16 @@ EditableProTable is an editable table built on ProTable. It is useful when users
 ## Examples {#examples}
 
 <demo-group>
-  <demo src="./demo/basic.vue">Basic</demo>
+  <demo src="./demo/enum-editable-type.vue">Edit mode switch</demo>
+  <demo src="./demo/basic.vue">Editable Table</demo>
+   <demo src="./demo/cell-editor-table.vue">Cell editing</demo>
+  <demo src="./demo/row-editor-table.vue">Row editing</demo>
+  <demo src="./demo/form-item.vue">With Form.Item</demo>
+  <demo src="./demo/form-linkage.vue">Linked with outer form fields</demo>
+  <demo src="./demo/children.vue">Table with grouped child columns</demo>
+  <demo src="./demo/custom.vue">Custom editable table</demo>
+  <demo src="./demo/real-time-editing.vue">Real-time persisted editing</demo>
+  <demo src="./demo/complex.vue">Advanced sample</demo>
 </demo-group>
 
 ## API

@@ -5,7 +5,7 @@ import type { VueNode as AntVueNode } from 'antdv-next/dist/_util/type'
 import type { FormItemTooltipType } from 'antdv-next/dist/form/FormItemLabel'
 import type { NamePath } from 'antdv-next/dist/form/types'
 import type { PasswordProps } from 'antdv-next/dist/input/Password'
-import type { CSSProperties, Ref, VNode } from 'vue'
+import type { CSSProperties, VNode } from 'vue'
 import type { UseEditableUtilType } from './useEditableArray'
 
 export type WithFalse<T> = T | false
@@ -479,7 +479,7 @@ export type ProCoreActionType<T extends Record<string, any>, U> = {
   /** @name clearSelected 清空选择 */
   clearSelected?: () => Promise<void>
   /** @name pageInfo 页面的信息都在里面 */
-  pageInfo?: Ref<PageInfo>
+  pageInfo?: PageInfo
 } & Omit<
   Partial<UseEditableUtilType<U>>,
   'newLineRecord' | 'editableKeys' | 'actionRender' | 'setEditableRowKeys'
@@ -524,7 +524,7 @@ export type ProSchema<
    * @name formItemProps 自定义的 formItemProps
    */
   formItemProps?:
-    | (FormItemProps & ExtraFormItemProps)
+    | (FormItemProps & { style?: CSSProperties, class?: string } & ExtraFormItemProps)
     | ((
       form: FormInstance,
       config: ProSchema<Entity, ExtraProps, ComponentsType, ValueType, ExtraFormItemProps> & {
@@ -534,7 +534,7 @@ export type ProSchema<
         rowIndex: number
         entity: Entity
       },
-    ) => FormItemProps & ExtraFormItemProps)
+    ) => FormItemProps & { style?: CSSProperties, class?: string } & ExtraFormItemProps)
   /**
    * 修改的数据是会被 valueType 消费
    *

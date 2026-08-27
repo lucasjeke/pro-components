@@ -1,29 +1,33 @@
 import type { MenuItemType } from 'antdv-next'
-import type { InnerLocale } from '@/utils/locale'
+import type { InnerLocale } from '#/config'
 import locales from '@/locales'
 
 export const headerItems: MenuItemType[] = [
   {
-    key: '/docs/vue',
-    label: '/docs/vue',
+    key: '/',
+    label: '/home',
+  },
+  {
+    key: '/docs',
+    label: '/docs',
   },
   {
     key: '/components',
     label: '/components',
   },
-  // {
-  //   key: '/playground',
-  //   label: '/playground',
-  // },
+  {
+    key: '/changelog',
+    label: '/changelog',
+  },
 ]
 
 // Helper to flatten nested header locales
 function flattenHeaderLocales(nestedLocales: typeof locales['zh-CN']['menu']['header']) {
   return {
-    '/docs/vue': nestedLocales.docs.vue,
+    '/': nestedLocales.home,
+    '/docs': nestedLocales.docs,
     '/components': nestedLocales.components,
-    '/docs/resources': nestedLocales.resources,
-    // '/playground': nestedLocales.playground,
+    '/changelog': nestedLocales.changelog,
   }
 }
 

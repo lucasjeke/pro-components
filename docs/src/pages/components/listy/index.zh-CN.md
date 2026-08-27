@@ -23,6 +23,20 @@ ProListy 是基于 ProTable 数据流和 Listy 展示结构封装的高级列表
   <demo src="./demo/columns-api.vue">使用 columns + listSlot</demo>
   <demo src="./demo/card-columns.vue">卡片列表</demo>
   <demo src="./demo/grid.vue">网格配置</demo>
+  <demo src="./demo/shared-columns.vue">表格/列表一键切换</demo>
+  <demo src="./demo/search-columns.vue"> 搜索列表（columns + request）</demo>
+  <demo src="./demo/editable-columns.vue"> 可编辑列表（columns）</demo>
+  <demo src="./demo/editable.vue"> 编辑列表</demo>
+  <demo src="./demo/toolbar.vue"> 带工具栏的列表</demo>
+  <demo src="./demo/expand.vue"> 支持展开的列表</demo>
+  <demo src="./demo/selection.vue"> 支持选中的列表</demo>
+  <demo src="./demo/search.vue"> 查询列表</demo>
+  <demo src="./demo/filter.vue">带筛选和异步请求的列表</demo>
+  <demo src="./demo/size.vue"> 大小和分割线</demo>
+  <demo src="./demo/layout.vue">竖排样式</demo>
+  <demo src="./demo/special.vue">一些预设的模式</demo>
+  <demo src="./demo/pagination.vue">翻页</demo>
+  <demo src="./demo/custom-render.vue">自定义列表项（itemRender）</demo>
 </demo-group>
 
 ## API
@@ -30,8 +44,6 @@ ProListy 是基于 ProTable 数据流和 Listy 展示结构封装的高级列表
 ### ProListy
 
 ProListy 继承 ProTable 的数据请求、查询表单、分页、工具栏和列配置能力。
-
-#### 属性 {#props}
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
@@ -44,29 +56,25 @@ ProListy 继承 ProTable 的数据请求、查询表单、分页、工具栏和�
 | toolbar | 工具栏配置 | `BaseToolbarProps` | - | - |
 | toolBarRender | 自定义工具栏操作 | `false \| ToolBarRender` | - | - |
 | grid | 网格布局配置 | `ProListyGridType` | - | - |
+| virtual | 是否启用虚拟滚动；卡片模式需要同时设置 `height` | `boolean` | `false` | - |
+| height | 虚拟滚动可视区域高度 | `number` | - | - |
 | itemLayout | 列表项布局 | `'horizontal' \| 'vertical'` | - | - |
 | variant | 列表项外观 | `'outlined' \| 'borderless' \| 'filled'` | - | - |
 | itemCardProps | 卡片列表项配置 | `ProCheckCardProps` | - | - |
 | rowClassName | 列表项类名 | `string \| ((item, index) => string)` | - | - |
 | itemRender | 自定义列表项渲染 | `(item, index, dom) => VueNode` | - | - |
 
-#### ProColumns listSlot
+### listSlot
 
-| 值 | 说明 |
-| --- | --- |
-| `title` | 映射到列表项标题 |
-| `subTitle` | 映射到列表项副标题 |
-| `avatar` | 映射到头像区域 |
-| `description` | 映射到描述区域 |
-| `content` | 映射到主体内容 |
-| `actions` | 映射到操作区 |
-| `aside` | 映射到侧边内容 |
-| `type` | 映射到类型标识 |
+| 值 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| `title` | 映射到列表项标题 | `VueNode` | - |
+| `subTitle` | 映射到列表项副标题 | `VueNode` | - |
+| `avatar` | 映射到头像区域 | `VueNode` | - |
+| `description` | 映射到描述区域 | `VueNode` | - |
+| `content` | 映射到主体内容 | `VueNode` | - |
+| `actions` | 映射到操作区 | `VueNode` | - |
+| `aside` | 映射到侧边内容 | `VueNode` | - |
+| `type` | 映射到类型标识 | `VueNode` | - |
 
-#### 事件 {#events}
-
-ProListy 继承 ProTable 的 `load`、`loadingChange`、`requestError`、`submit`、`reset`、`dataSourceChange` 等事件。
-
-#### 方法 {#methods}
-
-组件实例继承 ProTable 实例方法，并额外包含底层 Listy 暴露的方法。
+。

@@ -10,25 +10,40 @@ const genProCardStyle: GenerateStyle<ProCardToken> = (token) => {
   const { componentCls } = token
   return {
     [componentCls]: {
+      position: 'relative',
       [`${token.antCls}-card-body`]: {
         height: '100%',
+      },
+      [`&${componentCls}-checked`]: {
+        backgroundColor: token.controlItemBgActive,
+        borderColor: token.controlOutline,
+        '&::after': {
+          position: 'absolute',
+          insetBlockStart: 2,
+          insetInlineEnd: 2,
+          width: 0,
+          height: 0,
+          border: `6px solid ${token.colorPrimary}`,
+          borderBlockEndColor: 'transparent',
+          borderInlineStartColor: 'transparent',
+          borderStartEndRadius: 2,
+          content: '""',
+        },
       },
       [`&${token.antCls}-collapse`]: {
         position: 'relative',
         borderColor: token.colorBorderSecondary,
         backgroundColor: 'transparent',
-        [`&:not(${componentCls}-split)`]: {
-          [`${token.antCls}-collapse-item`]: {
+        [`&:not(${componentCls}-split):not(${token.antCls}-collapse-small)`]: {
+          [`${token.antCls}-collapse-item:not(${token.antCls}-collapse-item-active)`]: {
             [`${token.antCls}-collapse-header`]: {
-              paddingBlockEnd: `${unit(token.padding)} !important`,
+              paddingBlockEnd: unit(token.padding),
             },
           },
-          [`${token.antCls}-collapse-item`]: {
-            '&-active': {
-              [`${token.antCls}-collapse-panel`]: {
-                [`${token.antCls}-collapse-body`]: {
-                  paddingBlockStart: `${unit(token.paddingLG)} !important`,
-                },
+          [`${token.antCls}-collapse-item-active`]: {
+            [`${token.antCls}-collapse-panel`]: {
+              [`${token.antCls}-collapse-body`]: {
+                paddingBlockStart: `${unit(token.paddingLG)} !important`,
               },
             },
           },
@@ -36,7 +51,7 @@ const genProCardStyle: GenerateStyle<ProCardToken> = (token) => {
         [`&${componentCls}-split:not(${token.antCls}-collapse-small)`]: {
           [`${token.antCls}-collapse-item:not(${token.antCls}-collapse-item-active)`]: {
             [`${token.antCls}-collapse-header`]: {
-              paddingBlockEnd: `${unit(token.padding)} !important`,
+              paddingBlockEnd: unit(token.padding),
             },
           },
         },
@@ -60,16 +75,20 @@ const genProCardStyle: GenerateStyle<ProCardToken> = (token) => {
           },
         },
         [`&${componentCls}-headerBordered`]: {
-          borderBlockStart: `${unit(token.lineWidth)} ${token.lineType} ${token.colorBorderSecondary}`,
+          [`${token.antCls}-collapse-item:not(${token.antCls}-collapse-item-active) > ${token.antCls}-collapse-header`]: {
+            borderBlockEnd: 0,
+          },
+          [`${token.antCls}-collapse-item-active > ${token.antCls}-collapse-header`]: {
+            borderBlockEnd: `${unit(token.lineWidth)} ${token.lineType} ${token.colorBorderSecondary}`,
+            borderBottomLeftRadius: 0,
+            borderBottomRightRadius: 0,
+          },
         },
         [`${token.antCls}-collapse-panel`]: {
           borderBlockStart: `${unit(0)} ${token.lineType} ${token.colorBorderSecondary}`,
           boxSizing: 'border-box',
           borderBottomLeftRadius: token.borderRadius,
           borderBottomRightRadius: token.borderRadius,
-          [`${token.antCls}-collapse-body`]: {
-            height: '100%',
-          },
         },
         '&&-ghost': {
           [`${token.antCls}-collapse-item`]: {
@@ -89,7 +108,7 @@ const genProCardStyle: GenerateStyle<ProCardToken> = (token) => {
           '&-active': {
             [`${token.antCls}-collapse-header`]: {
               transition: 'none',
-              paddingBlockEnd: 0,
+              paddingBlockEnd: unit(token.padding),
             },
           },
           [`${token.antCls}-collapse-header`]: {
@@ -115,22 +134,79 @@ const genProCardStyle: GenerateStyle<ProCardToken> = (token) => {
           minHeight: 0,
           paddingBlock: token.padding,
         },
-        [`${token.antCls}-collapse-body`]: {
-          display: 'flex',
-          flexWrap: 'wrap',
-          flexDirection: 'column',
-          [`&${componentCls}-body-layout-center`]: {
-            justifyContent: 'center',
-          },
-        },
       },
       [`${componentCls}-body-direction-column`]: {
         display: 'flex',
         flexDirection: 'column',
       },
+      [`${componentCls}-body-layout-center`]: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
       [`${componentCls}-row`]: {
         display: 'flex',
         flexDirection: 'column',
+      },
+      '&-divider': {
+        flex: 'none',
+        width: token.lineWidth,
+        marginInline: token.marginXS,
+        marginBlock: token.marginLG,
+        backgroundColor: token.colorSplit,
+        '&-horizontal': {
+          width: 'initial',
+          height: token.lineWidth,
+          marginInline: token.marginLG,
+          marginBlock: token.marginXS,
+        },
+      },
+      [`&${componentCls}-loading`]: {
+        overflow: 'hidden',
+        [`${componentCls}-body`]: {
+          userSelect: 'none',
+        },
+      },
+      [`${componentCls}-loading-content`]: {
+        width: '100%',
+        [`> ${token.antCls}-row + ${token.antCls}-row`]: {
+          marginBlockStart: token.marginXS,
+        },
+        [`${token.antCls}-skeleton`]: {
+          display: 'block',
+          [`${token.antCls}-skeleton-section`]: {
+            display: 'block',
+          },
+          [`${token.antCls}-skeleton-title`]: {
+            height: 14,
+          },
+        },
+      },
+      [`&${componentCls}-tabs-layout`]: {
+        [`> ${token.antCls}-card-body`]: {
+          padding: 0,
+        },
+        [`${componentCls}-tabs`]: {
+          [`${token.antCls}-tabs-content-holder`]: {
+            minWidth: 0,
+          },
+          [`${componentCls}-tabs-content`]: {
+            padding: token.paddingLG,
+          },
+          [`&${token.antCls}-tabs-top > ${token.antCls}-tabs-nav`]: {
+            marginBlockEnd: 0,
+            paddingInline: token.paddingLG,
+          },
+          [`&${token.antCls}-tabs-bottom > ${token.antCls}-tabs-nav`]: {
+            marginBlockStart: 0,
+            marginBlockEnd: 0,
+            paddingInline: token.paddingLG,
+          },
+          [`&${token.antCls}-tabs-left > ${token.antCls}-tabs-nav, &${token.antCls}-tabs-right > ${token.antCls}-tabs-nav`]: {
+            margin: 0,
+            paddingBlock: token.paddingLG,
+          },
+        },
       },
       [`${componentCls}-split-vertical`]: {
         borderInlineEnd: `${unit(token.lineWidth)} ${token.lineType} ${token.colorSplit}`,

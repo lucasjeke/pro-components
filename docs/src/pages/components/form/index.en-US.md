@@ -37,8 +37,6 @@ ProForm extends antdv-next Form with submitter, request-driven initial values, r
 
 ProForm passes through most antdv-next Form props.
 
-#### Props {#form-props}
-
 | Property | Description | Type | Default | Version |
 | --- | --- | --- | --- | --- |
 | submitter | Submitter config. Set to `false` to hide | `SubmitterProps \| false` | `true` | - |
@@ -58,18 +56,13 @@ ProForm passes through most antdv-next Form props.
 | isKeyPressSubmit | Submit by Enter key | `boolean` | - | - |
 | autoFocusFirstInput | Auto focus first input | `boolean` | `true` | - |
 | formKey | Key used to distinguish forms | `string` | - | - |
-
-#### Events {#form-events}
-
-| Event | Description | Type | Version |
-| --- | --- | --- | --- |
-| finish | Triggered when form submits successfully | `(values) => boolean \| void \| Promise<boolean \| void>` | - |
-| submit | Triggered when submitter submits | `(values) => void` | - |
-| reset | Triggered when form resets | `(values) => void` | - |
-| valuesChange | Triggered when form values change | `(changedValues, values) => void` | - |
-| fieldsChange | Triggered when form fields change | `(changedFields, allFields) => void` | - |
-| loadingChange | Triggered when loading changes | `(loading: boolean) => void` | - |
-| init | Triggered when form instance is initialized | `(values, form) => void` | - |
+| onFinish | Triggered when form submits successfully | `(values) => boolean \| void \| Promise<boolean \| void>` | - | - |
+| onSubmit | Triggered when submitter submits | `(values) => void` | - | - |
+| onReset | Triggered when form resets | `(values) => void` | - | - |
+| onValuesChange | Triggered when form values change | `(changedValues, values) => void` | - | - |
+| onFieldsChange | Triggered when form fields change | `(changedFields, allFields) => void` | - | - |
+| onLoadingChange | Triggered when loading changes | `(loading: boolean) => void` | - | - |
+| onInit | Triggered when form instance is initialized | `(values, form) => void` | - | - |
 
 #### Methods {#form-methods}
 

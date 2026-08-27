@@ -325,6 +325,9 @@ const Toolbar = defineComponent(<T extends Record<string, any>, U extends Record
   const [isMobile, setIsMobile] = useState(false)
 
   const searchConfig = computed(() => {
+    if (props.toolbar?.search !== undefined) {
+      return props.toolbar.search
+    }
     if (!props.options) {
       return false
     }
@@ -354,20 +357,19 @@ const Toolbar = defineComponent(<T extends Record<string, any>, U extends Record
     if (isVNode(searchConfig.value)) {
       return searchConfig.value
     }
+    const { onSearch, ...inputSearchProps } = searchConfig.value
     return (
       <InputSearch
-        {...searchConfig.value}
+        {...inputSearchProps}
         style={{ width: unit(200) }}
         placeholder={intl.value.getMessage({
           id: 'tableForm.inputPlaceholder',
           defaultMessage: '请输入',
         })}
         onSearch={async (...restParams) => {
-          if (searchConfig.value && !isVNode(searchConfig.value)) {
-            const success = await searchConfig.value?.onSearch(...restParams)
-            if (success !== false) {
-              props.onSearch?.(restParams?.[0])
-            }
+          const success = await onSearch?.(...restParams)
+          if (success !== false) {
+            props.onSearch?.(restParams?.[0])
           }
         }}
       />
@@ -376,10 +378,11 @@ const Toolbar = defineComponent(<T extends Record<string, any>, U extends Record
 
   /** 轻量筛选组件 */
   const filtersNode = computed(() => {
-    if (searchNode.value) {
+    if (props.searchNode || props.toolbar?.filter) {
       return (
         <div class={classNames(`${baseClassName.value}-filter`, hashId.value, cssVarCls.value)}>
-          {searchNode.value}
+          {props.searchNode}
+          {props.toolbar?.filter}
         </div>
       )
     }
@@ -391,7 +394,12 @@ const Toolbar = defineComponent(<T extends Record<string, any>, U extends Record
     () => props.toolbar?.menu || (props.headerTitle || props.toolbar?.title) || props.toolbar?.subTitle || props.toolbar?.tooltip,
   )
   // 操作列表
-  const actions = computed(() => props.toolBarRender ? props.toolBarRender(props.action, { selectedRowKeys: props.selectedRowKeys, selectedRows: props.selectedRows! }) : [])
+  const actions = computed(() => [
+    ...(props.toolbar?.actions || []),
+    ...(props.toolBarRender
+      ? props.toolBarRender(props.action, { selectedRowKeys: props.selectedRowKeys, selectedRows: props.selectedRows! })
+      : []),
+  ])
 
   const actionDom = computed(() => {
     if (!Array.isArray(actions.value)) {
@@ -450,6 +458,9 @@ const Toolbar = defineComponent(<T extends Record<string, any>, U extends Record
   }, [() => counter.keyWords?.value])
 
   const optionDom = computed(() => {
+    if (props.toolbar?.settings !== undefined) {
+      return props.toolbar.settings
+    }
     const defaultOptions = {
       reload: () => props.action?.reload?.(),
       density: true,
@@ -523,7 +534,7 @@ const Toolbar = defineComponent(<T extends Record<string, any>, U extends Record
       return (
         <div class={classNames(`${baseClassName.value}-left`, hashId.value, cssVarCls.value)}>
           <div class={classNames(`${baseClassName.value}-title`, hashId.value, cssVarCls.value)}>
-            <LabelIconTip tooltip={props.tooltip} label={props.headerTitle || props.toolbar?.title} subTitle={props.toolbar?.subTitle} />
+            <LabelIconTip tooltip={props.tooltip || props.toolbar?.tooltip} label={props.headerTitle || props.toolbar?.title} subTitle={props.toolbar?.subTitle} />
           </div>
         </div>
       )
@@ -543,7 +554,7 @@ const Toolbar = defineComponent(<T extends Record<string, any>, U extends Record
         )}
         {props.toolbar?.menu && (
         // 这里面实现了 tabs 的逻辑
-          <HeaderMenu {...props.toolbar?.menu} prefixCls={prefixCls.value} hashId={hashId.value} cssVarCls={cssVarCls.value} />
+          <HeaderMenu {...props.toolbar?.menu} prefixCls={baseClassName.value} hashId={hashId.value} cssVarCls={cssVarCls.value} />
         )}
         {!hasTitle.value && searchNode.value ? (
           <div class={classNames(`${prefixCls.value}-search`, hashId.value, cssVarCls.value)}>{searchNode.value}</div>

@@ -3,8 +3,8 @@ import fs from 'node:fs/promises'
 import pm from 'picomatch'
 import { normalizePath } from 'vite'
 import { parse } from 'vue/compiler-sfc'
-import { createMarkdown, loadBaseMd, loadShiki } from '../markdown'
-import { tsToJs } from './tsToJs'
+import { createMarkdown, loadBaseMd, loadShiki } from '../markdown.ts'
+import { tsToJs } from './tsToJs.ts'
 
 /**
  * 将绝对路径转换为相对于项目根目录的路径

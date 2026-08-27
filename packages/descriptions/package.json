@@ -1,0 +1,66 @@
+{
+  "name": "@antdv-next1/pro-descriptions",
+  "type": "module",
+  "version": "1.0.1",
+  "description": "@antdv-next1/pro-descriptions",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucasjeke/pro-components.git",
+    "directory": "packages/descriptions"
+  },
+  "sideEffects": [
+    "./dist/pro-descriptions.esm.js"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./dist/*": {
+      "types": "./dist/*.d.ts",
+      "import": "./dist/*.js",
+      "default": "./dist/*.js"
+    },
+    "./dist/pro-descriptions.esm.js": "./dist/pro-descriptions.esm.js"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md",
+    "dist",
+    "package.json"
+  ],
+  "scripts": {
+    "build": "run-s build:esm build:full-esm",
+    "build:esm": "tsdown --config-loader unrun",
+    "build:full-esm": "vite build",
+    "prepublish": "pnpm build"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "Firefox ESR",
+    "> 1%",
+    "ie >= 11"
+  ],
+  "peerDependencies": {
+    "antdv-next": ">=1.5.1",
+    "vue": ">=3.5.30"
+  },
+  "dependencies": {
+    "@antdv-next1/pro-field": "workspace:*",
+    "@antdv-next1/pro-form": "workspace:*",
+    "@antdv-next1/pro-provider": "workspace:*",
+    "@antdv-next1/pro-skeleton": "workspace:*",
+    "@antdv-next1/pro-utils": "workspace:*"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "authors": [
+    "lucasjeke <lucasjekeqd@gmail.com> (https://github.com/lucasjeke)"
+  ]
+}

@@ -27,14 +27,10 @@ ProFormDependency 用于在 ProForm 中监听指定字段并基于最新值渲�
 
 ### ProFormDependency
 
-#### 属性 {#props}
+默认插槽会收到 `{ values, form }`，其中 `values` 是按 `name` 提取出的依赖字段值，`form` 是增强后的 ProForm 实例。
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
 | name | 依赖字段列表 | `NamePath[]` | - | - |
 | originDependencies | 原始依赖字段路径，用于自定义 values 输出结构 | `NamePath[]` | `name` | - |
 | ignoreFormListField | 在 FormList 中是否忽略当前 list 前缀，从全局表单取值 | `boolean` | `false` | - |
-
-### 使用说明 {#notes}
-
-默认插槽会收到 `{ values, form }`，其中 `values` 是按 `name` 提取出的依赖字段值，`form` 是增强后的 ProForm 实例。

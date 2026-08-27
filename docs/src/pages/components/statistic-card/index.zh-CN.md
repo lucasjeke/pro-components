@@ -19,6 +19,18 @@ StatisticCard 基于 ProCard 和 Statistic 封装，用于展示核心指标、�
 
 <demo-group>
   <demo src="./demo/basic.vue">基本使用</demo>
+  <demo src="./demo/chart.vue">只有图表</demo>
+  <demo src="./demo/total.vue">总分/主次关系</demo>
+  <demo src="./demo/total-layout.vue">总分/业绩目标</demo>
+  <demo src="./demo/group-chart.vue">分组指标带图表</demo>
+  <demo src="./demo/fomula.vue">公式计算指标</demo>
+  <demo src="./demo/status.vue">状态展示</demo>
+  <demo src="./demo/icon.vue">图标展示</demo>
+  <demo src="./demo/layout.vue">卡片布局</demo>
+  <demo src="./demo/horizontal.vue">图表在右</demo>
+  <demo src="./demo/horizontal-left.vue">图表在左</demo>
+  <demo src="./demo/tabs-statistic.vue">指标页签联动</demo>
+  <demo src="./demo/trend.vue">环比趋势</demo>
 </demo-group>
 
 ## API
@@ -26,8 +38,6 @@ StatisticCard 基于 ProCard 和 Statistic 封装，用于展示核心指标、�
 ### StatisticCard
 
 StatisticCard 继承 ProCard 的大部分属性。
-
-#### 属性 {#props}
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
@@ -39,8 +49,6 @@ StatisticCard 继承 ProCard 的大部分属性。
 ### Statistic
 
 StatisticCard 暴露 `StatisticCard.Statistic`，也可以从包中直接导入 `Statistic`。
-
-#### 属性 {#statistic-props}
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |

@@ -28,8 +28,6 @@ LoginForm and LoginFormPage are ProForm layouts for login scenarios. LoginForm p
 
 LoginForm inherits most ProForm props.
 
-#### Props {#login-form-props}
-
 | Property | Description | Type | Default | Version |
 | --- | --- | --- | --- | --- |
 | title | Title | `VueNode \| false` | - | - |
@@ -42,8 +40,6 @@ LoginForm inherits most ProForm props.
 | otherStyle | Actions area style | `CSSProperties` | - | - |
 
 ### LoginFormPage
-
-#### Props {#login-form-page-props}
 
 | Property | Description | Type | Default | Version |
 | --- | --- | --- | --- | --- |

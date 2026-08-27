@@ -1,6 +1,6 @@
 import type { PluginOption } from 'vite'
-import { demoPlugin } from './demo'
-import { md2VuePlugin } from './md2vue'
+import { demoPlugin } from './demo/index.ts'
+import { md2VuePlugin } from './md2vue.ts'
 
 export function mdPlugin(): PluginOption[] {
   return [

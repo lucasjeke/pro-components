@@ -140,7 +140,7 @@ const CellRenderFromItem = defineComponent(<T extends Record<string, any>, U ext
             recordKey,
             record: {
               ...rowData,
-              ...editableForm?.getFieldsValue([key]),
+              ...editableForm?.getFieldValue(rowName),
             } as T,
             isEditable: true,
           },

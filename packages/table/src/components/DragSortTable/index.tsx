@@ -3,17 +3,18 @@ import type { ProFieldValueObjectType, ProFieldValueType } from '@antdv-next1/pr
 import type { VueNode } from '@v-c/util'
 import type { CustomSlotsType } from '@v-c/util/dist/type'
 import type { SetupContext } from 'vue'
-import type { ProTableProps } from '../../typing'
+import type { ProTableInstance, ProTableProps } from '../../typing'
 import { useToken } from '@antdv-next1/pro-provider'
 import { HolderOutlined } from '@antdv-next/icons'
 import { classNames, useMergedState } from '@v-c/util'
 import { useConfig } from 'antdv-next/config-provider/context'
-import { computed, defineComponent, toRef } from 'vue'
+import { computed, defineComponent, shallowRef, toRef } from 'vue'
 import ProTable from '../../Table'
+import { useProTableInstanceExpose } from '../../utils'
 import { useDragSort } from '../../utils/useDragSort'
 import useStyle from './style'
 
-export type DragSortTableProps<T, U, ValueType> = ProTableProps<T, U, ValueType> & {
+export type DragSortProTableProps<T, U, ValueType> = ProTableProps<T, U, ValueType> & {
   /** @name dragSortKey 拖动排序列key值 如配置此参数，则会在该 key 对应的行显示拖拽排序把手，允许拖拽排序 */
   dragSortKey?: string
   /** @name dragSortHandlerRender 渲染自定义拖动排序把手的函数 如配置了 dragSortKey 但未配置此参数，则使用默认把手图标 */
@@ -26,10 +27,11 @@ export type DragSortTableProps<T, U, ValueType> = ProTableProps<T, U, ValueType>
   ) => Promise<void> | void
 }
 
-const DragSortTable = defineComponent(<DataType extends Record<string, any>, Params extends ParamsType = ParamsType, ValueType extends (ProFieldValueType | ProFieldValueObjectType) = 'text'>(props: DragSortTableProps<DataType, Params, ValueType>, { slots, attrs, expose }: SetupContext<{}, CustomSlotsType<{
+const DragSortProTable = defineComponent(<DataType extends Record<string, any>, Params extends ParamsType = ParamsType, ValueType extends (ProFieldValueType | ProFieldValueObjectType) = 'text'>(props: DragSortProTableProps<DataType, Params, ValueType>, { slots, attrs, expose }: SetupContext<{}, CustomSlotsType<{
   default?: () => VueNode
 }>>) => {
   const config = useConfig()
+  const tableRef = shallowRef<ProTableInstance<DataType> | null>(null)
   const [dataSource, setDataSource] = useMergedState<DataType[]>(
     () => props.defaultData || [],
     {
@@ -75,7 +77,7 @@ const DragSortTable = defineComponent(<DataType extends Record<string, any>, Par
     setDataSource(ds)
     return props.onLoad?.(ds)
   }
-  expose({})
+  expose(useProTableInstanceExpose(tableRef))
   return () => {
     const {
       rowKey,
@@ -91,6 +93,7 @@ const DragSortTable = defineComponent(<DataType extends Record<string, any>, Par
     return (
       <ProTable
         {...otherProps}
+        ref={tableRef}
         class={classNames(attrs.class, baseClassName.value, hashId.value, cssVarCls.value)}
         columns={otherProps.columns?.map((item) => {
           if (item.dataIndex === dragSortKey || item.key === dragSortKey) {
@@ -116,4 +119,4 @@ const DragSortTable = defineComponent(<DataType extends Record<string, any>, Par
   props: ['tableAlertRender', 'dragSortKey', 'dragSortHandlerRender', 'onDragSortEnd', 'tableAlertOptionRender', 'beforeSearchSubmit', 'columnEmptyText', 'editable', 'options', 'tooltip', 'search', 'headerTitle', 'tableStyle', 'toolBarRender', 'optionsRender', 'columnsState', 'onSizeChange', 'toolbar', 'bodyCell', 'bordered', 'caption', 'cardBordered', 'cardProps', 'childrenColumnName', 'classes', 'columns', 'components', 'dataSource', 'dateFormatter', 'debounceTime', 'defaultData', 'defaultExpandAllRows', 'defaultExpandedRowKeys', 'direction', 'dropdownPrefixCls', 'expandIcon', 'expandIconColumnIndex', 'expandRowByClick', 'expandable', 'expandedRowClassName', 'expandedRowKeys', 'expandedRowRender', 'footer', 'form', 'getContainerWidth', 'getPopupContainer', 'ghost', 'headerCell', 'id', 'indentSize', 'loading', 'locale', 'manualRequest', 'measureRowRender', 'name', 'onDataSourceChange', 'onExpand', 'onExpandedRowsChange', 'onHeaderRow', 'onLoad', 'onLoadingChange', 'onRequestError', 'onReset', 'onRow', 'onSubmit', 'pagination', 'params', 'polling', 'postData', 'prefixCls', 'request', 'revalidateOnFocus', 'rootClass', 'rowClassName', 'rowHoverable', 'rowKey', 'rowSelection', 'scroll', 'searchFormRender', 'showHeader', 'showSorterTooltip', 'size', 'sortDirections', 'sticky', 'styles', 'summary', 'tableClass', 'tableExtraRender', 'tableLayout', 'tableRender', 'tableViewRender', 'tailor', 'title', 'type', 'virtual'],
 })
 
-export default DragSortTable
+export default DragSortProTable

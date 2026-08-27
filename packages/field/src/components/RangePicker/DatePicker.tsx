@@ -5,7 +5,14 @@ import { useIntl } from '@antdv-next1/pro-provider'
 import { FieldLabel, parseValueToDay, useState } from '@antdv-next1/pro-utils'
 import { DateRangePicker, Space } from 'antdv-next'
 import dayjs from 'dayjs'
+import advancedFormat from 'dayjs/plugin/advancedFormat'
+import quarterOfYear from 'dayjs/plugin/quarterOfYear'
+import weekOfYear from 'dayjs/plugin/weekOfYear'
 import { defineComponent } from 'vue'
+
+dayjs.extend(advancedFormat)
+dayjs.extend(quarterOfYear)
+dayjs.extend(weekOfYear)
 
 export type FieldDateRangePickerProps = ProFieldFC<{
   text: string[]
@@ -16,18 +23,38 @@ export type FieldDateRangePickerProps = ProFieldFC<{
   picker?: 'time' | 'date' | 'week' | 'month' | 'quarter' | 'year'
 } & ProFieldLightProps, RangePickerProps>
 
+type FormatType = FieldDateRangePickerProps['format'] | RangePickerProps['format']
+
+function getFormatByIndex(format: FormatType, index: 0 | 1) {
+  if (Array.isArray(format)) {
+    return format[index] || format[0]
+  }
+  if (typeof format === 'object' && format && 'format' in format) {
+    return format.format
+  }
+  return format
+}
+
+function formatRangeDateText(text: any, format: FormatType, index: 0 | 1) {
+  if (!text)
+    return ''
+  const date = dayjs(text)
+  const currentFormat = getFormatByIndex(format, index)
+  if (typeof currentFormat === 'function') {
+    return date.isValid() ? currentFormat(date) : String(text)
+  }
+  if (!date.isValid()) {
+    return String(text)
+  }
+  return date.format(currentFormat || 'YYYY-MM-DD')
+}
+
 const FieldDateRangePicker = defineComponent<FieldDateRangePickerProps, {}, string, CustomSlotsType<{
   default?: () => VueNode
 }>>(
   (props, { slots }) => {
     const intl = useIntl()
     const [open, setOpen] = useState<boolean>(false)
-    const genFormatText = (formatValue: dayjs.Dayjs) => {
-      if (typeof props.fieldProps?.format === 'function') {
-        return props.fieldProps?.format?.(formatValue)
-      }
-      return props.fieldProps?.format || props.format || 'YYYY-MM-DD'
-    }
 
     return () => {
       const {
@@ -47,13 +74,10 @@ const FieldDateRangePicker = defineComponent<FieldDateRangePickerProps, {}, stri
         ...rest
       } = props
       const [startText, endText] = Array.isArray(text) ? text : []
+      const mergedFormat = fieldProps?.format || format || 'YYYY-MM-DD'
 
-      const parsedStartText: string = startText
-        ? dayjs(startText).format(genFormatText(dayjs(startText)) as string)
-        : ''
-      const parsedEndText: string = endText
-        ? dayjs(endText).format(genFormatText(dayjs(endText)) as string)
-        : ''
+      const parsedStartText = formatRangeDateText(startText, mergedFormat, 0)
+      const parsedEndText = formatRangeDateText(endText, mergedFormat, 1)
       if (mode === 'read') {
         const dom = (
           <Space align="center" wrap>

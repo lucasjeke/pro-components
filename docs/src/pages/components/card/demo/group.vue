@@ -3,7 +3,7 @@
 </docs>
 
 <docs lang="en-US">
-配合 `ghost`幽灵模式和可折叠能力可以实现卡片组展开。
+Combine ghost mode with a collapsible parent card to build an expandable card group.
 </docs>
 
 <script setup lang="ts">
@@ -12,8 +12,21 @@ import { ProCard } from '@antdv-next1/pro-components'
 
 <template>
   <div class="p-6">
-    <ProCard>
-      asdas
+    <ProCard
+      title="Card Group Expanded"
+      collapsible
+      ghost
+      :gutter="8"
+    >
+      <ProCard layout="center">
+        Card Content
+      </ProCard>
+      <ProCard layout="center">
+        Card Content
+      </ProCard>
+      <ProCard layout="center">
+        Card Content
+      </ProCard>
     </ProCard>
   </div>
 </template>

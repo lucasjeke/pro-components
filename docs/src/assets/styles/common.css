@@ -1,6 +1,24 @@
 /* 图标库引用（如果需要） */
 @import url('https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css');
+@import './fonts/fonts.css';
+@font-face {
+  font-family: AliPuHui;
+  font-weight: normal;
+  src:
+    url('//at.alicdn.com/t/webfont_exesdog9toj.woff2') format('woff2'),
+    url('//at.alicdn.com/t/webfont_exesdog9toj.woff') format('woff'),
+    url('//at.alicdn.com/t/webfont_exesdog9toj.ttf') format('truetype');
+  font-display: swap;
+}
 
+@font-face {
+  font-family: AliPuHui;
+  font-weight: bold;
+  src:
+    url('https://at.alicdn.com/wf/webfont/exMpJIukiCms/Gsw2PSKrftc1yNWMNlXgw.woff2') format('woff2'),
+    url('https://at.alicdn.com/wf/webfont/exMpJIukiCms/vtu73by4O2gEBcvBuLgeu.woff') format('woff');
+  font-display: swap;
+}
 .site-button-ghost-wrapper {
   padding: 16px;
   background: rgb(190, 200, 200);
@@ -10,6 +28,7 @@ html,
 body {
   margin: 0;
   padding: 0;
+  /* background-color: rgb(248, 248, 250); */
   scrollbar-width: thin;
   scrollbar-color: #eaeaea transparent;
 }

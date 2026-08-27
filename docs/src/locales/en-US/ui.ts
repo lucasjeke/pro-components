@@ -44,13 +44,14 @@ export default {
   },
 
   docSearch: {
-    placeholder: 'Search docs and components...',
+    placeholder: 'Type keywords...',
     emptyText: 'No results found',
     loadingText: 'Loading search index...',
     sections: {
       components: 'Components',
       docs: 'Docs',
-      blog: 'Blog',
+      changelog: 'Changelog',
+      playground: 'Playground',
     },
   },
 } as const

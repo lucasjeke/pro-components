@@ -1,7 +1,7 @@
 {
   "name": "@antdv-next1/route-utils",
   "type": "module",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "@antdv-next1/route-utils",
   "repository": {
     "type": "git",
@@ -30,6 +30,7 @@
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
+    "CHANGELOG.md",
     "dist",
     "package.json"
   ],
@@ -47,6 +48,6 @@
     "access": "public"
   },
   "authors": [
-    "Chao Song <lucasjekeqd@gmail.com> (https://github.com/lucasjeke)"
+    "lucasjeke <lucasjekeqd@gmail.com> (https://github.com/lucasjeke)"
   ]
 }

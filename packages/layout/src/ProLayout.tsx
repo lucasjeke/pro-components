@@ -35,7 +35,6 @@ type GlobalTypes = Omit<
   },
   'collapsed'
 >
-// multiTab
 export type ProLayoutProps = GlobalTypes & {
   stylish?: {
     header?: GenerateStyle<SiderMenuToken>

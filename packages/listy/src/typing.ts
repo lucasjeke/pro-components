@@ -2,8 +2,7 @@ import type { ProCheckCardProps } from '@antdv-next1/pro-card'
 import type { ProTableInstance, ProTableProps } from '@antdv-next1/pro-table'
 import type { GetComponentProps } from '@v-c/table'
 import type { VueNode } from '@v-c/util/dist/type'
-import type { RowProps, TooltipProps } from 'antdv-next'
-import type { ListyProps, ListyRef } from './components/Listy'
+import type { ListyProps, ListyRef, RowProps, TooltipProps } from 'antdv-next'
 
 export type ColumnCount = number
 
@@ -23,9 +22,9 @@ export type ListySize = 'small' | 'default' | 'large'
 
 export type ListyItemLayout = 'horizontal' | 'vertical'
 
-export type AntdListyProps<RecordType> = Omit<ListyProps<RecordType>, 'variant' | 'rowKey' | 'items' | 'itemRender'>
+export type AntdListyProps = Omit<ListyProps, 'rowKey' | 'items' | 'itemRender'>
 
-export type ProListyProps<RecordType = any, Params = Record<string, any>, ValueType = 'text'> = Omit<ProTableProps<RecordType, Params, ValueType>, 'size' | 'footer'> & AntdListyProps<RecordType> & {
+export type ProListyProps<RecordType = any, Params = Record<string, any>, ValueType = 'text'> = Omit<ProTableProps<RecordType, Params, ValueType>, 'size' | 'footer'> & AntdListyProps & {
   tooltip?: TooltipProps & {
     icon?: VueNode
   } | string
@@ -35,8 +34,11 @@ export type ProListyProps<RecordType = any, Params = Record<string, any>, ValueT
   itemRender?: (item: RecordType, index: number, dom: VueNode) => VueNode
   onRow?: GetComponentProps<RecordType>
   onItem?: GetComponentProps<RecordType>
+  grid?: ProListyGridType
+  split?: boolean
+  size?: ListySize
+  itemLayout?: ListyItemLayout
+  loadMore?: VueNode
 }
 
 export type ProListyInstance<RecordType extends Record<string, any>> = ListyRef & ProTableInstance<RecordType>
-
-export type { ListyRef }

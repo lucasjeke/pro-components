@@ -1,5 +1,5 @@
 import type { CustomSlotsType, VueNode } from '@v-c/util/dist/type'
-import type { App, ComponentOptionsMixin, CreateComponentPublicInstanceWithMixins, Plugin, SetupContext } from 'vue'
+import type { App, ComponentOptionsMixin, CreateComponentPublicInstanceWithMixins, CSSProperties, Plugin, SetupContext } from 'vue'
 import type { ProListyInstance, ProListyProps } from './typing'
 import { ProConfigProvider } from '@antdv-next1/pro-provider'
 import { transformBooleanProps } from '@antdv-next1/pro-utils'
@@ -42,6 +42,8 @@ const _BaseProListy = defineComponent(
           <InternalProListy
             ref={listyRef}
             {...attrs}
+            class={attrs.class as string}
+            style={attrs.style as CSSProperties}
             cardProps={false}
             search={false}
             toolBarRender={false}
@@ -57,6 +59,8 @@ const _BaseProListy = defineComponent(
     name: 'BaseProListy',
     inheritAttrs: false,
     props: [
+      'grid',
+      'itemLayout',
       'variant',
       'split',
       'beforeSearchSubmit',
@@ -100,7 +104,7 @@ const _BaseProListy = defineComponent(
       'id',
       'indentSize',
       'itemCardProps',
-      'itemHeight',
+      'tooltip',
       'itemRender',
       'loading',
       'locale',
@@ -158,6 +162,9 @@ const _BaseProListy = defineComponent(
       'type',
       'virtual',
       'onItem',
+      'classes',
+      'styles',
+      'loadMore',
     ],
   },
 ) as new <RecordType extends Record<string, any>, U extends Record<string, any> = Record<string, any>>(

@@ -29,8 +29,6 @@ ModalForm and DrawerForm are ProForm-based layer forms rendered inside Modal and
 
 ModalForm inherits most ProForm props.
 
-#### Props {#modal-form-props}
-
 | Property | Description | Type | Default | Version |
 | --- | --- | --- | --- | --- |
 | trigger | Node that opens the modal | `VNode` | - | - |
@@ -39,20 +37,13 @@ ModalForm inherits most ProForm props.
 | title | Modal title | `VueNode` | - | - |
 | width | Modal width | `ModalProps['width']` | `800` | - |
 | submitTimeout | Timeout for disabling cancel button during submit | `number` | - | - |
-
-#### Events {#modal-form-events}
-
-| Event | Description | Type | Version |
-| --- | --- | --- | --- |
-| update:open | Triggered when open state changes | `(open: boolean) => void` | - |
-| openChange | Triggered when open state changes | `(open: boolean) => void` | - |
-| finish | Triggered on successful submit. Truthy return closes the modal | `(formData) => Promise<any>` | - |
+| onUpdate:open | Triggered when open state changes | `(open: boolean) => void` | - | - |
+| onOpenChange | Triggered when open state changes | `(open: boolean) => void` | - | - |
+| onFinish | Triggered on successful submit. Truthy return closes the modal | `(formData) => Promise<any>` | - | - |
 
 ### DrawerForm
 
 DrawerForm inherits most ProForm props.
-
-#### Props {#drawer-form-props}
 
 | Property | Description | Type | Default | Version |
 | --- | --- | --- | --- | --- |
@@ -63,10 +54,5 @@ DrawerForm inherits most ProForm props.
 | width | Drawer width | `DrawerProps['size']` | `800` | - |
 | resize | Enable resizing or provide resize config | `boolean \| { minWidth?: DrawerProps['size']; maxWidth?: DrawerProps['size']; resize?: () => void }` | `false` | - |
 | submitTimeout | Timeout for disabling cancel button during submit | `number` | - | - |
-
-#### Events {#drawer-form-events}
-
-| Event | Description | Type | Version |
-| --- | --- | --- | --- |
-| openChange | Triggered when open state changes | `(open: boolean) => void` | - |
-| finish | Triggered on successful submit. Truthy return closes the drawer | `(formData) => Promise<any>` | - |
+| onOpenChange | Triggered when open state changes | `(open: boolean) => void` | - | - |
+| onFinish | Triggered on successful submit. Truthy return closes the drawer | `(formData) => Promise<any>` | - | - |

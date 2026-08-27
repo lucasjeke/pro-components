@@ -3,6 +3,9 @@ export default {
   components: {
     overview: '组件总览',
     changelog: '更新日志',
+    architectureDesign: '架构设计',
+    design: 'Component - 组件设计',
+    schema: 'Schema - 通用配置',
     // Layout
     layoutGroup: '布局',
     layout: 'ProLayout 高级布局',
@@ -27,10 +30,10 @@ export default {
     editableTable: 'EditableProTable 编辑表格',
     dragSortTable: 'DragSortProTable 拖动排序表格',
     listy: 'ProListy 高级列表',
-    // descriptions: 'ProDescriptions 描述列表',
+    descriptions: 'ProDescriptions 定义列表',
     // General
     general: '通用',
-    // skeleton: 'ProSkeleton 骨架屏',
+    skeleton: 'ProSkeleton 骨架屏',
     field: 'ProField 原子组件',
   },
 } as const

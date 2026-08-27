@@ -6,6 +6,72 @@ title: Component Changelog
 
 > This page is generated from package `CHANGELOG.md` files. Run `pnpm bump` before publishing.
 
+## V2.0.0
+
+**Release date:** 2026-08-27
+
+This release shows 4 highlights from 24 updates across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-form`, `@antdv-next1/pro-table`, `@antdv-next1/pro-card`, `@antdv-next1/pro-descriptions`, `@antdv-next1/pro-field`, `@antdv-next1/pro-listy`, `@antdv-next1/pro-provider`, `@antdv-next1/pro-skeleton`, `@antdv-next1/pro-utils`, `@antdv-next1/route-utils`.
+
+### Highlights
+
+- **@antdv-next1/pro-components**: feat!: remove the UMD bundle target from aggregate package builds.
+- **@antdv-next1/pro-components**: feat: publish ProDescriptions and ProSkeleton from the aggregate package.
+- **@antdv-next1/pro-card**: feat!: remove the UMD bundle target from package builds.
+- **@antdv-next1/pro-descriptions**: feat: publish ProDescriptions with an ESM bundle.
+- See folded details below for the remaining updates.
+
+<details>
+<summary>Show dependency versions</summary>
+
+### Details
+
+### Features
+
+- **@antdv-next1/pro-components**: feat!: remove the UMD bundle target from aggregate package builds.
+- **@antdv-next1/pro-components**: feat: publish ProDescriptions and ProSkeleton from the aggregate package.
+- **@antdv-next1/pro-card**: feat!: remove the UMD bundle target from package builds.
+- **@antdv-next1/pro-descriptions**: feat: publish ProDescriptions with an ESM bundle.
+- **@antdv-next1/pro-field**: feat!: remove the UMD bundle target from package builds.
+- **@antdv-next1/pro-form**: feat!: remove the UMD bundle target from package builds.
+- **@antdv-next1/pro-layout**: feat!: remove the UMD bundle target from package builds.
+- **@antdv-next1/pro-listy**: feat!: remove the UMD bundle target from package builds.
+- **@antdv-next1/pro-provider**: feat!: remove the UMD bundle target from package builds.
+- **@antdv-next1/pro-skeleton**: feat: publish ProSkeleton with an ESM bundle.
+- **@antdv-next1/pro-table**: feat!: remove the UMD bundle target from package builds.
+- **@antdv-next1/pro-utils**: feat!: remove the UMD bundle target from package builds.
+
+### Docs
+
+- **@antdv-next1/pro-components**: docs: sync structured changelog pages for every package.
+- **@antdv-next1/pro-card**: docs: sync structured changelog pages for every package.
+- **@antdv-next1/pro-descriptions**: docs: sync structured changelog pages for every package.
+- **@antdv-next1/pro-field**: docs: sync structured changelog pages for every package.
+- **@antdv-next1/pro-form**: docs: sync structured changelog pages for every package.
+- **@antdv-next1/pro-layout**: docs: sync structured changelog pages for every package.
+- **@antdv-next1/pro-listy**: docs: sync structured changelog pages for every package.
+- **@antdv-next1/pro-provider**: docs: sync structured changelog pages for every package.
+- **@antdv-next1/pro-skeleton**: docs: sync structured changelog pages for every package.
+- **@antdv-next1/pro-table**: docs: sync structured changelog pages for every package.
+- **@antdv-next1/pro-utils**: docs: sync structured changelog pages for every package.
+- **@antdv-next1/route-utils**: docs: sync structured changelog pages for every package.
+
+### Dependencies
+
+- **@antdv-next1/pro-components**: Updated dependencies
+  - @antdv-next1/pro-card@3.0.0
+  - @antdv-next1/pro-descriptions@1.0.1
+  - @antdv-next1/pro-field@2.0.0
+  - @antdv-next1/pro-form@2.0.0
+  - @antdv-next1/pro-layout@2.0.0
+  - @antdv-next1/pro-listy@2.0.0
+  - @antdv-next1/pro-provider@2.0.0
+  - @antdv-next1/pro-skeleton@1.0.1
+  - @antdv-next1/pro-table@2.0.0
+  - @antdv-next1/pro-utils@2.0.0
+  - @antdv-next1/route-utils@1.0.7
+
+</details>
+
 ## V1.0.45
 
 **Release date:** 2026-07-28
@@ -38,12 +104,14 @@ This release includes 2 highlights across `@antdv-next1/pro-components`, `@antdv
 
 **Release date:** 2026-07-26
 
-This release includes 2 highlights across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-table`, `@antdv-next1/pro-card`, `@antdv-next1/pro-listy`.
+This release includes 3 highlights across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-table`, `@antdv-next1/pro-card`, `@antdv-next1/pro-listy`.
 
 ### Highlights
 
 - **@antdv-next1/pro-components**: Fix CheckCard group option style passthrough and fixed left sider placeholder width.
 - **@antdv-next1/pro-card**: Fix CheckCard group option style passthrough and fixed left sider placeholder width.
+- **@antdv-next1/pro-layout**: Fix CheckCard group option style passthrough and fixed left sider placeholder width.
+  - @antdv-next1/pro-listy@1.0.26
 
 <details>
 <summary>Show dependency versions</summary>
@@ -54,6 +122,8 @@ This release includes 2 highlights across `@antdv-next1/pro-components`, `@antdv
 
 - **@antdv-next1/pro-components**: Fix CheckCard group option style passthrough and fixed left sider placeholder width.
 - **@antdv-next1/pro-card**: Fix CheckCard group option style passthrough and fixed left sider placeholder width.
+- **@antdv-next1/pro-layout**: Fix CheckCard group option style passthrough and fixed left sider placeholder width.
+  - @antdv-next1/pro-listy@1.0.26
 
 ### Dependencies
 

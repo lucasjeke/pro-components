@@ -26,8 +26,6 @@ ProFormList 用于录入结构化数组数据，支持新增、删除、复制�
 
 ### ProFormList
 
-#### 属性 {#props}
-
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
 | name | 列表字段名 | `NamePath` | - | - |
@@ -50,20 +48,10 @@ ProFormList 用于录入结构化数组数据，支持新增、删除、复制�
 | itemContainerRender | 自定义列表项容器 | `(doms, listMeta) => VueNode` | - | - |
 | actionRender | 自定义每项操作按钮 | `(field, action, defaultActionDom, count) => VueNode[]` | - | - |
 | fieldExtraRender | 自定义字段额外内容 | `(fieldAction, meta) => VueNode` | - | - |
-
-#### 事件 {#events}
-
-| 事件名 | 说明 | 类型 | 版本 |
-| --- | --- | --- | --- |
-| afterAdd | 新增成功后触发 | `(...params) => void` | - |
-| afterRemove | 删除成功后触发 | `(...params) => void` | - |
-
-#### 方法 {#methods}
-
-| 方法 | 说明 | 类型 | 版本 |
-| --- | --- | --- | --- |
-| add | 新增一项 | `(defaultValue?: StoreValue, insertIndex?: number) => void` | - |
-| remove | 删除一项或多项 | `(index: number \| number[]) => void` | - |
-| move | 移动项目位置 | `(from: number, to: number) => void` | - |
-| get | 获取指定项 | `(index: number) => StoreValue` | - |
-| getList | 获取整个列表 | `() => StoreValue[]` | - |
+| onAfterAdd | 新增成功后触发 | `(...params) => void` | - | - |
+| onAfterRemove | 删除成功后触发 | `(...params) => void` | - | - |
+| onAdd | 新增一项 | `(defaultValue?: StoreValue, insertIndex?: number) => void` | - | - |
+| onRemove | 删除一项或多项 | `(index: number \| number[]) => void` | - | - |
+| onMove | 移动项目位置 | `(from: number, to: number) => void` | - | - |
+| onGet | 获取指定项 | `(index: number) => StoreValue` | - | - |
+| onGetList | 获取整个列表 | `() => StoreValue[]` | - | - |

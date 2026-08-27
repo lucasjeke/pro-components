@@ -33,6 +33,7 @@ export type ProCheckCardProps = CardMetaProps & Omit<CardProps, 'title'
     /** 边框流光 */
     borderBeam?: BorderBeamProps | boolean
     size?: CardProps['size'] | 'large'
+    ghost?: boolean
     checked?: boolean
     value?: string | number | boolean
     'onUpdate:value'?: (value: boolean) => void
@@ -167,6 +168,7 @@ const _ProCheckCard = defineComponent<ProCheckCardProps, {}, string, CustomSlots
     const descriptionDom = transformVueNodeType(description)
     const coverDom = transformVueNodeType(cover)
     const extraDom = transformVueNodeType(extra)
+    const cardVariant = restCardProps.variant ?? (bordered ? 'outlined' : 'borderless')
     const avatarDom = (typeof avatar === 'string' && isUrl(avatar) && isImg(avatar)) ? (<Avatar size={48} shape="square" src={avatar as string} />) : transformVueNodeType(avatar)
     const headerDom = isNil(titleDom ?? extraDom) ? null : (
       <>
@@ -194,9 +196,10 @@ const _ProCheckCard = defineComponent<ProCheckCardProps, {}, string, CustomSlots
           [`${baseClassName.value}-disabled`]: disabled,
           [`${baseClassName.value}-${sizeCls}`]: sizeCls,
         })}
-        borderBeam={!propsChecked && borderBeam ? borderBeam : undefined}
+        borderBeam={borderBeam || undefined}
         disabled={disabled}
         {...restCardProps}
+        variant={cardVariant}
         loading={cardLoading}
         onClick={(e) => {
           if (!cardLoading && !disabled) {

@@ -17,6 +17,8 @@ DragSortTable 在 ProTable 的基础上增加行拖拽排序能力。通过 `dra
 
 <demo-group>
   <demo src="./demo/drag-sort.vue">基础用法</demo>
+   <demo src="./demo/custom-handle.vue">拖拽排序(自定义把手)</demo>
+  <demo src="./demo/request.vue">使用 request 获取数据源</demo>
 </demo-group>
 
 ## API
@@ -25,20 +27,8 @@ DragSortTable 在 ProTable 的基础上增加行拖拽排序能力。通过 `dra
 
 DragSortTable 继承 ProTable 的大部分属性。
 
-#### 属性 {#props}
-
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
 | dragSortKey | 拖拽把手所在列的 `dataIndex` 或 `key` | `string` | - | - |
-| dragSortHandlerRender | 自定义拖拽把手渲染 | `(rowData: Record<string, any>, index: number) => VueNode` | 默认把手图标 | - |
-
-#### 事件 {#events}
-
-| 事件名 | 说明 | 类型 | 版本 |
-| --- | --- | --- | --- |
-| dragSortEnd | 拖拽排序结束时触发 | `(beforeIndex?: number \| string, afterIndex?: number \| string, newDataSource?: Record<string, any>[]) => Promise<void> \| void` | - |
-
-### 使用说明 {#notes}
-
-- `dragSortKey` 对应列如果没有 `render`，组件会自动把该列渲染为空内容并放置拖拽把手。
-- 排序后的数据通过 `dragSortEnd` 交给业务处理，组件不会自动提交到服务端。
+| dragSortHandlerRender | 自定义拖拽把手渲染 | `(rowData: Record<string, any>, index: number) => VueNode` | - | - |
+| onDragSortEnd | 拖拽排序结束时触发 | `(beforeIndex?: number \| string, afterIndex?: number \| string, newDataSource?: Record<string, any>[]) => Promise<void> \| void` | - | - |

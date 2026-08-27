@@ -36,8 +36,6 @@ QueryFilter and LightFilter are ProForm layouts for filtering. QueryFilter is su
 
 QueryFilter inherits most ProForm props.
 
-#### Props {#query-filter-props}
-
 | Property | Description | Type | Default | Version |
 | --- | --- | --- | --- | --- |
 | defaultCollapsed | Default collapsed state | `boolean` | `true` | - |
@@ -55,18 +53,12 @@ QueryFilter inherits most ProForm props.
 | showHiddenNum | Show hidden field count | `boolean` | `false` | - |
 | submitterColSpanProps | Submitter Col config | `ColProps & { span?: number }` | - | - |
 | containerStyle | Container style | `CSSProperties` | - | - |
+| onReset | Triggered when reset | `(values) => void` | - | - |
+| onFinish | Triggered when submit | `(values) => void \| Promise<void>` | - | - |
+| onValuesChange | Triggered when values change | `(changedValues, values) => void` | - | - |
 
-#### Events {#query-filter-events}
-
-| Event | Description | Type | Version |
-| --- | --- | --- | --- |
-| reset | Triggered when reset | `(values) => void` | - |
-| finish | Triggered when submit | `(values) => void \| Promise<void>` | - |
-| valuesChange | Triggered when values change | `(changedValues, values) => void` | - |
 
 ### LightFilter
-
-#### Props {#light-filter-props}
 
 | Property | Description | Type | Default | Version |
 | --- | --- | --- | --- | --- |

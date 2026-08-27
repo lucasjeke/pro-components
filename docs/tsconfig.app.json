@@ -5,6 +5,7 @@
     "lib": ["esnext", "dom"],
     "paths": {
       "@/*": ["./src/*"],
+      "#/*": ["./types/*"],
       "@antdv-next1/pro-layout": ["../packages/layout/src"],
       "@antdv-next1/pro-provider": ["../packages/provider/src"],
       "@antdv-next1/pro-field": ["../packages/field/src"],
@@ -14,10 +15,13 @@
       "@antdv-next1/pro-card": ["../packages/card/src"],
       "@antdv-next1/pro-form": ["../packages/form/src"],
       "@antdv-next1/pro-table": ["../packages/table/src"],
+      "@antdv-next1/pro-descriptions": ["../packages/descriptions/src"],
+      "@antdv-next1/pro-skeleton": ["../packages/skeleton/src"],
       "@antdv-next1/pro-components": ["../packages/components/src"]
     },
     "types": [
-      "vite/client"
+      "vite/client",
+      "antdv-next/global"
     ],
 
     /* Linting */
@@ -35,6 +39,8 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
-    "src/**/*.vue"
+    "src/**/*.vue",
+    "types/**/*.d.ts",
+    "types/**/*.ts"
   ]
 }

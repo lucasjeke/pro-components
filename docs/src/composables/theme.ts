@@ -1,9 +1,7 @@
+import type { ThemeMode } from '#/config'
 import { storeToRefs } from 'pinia'
 import { nextTick } from 'vue'
-import { useAppStore } from '@/stores/app'
-import { themeModeStore } from './local-store'
-
-export type ThemeMode = 'system' | 'light' | 'dark'
+import { useAppStore } from '@/store/modules/app'
 
 export function applyThemeToDOM(isDark: boolean) {
   const html = document.documentElement
@@ -101,8 +99,7 @@ export function useTheme() {
 
   function setThemeMode(mode: ThemeMode, event?: MouseEvent) {
     let shouldBeDark: boolean
-
-    themeModeStore.value = mode
+    appStore.setTheme(mode)
 
     if (mode === 'system') {
       shouldBeDark = window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -123,7 +120,7 @@ export function useTheme() {
 
   function toggleDark(event?: MouseEvent) {
     const shouldBeDark = !darkMode.value
-    themeModeStore.value = shouldBeDark ? 'dark' : 'light'
+    appStore.setTheme(shouldBeDark ? 'dark' : 'light')
     executeViewTransition(event, () => {
       appStore.toggleDarkMode(shouldBeDark)
       applyThemeToDOM(shouldBeDark)

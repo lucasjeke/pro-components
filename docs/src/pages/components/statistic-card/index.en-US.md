@@ -27,8 +27,6 @@ StatisticCard is built with ProCard and Statistic for displaying key metrics, tr
 
 StatisticCard inherits most ProCard props.
 
-#### Props {#props}
-
 | Property | Description | Type | Default | Version |
 | --- | --- | --- | --- | --- |
 | statistic | Statistic value config | `StatisticProps` | - | - |
@@ -39,8 +37,6 @@ StatisticCard inherits most ProCard props.
 ### Statistic
 
 StatisticCard exposes `StatisticCard.Statistic`; `Statistic` can also be imported directly from the package.
-
-#### Props {#statistic-props}
 
 | Property | Description | Type | Default | Version |
 | --- | --- | --- | --- | --- |

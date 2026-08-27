@@ -44,6 +44,29 @@ import { ProCard } from '@antdv-next1/pro-card'
 </template>
 ```
 
+### Collapsible Card
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import { ProCard } from '@antdv-next1/pro-card'
+
+const collapsed = ref(false)
+</script>
+
+<template>
+  <ProCard
+    v-model:collapsed="collapsed"
+    title="Collapsible Card"
+    collapsible="icon"
+  >
+    Card content
+  </ProCard>
+</template>
+```
+
+`colSpan` accepts a 24-grid number, a fixed `px`/percentage string, or a responsive object such as `{ xs: 24, md: 8 }`. Tabs are configured with `tabList`, `tabProps`, and `v-model:active-tab-key`.
+
 ### Statistic Card
 
 ```vue

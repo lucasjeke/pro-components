@@ -2,7 +2,7 @@ import type { DragEndEvent } from '@dnd-kit/dom'
 import type { TableComponents } from '@v-c/table/dist/interface.js'
 import type { VueNode } from '@v-c/util'
 import type { GlobalToken } from 'antdv-next'
-import type { ComputedRef, FunctionalComponent, InjectionKey, PropType, Ref } from 'vue'
+import type { ComputedRef, FunctionalComponent, InjectionKey, PropType, Ref, SlotsType } from 'vue'
 import { FastColor } from '@ant-design/fast-color'
 import { childrenToArray, isSpecialNode, useEffect } from '@antdv-next1/pro-utils'
 import { RestrictToVerticalAxis } from '@dnd-kit/abstract/modifiers'
@@ -16,17 +16,16 @@ import {
   defineComponent,
   inject,
   isVNode,
-  onBeforeUpdate,
+  markRaw,
   provide,
   reactive,
   ref,
+  shallowRef,
 } from 'vue'
 
 const sortableItemValueContextKey: InjectionKey<{ handle: VueNode }> = Symbol(
   'sortableItemValueContext',
 )
-// props: { handle: VueNode }
-//  provide(sortableItemValueContextKey, props);
 const SortableItemContextValue = {
   Provider: defineComponent({
     name: 'Provider',
@@ -72,16 +71,10 @@ function SortableRow(props: any, { slots }: any) {
                 ),
               }}
             >
-              {/* {child} */}
               {cloneVNode(child, {
                 ...child.props,
                 sortable,
                 token,
-                // style: {
-                //   ...child.props?.style,
-                //   background: sortable?.isDragging?.value ? '#f1f5f9' : undefined,
-                // },
-                // class: `${child.props?.class} ${sortable?.isDragging?.value ? 'ant-table-row-hover' : ''}`,
               })}
             </SortableItemContextValue.Provider>,
           )
@@ -140,15 +133,11 @@ function SortContainer(props: any, { slots }: any) {
 function SortableItemCell(props: any, { slots }: any) {
   const { dragSortKey, sortable, token, ...rest } = props
   const bg = new FastColor(token.colorFillAlter).onBackground(token.colorBgContainer).toHexString()
-  //   .onBackground(colorBgContainer)
-  //   .toHexString();
   const { handle } = inject(sortableItemValueContextKey, { handle: null })
-  // class={`${rest.class} ${sortable?.isDragging?.value ? `${rest.class.split(' ')[0]}-row-hover` : ''}`}
   if (handle) {
     return (
       <td
         {...rest}
-        // class={`${rest.class} ${sortable?.isDragging?.value ? `${rest.class.split(' ')[0]}-row-hover` : ''}`}
         style={{ ...rest.style, background: sortable?.isDragging?.value ? bg : undefined }}
       >
         <div
@@ -163,12 +152,9 @@ function SortableItemCell(props: any, { slots }: any) {
       </td>
     )
   }
-  // class={`${rest.class} ${sortable?.isDragging?.value ? `${rest.class.split(' ')[0]}-row-hover` : ''}`}
-  // ${sortable?.isDragging?.value ? `${rest.class}-row-hover` : ''}
   return (
     <td
       {...rest}
-      //  class={`${rest.class} ${sortable?.isDragging?.value ? `${rest.class.split(' ')[0]}-row-hover` : ''}`}
       style={{ ...rest.style, background: sortable?.isDragging?.value ? bg : undefined }}
     >
       {slots.default?.()}
@@ -177,55 +163,59 @@ function SortableItemCell(props: any, { slots }: any) {
 }
 export function useDragSort(props: UseDragSortOptions) {
   const components = reactive<TableComponents<any>>(props.components?.value || {})
-  const itemRefs = ref<(HTMLElement | null)[]>([])
-  const handleRefs = ref<(HTMLElement | null)[]>([])
   const element = ref<HTMLElement | null>(null)
-  onBeforeUpdate(() => {
-    itemRefs.value = []
-    handleRefs.value = []
-    element.value = null
-  })
-  const setHandleRef = (el: HTMLElement | null) => {
-    if (el) {
-      handleRefs.value.push(el)
-    }
-  }
-  const setItemRef = (el: HTMLElement | null) => {
-    if (el) {
-      itemRefs.value.push(el)
-    }
-  }
 
   const DraggableContainer = (p: any, ctx: any) => SortContainer({ ...p, ref: element }, ctx)
-  const DraggableBodyRow = (p: any, ctx: any) => {
-    const index = props.dataSource?.value
-      .findIndex((item: any) => item[props.rowKey.value ?? 'index'] === p['data-row-key'])
-      ?.toString()
-    const sortable = useSortable({
-      id: computed(() => index!),
-      index: computed(() => Number(index)!),
-      type: 'row',
-      accept: 'row',
-      element: itemRefs.value[index as unknown as number],
-      handle: handleRefs.value[index as unknown as number],
-      // modifiers: [RestrictToVerticalAxis],
-    })
+  const DraggableBodyRow = defineComponent<
+    {},
+    {},
+    string,
+    SlotsType<{ default?: () => VueNode }>
+  >(
+    (_, { attrs, slots }) => {
+      const itemRef = shallowRef<HTMLElement | null>(null)
+      const handleRef = shallowRef<HTMLElement | null>(null)
+      const rowId = computed(() => attrs['data-row-key'] as string | number)
+      const index = computed(() => {
+        const dataSource = props.dataSource?.value || []
+        const rowKey = props.rowKey.value ?? 'index'
 
-    return SortableRow(
-      {
-        id: index,
-        dragSortKey: props.dragSortKey?.value,
-        dragHandle: props.dragHandle,
-        key: index,
-        ref: setItemRef,
-        token: props.token.value,
-        handleRef: setHandleRef,
-        sortable,
-        ...p,
-      },
-      ctx,
-    )
-  }
+        return dataSource.findIndex((item: any, itemIndex) => {
+          const itemKey = typeof rowKey === 'function'
+            ? rowKey(item, itemIndex)
+            : item?.[rowKey]
+
+          return itemKey === rowId.value || String(itemKey) === String(rowId.value)
+        })
+      })
+      const sortable = useSortable({
+        id: rowId,
+        index,
+        type: 'row',
+        accept: 'row',
+        element: itemRef,
+        handle: handleRef,
+      })
+
+      return () => SortableRow(
+        {
+          ...attrs,
+          id: rowId.value,
+          dragSortKey: props.dragSortKey?.value,
+          dragHandle: props.dragHandle,
+          ref: itemRef,
+          token: props.token.value,
+          handleRef,
+          sortable,
+        },
+        { slots },
+      )
+    },
+    {
+      name: 'DraggableBodyRow',
+      inheritAttrs: false,
+    },
+  )
 
   useEffect(() => {
     if (props.dragSortKey?.value) {
@@ -233,7 +223,7 @@ export function useDragSort(props: UseDragSortOptions) {
         ...(props.components?.value?.body || {}),
         wrapper:
           ((props.components?.value?.body as { wrapper: any }) || {}).wrapper || DraggableContainer,
-        row: ((props.components?.value?.body as { row: any }) || {}).row || DraggableBodyRow,
+        row: ((props.components?.value?.body as { row: any }) || {}).row || markRaw(DraggableBodyRow),
         cell: ((props.components?.value?.body as { cell: any }) || {}).cell || SortableItemCell,
       }
     }
@@ -243,6 +233,7 @@ export function useDragSort(props: UseDragSortOptions) {
       return
     if (isSortableOperation(event.operation)) {
       const { source } = event.operation
+
       if (isSortable(source)) {
         const { initialIndex, index } = source
         if (initialIndex !== index) {

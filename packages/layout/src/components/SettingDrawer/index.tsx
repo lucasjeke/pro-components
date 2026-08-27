@@ -1,13 +1,13 @@
+import type { ListyProps } from 'antdv-next'
 import type { MessageType } from 'antdv-next/dist/message/interface'
 import type { FunctionalComponent } from 'vue'
 import type { ProSettings } from '../../defaultSettings'
 import type { themeConfig } from '../../utils'
 import type { SettingItemProps } from './LayoutChange'
-import { Listy } from '@antdv-next1/pro-listy'
 import { CopyToClipboard, useMountMergeState } from '@antdv-next1/pro-utils'
 import { CloseOutlined, CopyOutlined, NotificationOutlined, SettingOutlined } from '@antdv-next/icons'
 import { classNames, omit } from '@v-c/util'
-import { Alert, Button, Divider, Drawer, message as Message, Switch } from 'antdv-next'
+import { Alert, Button, Divider, Drawer, Listy, message as Message, Switch } from 'antdv-next'
 import { useConfig } from 'antdv-next/config-provider/context'
 import { computed, defineComponent, reactive, ref, shallowRef, Teleport } from 'vue'
 import defaultSettings from '../../defaultSettings'
@@ -447,12 +447,16 @@ const SettingDrawer = defineComponent<SettingDrawerProps>((props) => {
                 >
                   <Listy
                     class={classNames(`${baseClassName.value}-list`, hashId?.value, cssVarCls?.value)}
-                    split={false}
-                    size="small"
-                    rowKey="title"
-                    variant="borderless"
+                    rowKey={item => item.title}
                     itemRender={item => renderLayoutSettingItem(item)}
                     items={otherSettingsOptions.value}
+                    styles={{
+                      item: {
+                        borderBottom: 0,
+                        paddingInlineStart: 0,
+                        paddingInlineEnd: 0,
+                      },
+                    } as unknown as ListyProps['styles']}
                   />
                 </SeetingBody>
               </>

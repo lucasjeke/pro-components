@@ -23,7 +23,8 @@ StepsForm 用于把一个复杂表单拆成多个步骤填写。它由 `ProSteps
 
 ### ProStepsForm
 
-#### 属性 {#props}
+StepForm 继承 ProForm 的大部分属性，常用属性包括 `name`、`title`、`layout`、`grid`、`submitter`、`finish` 等。
+
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
@@ -37,15 +38,6 @@ StepsForm 用于把一个复杂表单拆成多个步骤填写。它由 `ProSteps
 | stepFormRender | 自定义单个表单区域 | `(formDom) => VueNode` | - | - |
 | stepsFormRender | 自定义表单区域和提交按钮区域 | `(formDom, submitter) => VueNode` | - | - |
 | layoutRender | 自定义整体布局 | `(layoutDom: { stepsDom: VNode; formDom: VNode }) => VueNode` | - | - |
-
-#### 事件 {#events}
-
-| 事件名 | 说明 | 类型 | 版本 |
-| --- | --- | --- | --- |
-| finish | 最后一步提交时触发，返回 `true` 会重置步数和表单 | `(values) => void \| Promise<boolean \| void>` | - |
-| currentChange | 当前步骤变化时触发 | `(current: number) => void` | - |
-| update:formMap | 表单实例列表变化时触发 | `(formMap: FormInstance[]) => void` | - |
-
-### ProStepsForm.StepForm
-
-StepForm 继承 ProForm 的大部分属性，常用属性包括 `name`、`title`、`layout`、`grid`、`submitter`、`finish` 等。
+| onFinish | 最后一步提交时触发，返回 `true` 会重置步数和表单 | `(values) => void \| Promise<boolean \| void>` | - | - |
+| onCurrentChange | 当前步骤变化时触发 | `(current: number) => void` | - | - |
+| onUpdate:formMap | 表单实例列表变化时触发 | `(formMap: FormInstance[]) => void` | - | - |

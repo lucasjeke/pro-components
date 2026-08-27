@@ -77,17 +77,22 @@ const genProLoginFormPageStyle: GenerateStyle<ProLoginFormPageToken> = (token) =
         fontSize: 33,
       },
       '&-logo': {
-        width: 44,
-        height: 44,
+        width: token.calc(token.fontSizeXL).mul(2).add(4).equal(),
+        height: token.calc(token.fontSizeXL).mul(2).add(4).equal(),
         marginInlineEnd: token.margin,
         verticalAlign: 'top',
+        fontSize: token.calc(token.fontSizeXL).mul(2).add(4).equal(),
+        color: token.colorTextHeading,
         img: {
           width: '100%',
+        },
+        [`${token.iconCls}`]: {
+          fontSize: token.calc(token.fontSizeXL).mul(2).add(4).equal(),
         },
       },
       '&-desc': {
         marginBlockStart: token.marginSM,
-        marginBlockEnd: 40,
+        marginBlockEnd: token.calc(token.marginXL).mul(2).sub(2).equal(),
         color: token.colorTextSecondary,
         fontSize: token.fontSize,
       },

@@ -1,7 +1,7 @@
 {
   "name": "@antdv-next1/pro-card",
   "type": "module",
-  "version": "2.0.23",
+  "version": "3.0.0",
   "description": "@antdv-next1/pro-card",
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
+    "CHANGELOG.md",
     "LICENSE",
     "README.md",
     "dist",
@@ -57,6 +58,6 @@
     "access": "public"
   },
   "authors": [
-    "Chao Song <lucasjekeqd@gmail.com> (https://github.com/lucasjeke)"
+    "lucasjeke <lucasjekeqd@gmail.com> (https://github.com/lucasjeke)"
   ]
 }

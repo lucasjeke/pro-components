@@ -16,6 +16,7 @@ import { normalizeNamePath } from './CancelEditableAction'
 export interface SaveEditableActionProps<T> {
   editableKeys?: ActionRenderConfig<T>['editableKeys']
   recordKey?: ActionRenderConfig<T>['recordKey']
+  formRecordKey?: ActionRenderConfig<T>['formRecordKey']
   preEditRow?: ActionRenderConfig<T>['preEditRow']
   preEditRows?: ActionRenderConfig<T>['preEditRows']
   'onUpdate:preEditRow'?: ActionRenderConfig<T>['onUpdate:preEditRow']
@@ -45,9 +46,10 @@ const SaveEditableAction = defineComponent(<T extends Record<string, any>>(props
       const isMapEditor = props.editorType === 'Map'
       // 为了兼容类型为 array 的 dataIndex,当 recordKey 是一个数组时，用于获取表单值的 key 只取第一项，
       // 从表单中获取回来之后，再根据 namepath 获取具体的某个字段并设置
+      const fieldRecordKey = props.formRecordKey ?? props.recordKey
       const namePath = normalizeNamePath(
         props.tableName,
-        Array.isArray(props.recordKey) ? props.recordKey[0] : props.recordKey,
+        Array.isArray(fieldRecordKey) ? fieldRecordKey[0] : fieldRecordKey,
       ) as string[]
 
       setLoading(true)
@@ -66,7 +68,7 @@ const SaveEditableAction = defineComponent(<T extends Record<string, any>>(props
       }
       const formattedObject = context?.getFieldFormatValueObject?.(namePath)
       const fields
-        = formattedObject !== null ? get(formattedObject, namePath)
+        = formattedObject != null ? get(formattedObject, namePath)
           : form.getFieldValue(namePath)
 
       // 处理 dataIndex 为数组的情况
@@ -122,7 +124,7 @@ const SaveEditableAction = defineComponent(<T extends Record<string, any>>(props
 }, {
   name: 'SaveEditableAction',
   inheritAttrs: false,
-  props: ['cancelEditable', 'editableKeys', 'editorType', 'index', 'newLineConfig', 'onSave', 'onUpdate:preEditRow', 'preEditRow', 'recordKey', 'row', 'setEditableRowKeys', 'tableName'],
+  props: ['cancelEditable', 'editableKeys', 'editorType', 'formRecordKey', 'index', 'newLineConfig', 'onSave', 'onUpdate:preEditRow', 'preEditRow', 'recordKey', 'row', 'setEditableRowKeys', 'tableName'],
 
 })
 

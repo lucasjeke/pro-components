@@ -1,7 +1,7 @@
 // markdown-it plugin for normalizing image source
 
 import type MarkdownIt from 'markdown-it'
-import { EXTERNAL_URL_RE } from '../shared'
+import { EXTERNAL_URL_RE } from '../shared.ts'
 
 export interface Options {
   /**

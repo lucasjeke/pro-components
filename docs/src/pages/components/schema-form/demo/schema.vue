@@ -3,7 +3,7 @@ Schema Form 最基础的用法，通过 JSON 配置生成标准的表单页面�
 </docs>
 
 <docs lang="en-US">
-The most basic usage of Schema Form, generating standard form pages through JSON configuration. Supports defining form items via `columns` and switching layouts via `layoutType`.
+The most basic usage of SchemaForm, generating standard form pages through JSON configuration. Supports defining form items via `columns` and switching layouts via `layoutType`.
 </docs>
 
 <script lang="ts" setup>

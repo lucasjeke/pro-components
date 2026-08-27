@@ -23,6 +23,20 @@ ProListy is an advanced list built with ProTable data flow and Listy item render
   <demo src="./demo/columns-api.vue">columns + listSlot</demo>
   <demo src="./demo/card-columns.vue">Card list</demo>
   <demo src="./demo/grid.vue">Grid</demo>
+  <demo src="./demo/shared-columns.vue">Table/List view switching</demo>
+  <demo src="./demo/search-columns.vue"> Search list (columns + request)</demo>
+  <demo src="./demo/editable-columns.vue">Editable list (columns)</demo>
+  <demo src="./demo/editable.vue">Edit list</demo>
+  <demo src="./demo/toolbar.vue">List with toolbar</demo>
+  <demo src="./demo/expand.vue">Expandable list</demo>
+  <demo src="./demo/selection.vue">List with row selection</demo>
+  <demo src="./demo/search.vue">Search list</demo>
+  <demo src="./demo/filter.vue">List with filtering and asynchronous requests</demo>
+  <demo src="./demo/size.vue">Size and divider</demo>
+  <demo src="./demo/layout.vue">Vertical style</demo>
+  <demo src="./demo/special.vue">Some preset modes</demo>
+  <demo src="./demo/pagination.vue">agination</demo>
+  <demo src="./demo/custom-render.vue">ustom list item (itemRender)</demo>
 </demo-group>
 
 ## API
@@ -44,6 +58,8 @@ ProListy inherits ProTable data request, search form, pagination, toolbar, and c
 | toolbar | Toolbar config | `BaseToolbarProps` | - | - |
 | toolBarRender | Custom toolbar actions | `false \| ToolBarRender` | - | - |
 | grid | Grid layout config | `ProListyGridType` | - | - |
+| virtual | Enables virtual scrolling. Card mode also requires `height` | `boolean` | `false` | - |
+| height | Virtual-scroll viewport height | `number` | - | - |
 | itemLayout | Item layout | `'horizontal' \| 'vertical'` | - | - |
 | variant | Item appearance | `'outlined' \| 'borderless' \| 'filled'` | - | - |
 | itemCardProps | Card item config | `ProCheckCardProps` | - | - |

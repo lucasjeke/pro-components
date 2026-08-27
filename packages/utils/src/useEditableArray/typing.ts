@@ -37,7 +37,7 @@ export interface NewLineConfig<T> {
 }
 
 export type ActionRenderFunction<T> = (
-  row: T,
+  row: T | undefined,
   config: ActionRenderConfig<T, NewLineConfig<T>>,
   defaultDoms: {
     save: VueNode
@@ -67,7 +67,7 @@ export interface RowEditableConfig<DataType> {
   /** @name editableKeys 正在编辑的列 */
   editableKeys?: Key[]
   /** 正在编辑的列修改的时候 */
-  onChange?: (editableKeys: Key[], editableRows: DataType[] | DataType) => void
+  onChange?: (editableKeys: Key[], editableRows?: DataType[] | DataType) => void
   /** 正在编辑的列修改的时候 */
   onValuesChange?: (record: DataType | undefined, dataSource: DataType[]) => void
   /** @name actionRender  自定义编辑的操作 */
@@ -116,6 +116,8 @@ export interface RowEditableConfig<DataType> {
 export type ActionRenderConfig<T, LineConfig = NewLineConfig<T>> = {
   editableKeys?: RowEditableConfig<T>['editableKeys']
   recordKey: RecordKey
+  /** Form list 中的行路径；name 模式下通常是数组索引，区别于业务 recordKey。 */
+  formRecordKey?: RecordKey
   preEditRow: T | null
   /**
    * 多行编辑场景下，按 recordKey 缓存每一行进入编辑前的快照（允许为 null，用于标记“新建行”）
@@ -125,6 +127,8 @@ export type ActionRenderConfig<T, LineConfig = NewLineConfig<T>> = {
   'onUpdate:preEditRow': (preEditRow: T | null) => void
   index?: number
   cancelEditable: (key: RecordKey) => Promise<boolean | void>
+  /** 仅结束编辑状态，不触发取消回调或恢复编辑前数据。 */
+  finishEditable?: (key: RecordKey) => Promise<boolean | void>
   onSave: RowEditableConfig<T>['onSave']
   onCancel: RowEditableConfig<T>['onCancel']
   onDelete?: RowEditableConfig<T>['onDelete']

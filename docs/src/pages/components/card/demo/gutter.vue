@@ -12,8 +12,32 @@ import { ProCard } from '@antdv-next1/pro-components'
 
 <template>
   <div class="p-6">
-    <ProCard>
-      asdas
+    <ProCard :gutter="[16, 16]">
+      <ProCard col-flex="30%" title="title" header-bordered>
+        300px
+      </ProCard>
+      <ProCard>
+        Auto
+      </ProCard>
+    </ProCard>
+    <ProCard
+      :gutter="[{ xs: 8, sm: 8, md: 16, lg: 24, xl: 32 }, 16]"
+      :style="{ marginBlockStart: '16px' }"
+    >
+      <ProCard>
+        Responsive
+      </ProCard>
+      <ProCard>
+        Responsive
+      </ProCard>
+      <ProCard>
+        Responsive
+      </ProCard>
+    </ProCard>
+    <ProCard :gutter="16" :style="{ marginBlockStart: '16px' }">
+      <ProCard>Auto</ProCard>
+      <ProCard>Auto</ProCard>
+      <ProCard>Auto</ProCard>
     </ProCard>
   </div>
 </template>

@@ -1,12 +1,12 @@
 import type { MarkdownItEnv } from '@mdit-vue/types'
 import type { PluginOption } from 'vite'
-import type { CreateMarkdownOptions } from './markdown'
+import type { CreateMarkdownOptions } from './markdown.ts'
 import { LRUCache } from 'lru-cache'
 import { findStaticImports } from 'mlly'
 import pathe from 'pathe'
-import { shortHash } from '../utils/shortHash'
-import { useMarkdown } from './markdown'
-import { SCRIPT_REGEX, STYLE_REGEX } from './shared'
+import { shortHash } from '../utils/shortHash.ts'
+import { useMarkdown } from './markdown.ts'
+import { SCRIPT_REGEX, STYLE_REGEX } from './shared.ts'
 
 export function formatPageData(env: MarkdownItEnv) {
   const pageData = {
@@ -143,7 +143,7 @@ export function md2VuePlugin(options: CreateMarkdownOptions = {}): PluginOption 
         id: /\.md($|\?)/,
       },
       async handler(code, id) {
-        if (id.includes('?vue'))
+        if (id.includes('?vue') || id.includes('?raw'))
           return null
         return transform(code, id)
       },

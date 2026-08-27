@@ -106,6 +106,12 @@ ProLayout 支持 `side`、`top`、`mix` 和 `left` 四种布局形态。`left` �
 | footerRender | 自定义页脚，传 `false` 不渲染页脚 | `FooterRender \| false` | - | - |
 | pageHeaderRender | 自定义 PageContainer 的 PageHeader 渲染 | `PageHeaderRender \| false` | - | - |
 | footerToolbarContentRender | 自定义 FooterToolbar 内容渲染 | `FooterToolbarContentRender` | - | - |
+| onPageChange | 页面位置变化时触发 | `(location?: RouterTypes['location']) => void` | - |
+| onCollapse | 侧边菜单收起或展开时触发 | `(collapsed: boolean) => void` | - |
+| onOpenChange | 菜单展开项变化时触发 | `(openKeys?: Key[] \| false) => void` | - |
+| onSelect | 菜单选中项变化时触发 | `(selectedKeys: Key[]) => void` | - |
+| onMenuHeaderClick | 菜单头点击事件 | `(e: MouseEvent) => void` | - |
+| onItemClick | 跨站点导航列表项点击事件 | `(item: AppItemProps, popoverRef: ShallowRef) => void` | - |
 
 除上表外，ProLayout 还会通过 `menuProps` 透传 antdv-next Menu 的属性；其中 `openKeys`、`openChange`、`title` 已由 ProLayout 单独接管。
 
@@ -129,57 +135,21 @@ ProLayout 支持 `side`、`top`、`mix` 和 `left` 四种布局形态。`left` �
 SettingDrawer 是 ProLayout 的可视化配置面板，适合在演示站点或需要运行时配置布局的系统中使用。
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
-| --- | --- | --- | --- | --- |
+| --- | --- | --- | --- |
 | settings | 当前布局配置 | `Partial<ProSettings>` | `defaultSettings` | - |
 | collapsed | 是否收起配置面板 | `boolean` | - | - |
-| colorList | 主题色候选列表，传 `false` 可隐藏主题色选择 | `{ key: string; color: string; title?: string }[] \| false` | 内置色板 | - |
+| colorList | 主题色候选列表，传 `false` 可隐藏主题色选择 | `{ key: string; color: string; title?: string }[] \| false` | - || - |
 | hideHintAlert | 是否隐藏提示说明 | `boolean` | `false` | - |
 | hideCopyButton | 是否隐藏复制配置按钮 | `boolean` | `false` | - |
+| onSettingChange | SettingDrawer 配置变化时触发 | `(settings: Partial<ProSettings>) => void` | - | - |
+| onCollapse | SettingDrawer 展开收起变化时触发 | `(collapsed: boolean) => void` | - | - |
+| onUpdate:collapsed | `v-model:collapsed` 更新事件 | `(collapsed: boolean) => void` | - | - |
 
-### 事件 {#events}
-
-事件通过 Vue 事件语法注册，例如 `@collapse`、`@menu-header-click`、`@update:collapsed`。
-
-| 事件 | 说明 | 类型 | 版本 |
-| --- | --- | --- | --- |
-| pageChange | 页面位置变化时触发 | `(location?: RouterTypes['location']) => void` | - |
-| collapse | 侧边菜单收起或展开时触发 | `(collapsed: boolean) => void` | - |
-| openChange | 菜单展开项变化时触发 | `(openKeys?: Key[] \| false) => void` | - |
-| select | 菜单选中项变化时触发 | `(selectedKeys: Key[]) => void` | - |
-| menuHeaderClick | 菜单头点击事件 | `(e: MouseEvent) => void` | - |
-| itemClick | 跨站点导航列表项点击事件 | `(item: AppItemProps, popoverRef: ShallowRef) => void` | - |
-| SettingDrawer: settingChange | SettingDrawer 配置变化时触发 | `(settings: Partial<ProSettings>) => void` | - |
-| SettingDrawer: collapse | SettingDrawer 展开收起变化时触发 | `(collapsed: boolean) => void` | - |
-| SettingDrawer: update:collapsed | `v-model:collapsed` 更新事件 | `(collapsed: boolean) => void` | - |
-
-### 插槽 {#slots}
-
-| 插槽 | 说明 | 类型 | 版本 |
-| --- | --- | --- | --- |
-| headerRender | 自定义 Header 渲染 | `HeaderRender` | - |
-| menuRender | 自定义菜单区域渲染 | `MenuRender` | - |
-| menuHeaderRender | 自定义菜单头渲染 | `MenuHeaderRender` | - |
-| headerTitleRender | 自定义 Header 标题渲染 | `HeaderTitleRender` | - |
-| headerContentRender | 自定义 Header 内容渲染 | `HeaderContentRender` | - |
-| actionsRender | 自定义操作区渲染 | `ActionsRender` | - |
-| footerRender | 自定义页脚渲染 | `FooterRender` | - |
-| multiTabRender | 自定义 MultiTab 区域渲染 | `MultiTabRender` | - |
-| footerToolbarContentRender | 自定义 FooterToolbar 内容渲染 | `FooterToolbarContentRender` | - |
-| collapsedButtonRender | 自定义菜单收起按钮渲染 | `CollapsedButtonRender` | - |
-| errorBoundaryRender | 自定义错误边界渲染 | `ErrorBoundaryRender` | - |
-| appListRender | 自定义跨站点导航列表渲染 | `AppListRender` | - |
-| menuItemRender | 自定义叶子菜单项渲染 | `MenuItemRender` | - |
-| subMenuItemRender | 自定义父级菜单项渲染 | `SubMenuItemRender` | - |
-| menuContentRender | 自定义菜单内容区域渲染 | `MenuContentRender` | - |
-| menuFooterRender | 自定义菜单底部区域渲染 | `MenuFooterRender` | - |
-| menuExtraRender | 自定义菜单头下方额外区域渲染 | `MenuExtraRender` | - |
-| pageHeaderRender | 自定义 PageContainer 的 PageHeader 渲染 | `PageHeaderRender` | - |
-
-## 主题变量（Design Token）{#theme-variables}
+<!-- ## 主题变量（Design Token）{#theme-variables}
 
 Token 是设计系统的基本元素，可以通过 `token` 属性或 ProConfigProvider 修改 ProLayout 的 Header、Sider、内容区和菜单颜色。
 
-<ComponentTokenTable component="ProLayout"></ComponentTokenTable>
+<ComponentTokenTable component="ProLayout"></ComponentTokenTable> -->
 
 ## FAQ {#faq}
 

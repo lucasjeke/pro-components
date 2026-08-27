@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
-import { useCopyCode } from '@/components/code-demo/copy-code'
+import { useCopyCode } from '@/components/CodeDemo/utils/copy-code'
 import BaseConfig from './layouts/base/index.vue'
 
 const route = useRoute()

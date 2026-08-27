@@ -5,20 +5,26 @@ import { useIntl } from '@antdv-next1/pro-provider'
 import { FieldLabel, parseValueToDay, useState } from '@antdv-next1/pro-utils'
 import { DatePicker } from 'antdv-next'
 import dayjs from 'dayjs'
+import advancedFormat from 'dayjs/plugin/advancedFormat'
+import quarterOfYear from 'dayjs/plugin/quarterOfYear'
 import weekOfYear from 'dayjs/plugin/weekOfYear'
 import { defineComponent } from 'vue'
 
+dayjs.extend(advancedFormat)
+dayjs.extend(quarterOfYear)
 dayjs.extend(weekOfYear)
 
 function formatDate(text: any, format: any) {
   if (!text)
     return '-'
+  const date = dayjs(text)
   if (typeof format === 'function') {
-    return format(dayjs(text))
+    return format(date)
   }
-  else {
-    return dayjs(text).format((Array.isArray(format) ? format[0] : format) || 'YYYY-MM-DD')
+  if (!date.isValid()) {
+    return String(text)
   }
+  return date.format((Array.isArray(format) ? format[0] : format) || 'YYYY-MM-DD')
 }
 
 export type FieldDatePickerProps = ProFieldFC<{
@@ -93,7 +99,7 @@ const FieldDatePicker = defineComponent<FieldDatePickerProps, {}, string, Custom
             }
             disabled={disabled}
             value={
-              dayValue || open ? (
+              dayValue || open.value ? (
                 <DatePicker
                   picker={picker}
                   showTime={showTime}
@@ -109,7 +115,7 @@ const FieldDatePicker = defineComponent<FieldDatePickerProps, {}, string, Custom
               ) : undefined
             }
             allowClear={false}
-            downIcon={dayValue || open ? false : undefined}
+            downIcon={dayValue || open.value ? false : undefined}
             variant={variant}
             ref={lightLabel}
           />

@@ -33,6 +33,17 @@ const genProStyle: GenerateStyle<ProStatisticCardToken> = (token) => {
         paddingBlockStart: 8,
         borderBlockStart: `${unit(token.lineWidth)} ${token.lineType} ${token.colorBorder}`,
       },
+      '&-operation': {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-end',
+        marginBlock: token.marginLG,
+        marginInline: 0,
+        color: token.colorText,
+        fontWeight: '500',
+        fontSize: token.fontSizeXL,
+        lineHeight: '38px',
+      },
     },
   }
 }

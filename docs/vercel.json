@@ -1,8 +1,6 @@
 {
-  "installCommand": "pnpm install",
   "buildCommand": "pnpm build",
-  "outputDirectory": "docs/dist",
-  "rootDirectory": ".",
+  "outputDirectory": "dist",
   "rewrites": [
     {
       "source": "/:path*",

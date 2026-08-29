@@ -108,8 +108,6 @@ const ResizableTableTitle = defineComponent<
     const widthStyle = props.width == null ? undefined : {
       width: typeof props.width === 'number' ? `${props.width}px` : props.width,
     }
-    console.log(widthStyle, style, 'widthStyle')
-
     return (
       <th
         {...restAttrs}

@@ -6,6 +6,32 @@ title: ProListy 更新日志
 
 > 本页面同步 `packages/listy/CHANGELOG.md`，发布时由 `pnpm docs:changelog` 自动生成。
 
+## V2.0.1
+
+**发布日期：** 2026-08-29
+
+本版本包含 1 项摘要更新，涉及 `@antdv-next1/pro-listy`。
+
+### 版本摘要 Highlights
+
+- **@antdv-next1/pro-listy**: Fix pagination size mapping.
+
+<details>
+<summary>展开依赖版本与完整详情</summary>
+
+### 完整详情 Details
+
+### 问题修复 Fixes
+
+- **@antdv-next1/pro-listy**: Fix pagination size mapping.
+
+### 依赖更新 Dependencies
+
+- **@antdv-next1/pro-listy**: Updated dependencies
+  - @antdv-next1/pro-table@2.0.1
+
+</details>
+
 ## V2.0.0
 
 **发布日期：** 2026-08-27

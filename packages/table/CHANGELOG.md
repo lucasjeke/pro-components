@@ -1,5 +1,11 @@
 # @antdv-next1/pro-table
 
+## 2.0.1
+
+### Patch Changes
+
+- Remove debug logging from resizable table header rendering.
+
 ## 2.0.0
 
 ### Major Changes

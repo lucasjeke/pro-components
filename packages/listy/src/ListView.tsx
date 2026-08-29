@@ -530,6 +530,7 @@ const ListView = defineComponent(<RecordType extends AnyObject>(props: ListViewP
       <div class={classNames(`${prefixCls}-pagination`)}>
         <Pagination
           align="end"
+          size={size === 'large' ? 'medium' : 'small'}
           {...paginationProps}
           onShowSizeChange={onPaginationShowSizeChange}
         />

@@ -6,6 +6,38 @@ title: 组件更新日志
 
 > 本页面由各子包 `CHANGELOG.md` 自动生成。发布前运行 `pnpm bump` 更新。
 
+## V2.0.1
+
+**发布日期：** 2026-08-29
+
+本版本包含 3 项摘要更新，涉及 `@antdv-next1/pro-components`、`@antdv-next1/pro-layout`、`@antdv-next1/pro-table`、`@antdv-next1/pro-listy`。
+
+### 版本摘要 Highlights
+
+- **@antdv-next1/pro-components**: Fix Listy pagination size mapping and remove table resize debug logging.
+- **@antdv-next1/pro-listy**: Fix pagination size mapping.
+- **@antdv-next1/pro-table**: Remove debug logging from resizable table header rendering.
+
+<details>
+<summary>展开依赖版本与完整详情</summary>
+
+### 完整详情 Details
+
+### 问题修复 Fixes
+
+- **@antdv-next1/pro-components**: Fix Listy pagination size mapping and remove table resize debug logging.
+- **@antdv-next1/pro-listy**: Fix pagination size mapping.
+- **@antdv-next1/pro-table**: Remove debug logging from resizable table header rendering.
+
+### 依赖更新 Dependencies
+
+- **@antdv-next1/pro-components**: Updated dependencies
+  - @antdv-next1/pro-listy@2.0.1
+  - @antdv-next1/pro-table@2.0.1
+  - @antdv-next1/pro-layout@2.0.1
+
+</details>
+
 ## V2.0.0
 
 **发布日期：** 2026-08-27

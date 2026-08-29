@@ -1,5 +1,13 @@
 # @antdv-next1/pro-listy
 
+## 2.0.1
+
+### Patch Changes
+
+- Fix pagination size mapping.
+- Updated dependencies
+  - @antdv-next1/pro-table@2.0.1
+
 ## 2.0.0
 
 ### Major Changes

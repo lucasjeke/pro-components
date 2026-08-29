@@ -1,5 +1,15 @@
 # @antdv-next1/pro-components
 
+## 2.0.1
+
+### Patch Changes
+
+- Fix Listy pagination size mapping and remove table resize debug logging.
+- Updated dependencies
+  - @antdv-next1/pro-listy@2.0.1
+  - @antdv-next1/pro-table@2.0.1
+  - @antdv-next1/pro-layout@2.0.1
+
 ## 2.0.0
 
 ### Major Changes

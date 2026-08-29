@@ -6,6 +6,27 @@ title: ProTable 更新日志
 
 > 本页面同步 `packages/table/CHANGELOG.md`，发布时由 `pnpm docs:changelog` 自动生成。
 
+## V2.0.1
+
+**发布日期：** 2026-08-29
+
+本版本包含 1 项摘要更新，涉及 `@antdv-next1/pro-table`。
+
+### 版本摘要 Highlights
+
+- **@antdv-next1/pro-table**: Remove debug logging from resizable table header rendering.
+
+<details>
+<summary>展开依赖版本与完整详情</summary>
+
+### 完整详情 Details
+
+### 问题修复 Fixes
+
+- **@antdv-next1/pro-table**: Remove debug logging from resizable table header rendering.
+
+</details>
+
 ## V2.0.0
 
 **发布日期：** 2026-08-27

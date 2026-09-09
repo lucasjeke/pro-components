@@ -284,6 +284,26 @@ describe('Draggable', () => {
     expect(document.body.classList.contains('vue-draggable-transparent-selection')).toBe(false)
   })
 
+  it('keeps user-select protection when a new drag starts before deferred cleanup', () => {
+    const callbacks: FrameRequestCallback[] = []
+    vi.spyOn(window, 'requestAnimationFrame').mockImplementation((callback) => {
+      callbacks.push(callback)
+      return callbacks.length
+    })
+
+    addUserSelectStyles(document)
+    scheduleRemoveUserSelectStyles(document)
+    addUserSelectStyles(document)
+    callbacks.shift()?.(0)
+
+    expect(document.body.classList.contains('vue-draggable-transparent-selection')).toBe(true)
+
+    scheduleRemoveUserSelectStyles(document)
+    callbacks.shift()?.(0)
+
+    expect(document.body.classList.contains('vue-draggable-transparent-selection')).toBe(false)
+  })
+
   it('removes document listeners and user-select state when unmounted mid-drag', () => {
     vi.spyOn(window, 'requestAnimationFrame').mockImplementation((callback) => {
       callback(0)

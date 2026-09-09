@@ -213,15 +213,18 @@ export function scheduleRemoveUserSelectStyles(doc: Document | null | undefined)
   if (state.count > 0)
     return
 
-  userSelectStates.delete(doc)
   const removeClass = !state.existed
+  const removeIfIdle = () => {
+    if (userSelectStates.get(doc) !== state || state.count > 0)
+      return
+    userSelectStates.delete(doc)
+    removeUserSelectStyles(doc, removeClass)
+  }
   if (window.requestAnimationFrame) {
-    window.requestAnimationFrame(() => {
-      removeUserSelectStyles(doc, removeClass)
-    })
+    window.requestAnimationFrame(removeIfIdle)
   }
   else {
-    removeUserSelectStyles(doc, removeClass)
+    removeIfIdle()
   }
 }
 

@@ -208,7 +208,7 @@ const SearchSelect = defineComponent(
           value: value ?? index,
           key: value ?? `${label?.toString()}-${index}-${nanoid()}`,
           'data-item': item,
-          class: `${baseClassName.value}-option ${itemClassName || ''}`.trim(),
+          class: `${baseClassName.value}-option ${legacyBaseClassName.value}-option ${itemClassName || ''}`.trim(),
           label: props.optionItemRender?.(item as DataValueType<T>) || label,
         } as DefaultOptionType
       })
@@ -250,6 +250,7 @@ const SearchSelect = defineComponent(
           {...restProps}
           class={classNames(baseClassName.value, legacyBaseClassName.value, attrs.class, {
             [`${baseClassName.value}-disabled`]: disabled,
+            [`${legacyBaseClassName.value}-disabled`]: disabled,
           })}
           disabled={disabled}
           mode={mode}

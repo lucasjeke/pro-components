@@ -1,6 +1,6 @@
 import type { CustomSlotsType, VueNode } from '@v-c/util/dist/type'
 import type { ShallowRef, VNode } from 'vue'
-import type { DraggableEventHandler, MouseTouchEvent } from './types'
+import type { DraggableEventHandler, EventHandler, MouseTouchEvent } from './types'
 import findDOMNode from '@v-c/util/dist/Dom/findDOMNode'
 import { cloneVNode, defineComponent, getCurrentInstance, onMounted, onUnmounted, shallowRef } from 'vue'
 import { useState } from '../../hooks'
@@ -73,6 +73,7 @@ const DraggableCore = defineComponent<DraggableCoreProps, DraggableCoreEmits, st
     removeEvent(ownerDocument, eventsFor.touch.move, handleDrag)
     removeEvent(ownerDocument, eventsFor.mouse.stop, handleDragStop)
     removeEvent(ownerDocument, eventsFor.touch.stop, handleDragStop)
+    removeEvent(ownerDocument, 'touchcancel', handleDragStop)
     if (props.enableUserSelectHack !== false)
       scheduleRemoveUserSelectStyles(ownerDocument)
     activeDocument.value = null
@@ -101,10 +102,8 @@ const DraggableCore = defineComponent<DraggableCoreProps, DraggableCoreEmits, st
     if (!dragging.value)
       return
     const position = getControlPosition(e, touchIdentifier.value, proxy, props.scale ?? 1)
-    if (position == null)
-      return
-    let { x = 0, y = 0 } = position
-    if (Array.isArray(props.grid)) {
+    let { x, y } = position ?? { x: lastX.value, y: lastY.value }
+    if (position && Array.isArray(props.grid)) {
       let deltaX = x - lastX.value || 0
       let deltaY = y - lastY.value || 0;
       [deltaX, deltaY] = snapToGrid(props.grid, deltaX, deltaY)
@@ -153,6 +152,8 @@ const DraggableCore = defineComponent<DraggableCoreProps, DraggableCoreEmits, st
     setLastY(y!)
     addEvent(ownerDocument, dragEventFor.value.move, handleDrag)
     addEvent(ownerDocument, dragEventFor.value.stop, handleDragStop)
+    if (dragEventFor.value === eventsFor.touch)
+      addEvent(ownerDocument, 'touchcancel', handleDragStop)
   }
 
   const handleTouchStart: EventHandler<MouseTouchEvent> = (e) => {

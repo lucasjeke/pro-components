@@ -5,7 +5,29 @@ import { mergeToken } from '@antdv-next/cssinjs'
 export interface SettingDrawerToken extends ProAliasCssVarToken {
 }
 
-const genSettingDrawerStyle: GenerateStyle<SettingDrawerToken> = (token) => {
+export const genSettingDrawerStyle: GenerateStyle<SettingDrawerToken> = (token) => {
+  const portalClassNames = [
+    'drawer',
+    'message',
+    'popover',
+    'tooltip',
+    'modal-root',
+    'image-preview-root',
+    'dropdown',
+    'menu-submenu-popup',
+    'select-dropdown',
+    'cascader-dropdown',
+    'picker-dropdown',
+    'tour',
+    'notification',
+  ].map(className => `${token.antCls}-${className}`)
+  const colorWeakPortalStyles = Object.fromEntries(
+    portalClassNames.flatMap(className => [
+      [`> ${className}`, { filter: 'invert(80%)' }],
+      [`> div > ${className}`, { filter: 'invert(80%)' }],
+    ]),
+  )
+
   return {
     [`${token.componentCls}-handle`]: {
       position: 'absolute',
@@ -228,9 +250,7 @@ const genSettingDrawerStyle: GenerateStyle<SettingDrawerToken> = (token) => {
       },
     },
     '[data-color-weak]': {
-      [`> ${token.antCls}-drawer,> ${token.antCls}-message,> ${token.antCls}-popover,> ${token.antCls}-tooltip,> ${token.antCls}-modal-root,> ${token.antCls}-image-preview-root,> ${token.antCls}-dropdown,> ${token.antCls}-menu-submenu-popup,> ${token.antCls}-select-dropdown,> ${token.antCls}-cascader-dropdown,> ${token.antCls}-picker-dropdown,> ${token.antCls}-tour,> ${token.antCls}-notification`]: {
-        filter: 'invert(80%)',
-      },
+      ...colorWeakPortalStyles,
     },
   }
 }

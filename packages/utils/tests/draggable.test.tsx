@@ -3,6 +3,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import { defineComponent, nextTick, shallowRef } from 'vue'
 import Draggable from '../src/components/Draggable/Draggable'
 import DraggableCore from '../src/components/Draggable/DraggableCore'
+import { addUserSelectStyles, scheduleRemoveUserSelectStyles } from '../src/components/Draggable/utils/domFns'
 
 const wrappers: Array<{ unmount: () => void }> = []
 
@@ -29,7 +30,9 @@ function createMouseEvent(type: string, clientX: number, clientY: number) {
 
 function createTouchEvent(type: string, identifier: number, clientX: number, clientY: number) {
   const event = new Event(type, { bubbles: true, cancelable: true })
-  const touches = type === 'touchend' ? [] : [{ identifier, clientX, clientY }]
+  const touches = type === 'touchend' || type === 'touchcancel'
+    ? []
+    : [{ identifier, clientX, clientY }]
   Object.defineProperty(event, 'targetTouches', { value: touches })
   Object.defineProperty(event, 'changedTouches', {
     value: [{ identifier, clientX, clientY }],
@@ -195,6 +198,23 @@ describe('Draggable', () => {
     expect(stops.at(-1)).toEqual(expect.objectContaining({ deltaX: 0, deltaY: 0 }))
   })
 
+  it('does not change the transform for a click without movement', () => {
+    const nodeRef = shallowRef<HTMLElement | null>(null)
+    const Harness = defineComponent(() => () => (
+      <Draggable nodeRef={nodeRef} defaultPosition={{ x: 8, y: 12 }}>
+        <div ref={nodeRef}>drag target</div>
+      </Draggable>
+    ))
+    const wrapper = track(mount(Harness, { attachTo: document.body }))
+    const target = wrapper.get('div').element
+    const transformBeforeClick = target.style.transform
+
+    target.dispatchEvent(createMouseEvent('mousedown', 100, 100))
+    document.dispatchEvent(createMouseEvent('mouseup', 100, 100))
+
+    expect(target.style.transform).toBe(transformBeforeClick)
+  })
+
   it('runs a complete touch lifecycle once and resets for the next touch', () => {
     const onStart = vi.fn()
     const onDrag = vi.fn()
@@ -216,6 +236,52 @@ describe('Draggable', () => {
     expect(onDrag).toHaveBeenCalledTimes(1)
     expect(onStop).toHaveBeenCalledTimes(1)
     expect(onStart.mock.calls[1]?.[1]).toEqual(expect.objectContaining({ deltaX: 0, deltaY: 0 }))
+  })
+
+  it('stops and cleans up an active drag when touch is cancelled', () => {
+    vi.spyOn(window, 'requestAnimationFrame').mockImplementation((callback) => {
+      callback(0)
+      return 1
+    })
+    const onDrag = vi.fn()
+    const onStop = vi.fn()
+    const nodeRef = shallowRef<HTMLElement | null>(null)
+    const Harness = defineComponent(() => () => (
+      <DraggableCore nodeRef={nodeRef} onDrag={onDrag} onStop={onStop}>
+        <div ref={nodeRef}>drag target</div>
+      </DraggableCore>
+    ))
+    const wrapper = track(mount(Harness, { attachTo: document.body }))
+    const target = wrapper.get('div').element
+
+    target.dispatchEvent(createTouchEvent('touchstart', 1, 10, 20))
+    document.dispatchEvent(createTouchEvent('touchmove', 1, 20, 30))
+    const touchCancel = new Event('touchcancel', { bubbles: true, cancelable: true })
+    Object.defineProperty(touchCancel, 'targetTouches', { value: [] })
+    Object.defineProperty(touchCancel, 'changedTouches', { value: [] })
+    document.dispatchEvent(touchCancel)
+    document.dispatchEvent(createTouchEvent('touchmove', 1, 30, 40))
+
+    expect(onDrag).toHaveBeenCalledTimes(1)
+    expect(onStop).toHaveBeenCalledTimes(1)
+    expect(document.body.classList.contains('vue-draggable-transparent-selection')).toBe(false)
+  })
+
+  it('keeps user-select protection until every active drag releases it', () => {
+    vi.spyOn(window, 'requestAnimationFrame').mockImplementation((callback) => {
+      callback(0)
+      return 1
+    })
+
+    addUserSelectStyles(document)
+    addUserSelectStyles(document)
+    scheduleRemoveUserSelectStyles(document)
+
+    expect(document.body.classList.contains('vue-draggable-transparent-selection')).toBe(true)
+
+    scheduleRemoveUserSelectStyles(document)
+
+    expect(document.body.classList.contains('vue-draggable-transparent-selection')).toBe(false)
   })
 
   it('removes document listeners and user-select state when unmounted mid-drag', () => {

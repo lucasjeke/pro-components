@@ -301,6 +301,24 @@ describe('form layout wrappers', () => {
     expect(typeof state.modalAttrs.at(-1)?.footer).toBe('function')
   })
 
+  it('keeps the ProForm submitter when modalProps.footer is undefined', async () => {
+    const { default: ProModalForm } = await import('../src/layouts/ModalForm')
+    state.baseFormAttrs = []
+    state.modalAttrs = []
+
+    mount(ProModalForm as any, {
+      props: {
+        open: true,
+        modalProps: {
+          footer: undefined,
+        },
+      },
+    })
+
+    expect(state.baseFormAttrs.at(-1)?.submitter).not.toBe(false)
+    expect(state.modalAttrs.at(-1)?.footer).toBeTruthy()
+  })
+
   it('resets fullscreen state after the modal closes', async () => {
     const { default: ProModalForm } = await import('../src/layouts/ModalForm')
     state.modalAttrs = []

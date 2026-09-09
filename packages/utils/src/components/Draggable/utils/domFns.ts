@@ -7,6 +7,11 @@ interface Indexable { [key: string]: unknown }
 type EventListenerLike = (event: never) => void | false
 
 let matchesSelectorFunc = ''
+const userSelectStates = new WeakMap<Document, {
+  count: number
+  existed: boolean
+}>()
+
 export function matchesSelector(el: Node, selector: string): boolean {
   if (!matchesSelectorFunc) {
     matchesSelectorFunc = findInArray([
@@ -186,26 +191,45 @@ export function addUserSelectStyles(doc: Document | null | undefined) {
     // styleEl.innerHTML += '.vue-draggable-transparent-selection *::selection {all: inherit;}\n'
     doc.getElementsByTagName('head')[0]!.appendChild(styleEl)
   }
-  if (doc.body)
+  if (doc.body) {
+    const state = userSelectStates.get(doc) ?? {
+      count: 0,
+      existed: doc.body.classList.contains('vue-draggable-transparent-selection'),
+    }
+    state.count += 1
+    userSelectStates.set(doc, state)
     addClassName(doc.body, 'vue-draggable-transparent-selection')
+  }
 }
 
 export function scheduleRemoveUserSelectStyles(doc: Document | null | undefined) {
+  if (!doc)
+    return
+  const state = userSelectStates.get(doc)
+  if (!state)
+    return
+
+  state.count = Math.max(0, state.count - 1)
+  if (state.count > 0)
+    return
+
+  userSelectStates.delete(doc)
+  const removeClass = !state.existed
   if (window.requestAnimationFrame) {
     window.requestAnimationFrame(() => {
-      removeUserSelectStyles(doc)
+      removeUserSelectStyles(doc, removeClass)
     })
   }
   else {
-    removeUserSelectStyles(doc)
+    removeUserSelectStyles(doc, removeClass)
   }
 }
 
-function removeUserSelectStyles(doc: Document | null | undefined) {
+function removeUserSelectStyles(doc: Document | null | undefined, removeClass: boolean) {
   if (!doc)
     return
   try {
-    if (doc.body)
+    if (doc.body && removeClass)
       removeClassName(doc.body, 'vue-draggable-transparent-selection')
     // IE
     const ieSelection = (doc as unknown as { selection?: { empty: () => void } }).selection

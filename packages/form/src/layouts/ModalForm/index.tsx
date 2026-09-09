@@ -197,7 +197,7 @@ const ProModalForm = defineComponent(
       } = slots
       const title = slotTitle ? slotTitle() : (propsTitle ?? modalPropsTitle)
       const width = propsWidth ?? modalPropsWidth ?? 800
-      const hasCustomFooter = Boolean(slotFooter) || Object.prototype.hasOwnProperty.call(modalProps || {}, 'footer')
+      const hasCustomFooter = Boolean(slotFooter) || modalPropsFooter !== undefined
       const customFooter = slotFooter || modalPropsFooter
       const triggerDom = !trigger
         ? null

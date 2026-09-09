@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url'
 import {
   categorizeEntry,
 
+  isDependencyEntry,
   parseDependencyVersions,
   splitChangelogSections,
 } from './changelog-format'
@@ -332,7 +333,8 @@ function getToday() {
 }
 
 function countHighlightEntries(note: ReleaseNote) {
-  return getHighlightEntries(note).length
+  const highlightCount = getHighlightEntries(note).length
+  return highlightCount || (note.categories.dependencies.length ? 1 : 0)
 }
 
 function countVisibleHighlights(note: ReleaseNote) {
@@ -430,7 +432,19 @@ export async function readPackageReleases(rootDir = process.cwd()) {
 
 function dedupeEntries(entries: ChangelogEntryWithPackage[]) {
   const seen = new Set<string>()
+  const dependencyPackagesWithDetails = new Set(
+    entries
+      .filter(entry => isDependencyEntry(entry) && entry.children.length)
+      .map(entry => entry.packageName),
+  )
   return entries.filter((entry) => {
+    if (
+      isDependencyEntry(entry)
+      && !entry.children.length
+      && dependencyPackagesWithDetails.has(entry.packageName)
+    ) {
+      return false
+    }
     const key = `${entry.packageName}:${entry.text}:${[...entry.children].sort().join('|')}`
     if (seen.has(key))
       return false

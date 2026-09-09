@@ -50,6 +50,35 @@ describe('generate docs changelog', () => {
     expect(en).toContain('### Dependencies')
   })
 
+  it('counts dependency-only releases as one visible summary', () => {
+    const dependencyOnlyRelease = [{
+      version: '1.0.1',
+      date: '2026-09-09',
+      packages: ['@antdv-next1/pro-card'],
+      categories: {
+        features: [],
+        fixes: [],
+        docs: [],
+        tests: [],
+        ci: [],
+        chore: [],
+        dependencies: [{
+          packageName: '@antdv-next1/pro-card',
+          text: 'Updated dependencies',
+          children: ['@antdv-next1/pro-utils@2.1.0'],
+        }],
+        refactors: [],
+        changes: [],
+      },
+    }]
+
+    const zh = createDocsChangelogContent(dependencyOnlyRelease as any, 'zh-CN')
+    const en = createDocsChangelogContent(dependencyOnlyRelease as any, 'en-US')
+
+    expect(zh).toContain('本版本包含 1 项摘要更新')
+    expect(en).toContain('This release includes 1 highlight')
+  })
+
   it('writes synchronized changelog pages for the aggregate module and package pages', async () => {
     const rootDir = await mkdtemp(join(tmpdir(), 'docs-changelog-'))
 
@@ -74,7 +103,7 @@ describe('generate docs changelog', () => {
       rootDir,
       'card',
       '@antdv-next1/pro-card',
-      '# @antdv-next1/pro-card\n\n## 2.0.0\n\n### Patch Changes\n\n- feat: improve card sync\n- fix: align changelog output\n',
+      '# @antdv-next1/pro-card\n\n## 2.0.0\n\n### Patch Changes\n\n- feat: improve card sync\n- fix: align changelog output\n- Updated dependencies\n- Updated dependencies\n  - @antdv-next1/pro-utils@2.1.0\n',
     )
 
     await writeDocsChangelog(rootDir, { today: '2026-08-27' })
@@ -99,6 +128,7 @@ describe('generate docs changelog', () => {
     expect(packageZh).toContain('ProCard 更新日志')
     expect(packageZh).toContain('packages/card/CHANGELOG.md')
     expect(packageZh).toContain('**发布日期：** 2026-01-02')
+    expect(packageZh.match(/\*\*@antdv-next1\/pro-card\*\*: Updated dependencies/g)).toHaveLength(1)
     expect(packageEn).toContain('ProCard Changelog')
     expect(packageEn).toContain('packages/card/CHANGELOG.md')
     expect(packageEn).toContain('**Release date:** 2026-01-02')

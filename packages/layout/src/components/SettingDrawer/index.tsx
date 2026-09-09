@@ -9,7 +9,7 @@ import { CloseOutlined, CopyOutlined, NotificationOutlined, SettingOutlined } fr
 import { classNames, omit } from '@v-c/util'
 import { Alert, Button, Divider, Drawer, Listy, message as Message, Switch } from 'antdv-next'
 import { useConfig } from 'antdv-next/config-provider/context'
-import { computed, defineComponent, reactive, ref, shallowRef, Teleport } from 'vue'
+import { computed, defineComponent, onBeforeUnmount, reactive, ref, shallowRef, Teleport, watch } from 'vue'
 import defaultSettings from '../../defaultSettings'
 import { genStringToTheme } from '../../utils'
 import BlockCheckbox from './BlockCheckbox'
@@ -25,6 +25,66 @@ type MergerSettingsType<T> = Partial<T> & {
   colorWeak?: boolean
   [key: string]: any
 }
+
+interface ColorWeakState {
+  count: number
+  hadAttribute: boolean
+  hashClasses: Map<string, { count: number, existed: boolean }>
+}
+
+const colorWeakStates = new WeakMap<Document, ColorWeakState>()
+
+function acquireColorWeak(ownerDocument: Document, hashClass?: string) {
+  const { body } = ownerDocument
+  let state = colorWeakStates.get(ownerDocument)
+  if (!state) {
+    state = {
+      count: 0,
+      hadAttribute: body.hasAttribute('data-color-weak'),
+      hashClasses: new Map(),
+    }
+    colorWeakStates.set(ownerDocument, state)
+  }
+
+  state.count += 1
+  body.setAttribute('data-color-weak', '')
+  if (hashClass) {
+    const hashState = state.hashClasses.get(hashClass) || {
+      count: 0,
+      existed: body.classList.contains(hashClass),
+    }
+    hashState.count += 1
+    state.hashClasses.set(hashClass, hashState)
+    body.classList.add(hashClass)
+  }
+}
+
+function releaseColorWeak(ownerDocument: Document, hashClass?: string) {
+  const state = colorWeakStates.get(ownerDocument)
+  if (!state)
+    return
+
+  const { body } = ownerDocument
+  state.count = Math.max(0, state.count - 1)
+  if (hashClass) {
+    const hashState = state.hashClasses.get(hashClass)
+    if (hashState) {
+      hashState.count = Math.max(0, hashState.count - 1)
+      if (hashState.count === 0) {
+        if (!hashState.existed)
+          body.classList.remove(hashClass)
+        state.hashClasses.delete(hashClass)
+      }
+    }
+  }
+
+  if (state.count === 0) {
+    if (!state.hadAttribute)
+      body.removeAttribute('data-color-weak')
+    colorWeakStates.delete(ownerDocument)
+  }
+}
+
 export interface SettingDrawerProps {
   settings?: MergerSettingsType<ProSettings>
   prefixCls?: string
@@ -100,6 +160,31 @@ const SettingDrawer = defineComponent<SettingDrawerProps>((props) => {
     onChange: props.onSettingChange,
   })
   const nextState = reactive(settingState.value as MergerSettingsType<ProSettings>)
+  let ownsColorWeak = false
+  let ownedHashClass = ''
+  const syncColorWeak = (enabled: boolean) => {
+    if (typeof document === 'undefined')
+      return
+    if (enabled && !ownsColorWeak) {
+      ownedHashClass = hashId?.value || ''
+      acquireColorWeak(document, ownedHashClass)
+      ownsColorWeak = true
+    }
+    else if (!enabled && ownsColorWeak) {
+      releaseColorWeak(document, ownedHashClass)
+      ownsColorWeak = false
+      ownedHashClass = ''
+    }
+  }
+  watch(
+    () => Boolean(settingState.value.colorWeak),
+    syncColorWeak,
+    { immediate: true },
+  )
+  onBeforeUnmount(() => {
+    if (ownsColorWeak)
+      releaseColorWeak(document, ownedHashClass)
+  })
   /**
    * 修改设置
    *
@@ -126,20 +211,6 @@ const SettingDrawer = defineComponent<SettingDrawerProps>((props) => {
       nextState.splitMenus = true
     }
     delete nextState.fixSiderbar
-    if (key === 'colorWeak') {
-      const dom = document.querySelector('body')
-      if (!dom)
-        return
-      if (value) {
-        dom.dataset.prosettingdrawer = dom.style.filter
-        dom.style.filter = 'invert(80%)'
-      }
-      else {
-        dom.style.filter = dom.dataset.prosettingdrawer || 'none'
-        delete dom.dataset.prosettingdrawer
-      }
-    }
-
     delete nextState.menu
     delete nextState.title
     delete nextState.iconfontUrl
@@ -163,7 +234,6 @@ const SettingDrawer = defineComponent<SettingDrawerProps>((props) => {
             class="color-weak"
             checked={!!settingState.value.colorWeak}
             onUpdate:checked={checked => changeSetting('colorWeak', checked as boolean)}
-            onChange={checked => changeSetting('colorWeak', checked as boolean)}
           />
         ),
       },

@@ -591,7 +591,7 @@ const ListView = defineComponent(<RecordType extends AnyObject>(props: ListViewP
 }, {
   name: 'ListView',
   inheritAttrs: false,
-  props: ['columns', 'action', 'expandable', 'grid', 'group', 'height', 'itemCardProps', 'itemRender', 'onScroll', 'pagination', 'rowHoverable', 'loading', 'dataSource', 'prefixCls', 'rowClassName', 'rowKey', 'rowSelection', 'split', 'sticky', 'variant', 'virtual', 'classes', 'styles', 'ghost', 'itemLayout', 'loadMore', 'onItem', 'onRow', 'size', 'hashId', 'cssVarCls'],
+  props: ['columns', 'action', 'expandable', 'grid', 'group', 'height', 'itemCardProps', 'itemRender', 'onScroll', 'pagination', 'rowHoverable', 'loading', 'dataSource', 'prefixCls', 'rowClassName', 'rowKey', 'rowSelection', 'split', 'sticky', 'variant', 'virtual', 'classes', 'styles', 'ghost', 'itemLayout', 'loadMore', 'onItem', 'onRow', 'size', 'hashId', 'cssVarCls', 'locale'],
 })
 
 export default ListView

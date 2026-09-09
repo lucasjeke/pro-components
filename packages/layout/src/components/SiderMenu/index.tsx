@@ -65,7 +65,7 @@ const SiderMenuWrapper = defineComponent<SiderMenuWrapperProps>((props, { attrs 
             mask={{
               closable: true,
             }}
-            width={siderWidth}
+            size={siderWidth}
             styles={{
               body: {
                 height: '100vh',

@@ -29,6 +29,8 @@ const [messageApi, ContextHolder] = message.useMessage()
       name="modal-form-demo"
       title="Create New Form"
       auto-focus-first-input
+      fullscreenable
+      draggable
       :trigger="h(Button, { type: 'primary' }, () => [h(PlusOutlined), 'Create New Form'])"
       :submit-timeout="2000"
       @finish="async () => {

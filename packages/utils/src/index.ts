@@ -33,9 +33,9 @@ export * from './childrenToArray'
 export * from './useRefFunction'
 export * from './transformBooleanProps'
 export * from './transformVueNodeType'
-
 export { genCopyable } from './genCopyable'
 
+export * from './components/Draggable'
 export { useMedia as useBreakpoint } from './useMediaQuery'
 export { default as ErrorBoundary } from './components/ErrorBoundary'
 export { default as CopyToClipboard } from './components/CopyToClipboard'

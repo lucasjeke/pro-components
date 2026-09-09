@@ -8,10 +8,6 @@ export default mergeConfig(vitestPlugin, defineProject({
       '**/tests/**/*.test.tsx',
     ],
     environment: 'jsdom',
-    setupFiles: [
-      '../../tests/setup.ts',
-      '../../tests/setupAfterEnv.ts',
-    ],
     server: {
       deps: {
         inline: [/@v-c\//],

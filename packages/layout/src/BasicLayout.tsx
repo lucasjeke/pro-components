@@ -440,6 +440,7 @@ const BasicLayout = defineComponent<ProLayoutProps, {}, string, CustomSlotsType<
                 [`${proLayoutClassName.value}-fix-siderbar`]: fixedSiderbar,
                 [`${proLayoutClassName.value}-${props.layout}`]: props.layout,
                 [`${proLayoutClassName.value}-${props.navTheme}`]: props.navTheme,
+                [`${proLayoutClassName.value}-colorWeak`]: props.colorWeak,
               }, attrs.class, hashId?.value, cssVarCls?.value)}
               style={attrs.style}
             >
@@ -457,7 +458,9 @@ const BasicLayout = defineComponent<ProLayoutProps, {}, string, CustomSlotsType<
                   cssVarCls={cssVarCls?.value}
                   prefixCls={proLayoutClassName.value}
                   style={contentStyle}
-                  v-slots={slots}
+                  v-slots={{
+                    errorBoundaryRender: slots.errorBoundaryRender,
+                  }}
                 >
                   {loading ? <PageLoading /> : slots.default?.()}
                 </WrapContent>

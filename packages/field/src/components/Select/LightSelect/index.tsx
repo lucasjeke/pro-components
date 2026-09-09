@@ -215,7 +215,7 @@ const LightSelect = defineComponent<LightSelectProps, {}, string, CustomSlotsTyp
                 ? options
                 : options?.filter((o) => {
                     if (typeof showSearch !== 'boolean' && showSearch?.optionFilterProp) {
-                      return toArray(o[showSearch.optionFilterProp]).join('').toLowerCase().includes(keyword.value)
+                      return toArray(o[showSearch.optionFilterProp as string]).join('').toLowerCase().includes(keyword.value)
                     }
                     return (
                       String(o[fieldNames.label || 'label'])

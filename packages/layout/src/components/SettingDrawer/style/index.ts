@@ -97,9 +97,6 @@ const genSettingDrawerStyle: GenerateStyle<SettingDrawerToken> = (token) => {
                 '&::before': { zIndex: '1', backgroundColor: '#0f1c29' },
                 '&::after': { backgroundColor: 'rgb(36, 37, 37)' },
               },
-              '&-group': {
-
-              },
             },
           },
         },
@@ -228,6 +225,11 @@ const genSettingDrawerStyle: GenerateStyle<SettingDrawerToken> = (token) => {
             backgroundColor: 'transparent',
           },
         },
+      },
+    },
+    '[data-color-weak]': {
+      [`> ${token.antCls}-drawer,> ${token.antCls}-message,> ${token.antCls}-popover,> ${token.antCls}-tooltip,> ${token.antCls}-modal-root,> ${token.antCls}-image-preview-root,> ${token.antCls}-dropdown,> ${token.antCls}-menu-submenu-popup,> ${token.antCls}-select-dropdown,> ${token.antCls}-cascader-dropdown,> ${token.antCls}-picker-dropdown,> ${token.antCls}-tour,> ${token.antCls}-notification`]: {
+        filter: 'invert(80%)',
       },
     },
   }

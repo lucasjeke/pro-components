@@ -3,13 +3,15 @@ import type { FormProps, ModalProps } from 'antdv-next'
 import type { SetupContext, VNode } from 'vue'
 import type { CommonFormProps, ProFormRef, SubmitterProps } from '../../BaseForm'
 import { useIntl } from '@antdv-next1/pro-provider'
-import { transformBooleanProps, useEffect, useState } from '@antdv-next1/pro-utils'
-import { merge, useMergedState } from '@v-c/util'
-import { Modal } from 'antdv-next'
+import { Draggable, transformBooleanProps, useEffect, useState } from '@antdv-next1/pro-utils'
+import { FullscreenExitOutlined, FullscreenOutlined } from '@antdv-next/icons'
+import { classNames, merge, useMergedState } from '@v-c/util'
+import { Button, Modal } from 'antdv-next'
 import { useConfig } from 'antdv-next/config-provider/context'
 import { cloneVNode, computed, defineComponent, shallowRef, Teleport } from 'vue'
 import { BaseForm } from '../../BaseForm'
 import { useProFormInstanceExpose } from '../../utils'
+import useStyle from './style'
 
 export type ProModalFormProps<T = Record<string, any>, U = Record<string, any>> = Omit<
   FormProps,
@@ -34,7 +36,7 @@ export type ProModalFormProps<T = Record<string, any>, U = Record<string, any>> 
   submitTimeout?: number
 
   /** @name trigger 用于触发抽屉打开的 dom */
-  trigger?: VNode<any, any, { onClick?: (e: MouseEvent) => void }>
+  trigger?: VNode<unknown, unknown, { onClick?: (e: MouseEvent) => void }>
 
   /** @name open 受控的打开关闭 */
   open?: ModalProps['open']
@@ -53,6 +55,10 @@ export type ProModalFormProps<T = Record<string, any>, U = Record<string, any>> 
 
   /** @name width 弹框的宽度 */
   width?: ModalProps['width']
+  /** @name fullscreenable 是否显示全屏按钮  */
+  fullscreenable?: boolean
+  /** @name draggable 是否允许拖拽 */
+  draggable?: boolean | { bounds?: 'none' }
 }
 
 const ProModalForm = defineComponent(
@@ -66,14 +72,32 @@ const ProModalForm = defineComponent(
       {},
       CustomSlotsType<{
         default?: () => VueNode
+        title?: () => VueNode
+        okText?: () => VueNode
+        cancelText?: () => VueNode
+        closeIcon?: () => VueNode
+        modalRender?: (node: VueNode) => VueNode
+        footer?: (params: {
+          originNode: VueNode
+          extra: {
+            OkBtn: VueNode
+            CancelBtn: VueNode
+          }
+        }) => VueNode
       }>
     >,
   ) => {
     const formRef = shallowRef<ProFormRef<T>>()
     const intl = useIntl()
     const config = useConfig()
+    const prefixCls = computed(() => props.prefixCls || config.value.getPrefixCls('pro'))
+    const baseClassName = computed(() => `${prefixCls.value}-modal-form`)
+    const [hashId, cssVarCls] = useStyle(baseClassName)
     const footerDomRef = shallowRef<HTMLDivElement | null>(null)
+    const draggleRef = shallowRef<HTMLDivElement | null>(null)
     const [loading, setLoading] = useState(false)
+    const [fullScreen, setFullScreen] = useState(false)
+    const [bounds, setBounds] = useState({ left: 0, top: 0, bottom: 0, right: 0 })
     const [open, setOpen] = useMergedState(() => props.open || false, {
       defaultValue: false,
       value: computed(() => props.open),
@@ -138,7 +162,7 @@ const ProModalForm = defineComponent(
     }
     expose(proFormInstanceExpose)
     return () => {
-      const transformedProps = transformBooleanProps(['isKeyPressSubmit', 'autoFocusFirstInput', 'disabled', 'scrollToFirstError', 'clearOnDestroy', 'loading', 'grid', 'omitNil', 'preserve', 'syncToUrl', 'syncToModel', 'syncToUrlAsImportant', 'readonly', 'open'], props)
+      const transformedProps = transformBooleanProps(['isKeyPressSubmit', 'autoFocusFirstInput', 'disabled', 'scrollToFirstError', 'clearOnDestroy', 'loading', 'grid', 'omitNil', 'preserve', 'syncToUrl', 'syncToModel', 'syncToUrlAsImportant', 'fullscreenable', 'draggable', 'readonly', 'open'], props)
       const {
         trigger,
         onOpenChange,
@@ -146,11 +170,35 @@ const ProModalForm = defineComponent(
         onFinish,
         onInit,
         submitTimeout,
-        title,
-        width,
+        title: propsTitle,
+        width: propsWidth,
         open: propsOpen,
+        fullscreenable: propsFullScreenable,
+        draggable,
         ...rest
       } = { ...props, ...transformedProps }
+      const {
+        title: modalPropsTitle,
+        width: modalPropsWidth,
+        modalRender: modalPropsRender,
+        footer: modalPropsFooter,
+        okText: modalPropsOkText,
+        cancelText: modalPropsCancelText,
+        ...restModalProps
+      } = modalProps || {}
+      const {
+        default: slotDefault,
+        title: slotTitle,
+        modalRender: slotModalRender,
+        footer: slotFooter,
+        okText: slotOkText,
+        cancelText: slotCancelText,
+        ...restSlots
+      } = slots
+      const title = slotTitle ? slotTitle() : (propsTitle ?? modalPropsTitle)
+      const width = propsWidth ?? modalPropsWidth ?? 800
+      const hasCustomFooter = Boolean(slotFooter) || Object.prototype.hasOwnProperty.call(modalProps || {}, 'footer')
+      const customFooter = slotFooter || modalPropsFooter
       const triggerDom = !trigger
         ? null
         : cloneVNode(trigger, {
@@ -162,14 +210,14 @@ const ProModalForm = defineComponent(
             },
           })
       const submitterConfig
-        = rest.submitter === false
+        = rest.submitter === false || hasCustomFooter
           ? false
           : merge(
               {
                 searchConfig: {
-                  submitText: modalProps?.okText ?? config.value.locale?.Modal?.okText ?? intl.value.getMessage({ id: 'form.modal.okText', defaultMessage: '确认' }),
+                  submitText: slotOkText?.() ?? modalPropsOkText ?? config.value.locale?.Modal?.okText ?? intl.value.getMessage({ id: 'form.modal.okText', defaultMessage: '确认' }),
                   resetText:
-                    modalProps?.cancelText ?? config.value.locale?.Modal?.cancelText ?? intl.value.getMessage({ id: 'form.modal.cancelText', defaultMessage: '取消' }),
+                    slotCancelText?.() ?? modalPropsCancelText ?? config.value.locale?.Modal?.cancelText ?? intl.value.getMessage({ id: 'form.modal.cancelText', defaultMessage: '取消' }),
                 },
                 resetButtonProps: {
                   preventDefault: true,
@@ -182,12 +230,73 @@ const ProModalForm = defineComponent(
               } as SubmitterProps,
               rest.submitter ?? {},
             )
+      const modalRender = slotModalRender || modalPropsRender
+      const renderModal = (modal: VNode<unknown, unknown, ModalProps>) => {
+        return modalRender ? modalRender(modal) : modal
+      }
+      const titleDom = draggable || propsFullScreenable ? (
+        <div
+          class={classNames(`${baseClassName.value}-title-text`, cssVarCls.value, hashId.value)}
+        >
+          {title}
+        </div>
+      ) : title
       return (
         <>
           <Modal
-            title={title}
-            width={width || 800}
-            {...modalProps}
+            class={classNames(baseClassName.value, {
+              [`${baseClassName.value}-fullscreenable`]: propsFullScreenable,
+              [`${baseClassName.value}-draggable`]: draggable,
+              [`${baseClassName.value}-is-fullscreen`]: propsFullScreenable && fullScreen.value,
+            }, cssVarCls.value, hashId.value)}
+            {...(modalRender || draggable ? {
+              modalRender: (modal: VNode<unknown, unknown, ModalProps>) => {
+                return (
+                  <>
+                    {draggable && !fullScreen.value ? (
+                      <Draggable
+                        bounds={typeof draggable !== 'boolean' && draggable.bounds === 'none' ? undefined : bounds.value}
+                        cancel={`.${baseClassName.value}-fullscreen`}
+                        handle={`.${baseClassName.value}-title-text`}
+                        nodeRef={draggleRef}
+                        onStart={(_, uiData) => {
+                          const { clientWidth, clientHeight } = window.document.documentElement
+                          const targetRect = draggleRef.value?.getBoundingClientRect()
+                          if (!targetRect) {
+                            return
+                          }
+                          setBounds({
+                            left: -targetRect.left + uiData.x,
+                            right: clientWidth - (targetRect.right - uiData.x),
+                            top: -targetRect.top + uiData.y,
+                            bottom: clientHeight - (targetRect.bottom - uiData.y),
+                          })
+                        }}
+                      >
+                        <div ref={draggleRef}>{renderModal(modal)}</div>
+                      </Draggable>
+                    ) : renderModal(modal)}
+                  </>
+                )
+              },
+            } : {})}
+            title={propsFullScreenable ? (
+              <div class={classNames(`${baseClassName.value}-title`, cssVarCls.value, hashId.value)}>
+                {titleDom}
+                <Button
+                  class={classNames(`${baseClassName.value}-fullscreen`, cssVarCls.value, hashId.value)}
+                  type="text"
+                  aria-label={fullScreen.value ? 'Exit fullscreen' : 'Enter fullscreen'}
+                  onClick={() => setFullScreen(!fullScreen.value)}
+                >
+                  {!fullScreen.value ? <FullscreenOutlined /> : <FullscreenExitOutlined /> }
+                </Button>
+              </div>
+            ) : <>{titleDom}</>}
+            {...restModalProps}
+            {...(propsFullScreenable ? {
+              width: fullScreen.value ? '100vw' : width,
+            } : { width })}
             open={open.value}
             onCancel={(e) => {
               // 提交表单loading时，阻止弹框关闭
@@ -204,19 +313,27 @@ const ProModalForm = defineComponent(
               if (open.value) {
                 setOpen(false)
               }
+              setFullScreen(false)
               modalProps?.afterClose?.()
             }}
             footer={
-              rest.submitter !== false ? (
-                <div
-                  ref={footerDomRef}
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'flex-end',
-                  }}
-                />
-              ) : null
+              hasCustomFooter
+                ? customFooter
+                : rest.submitter !== false
+                  ? (
+                      <div
+                        ref={footerDomRef}
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'flex-end',
+                        }}
+                      />
+                    )
+                  : null
             }
+            v-slots={{
+              ...restSlots,
+            }}
           >
             <BaseForm<T, U>
               ref={formRef}
@@ -245,7 +362,9 @@ const ProModalForm = defineComponent(
                   )}
                 </>
               )}
-              v-slots={slots}
+              v-slots={{
+                default: slotDefault,
+              }}
             />
           </Modal>
           {triggerDom}
@@ -319,6 +438,8 @@ const ProModalForm = defineComponent(
       'variant',
       'width',
       'wrapperCol',
+      'fullscreenable',
+      'draggable',
     ],
   },
 )

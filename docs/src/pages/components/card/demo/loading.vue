@@ -13,7 +13,10 @@ import { h } from 'vue'
 
 <template>
   <div class="p-6">
-    <ProCard loading :style="{ maxWidth: '300px' }">
+    <ProCard
+      loading :style="{ maxWidth: '300px' }"
+      title="Card title"
+    >
       Content
     </ProCard>
     <ProCard

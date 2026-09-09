@@ -79,12 +79,12 @@ const genProLayoutStyle: GenerateStyle<ProLayoutToken> = (token) => {
       [proLayoutScrollbarVar.track]: 'transparent',
       [proLayoutScrollbarVar.size]: 4,
       [proLayoutScrollbarVar.radius]: token.borderRadiusSM,
+      '&-colorWeak': {
+        filter: 'invert(80%)',
+      },
       '&-realDark': {
         [`${token.antCls}-layout`]: {
           background: '#2a2c2c',
-          // [`${token.componentCls}-content`]: {
-          //   backgroundColor: '#2a2c2c',
-          // },
         },
       },
       boxSizing: 'border-box',
@@ -140,7 +140,6 @@ const genProLayoutStyle: GenerateStyle<ProLayoutToken> = (token) => {
           ...getLayoutScrollbar(),
         },
       },
-
     },
   } as CSSInterpolation
 }

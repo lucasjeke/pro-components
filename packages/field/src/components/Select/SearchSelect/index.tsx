@@ -100,7 +100,8 @@ const SearchSelect = defineComponent(
   }>>) => {
     const config = useConfig()
     const prefixCls = computed(() => props.prefixCls || config.value.getPrefixCls('pro'))
-    const baseClassName = computed(() => `${prefixCls.value}-filed-search-select`)
+    const baseClassName = computed(() => `${prefixCls.value}-field-search-select`)
+    const legacyBaseClassName = computed(() => `${prefixCls.value}-filed-search-select`)
     const [searchValue, setSearchValue] = useState<string | undefined>(
       (typeof props.showSearch !== 'boolean' ? props.showSearch?.searchValue : undefined) ?? props.defaultSearchValue,
     )
@@ -247,7 +248,7 @@ const SearchSelect = defineComponent(
           ref={selectRef}
           {...attrs}
           {...restProps}
-          class={classNames(baseClassName.value, attrs.class, {
+          class={classNames(baseClassName.value, legacyBaseClassName.value, attrs.class, {
             [`${baseClassName.value}-disabled`]: disabled,
           })}
           disabled={disabled}
@@ -281,7 +282,7 @@ const SearchSelect = defineComponent(
                   ?.toString()
                   .toLowerCase()
                   .includes(effectiveSearchValue.toLowerCase())
-                  || option[(typeof showSearch !== 'boolean' && showSearch.optionFilterProp) || 'label']?.toString().toLowerCase().includes(effectiveSearchValue.toLowerCase())
+                  || option[(typeof showSearch !== 'boolean' && showSearch.optionFilterProp) as string || 'label']?.toString().toLowerCase().includes(effectiveSearchValue.toLowerCase())
                   // || option?.value?.toString().toLowerCase().includes(inputValue.toLowerCase())
               )
             },

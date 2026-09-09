@@ -16,11 +16,12 @@ const descriptionsRef = useTemplateRef<ProDescriptionsInstance<Record<string, an
 async function request() {
   return Promise.resolve({
     success: true,
-    data: { id: '这是一段文本', date: '20200730', money: '12121' },
+    data: { id: '这是一段文本', name: '异步回显名称', date: '20200730', money: '12121' },
   })
 }
 const columns: ProDescriptionsItemProps<Record<string, any>, 'text'>[] = [
   { dataIndex: 'id' },
+  { dataIndex: 'name', label: '名称' },
   { dataIndex: 'date', label: '日期', valueType: 'date' },
   { label: 'money', dataIndex: 'money', valueType: 'money' },
   {
@@ -48,7 +49,13 @@ const columns: ProDescriptionsItemProps<Record<string, any>, 'text'>[] = [
       ref="descriptions"
       title="高级定义列表 request"
       :request="request"
-      :extra="h(Button, { type: 'link' }, () => '修改')"
+      :editable="{}"
+      :extra="h(Button,
+                { type: 'link',
+                  onClick: () => {
+                    descriptionsRef.value?.startEditable('name')
+                  },
+                }, () => '修改')"
       :columns="columns"
     />
   </div>

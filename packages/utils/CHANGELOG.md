@@ -1,5 +1,15 @@
 # @antdv-next1/pro-utils
 
+## 2.1.0
+
+### Minor Changes
+
+- 244f208: feat: export Draggable utilities and add draggable and fullscreen ModalForm modes.
+
+### Patch Changes
+
+- fix: stop cancelled touch drags and retain user-select protection until every active drag ends.
+
 ## 2.0.0
 
 ### Major Changes

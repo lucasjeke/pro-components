@@ -6,6 +6,32 @@ title: ProField 更新日志
 
 > 本页面同步 `packages/field/CHANGELOG.md`，发布时由 `pnpm docs:changelog` 自动生成。
 
+## V2.0.1
+
+**发布日期：** 2026-09-09
+
+本版本包含 1 项摘要更新，涉及 `@antdv-next1/pro-field`。
+
+### 版本摘要 Highlights
+
+- **@antdv-next1/pro-field**: 244f208: fix: preserve corrected and legacy SearchSelect root, option, and disabled classes, and correct option filtering.
+
+<details>
+<summary>展开依赖版本与完整详情</summary>
+
+### 完整详情 Details
+
+### 问题修复 Fixes
+
+- **@antdv-next1/pro-field**: 244f208: fix: preserve corrected and legacy SearchSelect root, option, and disabled classes, and correct option filtering.
+
+### 依赖更新 Dependencies
+
+- **@antdv-next1/pro-field**: Updated dependencies [244f208]
+  - @antdv-next1/pro-utils@2.1.0
+
+</details>
+
 ## V2.0.0
 
 **发布日期：** 2026-08-27
@@ -42,7 +68,7 @@ title: ProField 更新日志
 
 **发布日期：** 2026-07-22
 
-本版本包含 0 项摘要更新，涉及 `@antdv-next1/pro-field`。
+本版本包含 1 项摘要更新，涉及 `@antdv-next1/pro-field`。
 
 ### 版本摘要 Highlights
 
@@ -64,7 +90,7 @@ title: ProField 更新日志
 
 **发布日期：** 2026-07-14
 
-本版本包含 0 项摘要更新，涉及 `@antdv-next1/pro-field`。
+本版本包含 1 项摘要更新，涉及 `@antdv-next1/pro-field`。
 
 ### 版本摘要 Highlights
 
@@ -114,7 +140,7 @@ title: ProField 更新日志
 
 **发布日期：** 2026-07-10
 
-本版本包含 0 项摘要更新，涉及 `@antdv-next1/pro-field`。
+本版本包含 1 项摘要更新，涉及 `@antdv-next1/pro-field`。
 
 ### 版本摘要 Highlights
 
@@ -137,7 +163,7 @@ title: ProField 更新日志
 
 **发布日期：** 2026-07-10
 
-本版本包含 0 项摘要更新，涉及 `@antdv-next1/pro-field`。
+本版本包含 1 项摘要更新，涉及 `@antdv-next1/pro-field`。
 
 ### 版本摘要 Highlights
 
@@ -269,7 +295,7 @@ title: ProField 更新日志
 
 **发布日期：** 2026-07-09
 
-本版本包含 0 项摘要更新，涉及 `@antdv-next1/pro-field`。
+本版本包含 1 项摘要更新，涉及 `@antdv-next1/pro-field`。
 
 ### 版本摘要 Highlights
 
@@ -292,7 +318,7 @@ title: ProField 更新日志
 
 **发布日期：** 2026-07-09
 
-本版本包含 0 项摘要更新，涉及 `@antdv-next1/pro-field`。
+本版本包含 1 项摘要更新，涉及 `@antdv-next1/pro-field`。
 
 ### 版本摘要 Highlights
 

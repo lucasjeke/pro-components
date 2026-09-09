@@ -1,5 +1,12 @@
 # @antdv-next1/pro-card
 
+## 3.0.1
+
+### Patch Changes
+
+- Updated dependencies [244f208]
+  - @antdv-next1/pro-utils@2.1.0
+
 ## 3.0.0
 
 ### Major Changes

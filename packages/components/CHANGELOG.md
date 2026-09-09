@@ -1,5 +1,25 @@
 # @antdv-next1/pro-components
 
+## 2.1.0
+
+### Minor Changes
+
+- 244f208: feat: export Draggable utilities and add draggable and fullscreen ModalForm modes.
+
+### Patch Changes
+
+- fix: complete touch cancellation cleanup, preserve SearchSelect legacy classes, keep the ModalForm submitter for an undefined footer, and cover nested portal roots in color weak mode.
+- Updated dependencies [244f208]
+  - @antdv-next1/pro-utils@2.1.0
+  - @antdv-next1/pro-form@2.1.0
+  - @antdv-next1/pro-layout@2.0.2
+  - @antdv-next1/pro-field@2.0.1
+  - @antdv-next1/pro-listy@2.0.2
+  - @antdv-next1/pro-card@3.0.1
+  - @antdv-next1/pro-descriptions@1.0.2
+  - @antdv-next1/pro-skeleton@1.0.2
+  - @antdv-next1/pro-table@2.0.2
+
 ## 2.0.1
 
 ### Patch Changes

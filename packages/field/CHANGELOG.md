@@ -1,5 +1,13 @@
 # @antdv-next1/pro-field
 
+## 2.0.1
+
+### Patch Changes
+
+- 244f208: fix: preserve corrected and legacy SearchSelect root, option, and disabled classes, and correct option filtering.
+- Updated dependencies [244f208]
+  - @antdv-next1/pro-utils@2.1.0
+
 ## 2.0.0
 
 ### Major Changes

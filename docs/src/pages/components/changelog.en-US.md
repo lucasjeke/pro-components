@@ -6,6 +6,55 @@ title: Component Changelog
 
 > This page is generated from package `CHANGELOG.md` files. Run `pnpm bump` before publishing.
 
+## V2.1.0
+
+**Release date:** 2026-09-09
+
+This release shows 4 highlights from 9 updates across `@antdv-next1/pro-components`, `@antdv-next1/pro-layout`, `@antdv-next1/pro-form`, `@antdv-next1/pro-table`, `@antdv-next1/pro-card`, `@antdv-next1/pro-descriptions`, `@antdv-next1/pro-field`, `@antdv-next1/pro-listy`, `@antdv-next1/pro-skeleton`, `@antdv-next1/pro-utils`.
+
+### Highlights
+
+- **@antdv-next1/pro-components**: 244f208: feat: export Draggable utilities and add draggable and fullscreen ModalForm modes.
+- **@antdv-next1/pro-utils**: 244f208: feat: export Draggable utilities and add draggable and fullscreen ModalForm modes.
+- **@antdv-next1/pro-form**: 244f208: feat: export Draggable utilities and add draggable and fullscreen ModalForm modes.
+- **@antdv-next1/pro-components**: fix: complete touch cancellation cleanup, preserve SearchSelect legacy classes, keep the ModalForm submitter for an undefined footer, and cover nested portal roots in color weak mode.
+- See folded details below for the remaining updates.
+
+<details>
+<summary>Show dependency versions</summary>
+
+### Details
+
+### Features
+
+- **@antdv-next1/pro-components**: 244f208: feat: export Draggable utilities and add draggable and fullscreen ModalForm modes.
+- **@antdv-next1/pro-utils**: 244f208: feat: export Draggable utilities and add draggable and fullscreen ModalForm modes.
+- **@antdv-next1/pro-form**: 244f208: feat: export Draggable utilities and add draggable and fullscreen ModalForm modes.
+
+### Fixes
+
+- **@antdv-next1/pro-components**: fix: complete touch cancellation cleanup, preserve SearchSelect legacy classes, keep the ModalForm submitter for an undefined footer, and cover nested portal roots in color weak mode.
+- **@antdv-next1/pro-utils**: fix: stop cancelled touch drags and retain user-select protection until every active drag ends.
+- **@antdv-next1/pro-form**: fix: keep the ProForm submitter when `modalProps.footer` is explicitly undefined.
+- **@antdv-next1/pro-layout**: 244f208: fix: scope color weak filtering to ProLayout and nested portal roots, center PageLoading, forward the error boundary slot, and use Drawer size for mobile sider width.
+- **@antdv-next1/pro-field**: 244f208: fix: preserve corrected and legacy SearchSelect root, option, and disabled classes, and correct option filtering.
+- **@antdv-next1/pro-listy**: 244f208: fix: register the ListView locale prop.
+
+### Dependencies
+
+- **@antdv-next1/pro-components**: Updated dependencies [244f208]
+  - @antdv-next1/pro-utils@2.1.0
+  - @antdv-next1/pro-form@2.1.0
+  - @antdv-next1/pro-layout@2.0.2
+  - @antdv-next1/pro-field@2.0.1
+  - @antdv-next1/pro-listy@2.0.2
+  - @antdv-next1/pro-card@3.0.1
+  - @antdv-next1/pro-descriptions@1.0.2
+  - @antdv-next1/pro-skeleton@1.0.2
+  - @antdv-next1/pro-table@2.0.2
+
+</details>
+
 ## V2.0.1
 
 **Release date:** 2026-08-29

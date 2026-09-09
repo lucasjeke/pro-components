@@ -1,5 +1,12 @@
 # @antdv-next1/pro-skeleton
 
+## 1.0.2
+
+### Patch Changes
+
+- Updated dependencies [244f208]
+  - @antdv-next1/pro-utils@2.1.0
+
 ## 1.0.1
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # @antdv-next1/pro-listy
 
+## 2.0.2
+
+### Patch Changes
+
+- 244f208: fix: register the ListView locale prop.
+- Updated dependencies [244f208]
+  - @antdv-next1/pro-utils@2.1.0
+  - @antdv-next1/pro-card@3.0.1
+  - @antdv-next1/pro-table@2.0.2
+
 ## 2.0.1
 
 ### Patch Changes

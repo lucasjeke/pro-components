@@ -6,6 +6,28 @@ title: ProCard 更新日志
 
 > 本页面同步 `packages/card/CHANGELOG.md`，发布时由 `pnpm docs:changelog` 自动生成。
 
+## V3.0.1
+
+**发布日期：** 2026-09-09
+
+本版本包含 1 项摘要更新，涉及 `@antdv-next1/pro-card`。
+
+### 版本摘要 Highlights
+
+- 更新内部依赖版本。
+
+<details>
+<summary>展开依赖版本与完整详情</summary>
+
+### 完整详情 Details
+
+### 依赖更新 Dependencies
+
+- **@antdv-next1/pro-card**: Updated dependencies [244f208]
+  - @antdv-next1/pro-utils@2.1.0
+
+</details>
+
 ## V3.0.0
 
 **发布日期：** 2026-08-27
@@ -110,7 +132,7 @@ title: ProCard 更新日志
 
 **发布日期：** 2026-07-14
 
-本版本包含 0 项摘要更新，涉及 `@antdv-next1/pro-card`。
+本版本包含 1 项摘要更新，涉及 `@antdv-next1/pro-card`。
 
 ### 版本摘要 Highlights
 
@@ -160,7 +182,7 @@ title: ProCard 更新日志
 
 **发布日期：** 2026-07-10
 
-本版本包含 0 项摘要更新，涉及 `@antdv-next1/pro-card`。
+本版本包含 1 项摘要更新，涉及 `@antdv-next1/pro-card`。
 
 ### 版本摘要 Highlights
 
@@ -183,7 +205,7 @@ title: ProCard 更新日志
 
 **发布日期：** 2026-07-10
 
-本版本包含 0 项摘要更新，涉及 `@antdv-next1/pro-card`。
+本版本包含 1 项摘要更新，涉及 `@antdv-next1/pro-card`。
 
 ### 版本摘要 Highlights
 
@@ -363,7 +385,7 @@ title: ProCard 更新日志
 
 **发布日期：** 2026-07-09
 
-本版本包含 0 项摘要更新，涉及 `@antdv-next1/pro-card`。
+本版本包含 1 项摘要更新，涉及 `@antdv-next1/pro-card`。
 
 ### 版本摘要 Highlights
 

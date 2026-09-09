@@ -6,11 +6,38 @@ title: ProLayout 更新日志
 
 > 本页面同步 `packages/layout/CHANGELOG.md`，发布时由 `pnpm docs:changelog` 自动生成。
 
+## V2.0.2
+
+**发布日期：** 2026-09-09
+
+本版本包含 1 项摘要更新，涉及 `@antdv-next1/pro-layout`。
+
+### 版本摘要 Highlights
+
+- **@antdv-next1/pro-layout**: 244f208: fix: scope color weak filtering to ProLayout and nested portal roots, center PageLoading, forward the error boundary slot, and use Drawer size for mobile sider width.
+
+<details>
+<summary>展开依赖版本与完整详情</summary>
+
+### 完整详情 Details
+
+### 问题修复 Fixes
+
+- **@antdv-next1/pro-layout**: 244f208: fix: scope color weak filtering to ProLayout and nested portal roots, center PageLoading, forward the error boundary slot, and use Drawer size for mobile sider width.
+
+### 依赖更新 Dependencies
+
+- **@antdv-next1/pro-layout**: Updated dependencies [244f208]
+  - @antdv-next1/pro-utils@2.1.0
+  - @antdv-next1/pro-listy@2.0.2
+
+</details>
+
 ## V2.0.1
 
 **发布日期：** 2026-08-29
 
-本版本包含 0 项摘要更新，涉及 `@antdv-next1/pro-layout`。
+本版本包含 1 项摘要更新，涉及 `@antdv-next1/pro-layout`。
 
 ### 版本摘要 Highlights
 
@@ -110,7 +137,7 @@ title: ProLayout 更新日志
 
 **发布日期：** 2026-07-22
 
-本版本包含 0 项摘要更新，涉及 `@antdv-next1/pro-layout`。
+本版本包含 1 项摘要更新，涉及 `@antdv-next1/pro-layout`。
 
 ### 版本摘要 Highlights
 
@@ -133,7 +160,7 @@ title: ProLayout 更新日志
 
 **发布日期：** 2026-07-21
 
-本版本包含 0 项摘要更新，涉及 `@antdv-next1/pro-layout`。
+本版本包含 1 项摘要更新，涉及 `@antdv-next1/pro-layout`。
 
 ### 版本摘要 Highlights
 
@@ -154,7 +181,7 @@ title: ProLayout 更新日志
 
 **发布日期：** 2026-07-21
 
-本版本包含 0 项摘要更新，涉及 `@antdv-next1/pro-layout`。
+本版本包含 1 项摘要更新，涉及 `@antdv-next1/pro-layout`。
 
 ### 版本摘要 Highlights
 
@@ -176,7 +203,7 @@ title: ProLayout 更新日志
 
 **发布日期：** 2026-07-17
 
-本版本包含 0 项摘要更新，涉及 `@antdv-next1/pro-layout`。
+本版本包含 1 项摘要更新，涉及 `@antdv-next1/pro-layout`。
 
 ### 版本摘要 Highlights
 
@@ -493,7 +520,7 @@ title: ProLayout 更新日志
 
 **发布日期：** 2026-07-09
 
-本版本包含 0 项摘要更新，涉及 `@antdv-next1/pro-layout`。
+本版本包含 1 项摘要更新，涉及 `@antdv-next1/pro-layout`。
 
 ### 版本摘要 Highlights
 
@@ -514,7 +541,7 @@ title: ProLayout 更新日志
 
 **发布日期：** 2026-07-09
 
-本版本包含 0 项摘要更新，涉及 `@antdv-next1/pro-layout`。
+本版本包含 1 项摘要更新，涉及 `@antdv-next1/pro-layout`。
 
 ### 版本摘要 Highlights
 
@@ -535,7 +562,7 @@ title: ProLayout 更新日志
 
 **发布日期：** 2026-07-09
 
-本版本包含 0 项摘要更新，涉及 `@antdv-next1/pro-layout`。
+本版本包含 1 项摘要更新，涉及 `@antdv-next1/pro-layout`。
 
 ### 版本摘要 Highlights
 
@@ -556,7 +583,7 @@ title: ProLayout 更新日志
 
 **发布日期：** 2026-07-09
 
-本版本包含 0 项摘要更新，涉及 `@antdv-next1/pro-layout`。
+本版本包含 1 项摘要更新，涉及 `@antdv-next1/pro-layout`。
 
 ### 版本摘要 Highlights
 
@@ -581,7 +608,7 @@ title: ProLayout 更新日志
 
 **发布日期：** 2026-07-09
 
-本版本包含 0 项摘要更新，涉及 `@antdv-next1/pro-layout`。
+本版本包含 1 项摘要更新，涉及 `@antdv-next1/pro-layout`。
 
 ### 版本摘要 Highlights
 
@@ -603,7 +630,7 @@ title: ProLayout 更新日志
 
 **发布日期：** 2026-07-09
 
-本版本包含 0 项摘要更新，涉及 `@antdv-next1/pro-layout`。
+本版本包含 1 项摘要更新，涉及 `@antdv-next1/pro-layout`。
 
 ### 版本摘要 Highlights
 
@@ -653,7 +680,7 @@ title: ProLayout 更新日志
 
 **发布日期：** 2026-07-09
 
-本版本包含 0 项摘要更新，涉及 `@antdv-next1/pro-layout`。
+本版本包含 1 项摘要更新，涉及 `@antdv-next1/pro-layout`。
 
 ### 版本摘要 Highlights
 

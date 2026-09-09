@@ -1,5 +1,18 @@
 # @antdv-next1/pro-form
 
+## 2.1.0
+
+### Minor Changes
+
+- 244f208: feat: export Draggable utilities and add draggable and fullscreen ModalForm modes.
+
+### Patch Changes
+
+- fix: keep the ProForm submitter when `modalProps.footer` is explicitly undefined.
+- Updated dependencies [244f208]
+  - @antdv-next1/pro-utils@2.1.0
+  - @antdv-next1/pro-field@2.0.1
+
 ## 2.0.0
 
 ### Major Changes

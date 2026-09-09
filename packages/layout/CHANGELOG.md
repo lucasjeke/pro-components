@@ -1,5 +1,14 @@
 # @antdv-next1/pro-layout
 
+## 2.0.2
+
+### Patch Changes
+
+- 244f208: fix: scope color weak filtering to ProLayout and nested portal roots, center PageLoading, forward the error boundary slot, and use Drawer size for mobile sider width.
+- Updated dependencies [244f208]
+  - @antdv-next1/pro-utils@2.1.0
+  - @antdv-next1/pro-listy@2.0.2
+
 ## 2.0.1
 
 ### Patch Changes

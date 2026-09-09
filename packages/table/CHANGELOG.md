@@ -1,5 +1,15 @@
 # @antdv-next1/pro-table
 
+## 2.0.2
+
+### Patch Changes
+
+- Updated dependencies [244f208]
+  - @antdv-next1/pro-utils@2.1.0
+  - @antdv-next1/pro-form@2.1.0
+  - @antdv-next1/pro-field@2.0.1
+  - @antdv-next1/pro-card@3.0.1
+
 ## 2.0.1
 
 ### Patch Changes

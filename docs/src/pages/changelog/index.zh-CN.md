@@ -6,6 +6,55 @@ title: ProComponents 更新日志
 
 > 本页面同步 `packages/components/CHANGELOG.md`，发布时由 `pnpm docs:changelog` 自动生成。
 
+## V2.1.0
+
+**发布日期：** 2026-09-09
+
+本版本默认展示 4 条摘要，完整 9 项更新见折叠详情，涉及 `@antdv-next1/pro-components`、`@antdv-next1/pro-layout`、`@antdv-next1/pro-form`、`@antdv-next1/pro-table`、`@antdv-next1/pro-card`、`@antdv-next1/pro-descriptions`、`@antdv-next1/pro-field`、`@antdv-next1/pro-listy`、`@antdv-next1/pro-skeleton`、`@antdv-next1/pro-utils`。
+
+### 版本摘要 Highlights
+
+- **@antdv-next1/pro-components**: 244f208: feat: export Draggable utilities and add draggable and fullscreen ModalForm modes.
+- **@antdv-next1/pro-utils**: 244f208: feat: export Draggable utilities and add draggable and fullscreen ModalForm modes.
+- **@antdv-next1/pro-form**: 244f208: feat: export Draggable utilities and add draggable and fullscreen ModalForm modes.
+- **@antdv-next1/pro-components**: fix: complete touch cancellation cleanup, preserve SearchSelect legacy classes, keep the ModalForm submitter for an undefined footer, and cover nested portal roots in color weak mode.
+- 更多更新见下方折叠详情。
+
+<details>
+<summary>展开依赖版本与完整详情</summary>
+
+### 完整详情 Details
+
+### 新特性 Features
+
+- **@antdv-next1/pro-components**: 244f208: feat: export Draggable utilities and add draggable and fullscreen ModalForm modes.
+- **@antdv-next1/pro-utils**: 244f208: feat: export Draggable utilities and add draggable and fullscreen ModalForm modes.
+- **@antdv-next1/pro-form**: 244f208: feat: export Draggable utilities and add draggable and fullscreen ModalForm modes.
+
+### 问题修复 Fixes
+
+- **@antdv-next1/pro-components**: fix: complete touch cancellation cleanup, preserve SearchSelect legacy classes, keep the ModalForm submitter for an undefined footer, and cover nested portal roots in color weak mode.
+- **@antdv-next1/pro-utils**: fix: stop cancelled touch drags and retain user-select protection until every active drag ends.
+- **@antdv-next1/pro-form**: fix: keep the ProForm submitter when `modalProps.footer` is explicitly undefined.
+- **@antdv-next1/pro-layout**: 244f208: fix: scope color weak filtering to ProLayout and nested portal roots, center PageLoading, forward the error boundary slot, and use Drawer size for mobile sider width.
+- **@antdv-next1/pro-field**: 244f208: fix: preserve corrected and legacy SearchSelect root, option, and disabled classes, and correct option filtering.
+- **@antdv-next1/pro-listy**: 244f208: fix: register the ListView locale prop.
+
+### 依赖更新 Dependencies
+
+- **@antdv-next1/pro-components**: Updated dependencies [244f208]
+  - @antdv-next1/pro-utils@2.1.0
+  - @antdv-next1/pro-form@2.1.0
+  - @antdv-next1/pro-layout@2.0.2
+  - @antdv-next1/pro-field@2.0.1
+  - @antdv-next1/pro-listy@2.0.2
+  - @antdv-next1/pro-card@3.0.1
+  - @antdv-next1/pro-descriptions@1.0.2
+  - @antdv-next1/pro-skeleton@1.0.2
+  - @antdv-next1/pro-table@2.0.2
+
+</details>
+
 ## V2.0.1
 
 **发布日期：** 2026-08-29

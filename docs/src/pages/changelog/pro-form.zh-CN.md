@@ -6,6 +6,29 @@ title: ProForm 更新日志
 
 > 本页面同步 `packages/form/CHANGELOG.md`，发布时由 `pnpm docs:changelog` 自动生成。
 
+## V2.1.1
+
+**发布日期：** 2026-09-09
+
+本版本包含 1 项摘要更新，涉及 `@antdv-next1/pro-form`。
+
+### 版本摘要 Highlights
+
+- 更新内部依赖版本。
+
+<details>
+<summary>展开依赖版本与完整详情</summary>
+
+### 完整详情 Details
+
+### 依赖更新 Dependencies
+
+- **@antdv-next1/pro-form**: Updated dependencies [ef5cfb6]
+  - @antdv-next1/pro-utils@2.1.1
+  - @antdv-next1/pro-field@2.0.2
+
+</details>
+
 ## V2.1.0
 
 **发布日期：** 2026-09-09

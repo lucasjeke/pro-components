@@ -1,5 +1,11 @@
 # @antdv-next1/pro-utils
 
+## 2.1.1
+
+### Patch Changes
+
+- ef5cfb6: fix: preserve user-select protection when a new drag starts before deferred cleanup completes.
+
 ## 2.1.0
 
 ### Minor Changes

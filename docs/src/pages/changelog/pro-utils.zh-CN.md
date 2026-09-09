@@ -6,6 +6,27 @@ title: ProUtils 更新日志
 
 > 本页面同步 `packages/utils/CHANGELOG.md`，发布时由 `pnpm docs:changelog` 自动生成。
 
+## V2.1.1
+
+**发布日期：** 2026-09-09
+
+本版本包含 1 项摘要更新，涉及 `@antdv-next1/pro-utils`。
+
+### 版本摘要 Highlights
+
+- **@antdv-next1/pro-utils**: ef5cfb6: fix: preserve user-select protection when a new drag starts before deferred cleanup completes.
+
+<details>
+<summary>展开依赖版本与完整详情</summary>
+
+### 完整详情 Details
+
+### 问题修复 Fixes
+
+- **@antdv-next1/pro-utils**: ef5cfb6: fix: preserve user-select protection when a new drag starts before deferred cleanup completes.
+
+</details>
+
 ## V2.1.0
 
 **发布日期：** 2026-09-09

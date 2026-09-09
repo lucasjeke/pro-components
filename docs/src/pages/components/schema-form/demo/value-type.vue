@@ -2,6 +2,7 @@
 import type { ProFieldValueType, ProFormColumnsType, ProFormRef } from '@antdv-next1/pro-components'
 import type { DefaultOptionType } from '@v-c/select'
 import { ProFormSearchSelect, SchemaForm } from '@antdv-next1/pro-components'
+import { cloneValueTypeInitialValue } from './value-type.utils'
 
 const valueEnum = {
   all: { text: '全部', status: 'Default' },
@@ -114,16 +115,6 @@ const valueTypeSelectFieldProps = {
 } as const
 
 type ValueTypeOptionValue = (typeof valueTypeOptions)[number]['value']
-
-function cloneValueTypeInitialValue<T>(value: T): T {
-  if (Array.isArray(value)) {
-    return value.map(item => cloneValueTypeInitialValue(item)) as T
-  }
-  if (value && typeof value === 'object') {
-    return { ...(value as Record<string, unknown>) } as T
-  }
-  return value
-}
 
 function isValueTypeOptionValue(value: unknown): value is ValueTypeOptionValue {
   return valueTypeOptions.some(item => item.value === value)
@@ -338,7 +329,6 @@ function handleFormValuesChange(
     return
 
   const nextReadonlyValue = cloneValueTypeInitialValue(values[editorName])
-  console.log(nextReadonlyValue, 'nextReadonlyValue')
   formModel[readonlyName] = nextReadonlyValue
   schemaFormRef.value?.setFieldValue(readonlyName, nextReadonlyValue)
 }

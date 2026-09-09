@@ -10,6 +10,8 @@ describe('changelog format parser', () => {
     expect(categorizeEntry({ text: 'chore: version packages', children: [] })).toBe('chore')
     expect(categorizeEntry({ text: 'feat!: remove UMD bundle', children: [] })).toBe('features')
     expect(categorizeEntry({ text: 'refactor(form)!: simplify schema', children: [] })).toBe('refactors')
+    expect(categorizeEntry({ text: '244f208: feat: add draggable modal', children: [] })).toBe('features')
+    expect(categorizeEntry({ text: '244f208: fix: scope color weak mode', children: [] })).toBe('fixes')
   })
 
   it('keeps typed entries out of dependencies when they mention dependency versions', () => {
@@ -19,6 +21,10 @@ describe('changelog format parser', () => {
     })).toBe('fixes')
     expect(categorizeEntry({
       text: 'Updated dependencies',
+      children: ['@antdv-next1/pro-card@3.0.0'],
+    })).toBe('dependencies')
+    expect(categorizeEntry({
+      text: 'Updated dependencies [244f208]',
       children: ['@antdv-next1/pro-card@3.0.0'],
     })).toBe('dependencies')
   })

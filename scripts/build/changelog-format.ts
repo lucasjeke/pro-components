@@ -112,14 +112,14 @@ export function parseDependencyLine(line: string) {
 }
 
 export function isDependencyEntry(entry: ChangelogEntry) {
-  const lowerText = entry.text.toLowerCase()
+  const lowerText = normalizeEntryText(entry.text).toLowerCase()
   return lowerText === 'updated dependencies'
     || lowerText.startsWith('chore(deps)')
     || !!parseDependencyLine(entry.text)
 }
 
 export function categorizeEntry(entry: ChangelogEntry): ChangelogCategory {
-  const text = entry.text.trim()
+  const text = normalizeEntryText(entry.text)
   const lowerText = text.toLowerCase()
   const type = lowerText.match(/^([a-z]+)(?:\([^)]+\))?!?:/)?.[1]
 
@@ -141,6 +141,13 @@ export function categorizeEntry(entry: ChangelogEntry): ChangelogCategory {
     return 'refactors'
 
   return 'changes'
+}
+
+function normalizeEntryText(text: string) {
+  return text
+    .trim()
+    .replace(/^[\da-f]{7,40}:\s*/i, '')
+    .replace(/\s+\[[\da-f]{7,40}\]$/i, '')
 }
 
 export function parseDependencyVersions(entry: ChangelogEntry) {

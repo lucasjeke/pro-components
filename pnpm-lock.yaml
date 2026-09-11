@@ -248,6 +248,9 @@ importers:
       '@v-c/util':
         specifier: ^1.1.0
         version: 1.1.0(vue@3.5.41(typescript@5.9.3))
+      '@vercel/analytics':
+        specifier: ^2.0.1
+        version: 2.0.1(vue-router@4.6.4(vue@3.5.41(typescript@5.9.3)))(vue@3.5.41(typescript@5.9.3))
       '@vue/compiler-sfc':
         specifier: 3.5.39
         version: 3.5.39
@@ -3190,6 +3193,35 @@ packages:
     resolution: {integrity: sha512-9884Bwt9oFW5dJGoBKUBA+xfd6GR+/lIzi4ScMEDciscL5PSEoRqMHZwiDnGhqwntmQGTbkEI43eCeFcvxxNuA==}
     peerDependencies:
       vue: ^3.0.0
+
+  '@vercel/analytics@2.0.1':
+    resolution: {integrity: sha512-MTQG6V9qQrt1tsDeF+2Uoo5aPjqbVPys1xvnIftXSJYG2SrwXRHnqEvVoYID7BTruDz4lCd2Z7rM1BdkUehk2g==}
+    peerDependencies:
+      '@remix-run/react': ^2
+      '@sveltejs/kit': ^1 || ^2
+      next: '>= 13'
+      nuxt: '>= 3'
+      react: ^18 || ^19 || ^19.0.0-rc
+      svelte: '>= 4'
+      vue: ^3
+      vue-router: ^4
+    peerDependenciesMeta:
+      '@remix-run/react':
+        optional: true
+      '@sveltejs/kit':
+        optional: true
+      next:
+        optional: true
+      nuxt:
+        optional: true
+      react:
+        optional: true
+      svelte:
+        optional: true
+      vue:
+        optional: true
+      vue-router:
+        optional: true
 
   '@vitejs/plugin-vue-jsx@5.1.6':
     resolution: {integrity: sha512-YXvi4as2clxt6DFw5+a0tTA97ntiQXm/raR8ofNj3aNwwdlVGTiG2gp7EvfZW17P50acL/9bP0ccF4XnqNmlgA==}
@@ -9414,6 +9446,11 @@ snapshots:
       '@v-c/resize-observer': 1.1.3(vue@3.5.41(typescript@5.9.3))
       '@v-c/util': 1.1.0(vue@3.5.41(typescript@5.9.3))
       vue: 3.5.41(typescript@5.9.3)
+
+  '@vercel/analytics@2.0.1(vue-router@4.6.4(vue@3.5.41(typescript@5.9.3)))(vue@3.5.41(typescript@5.9.3))':
+    optionalDependencies:
+      vue: 3.5.41(typescript@5.9.3)
+      vue-router: 4.6.4(vue@3.5.41(typescript@5.9.3))
 
   '@vitejs/plugin-vue-jsx@5.1.6(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(less@4.9.0)(tsx@4.23.12)(yaml@2.9.0))(vue@3.5.41(typescript@5.9.3))':
     dependencies:

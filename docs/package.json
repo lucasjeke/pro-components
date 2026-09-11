@@ -24,6 +24,7 @@
     "@codesandbox/sandpack-themes": "2.0.21",
     "@v-c/listy": "^1.0.2",
     "@v-c/util": "^1.1.0",
+    "@vercel/analytics": "^2.0.1",
     "@vue/compiler-sfc": "3.5.39",
     "@vueuse/core": "^14.2.1",
     "antdv-next": "^1.5.2",

@@ -5,7 +5,7 @@ import type { ProFieldProps } from './ProField'
 import type { RenderProps } from './typing'
 import { useProConfig } from '@antdv-next1/pro-provider'
 import { normalizeProps, omitUndefined, pickProProps } from '@antdv-next1/pro-utils'
-import { isEmptyElement } from '@v-c/util/dist/props-util/index'
+import { isEmptyElement } from '@v-c/util/dist/props-util'
 import dayjs from 'dayjs'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
 import isoWeek from 'dayjs/plugin/isoWeek'
@@ -50,7 +50,6 @@ function pureRenderText(
     }
   }
   delete props.emptyText
-
   if (typeof valueType === 'object') {
     return pureRenderText(
       dataValue,

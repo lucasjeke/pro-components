@@ -8,14 +8,15 @@ import useStyle from './style'
 export interface HighlightProps {
   label: string
   words: string[]
+  prefixCls?: string
 }
 const Highlight = defineComponent<HighlightProps, {}, string, CustomSlotsType<{
   default?: () => VueNode
 }>>(
   (props) => {
     const config = useConfig()
-    const prefixCls = computed(() => config.value.getPrefixCls('pro'))
-    const baseClassName = computed(() => `${prefixCls.value}-pro-select-item-option-content`)
+    const prefixCls = computed(() => props.prefixCls || config.value.getPrefixCls('pro'))
+    const baseClassName = computed(() => `${prefixCls.value}-select-item-option-content`)
     const [hashId, cssVarCls] = useStyle(baseClassName)
     const matchKeywordsRE = computed(
       () =>

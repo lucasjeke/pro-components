@@ -6,7 +6,7 @@ import type {
   SelectProps,
   SelectValue,
 } from 'antdv-next'
-import type { LabeledValue } from 'antdv-next/dist/select/index'
+import type { LabeledValue } from 'antdv-next/dist/select'
 import type { SetupContext } from 'vue'
 import {
   nanoid,
@@ -242,7 +242,6 @@ const SearchSelect = defineComponent(
         preserveOriginalLabel: _preserveOriginalLabel = false,
         ...restProps
       } = props
-
       return (
         <Select
           ref={selectRef}

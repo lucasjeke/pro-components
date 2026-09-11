@@ -15,6 +15,7 @@ import { onMounted, reactive, ref, useTemplateRef } from 'vue'
 const inputRef = useTemplateRef('inputRef')
 const state = ref<ProFieldFCMode>('read')
 const modelValue = reactive({
+  value0: '123456',
   value1: '用户认证服务',
   value2: '核心服务，承载全站用户登录与鉴权，高峰期需要关注性能指标',
   value3: '123456',
@@ -60,6 +61,7 @@ pnpm run deploy --env production`,
   "port": 8080,
   "replicas": 3
 }`,
+  value40: 'Burns Bay Road',
 })
 const statusEnum = reactive({
   all: { text: '全部', disabled: true, status: 'Default' },
@@ -94,9 +96,32 @@ onMounted(() => {
           v-model:value="modelValue.value1"
           v-model:text="modelValue.value1"
           value-type="text"
+          :mode="state"
+        />
+      </a-descriptions-item>
+      <a-descriptions-item label="自动完成 autoComplete">
+        <ProField
+          v-model:value="modelValue.value40"
+          v-model:text="modelValue.value40"
+          value-type="autoComplete"
+          :mode="state"
           :field-props="{
-            class: 'sd',
+            style: {
+              width: '200px',
+            },
           }"
+          :request="async () => [
+            { label: 'Burns Bay Road', value: 'Burns Bay Road' },
+            { label: 'Downing Street', value: 'Downing Street' },
+            { label: 'Wall Street', value: 'Wall Street' },
+          ]"
+        />
+      </a-descriptions-item>
+      <a-descriptions-item label="一次性输入 otp">
+        <ProField
+          v-model:value="modelValue.value0"
+          v-model:text="modelValue.value0"
+          value-type="otp"
           :mode="state"
         />
       </a-descriptions-item>

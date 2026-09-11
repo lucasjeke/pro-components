@@ -1,17 +1,12 @@
 import type { VueNode } from '@antdv-next1/pro-utils'
+import type { CustomSlotsType } from '@v-c/util/dist/type'
 import type { InputNumberProps } from 'antdv-next'
 import { useEffect, useState } from '@antdv-next1/pro-utils'
 import { useMergedState } from '@v-c/util'
 import { InputNumber, Popover } from 'antdv-next'
 import { computed, defineComponent, onMounted, onUnmounted, shallowRef } from 'vue'
 
-/**
- * input 的弹框，用于显示格式化之后的内容
- *
- * @result 10,000 -> 一万
- * @result 10, 00, 000, 000 -> 一亿
- */
-const InputNumberPopover = defineComponent<InputNumberProps & {
+export type InputNumberPopoverProps = InputNumberProps & {
   open?: boolean
   'onUpdate:open'?: (open: boolean) => void
   onOpenChange?: (open: boolean) => void
@@ -66,7 +61,17 @@ const InputNumberPopover = defineComponent<InputNumberProps & {
   }
   numberPopoverRender?: | ((props: InputNumberProps, defaultText: string) => VueNode)
     | boolean
-}>((props, { attrs }) => {
+}
+
+/**
+ * input 的弹框，用于显示格式化之后的内容
+ *
+ * @result 10,000 -> 一万
+ * @result 10, 00, 000, 000 -> 一亿
+ */
+const InputNumberPopover = defineComponent<InputNumberPopoverProps, {}, string, CustomSlotsType<{
+  default?: () => VueNode
+}>>((props, { attrs }) => {
   const [value, setValue] = useMergedState<InputNumberProps['value']>(
     () => props.value || props.defaultValue,
     {

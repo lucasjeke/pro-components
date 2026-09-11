@@ -1,13 +1,14 @@
 import type { ProRenderFieldPropsType } from '@antdv-next1/pro-provider'
+import type { ProFieldValueType } from '@antdv-next1/pro-utils'
 import { pickProProps } from '@antdv-next1/pro-utils'
-import { Avatar } from 'antdv-next'
+import { Avatar, Input } from 'antdv-next'
 import dayjs from 'dayjs'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
 import isoWeek from 'dayjs/plugin/isoWeek'
 import localeData from 'dayjs/plugin/localeData'
 import weekday from 'dayjs/plugin/weekday'
 import weekOfYear from 'dayjs/plugin/weekOfYear'
-import { FieldText } from '.'
+import FieldAutoComplete from './components/AutoComplete'
 import FieldCascader from './components/Cascader'
 import FieldCheckbox from './components/Checkbox'
 import FieldCode from './components/Code'
@@ -20,6 +21,7 @@ import FieldImage from './components/Image'
 import FieldIndexColumn from './components/IndexColumn'
 import FieldMoney from './components/Money'
 import FieldOptions from './components/Options'
+import FieldOTP from './components/OTP'
 import FieldPassword from './components/Password'
 import FieldPercent from './components/Percent'
 import FieldProgress from './components/Progress'
@@ -31,6 +33,7 @@ import FieldSegmented from './components/Segmented'
 import FieldSelect from './components/Select'
 import FieldSlider from './components/Slider'
 import FieldSwitch from './components/Switch'
+import FieldText from './components/Text'
 import FieldTextArea from './components/TextArea'
 import FieldTimePicker from './components/TimePicker'
 import FieldTreeSelect from './components/TreeSelect'
@@ -42,7 +45,7 @@ dayjs.extend(isoWeek)
 dayjs.extend(weekOfYear)
 dayjs.extend(weekday)
 
-const ValueTypeToComponentMap: Record<string, ProRenderFieldPropsType> = {
+const ValueTypeToComponentMap: Record<Exclude<ProFieldValueType, 'group' | 'formList' | 'formSet' | 'divider' | 'dependency'>, ProRenderFieldPropsType> = {
   progress: {
     render: (text, props) => {
       const fieldProps = pickProProps(props.fieldProps)
@@ -416,7 +419,7 @@ const ValueTypeToComponentMap: Record<string, ProRenderFieldPropsType> = {
   avatar: {
     render: text => <Avatar src={text as string} size={22} shape="circle" />,
     formItemRender: text => (
-      <Avatar src={text as string} size={22} shape="circle" />
+      <Input value={text as string} />
     ),
   },
   code: {
@@ -600,6 +603,14 @@ const ValueTypeToComponentMap: Record<string, ProRenderFieldPropsType> = {
   segmented: {
     render: (text, props) => <FieldSegmented {...props} text={text} />,
     formItemRender: (text, props) => <FieldSegmented {...props} text={text} />,
+  },
+  otp: {
+    render: (text, props) => <FieldOTP {...props} text={text} />,
+    formItemRender: (text, props) => <FieldOTP {...props} text={text} />,
+  },
+  autoComplete: {
+    render: (text, props) => <FieldAutoComplete {...props} text={text} placeholder={props.placeholder as string} />,
+    formItemRender: (text, props) => <FieldAutoComplete {...props} text={text} placeholder={props.placeholder as string} />,
   },
 }
 

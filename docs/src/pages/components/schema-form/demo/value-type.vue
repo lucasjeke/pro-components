@@ -2,7 +2,26 @@
 import type { ProFieldValueType, ProFormColumnsType, ProFormRef } from '@antdv-next1/pro-components'
 import type { DefaultOptionType } from '@v-c/select'
 import { ProFormSearchSelect, SchemaForm } from '@antdv-next1/pro-components'
-import { cloneValueTypeInitialValue } from './value-type.utils'
+
+function isPlainObject(value: object) {
+  const prototype = Object.getPrototypeOf(value)
+  return prototype === Object.prototype || prototype === null
+}
+
+function cloneValueTypeInitialValue<T>(value: T): T {
+  if (Array.isArray(value)) {
+    return value.map(item => cloneValueTypeInitialValue(item)) as T
+  }
+  if (value && typeof value === 'object' && isPlainObject(value)) {
+    return Object.fromEntries(
+      Object.entries(value).map(([key, item]) => [
+        key,
+        cloneValueTypeInitialValue(item),
+      ]),
+    ) as T
+  }
+  return value
+}
 
 const valueEnum = {
   all: { text: '全部', status: 'Default' },
@@ -31,29 +50,13 @@ const valueTypeOptions = reactive([
   { value: `dateMonth`, label: `月`, initialValue: Date.now() },
   { value: `dateQuarter`, label: `季度输入`, initialValue: Date.now() },
   { value: `dateYear`, label: `年份输入`, initialValue: Date.now() },
-  {
-    value: `dateRange`,
-    label: `日期区间`,
-    initialValue: [Date.now(), Date.now()],
-  },
-  {
-    value: `dateTimeRange`,
-    label: `日期时间区间`,
-    initialValue: [Date.now(), Date.now()],
-  },
+  { value: `dateRange`, label: `日期区间`, initialValue: [Date.now(), Date.now()] },
+  { value: `dateTimeRange`, label: `日期时间区间`, initialValue: [Date.now(), Date.now()] },
   { value: `time`, label: `时间`, initialValue: Date.now() },
-  {
-    value: `timeRange`,
-    label: `时间区间`,
-    initialValue: [Date.now(), Date.now()],
-  },
+  { value: `timeRange`, label: `时间区间`, initialValue: [Date.now(), Date.now()] },
   { value: `text`, label: `文本框`, initialValue: '123456' },
   { value: `select`, label: `下拉框`, initialValue: 'open' },
-  {
-    value: 'treeSelect',
-    label: '树形下拉框',
-    initialValue: ['0-0', '0-0-0'],
-  },
+  { value: 'treeSelect', label: '树形下拉框', initialValue: ['0-0', '0-0-0'] },
   { value: `checkbox`, label: `多选框`, initialValue: ['open'] },
   { value: `rate`, label: `星级组件`, initialValue: 0 },
   { value: `radio`, label: `单选框`, initialValue: 'open' },
@@ -62,51 +65,17 @@ const valueTypeOptions = reactive([
   { value: `percent`, label: `百分比组件`, initialValue: '20' },
   { value: `digit`, label: `数字输入框`, initialValue: '200000' },
   { value: `second`, label: `秒格式化`, initialValue: 20000 },
-  {
-    value: `avatar`,
-    label: `头像`,
-    initialValue:
-      'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
-  },
+  { value: `avatar`, label: `头像`, initialValue: 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg' },
   { value: `code`, label: `代码框`, initialValue: '# 2121' },
-  { value: `switch`, label: `开关`, initialValue: 'open' },
+  { value: `switch`, label: `开关`, initialValue: true },
   { value: `fromNow`, label: `相对于当前时间`, initialValue: Date.now() },
-  {
-    value: `image`,
-    label: `图片`,
-    initialValue:
-      'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
-  },
-  {
-    value: `jsonCode`,
-    label: `JSON代码框`,
-    initialValue: '{ "name":"qixian" }',
-  },
-  {
-    value: `color`,
-    label: `颜色选择器`,
-    initialValue: '#1890ff',
-  },
-  {
-    value: 'segmented',
-    label: '分段控制器',
-    initialValue: 'open',
-  },
-  {
-    value: 'formList',
-    label: '表单列表',
-    initialValue: [{ state: 'all', title: '标题' }],
-  },
-  {
-    value: 'formSet',
-    label: '表单集合',
-    initialValue: [{ state: 'all', title: '标题' }],
-  },
-  {
-    value: 'divider',
-    label: '分割线',
-    initialValue: '',
-  },
+  { value: `image`, label: `图片`, initialValue: 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg' },
+  { value: `jsonCode`, label: `JSON代码框`, initialValue: '{ "name":"qixian" }' },
+  { value: `color`, label: `颜色选择器`, initialValue: '#1890ff' },
+  { value: 'segmented', label: '分段控制器', initialValue: 'open' },
+  { value: 'formList', label: '表单列表', initialValue: [{ state: 'all', title: '标题' }] },
+  { value: 'formSet', label: '表单集合', initialValue: [{ state: 'all', title: '标题' }] },
+  { value: 'divider', label: '分割线', initialValue: '' },
 ] as DefaultOptionType[])
 
 const valueTypeSelectFieldProps = {
@@ -230,6 +199,7 @@ const columns = computed(() => [
             },
           ],
         },
+        width: 'm',
         columns: ['formSet', 'formList'].includes(valueType.value)
           ? [
               {
@@ -306,7 +276,59 @@ const columns = computed(() => [
         name: readonlyDataIndex.value,
         dataIndex: readonlyDataIndex.value,
         initialValue: currentInitialValue.value,
-        valueEnum,
+        valueEnum: [
+          'select',
+          'checkbox',
+          'radio',
+          'radioButton',
+          'segmented',
+        ].includes(valueType.value)
+          ? valueEnum
+          : undefined,
+        fieldProps: valueType.value === 'treeSelect'
+          ? {
+              multiple: true,
+              fieldNames: {
+                label: 'title',
+              },
+              options: [
+                {
+                  title: 'Node1',
+                  value: '0-0',
+                  key: '0-0',
+                  children: [
+                    {
+                      title: 'Child Node1',
+                      value: '0-0-0',
+                      key: '0-0-0',
+                    },
+                  ],
+                },
+                {
+                  title: 'Node2',
+                  value: '0-1',
+                  key: '0-1',
+                  children: [
+                    {
+                      title: 'Child Node3',
+                      value: '0-1-0',
+                      key: '0-1-0',
+                    },
+                    {
+                      title: 'Child Node4',
+                      value: '0-1-1',
+                      key: '0-1-1',
+                    },
+                    {
+                      title: 'Child Node5',
+                      value: '0-1-2',
+                      key: '0-1-2',
+                    },
+                  ],
+                },
+              ],
+            }
+          : undefined,
         readonly: true,
         width: 'm',
       },

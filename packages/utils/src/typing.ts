@@ -1,6 +1,33 @@
 import type { ProSchemaValueEnumType } from '@antdv-next1/pro-provider'
 import type { Key, VueNode } from '@v-c/util/dist/type'
-import type { AvatarProps, CascaderProps, CheckboxProps, ColorPickerProps, DatePickerProps, DividerProps, FormInstance, FormItemProps, ImageProps, InputNumberProps, InputProps, PopoverProps, ProgressProps, RadioProps, RangePickerProps, RateProps, SegmentedProps, SelectProps, SliderProps, SpaceProps, SwitchProps, TextAreaProps, TimeRangePickerProps, TreeSelectProps } from 'antdv-next'
+import type {
+  AutoCompleteProps,
+  AvatarProps,
+  CascaderProps,
+  CheckboxProps,
+  ColorPickerProps,
+  DatePickerProps,
+  DividerProps,
+  FormInstance,
+  FormItemProps,
+  ImageProps,
+  InputNumberProps,
+  InputOTPProps,
+  InputProps,
+  PopoverProps,
+  ProgressProps,
+  RadioProps,
+  RangePickerProps,
+  RateProps,
+  SegmentedProps,
+  SelectProps,
+  SliderProps,
+  SpaceProps,
+  SwitchProps,
+  TextAreaProps,
+  TimeRangePickerProps,
+  TreeSelectProps,
+} from 'antdv-next'
 import type { VueNode as AntVueNode } from 'antdv-next/dist/_util/type'
 import type { FormItemTooltipType } from 'antdv-next/dist/form/FormItemLabel'
 import type { NamePath } from 'antdv-next/dist/form/types'
@@ -222,6 +249,10 @@ export interface ProFieldValueTypeWithFieldProps {
   divider: DividerProps
   /** 显示/隐藏 */
   dependency: FormItemProps
+  /** 自动完成 */
+  autoComplete: AutoCompleteProps
+  /** 一次性输入 */
+  otp: InputOTPProps
 }
 
 /**
@@ -250,6 +281,8 @@ export interface ProFieldValueTypeWithFieldProps {
  * @param image 图片设置
  * @param jsonCode Json 的代码块，格式化了一下
  * @param color 颜色选择器
+ * @param autoComplete 自动完成
+ * @param opt 一次性输入
  */
 export type ProFieldValueType = Extract<keyof ProFieldValueTypeWithFieldProps, any>
 
@@ -405,7 +438,6 @@ export type ProFieldValueEnumType = ProSchemaValueEnumMap | ProSchemaValueEnumOb
 
 /**
  * ProFieldValueObjectType 对象，用于描述值为 'progress' | 'money' | 'percent' | 'image' 类型的 ProField 的属性。
- * @typedef {object} ProFieldValueObjectType
  * @property {('progress' | 'money' | 'percent' | 'image')} type - 值的类型。
  * @property {('normal' | 'active' | 'success' | 'exception' | undefined)} [status] - 状态。
  * @property {string} [locale] - 本地化语言。
@@ -650,8 +682,3 @@ export interface CommomProFieldProps {
    */
   readonly?: boolean
 }
-
-// export type WrapperTooltipProps = TooltipProps & {
-//   icon?: VNode
-// }
-// export type LabelTooltipType = WrapperTooltipProps | AntVueNode

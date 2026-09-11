@@ -22,6 +22,7 @@ import { useFieldFetchData } from '../Select'
 export type FieldCascaderProps = ProFieldFC<{
   options?: CascaderProps['options']
   placeholder?: string
+  prefixCls?: string
   variant?: 'outlined' | 'borderless' | 'filled'
 }, CascaderProps & { class?: string, style?: CSSProperties }> & Omit<FieldSelectProps, 'variant' | 'fieldProps' | 'id' | 'label' | 'labelTrigger' | 'lightLabel' | 'text' | 'light' | 'plain'>
 
@@ -35,7 +36,8 @@ const FieldCascader = defineComponent<FieldCascaderProps, {}, string, CustomSlot
   default?: () => VueNode
 }>>((props, { expose }) => {
   const config = useConfig()
-  const layoutClassName = computed(() => config.value.getPrefixCls('field-cascader'))
+  const prefixCls = computed(() => props.prefixCls || config.value.getPrefixCls('pro'))
+  const baseClassName = computed(() => `${prefixCls.value}-field-cascader`)
   const [loading, options, fetchData] = useFieldFetchData(props)
   const intl = useIntl()
   const cascaderRef = ref<FieldCascaderRef | null>(null)
@@ -118,7 +120,7 @@ const FieldCascader = defineComponent<FieldCascaderProps, {}, string, CustomSlot
             rest.fieldProps?.onOpenChange?.(isOpen)
             setOpen(isOpen)
           }}
-          class={classNames((rest.fieldProps || {}).class, layoutClassName.value)}
+          class={classNames(baseClassName.value, (rest.fieldProps || {}).class)}
           options={options.value as CascaderProps['options']}
         />
       )

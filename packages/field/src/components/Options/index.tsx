@@ -8,6 +8,7 @@ import { cloneVNode, computed, defineComponent, Fragment, isVNode } from 'vue'
 
 export type FieldOptionsProps = ProFieldFC<{
   text?: VueNode
+  prefixCls?: string
 }>
 
 function addArrayKeys(doms: VueNode[]) {
@@ -30,9 +31,9 @@ const FieldOptions = defineComponent<FieldOptionsProps, {}, string, CustomSlotsT
 }>>(
   (props) => {
     const config = useConfig()
-    const baseClassName = computed(() => config.value.getPrefixCls('pro-field-option'))
+    const prefixCls = computed(() => props.prefixCls || config.value.getPrefixCls('pro'))
+    const baseClassName = computed(() => `${prefixCls.value}-field-option`)
     const { token } = proTheme.useToken()
-
     return () => {
       const { text, render, mode: type, formItemRender, fieldProps, ...rest } = props
       if (render) {

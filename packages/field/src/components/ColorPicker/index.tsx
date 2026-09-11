@@ -41,14 +41,15 @@ const FieldColorPicker = defineComponent<FieldColorPickerProps, {}, string, Cust
 }>>(
   (props, { slots }) => {
     const config = useConfig()
-    const className = computed(() => config.value.getPrefixCls('field-color-picker'))
+    const prefixCls = computed(() => props.prefixCls || config.value.getPrefixCls('pro'))
+    const baseClassName = computed(() => `${prefixCls.value}-field-color-picker`)
     return () => {
       const { text, mode: type, render, formItemRender, fieldProps, ...rest } = props
       if (type === 'read') {
         const dom = (
           <ColorPicker
             value={text}
-            class={className.value}
+            class={baseClassName.value}
             open={false}
             v-slots={slots}
           />
@@ -69,7 +70,7 @@ const FieldColorPicker = defineComponent<FieldColorPickerProps, {}, string, Cust
             presets={[DEFAULT_PRESETS]}
             {...fieldProps}
             style={style}
-            class={className.value}
+            class={baseClassName.value}
             v-slots={slots}
           />
         )

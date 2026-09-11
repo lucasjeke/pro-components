@@ -18,6 +18,7 @@ import useStyle from './style'
 export type FieldRadioProps = ProFieldFC<{
   options?: RadioGroupProps['options']
   radioType?: RadioGroupProps['optionType']
+  prefixCls?: string
 }, RadioGroupProps & { class?: string, style?: CSSProperties, layout?: 'horizontal' | 'vertical' }> & Omit<FieldSelectProps, 'variant' | 'fieldProps' | 'id' | 'label' | 'labelTrigger' | 'lightLabel' | 'light' | 'plain'>
 
 const FieldRadio = defineComponent<FieldRadioProps, {}, string, CustomSlotsType<{
@@ -25,9 +26,9 @@ const FieldRadio = defineComponent<FieldRadioProps, {}, string, CustomSlotsType<
 }>>(
   (props, { expose, attrs }) => {
     const config = useConfig()
+    const prefixCls = computed(() => props.prefixCls || config.value.getPrefixCls('pro'))
     const formItemInputContext = useFormItemInputContext()
-
-    const layoutClassName = computed(() => config.value.getPrefixCls('pro-field-radio'))
+    const layoutClassName = computed(() => `${prefixCls.value}-field-radio`)
     const [loading, options, fetchData] = useFieldFetchData(props)
     const radioRef = ref()
     const [hashId, cssVarCls] = useStyle(layoutClassName)

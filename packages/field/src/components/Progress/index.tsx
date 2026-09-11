@@ -64,6 +64,8 @@ const FieldProgress = defineComponent<FieldProgressProps, {}, string, CustomSlot
           || intl.value.getMessage({ id: 'tableForm.inputPlaceholder', defaultMessage: '请输入' })
         const dom = (
           <InputNumber
+            max={100}
+            min={0}
             placeholder={placeholder}
             {...fieldProps as InputNumberProps}
           />

@@ -55,7 +55,6 @@ const FieldDateRangePicker = defineComponent<FieldDateRangePickerProps, {}, stri
   (props, { slots }) => {
     const intl = useIntl()
     const [open, setOpen] = useState<boolean>(false)
-
     return () => {
       const {
         text,
@@ -75,7 +74,6 @@ const FieldDateRangePicker = defineComponent<FieldDateRangePickerProps, {}, stri
       } = props
       const [startText, endText] = Array.isArray(text) ? text : []
       const mergedFormat = fieldProps?.format || format || 'YYYY-MM-DD'
-
       const parsedStartText = formatRangeDateText(startText, mergedFormat, 0)
       const parsedEndText = formatRangeDateText(endText, mergedFormat, 1)
       if (mode === 'read') {

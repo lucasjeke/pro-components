@@ -32,7 +32,8 @@ const FieldTreeSelect = defineComponent<FieldTreeSelectProps, {}, string, Custom
   default?: () => VueNode
 }>>((props, { expose, attrs }) => {
   const config = useConfig()
-  const layoutClassName = computed(() => config.value.getPrefixCls('pro-field-tree-select'))
+  const prefixCls = computed(() => props.prefixCls || config.value.getPrefixCls('pro'))
+  const layoutClassName = computed(() => `${prefixCls.value}-field-tree-select`)
   const treeSelectRef = shallowRef(null)
   const [open, setOpen] = useState(false)
   const intl = useIntl()
@@ -80,7 +81,6 @@ const FieldTreeSelect = defineComponent<FieldTreeSelectProps, {}, string, Custom
       }
       return valueEnumObj
     }
-
     return traverseOptions(options.value)
   }, [() => props.fieldProps?.fieldNames, () => props.mode, options])
 
@@ -98,7 +98,6 @@ const FieldTreeSelect = defineComponent<FieldTreeSelectProps, {}, string, Custom
   })
   return () => {
     const { mode, text, render, fetchDataOnSearch, request, params, variant, onClear: propsOnClear, showSearch: propsShowSearch, placeholder: propsPlaceholder, onBlur: propsOnBlur, formItemRender, ...rest } = props
-
     if (mode === 'read') {
       const dom = (
         <>
@@ -192,10 +191,7 @@ const FieldTreeSelect = defineComponent<FieldTreeSelectProps, {}, string, Custom
               fetchData(undefined)
               onBlur?.(event)
             }}
-            class={classNames(
-              rest.fieldProps?.class,
-              layoutClassName.value,
-            )}
+            class={classNames(layoutClassName.value, rest.fieldProps?.class)}
           />
         </Spin>
       )

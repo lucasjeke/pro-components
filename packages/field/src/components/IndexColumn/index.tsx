@@ -7,6 +7,7 @@ import useStyle from './style'
 export interface FieldIndexColumnProps {
   border?: boolean
   children?: number | string
+  prefixCls?: string
 }
 
 const FieldIndexColumn = defineComponent<
@@ -18,8 +19,9 @@ const FieldIndexColumn = defineComponent<
   }>
 >((props) => {
   const config = useConfig()
-  const prefixCls = computed(() => config.value.getPrefixCls('pro-field-index-column'))
-  const [hashId, cssVarCls] = useStyle(prefixCls)
+  const prefixCls = computed(() => props.prefixCls || config.value.getPrefixCls('pro'))
+  const baseClassName = computed(() => `${prefixCls.value}-field-index-column`)
+  const [hashId, cssVarCls] = useStyle(baseClassName)
   return () =>
     (
       <div

@@ -20,6 +20,7 @@ import useStyle from './style'
 export type FieldCheckBoxProps = ProFieldFC<{
   layout?: 'horizontal' | 'vertical'
   options?: CheckboxGroupProps['options']
+  prefixCls?: string
 }, CheckboxGroupProps & { class?: string, style?: CSSProperties }> & Omit<FieldSelectProps, 'variant' | 'fieldProps' | 'id' | 'label' | 'labelTrigger' | 'lightLabel' | 'light' | 'plain'>
 
 export interface FieldCheckboxRef {
@@ -34,9 +35,10 @@ const FieldCheckbox = defineComponent<FieldCheckBoxProps, {}, string, CustomSlot
   (props, { expose, attrs }) => {
     const config = useConfig()
     const formItemInputContext = useFormItemInputContext()
-    const layoutClassName = computed(() => config.value.getPrefixCls('pro-field-checkbox'))
+    const prefixCls = computed(() => props.prefixCls || config.value.getPrefixCls('pro'))
+    const baseClassName = computed(() => `${prefixCls.value}-field-checkbox`)
     const [loading, options, fetchData] = useFieldFetchData(props)
-    const [hashId, cssVarCls] = useStyle(layoutClassName)
+    const [hashId, cssVarCls] = useStyle(baseClassName)
     const { token } = useToken()
     const checkBoxRef = shallowRef<FieldCheckboxRef | null>(null)
     expose({
@@ -93,10 +95,10 @@ const FieldCheckbox = defineComponent<FieldCheckBoxProps, {}, string, CustomSlot
               rest.fieldProps?.class,
               hashId.value,
               cssVarCls.value,
-              `${layoutClassName.value}-${layout}`,
+              `${baseClassName.value}-${layout}`,
               {
-                [`${layoutClassName.value}-error`]: formItemInputContext.value.status === 'error',
-                [`${layoutClassName.value}-warning`]: formItemInputContext.value.status === 'warning',
+                [`${baseClassName.value}-error`]: formItemInputContext.value.status === 'error',
+                [`${baseClassName.value}-warning`]: formItemInputContext.value.status === 'warning',
               },
             )}
             options={options.value as CheckboxGroupProps['options']}

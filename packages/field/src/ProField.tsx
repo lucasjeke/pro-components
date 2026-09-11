@@ -5,7 +5,7 @@ import type { App, Plugin } from 'vue'
 import type { RenderProps } from './typing'
 import { useProConfig } from '@antdv-next1/pro-provider'
 import { omitUndefined, pickProProps } from '@antdv-next1/pro-utils'
-import { isEmptyElement } from '@v-c/util/dist/props-util/index'
+import { isEmptyElement } from '@v-c/util/dist/props-util'
 import { Avatar } from 'antdv-next'
 import dayjs from 'dayjs'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
@@ -16,6 +16,7 @@ import quarterOfYear from 'dayjs/plugin/quarterOfYear'
 import weekday from 'dayjs/plugin/weekday'
 import weekOfYear from 'dayjs/plugin/weekOfYear'
 import { cloneVNode, defineComponent, isVNode, shallowRef } from 'vue'
+import FieldAutoComplete from './components/AutoComplete'
 import FieldCascader from './components/Cascader'
 import FieldCheckbox from './components/Checkbox'
 import FieldCode from './components/Code'
@@ -28,6 +29,7 @@ import FieldImage from './components/Image'
 import FieldIndexColumn from './components/IndexColumn'
 import FieldMoney from './components/Money'
 import FieldOptions from './components/Options'
+import FieldOTP from './components/OTP'
 import FieldPassword from './components/Password'
 import FieldPercent from './components/Percent'
 import FieldProgress from './components/Progress'
@@ -486,6 +488,13 @@ function defaultRenderText(
 
   if (valueType === 'segmented') {
     return <FieldSegmented {...props} emptyText={undefined} text={dataValue as string} />
+  }
+
+  if (valueType === 'autoComplete') {
+    return <FieldAutoComplete {...props} text={dataValue as string} />
+  }
+  if (valueType === 'otp') {
+    return <FieldOTP {...props} text={dataValue as string} />
   }
   return <FieldText {...props} text={dataValue} />
 }

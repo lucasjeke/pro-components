@@ -27,7 +27,7 @@ const dataSource = [
   },
 ]
 function IconText({ icon, text }: { icon: any, text: string }) {
-  return h(Space, null, [
+  return h(Space, null, () => [
     h(icon),
     text,
   ])

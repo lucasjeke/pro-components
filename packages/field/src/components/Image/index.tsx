@@ -10,6 +10,7 @@ export type FieldImageProps = ProFieldFC<{
   width?: number
   placeholder?: string
 }, ImageProps | InputProps>
+
 const FieldImage = defineComponent<FieldImageProps, {}, string, CustomSlotsType<{
   default?: () => VueNode
 }>>(

@@ -5,6 +5,7 @@ const menuLocales = {
     components: '组件',
     changelog: '更新日志',
     playground: 'Playground',
+    sponsor: '捐赠',
   },
 
   docs: {

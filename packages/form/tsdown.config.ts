@@ -33,6 +33,7 @@ export default defineConfig({
     skipNodeModulesBundle: true,
     neverBundle: [
       'vue',
+      /^dayjs\//,
       /^antdv-next\//,
       '@antdv-next/icons',
       /^@antdv-next\/cssinjs\//,

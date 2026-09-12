@@ -7,6 +7,7 @@ const pageModules = import.meta.glob([
   '/src/pages/**/*.zh-CN.md',
   '/src/pages/**/*.en-US.md',
   '!/src/pages/home/**',
+  '!/src/pages/sponsor/**',
   '!/src/pages/components/**/demo/**',
   '!/src/pages/components/**/components/**',
 ])

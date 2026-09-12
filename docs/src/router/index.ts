@@ -4,9 +4,6 @@ import componentRoutes from './modules/components'
 import demoRoutes from './modules/demos'
 import { pagesRoutes } from './modules/pages'
 
-const stopActiveHashScroll: (() => void) | null = null
-const hashScrollRequestId = 0
-
 const routes = [{
   path: '/root',
   name: 'ROOT_ROUTE',

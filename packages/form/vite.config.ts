@@ -15,6 +15,7 @@ export default defineConfig({
     rolldownOptions: {
       external: [
         'vue',
+        /^dayjs/,
         /^@antdv-next\/icons/,
         '@antdv-next1/pro-provider',
         '@antdv-next1/pro-utils',

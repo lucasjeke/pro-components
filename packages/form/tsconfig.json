@@ -4,6 +4,7 @@
     "lib": ["ES2022", "DOM"],
     "paths": {
       "csstype": ["../../node_modules/csstype"],
+      "dayjs": ["../../node_modules/dayjs"],
       "/@tests/*": ["../../tests/*"]
     },
     "types": ["vite/client", "node"],

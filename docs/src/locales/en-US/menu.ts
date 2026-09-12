@@ -5,6 +5,7 @@ const menuLocales = {
     components: 'Components',
     changelog: 'Changelog',
     playground: 'Playground',
+    sponsor: 'Sponsor',
   },
 
   docs: {

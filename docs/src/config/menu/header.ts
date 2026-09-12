@@ -19,6 +19,10 @@ export const headerItems: MenuItemType[] = [
     key: '/changelog',
     label: '/changelog',
   },
+  {
+    key: '/sponsor',
+    label: '/sponsor',
+  },
 ]
 
 // Helper to flatten nested header locales
@@ -28,6 +32,7 @@ function flattenHeaderLocales(nestedLocales: typeof locales['zh-CN']['menu']['he
     '/docs': nestedLocales.docs,
     '/components': nestedLocales.components,
     '/changelog': nestedLocales.changelog,
+    '/sponsor': nestedLocales.sponsor,
   }
 }
 
